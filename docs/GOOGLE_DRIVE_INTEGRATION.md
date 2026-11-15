@@ -103,6 +103,25 @@ Fichier : [`prototypes/drive/labo-drive.html`](../prototypes/drive/labo-drive.ht
 - la conservation de l'autorisation ;
 - le fonctionnement du sélecteur de dossier et de sa mémorisation quand le fichier est ouvert depuis le disque (`file://`).
 
+## Résultats des mesures
+
+### 15 novembre 2026 — Windows, Chrome 157, laboratoire ouvert en `file://`
+
+| Question | Résultat | Statut |
+|---|---|---|
+| Navigateur compatible (contexte sécurisé, sélecteur, IndexedDB, empreintes) | Oui, y compris en `file://` | **Confirmé** |
+| Choisir le dossier et écrire depuis un fichier ouvert par double-clic | Fonctionne (dossier `IHECS STUDY OS` dans Mon Drive) | **Confirmé** |
+| Délai ordinateur → Drive | ≈ 32 s (1 mesure, au clic, temps de réaction compris) | Confirmé, à répéter |
+| Délai Drive → ordinateur | ≈ 1 min 50 s (1 mesure : image envoyée depuis le téléphone, envoi compris ; détection automatique toutes les 2 s) | Confirmé, à répéter |
+| Autorisation conservée après fermeture de Chrome | Pas encore mesuré : aucune réouverture après le choix du dossier | **À faire** |
+| Modifications simultanées | Incomplet : « Modifier côté ordinateur » non fait, aucune version web arrivée. Le verdict « Résultat inattendu » venait d'un message mal conçu, corrigé dans la version 2 du laboratoire | **À refaire** |
+| Erreurs | Aucune | — |
+
+**Conséquences pour la conception, déjà acquises :**
+- l'application peut rester **un fichier ouvert par double-clic** : l'accès au dossier fonctionne en `file://` ;
+- une modification faite ailleurs (téléphone, web) peut mettre **environ 2 minutes** à arriver. L'application doit donc relire le dossier régulièrement (à l'ouverture, au retour sur la fenêtre, puis à intervalle régulier), proposer une synchronisation manuelle, et ne jamais supposer que le dossier est à jour ;
+- dans l'autre sens, il faut attendre **environ 30 secondes** avant qu'une écriture soit visible ailleurs. Il ne faut donc pas passer d'un appareil à l'autre dans la seconde.
+
 ## Sources
 
 - [Projets Google Cloud par défaut d'Apps Script](https://developers.google.com/apps-script/guides/cloud-platform-projects)

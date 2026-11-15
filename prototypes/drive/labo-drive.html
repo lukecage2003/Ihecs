@@ -214,19 +214,27 @@ const Labo = (() => {
   const isTempName = (n) => /\.crswap$|^~\$|\.tmp$/i.test(n);
 
   /** Interprète l'analyse de l'expérience 5. */
-  function analyseConcurrent({ expectedLocalHash, partage, files, baselineNames }) {
+  function analyseConcurrent({ expectedLocalHash, partage, files, baselineNames, localModified = true }) {
     const extra = files.filter((f) => f.kind === "file" && !baselineNames.includes(f.name) && f.name !== "partage.json" && f.name !== "version-web.json");
     let version = null;
     try { version = partage.exists ? JSON.parse(partage.text).version : null; } catch (e) { version = "illisible"; }
     const externalChange = partage.exists && partage.hash !== expectedLocalHash;
-    let verdict;
+    let verdict, missingStep = null;
     if (!partage.exists) verdict = "partage.json a disparu";
+    else if (!localModified && version === "ordinateur-1" && !extra.length) {
+      missingStep = "modification-locale";
+      verdict = "Expérience incomplète : l'étape « Modifier côté ordinateur » n'a pas été faite et aucune version web n'est arrivée. Suspends la synchronisation, clique sur « Modifier côté ordinateur », importe la version web, reprends la synchronisation, puis réanalyse.";
+    }
+    else if (!localModified) {
+      missingStep = "modification-locale";
+      verdict = "Expérience incomplète : « Modifier côté ordinateur » n'a pas été fait. Version actuelle : « " + version + " »" + (extra.length ? " ; autres fichiers : " + extra.map((f) => f.name).join(", ") : "") + ".";
+    }
     else if (version === "web" && extra.length) verdict = "La version web a remplacé le fichier ; une autre copie existe aussi";
     else if (version === "web") verdict = "La version web a remplacé la version de l'ordinateur, sans copie de conflit visible";
     else if (version === "ordinateur-2" && extra.length) verdict = "La version de l'ordinateur est conservée ; une copie supplémentaire existe";
-    else if (version === "ordinateur-2") verdict = "La version de l'ordinateur est conservée ; la version web n'apparaît pas (encore ?) ici";
+    else if (version === "ordinateur-2") { missingStep = "version-web"; verdict = "La version de l'ordinateur est en place et la version web n'est pas (encore) arrivée. Vérifie que la synchronisation est reprise et que le fichier importé s'appelle exactement partage.json, attends une minute, puis réanalyse."; }
     else verdict = "Résultat inattendu : version « " + version + " »";
-    return { version, externalChange, extraFiles: extra.map((f) => f.name), tempFiles: files.filter((f) => isTempName(f.name)).map((f) => f.name), verdict };
+    return { version, localModified, missingStep, externalChange, extraFiles: extra.map((f) => f.name), tempFiles: files.filter((f) => isTempName(f.name)).map((f) => f.name), verdict };
   }
 
   function environment() {
@@ -262,6 +270,7 @@ const Labo = (() => {
   }
   async function saveReport() {
     report.updatedAt = now();
+    report.laboVersion = 2;
     report.environment = Labo.environment();
     await Labo.set("report", report);
     const txt = JSON.stringify(report, null, 2);
@@ -334,7 +343,7 @@ const Labo = (() => {
     const rows = report.e1.map((c, i) => "<tr><td>" + new Date(c.at).toLocaleString("fr-BE") + "</td><td>" + (c.permission === "granted" ? '<span class="pill ok">conservée</span>' : '<span class="pill warn">' + String(c.permission).replace(/[<>&]/g, "") + "</span>") + (c.afterRequest ? " → " + String(c.afterRequest).replace(/[<>&]/g, "") : "") + "</td><td>" + (i === 0 ? "première vérification" : "réouverture " + i) + "</td></tr>");
     $("e1-rows").innerHTML = rows.join("") || '<tr><td colspan="3">Pas encore de mesure : choisis un dossier, puis ferme et rouvre Chrome.</td></tr>';
     const after = report.e1.slice(1);
-    if (!after.length) pill("e1-pill", "neutral", report.e1.length ? "Ferme et rouvre Chrome" : "À faire");
+    if (!after.length) pill("e1-pill", report.e1.length ? "warn" : "neutral", report.e1.length ? "À faire : ferme Chrome puis rouvre ce fichier" : "À faire");
     else if (after.every((c) => c.permission === "granted")) pill("e1-pill", "ok", "Persistante");
     else pill("e1-pill", "warn", "Un clic par session");
   }
@@ -455,12 +464,13 @@ const Labo = (() => {
       const dir = await Labo.labDir(root);
       const files = await Labo.list(dir);
       const partage = await Labo.readMeta(dir, "partage.json");
-      const a = Labo.analyseConcurrent({ expectedLocalHash: report.e4.hashV2 || report.e4.hashV1, partage, files, baselineNames: report.e4.baselineNames });
+      const a = Labo.analyseConcurrent({ expectedLocalHash: report.e4.hashV2 || report.e4.hashV1, partage, files, baselineNames: report.e4.baselineNames, localModified: !!report.e4.hashV2 });
       report.e4.analyses = report.e4.analyses || [];
       report.e4.analyses.push(Object.assign({ at: now(), files: files.map((f) => ({ name: f.name, kind: f.kind, size: f.size })) }, a));
       await saveReport();
       log("e4-out", "Analyse : " + a.verdict + "\nModification extérieure détectée par l'empreinte : " + (a.externalChange ? "oui" : "non") + (a.extraFiles.length ? "\nAutres fichiers : " + a.extraFiles.join(", ") : "") + (a.tempFiles.length ? "\nFichiers temporaires visibles : " + a.tempFiles.join(", ") : ""));
-      pill("e4-pill", a.externalChange || a.extraFiles.length ? "warn" : "ok", a.version === "web" ? "Version web gagnante" : a.version === "ordinateur-2" ? "Version ordinateur gagnante" : "Voir l'analyse");
+      if (a.missingStep) pill("e4-pill", "neutral", "Incomplet");
+      else pill("e4-pill", a.externalChange || a.extraFiles.length ? "warn" : "ok", a.version === "web" ? "Version web gagnante" : a.version === "ordinateur-2" ? "Version ordinateur gagnante" : "Voir l'analyse");
     } catch (e) { log("e4-out", fail("analyse", e)); }
   };
 

@@ -1,5 +1,10 @@
 # Journal des modifications
 
+## 0.3.1 — Premiers résultats réels du laboratoire Drive
+
+- Résultats du 15 novembre (Windows, Chrome 157) consignés dans `docs/GOOGLE_DRIVE_INTEGRATION.md` : `file://` et synchronisation dans les deux sens confirmés.
+- Laboratoire version 2 : l'analyse des modifications simultanées indique l'étape manquante au lieu de « Résultat inattendu » ; consigne explicite pour l'expérience de redémarrage ; `laboVersion` dans le rapport.
+
 ## 0.3.0 — Sans serveur et prototype Drive (branche `prototype-drive-a`)
 
 ### Modifié

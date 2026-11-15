@@ -148,3 +148,29 @@ test("s'ouvre aussi par double-clic (file://) avec un contexte sécurisé", asyn
   expect(await page.evaluate(() => window.isSecureContext)).toBe(true);
   await expect(page.locator("#diag-pill")).toHaveText("Compatible");
 });
+
+test("analyse sans « Modifier côté ordinateur » : indique l'étape manquante (cas du premier rapport réel)", async ({ page }) => {
+  await page.goto(URL_LABO);
+  await ready(page);
+  await page.getByRole("button", { name: "Choisir le dossier" }).click();
+  await page.getByRole("button", { name: "Préparer" }).click();
+  await expect(page.locator("#e4-out")).toContainText("Préparé");
+  await page.getByRole("button", { name: "Analyser" }).click();
+  await expect(page.locator("#e4-out")).toContainText("Expérience incomplète");
+  await expect(page.locator("#e4-pill")).toHaveText("Incomplet");
+  const a = (await report(page)).e4.analyses[0];
+  expect(a.missingStep).toBe("modification-locale");
+  expect(a.localModified).toBe(false);
+});
+
+test("version web pas encore arrivée : consigne de vérifier la synchronisation", async ({ page }) => {
+  await page.goto(URL_LABO);
+  await ready(page);
+  await page.getByRole("button", { name: "Choisir le dossier" }).click();
+  await page.getByRole("button", { name: "Préparer" }).click();
+  await page.getByRole("button", { name: "Modifier côté ordinateur" }).click();
+  await expect(page.locator("#e4-out")).toContainText("ordinateur-2");
+  await page.getByRole("button", { name: "Analyser" }).click();
+  await expect(page.locator("#e4-out")).toContainText("la version web n'est pas (encore) arrivée");
+  expect((await report(page)).e4.analyses[0].missingStep).toBe("version-web");
+});
