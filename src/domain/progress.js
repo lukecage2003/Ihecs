@@ -10,7 +10,7 @@ export const chapKey = (m, c) => m.id + "|" + c.id;
 export function chapStats(state, m, c) {
   const k = chapKey(m, c);
   const fiches = c.fiches || [];
-  const mastered = fiches.filter((f, i) => cardState(state.cartes, cardKey(m, c, i)).box >= MASTERED_BOX).length;
+  const mastered = fiches.filter((f, i) => cardState(state.cartes, cardKey(m, c, i, f)).box >= MASTERED_BOX).length;
   const lu = !!(state.lu && state.lu[k]);
   const q = state.quiz && state.quiz[k];
   const parts = [[lu ? 1 : 0, 0.3]];

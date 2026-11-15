@@ -8,8 +8,11 @@ export const INTERVALS = [0, 1, 2, 4, 8, 16, 32];
 export const MAX_BOX = 6;
 export const MASTERED_BOX = 3;
 
-/** Identifiant v1 d'une fiche (fondé sur la position : défaut C1, corrigé par le modèle v2). */
-export const cardKey = (m, c, i) => m.id + "|" + c.id + "|" + i;
+/**
+ * Identifiant d'une fiche : son identifiant stable s'il existe (espace réel, v2),
+ * sinon la clé v1 fondée sur la position (fixtures de démonstration, défaut C1).
+ */
+export const cardKey = (m, c, i, f) => (f && f.id ? f.id : m.id + "|" + c.id + "|" + i);
 
 export const cardState = (cartes, k) => (cartes && cartes[k]) || { box: 0, due: null };
 
@@ -39,7 +42,7 @@ export function allCards(content, filter) {
   const out = [];
   (content.matieres || []).forEach((m) => {
     if (filter && filter !== m.id) return;
-    (m.chapitres || []).forEach((c) => (c.fiches || []).forEach((f, i) => out.push({ m, c, f, k: cardKey(m, c, i) })));
+    (m.chapitres || []).forEach((c) => (c.fiches || []).forEach((f, i) => out.push({ m, c, f, k: cardKey(m, c, i, f) })));
   });
   return out;
 }
