@@ -2,25 +2,26 @@
 
 Environnement personnel d'étude pour l'IHECS : tableau de bord, matières, résumés, fiches à répétition espacée, quiz, examens blancs, examens et planning.
 
-> **État :** phase 1 (fondations) terminée. L'application tourne **en local** avec des **cours fictifs** de démonstration. Ton espace académique réel et Google Drive arriveront dans les phases suivantes, après validation. Voir [`docs/PROJECT_STATUS.md`](docs/PROJECT_STATUS.md).
+> **État :** phase 1 terminée ; prototype Google Drive (option A) prêt à être essayé. L'application fonctionne avec des **cours fictifs** de démonstration. Voir [`docs/PROJECT_STATUS.md`](docs/PROJECT_STATUS.md).
 
-## Lancer l'application
+## Ouvrir l'application
 
-Prérequis : Node.js 20 ou plus récent.
+**Aucun serveur, aucune installation.** Télécharge le fichier [`IHECS-STUDY-OS.html`](IHECS-STUDY-OS.html) et ouvre-le d'un double-clic dans Chrome ou Edge.
+
+Ce fichier unique contient toute l'application (code, styles, police). Il ne contacte aucun site extérieur.
+
+## Laboratoire Google Drive
+
+[`prototypes/drive/labo-drive.html`](prototypes/drive/labo-drive.html) : à ouvrir lui aussi d'un double-clic. Mode d'emploi dans [`docs/GOOGLE_DRIVE_INTEGRATION.md`](docs/GOOGLE_DRIVE_INTEGRATION.md#prototype).
+
+## Développer et tester
+
+Le code source est découpé en modules dans `src/`. Node.js (20 ou plus) sert uniquement à assembler et tester :
 
 ```
-npm install        # une seule fois (installe l'outil de test)
-npm run serve      # puis ouvrir http://127.0.0.1:8080/
-```
-
-L'application ne contacte aucun site extérieur et n'est publiée nulle part.
-
-## Tester
-
-```
-npm run check      # syntaxe
-npm test           # tests unitaires
-npm run test:e2e   # parcours dans le navigateur (Chromium)
+npm install          # une fois (outil de test)
+npm run build        # régénère IHECS-STUDY-OS.html à partir de src/
+npm run test:all     # syntaxe, tests unitaires, fichier à jour, parcours navigateur
 ```
 
 Détails dans [`docs/TESTING.md`](docs/TESTING.md).

@@ -1,5 +1,10 @@
 // Parcours de bout en bout dans un vrai navigateur (Chromium, bureau et mobile).
 import { test, expect } from "@playwright/test";
+import { pathToFileURL } from "node:url";
+import { resolve } from "node:path";
+
+// Le fichier testé est exactement celui que l'on ouvre par double-clic.
+const APP = pathToFileURL(resolve("IHECS-STUDY-OS.html")).href;
 
 const KEY = "revisions-ihecs-v1";
 const state = (page) => page.evaluate((k) => JSON.parse(localStorage.getItem(k) || "{}"), KEY);
@@ -11,7 +16,7 @@ test.beforeEach(async ({ page }, info) => {
   info.external = [];
   page.on("pageerror", (e) => info.errors.push(e.message));
   page.on("console", (m) => { if (m.type() === "error") info.errors.push(m.text()); });
-  page.on("request", (r) => { if (!r.url().startsWith("http://127.0.0.1:")) info.external.push(r.url()); });
+  page.on("request", (r) => { if (!/^(file:|data:|blob:)/.test(r.url())) info.external.push(r.url()); });
 });
 test.afterEach(async ({}, info) => {
   expect(info.errors, "erreurs JS ou CSP").toEqual([]);
@@ -22,7 +27,7 @@ const ROUTES = ["accueil", "matieres", "m-socio", "m-anglais", "c-socio-c1-resum
 
 test("toutes les pages s'affichent, sans défilement horizontal", async ({ page }) => {
   for (const r of ROUTES) {
-    await page.goto("/#" + r);
+    await page.goto(APP + "#" + r);
     await expect(page.locator("#view h1, #view .h-large").first()).toBeVisible();
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth);
     expect(overflow, "débordement sur #" + r).toBe(false);
@@ -30,18 +35,18 @@ test("toutes les pages s'affichent, sans défilement horizontal", async ({ page 
 });
 
 test("l'espace de démonstration est clairement signalé (D3)", async ({ page }) => {
-  await page.goto("/#accueil");
+  await page.goto(APP + "#accueil");
   await expect(page.getByText("Mode démonstration.")).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.dataset.workspace)).toBe("demo");
 });
 
 test("une route inconnue affiche une page introuvable", async ({ page }) => {
-  await page.goto("/#nimporte-quoi");
+  await page.goto(APP + "#nimporte-quoi");
   await expect(page.getByRole("heading", { name: "Page introuvable" })).toBeVisible();
 });
 
 test("marquer un chapitre comme lu persiste après rechargement", async ({ page }) => {
-  await page.goto("/#c-socio-c1-resume");
+  await page.goto(APP + "#c-socio-c1-resume");
   await page.getByRole("button", { name: "Marquer comme lu" }).click();
   await page.reload();
   await expect(page.getByText("Chapitre lu")).toBeVisible();
@@ -49,7 +54,7 @@ test("marquer un chapitre comme lu persiste après rechargement", async ({ page 
 });
 
 test("fiches : on ne peut noter qu'après avoir retourné, puis l'échéance est enregistrée", async ({ page }) => {
-  await page.goto("/#c-eco-c1-fiches");
+  await page.goto(APP + "#c-eco-c1-fiches");
   await page.locator("#fc").focus();
   await page.keyboard.press("3");
   expect((await state(page)).cartes || {}).toEqual({});
@@ -63,7 +68,7 @@ test("fiches : on ne peut noter qu'après avoir retourné, puis l'échéance est
 });
 
 test("quiz : un parcours complet enregistre le résultat", async ({ page }) => {
-  await page.goto("/#c-semio-c1-quiz");
+  await page.goto(APP + "#c-semio-c1-quiz");
   for (let i = 0; i < 5; i++) {
     await page.locator(".choice").first().click();
     await page.locator("#q-next").click();
@@ -75,7 +80,7 @@ test("quiz : un parcours complet enregistre le résultat", async ({ page }) => {
 });
 
 test("onglets du chapitre : navigation au clavier avec les flèches", async ({ page }) => {
-  await page.goto("/#c-socio-c1-resume");
+  await page.goto(APP + "#c-socio-c1-resume");
   await page.getByRole("tab", { name: "Résumé" }).focus();
   await page.keyboard.press("ArrowRight");
   await expect(page).toHaveURL(/#c-socio-c1-essentiel$/);
@@ -84,17 +89,17 @@ test("onglets du chapitre : navigation au clavier avec les flèches", async ({ p
 });
 
 test("planning : cocher une tâche persiste", async ({ page }) => {
-  await page.goto("/#planning");
+  await page.goto(APP + "#planning");
   await page.locator("[data-task]").first().click();
   expect(Object.values((await state(page)).plan).some(Boolean)).toBe(true);
 });
 
 test("sauvegarde : export puis import restaure l'état, un code invalide est refusé", async ({ page }) => {
-  await page.goto("/#c-socio-c1-resume");
+  await page.goto(APP + "#c-socio-c1-resume");
   await page.getByRole("button", { name: "Marquer comme lu" }).click();
   const code = await page.evaluate((k) => btoa(unescape(encodeURIComponent(localStorage.getItem(k)))), KEY);
   await page.evaluate(() => localStorage.clear());
-  await page.goto("/#parametres");
+  await page.goto(APP + "#parametres");
   await page.reload();
   await page.locator("#imp-text").fill("nimportequoi");
   await page.getByRole("button", { name: "Restaurer" }).click();
@@ -106,16 +111,16 @@ test("sauvegarde : export puis import restaure l'état, un code invalide est ref
 });
 
 test("réinitialisation : demande une confirmation et peut être annulée", async ({ page }) => {
-  await page.goto("/#c-socio-c1-resume");
+  await page.goto(APP + "#c-socio-c1-resume");
   await page.getByRole("button", { name: "Marquer comme lu" }).click();
-  await page.goto("/#parametres");
+  await page.goto(APP + "#parametres");
   await page.getByRole("button", { name: "Réinitialiser" }).click();
   await page.getByRole("button", { name: "Annuler" }).click();
   expect((await state(page)).lu["socio|c1"]).toBe(true);
 });
 
 test("recherche : trouve une notion et y mène", async ({ page, isMobile }) => {
-  await page.goto("/#accueil");
+  await page.goto(APP + "#accueil");
   if (isMobile) await page.getByRole("button", { name: "Rechercher" }).click();
   else await page.keyboard.press("Control+k");
   await page.getByRole("combobox", { name: "Rechercher" }).fill("handyside");
@@ -127,13 +132,13 @@ test("recherche : trouve une notion et y mène", async ({ page, isMobile }) => {
 test("une progression existante (ancienne version) est lue sans être modifiée", async ({ page }) => {
   const legacy = { lu: { "socio|c1": true }, quiz: { "socio|c1": { best: 0.5, last: 0.5, tries: 2 } }, cartes: { "socio|c1|0": { box: 4, due: "2099-01-01" } }, plan: {}, journal: {}, prenom: "Alex", theme: "auto", focus: { min: 12 } };
   await page.addInitScript(([k, v]) => { if (!sessionStorage.getItem("seeded")) { localStorage.setItem(k, v); sessionStorage.setItem("seeded", "1"); } }, [KEY, JSON.stringify(legacy)]);
-  await page.goto("/#accueil");
+  await page.goto(APP + "#accueil");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Alex");
   expect(await state(page)).toEqual(legacy);
 });
 
 test("l'application fonctionne quand le stockage est bloqué", async ({ page }) => {
   await page.addInitScript(() => Object.defineProperty(window, "localStorage", { get() { throw new Error("bloqué"); } }));
-  await page.goto("/#accueil");
+  await page.goto(APP + "#accueil");
   await expect(page.locator(".subject-card").first()).toBeVisible();
 });

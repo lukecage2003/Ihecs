@@ -37,6 +37,9 @@ jobs:
       - name: Tests unitaires
         run: npm test
 
+      - name: Fichier autonome IHECS-STUDY-OS.html à jour
+        run: npm run build:check
+
       - name: Installer Chromium pour Playwright
         run: npx playwright install --with-deps chromium
 

@@ -1,11 +1,12 @@
 # Architecture
 
-Application web statique, sans framework ni étape de build, en **modules ES natifs**. Elle tourne en local (D2) via un petit serveur Node sans dépendance.
+Application web statique, sans framework, écrite en **modules ES** dans `src/`, et livrée sous forme d'**un seul fichier HTML autonome**, `IHECS-STUDY-OS.html`. Ce fichier s'ouvre d'un double-clic, **sans serveur** (décision du 15 novembre 2026).
 
 ## Arborescence
 
 ```
-index.html                 point d'entrée (CSP stricte, module src/main.js)
+IHECS-STUDY-OS.html        FICHIER À OUVRIR : généré par scripts/build.mjs, versionné
+index.html                 gabarit de développement (non ouvrable seul : modules ES)
 assets/css/style.css       design system (jetons clair et sombre)
 assets/fonts/              police Inter locale (OFL-1.1)
 src/
@@ -19,8 +20,9 @@ src/
     components/            fiches, quiz, minuteur, recherche
     views/                 accueil, matières, chapitre, révision, examens, planning, réglages
 fixtures/demo/cours.js     cours fictifs (démonstration et tests)
-scripts/                   serve.mjs (serveur local), check-syntax.mjs
-tests/unit/                node --test (logique pure, stockage, migration, serveur)
+scripts/                   build.mjs (assemblage en un fichier), check-syntax.mjs
+prototypes/drive/          laboratoire Google Drive (fichier autonome)
+tests/unit/                node --test (logique pure, stockage, migration, assemblage)
 tests/e2e/                 Playwright (parcours réels, bureau et mobile)
 tests/fixtures/v1/         états v1 servant aux tests de migration
 .github/workflows/ci.yml   CI : syntaxe, tests unitaires, tests de bout en bout
@@ -35,16 +37,15 @@ tests/fixtures/v1/         états v1 servant aux tests de migration
 
 ## Sécurité
 
-- CSP : `default-src 'none'`, scripts et polices locaux uniquement, aucune requête externe (`connect-src 'self'`). Les styles en ligne restent autorisés, car le rendu s'en sert pour les couleurs et les largeurs calculées.
+- CSP du fichier autonome : `default-src 'none'`, seul le script intégré est autorisé (identifié par son empreinte SHA-256), polices intégrées, `connect-src 'none'` : l'application ne peut contacter aucun site. Les styles en ligne restent autorisés (couleurs et largeurs calculées).
 - Tout texte est échappé. Le Markdown n'autorise que les liens `http(s)`, `#` et `cours/`. Les couleurs sont validées (hexadécimal uniquement).
-- Le serveur local écoute seulement sur `127.0.0.1` et ne sert que `index.html`, `assets/`, `src/` et `fixtures/`. Il refuse `.git`, `package.json`, `node_modules`, `tests` et les traversées de chemin.
+- L'assemblage refuse toute syntaxe d'import ou d'export qu'il ne sait pas transformer, plutôt que de produire un fichier faux. La CI vérifie que le fichier versionné correspond exactement aux sources.
 - Aucune dépendance d'exécution. Une seule dépendance de développement : `@playwright/test` 1.63.0 (Apache-2.0), figée par `package-lock.json`.
 
-## Lancer
+## Assemblage
 
-```
-npm install          # une fois (outil de test uniquement)
-npm run serve        # http://127.0.0.1:8080/
-```
+`npm run build` parcourt les imports depuis `src/main.js`, place chaque module dans sa propre fonction (aucune collision de noms), les ordonne selon leurs dépendances, intègre la feuille de style et la police (data: URI), puis calcule la CSP. Le résultat est déterministe.
 
-Ouvrir `index.html` directement depuis le disque ne fonctionne plus : les navigateurs bloquent les modules ES en `file://`.
+## Stockage en `file://`
+
+Dans Chrome, toutes les pages ouvertes depuis le disque partagent la même origine `file://`, donc le même `localStorage`. La progression reste sur cet ordinateur et dans ce navigateur. Une progression enregistrée dans l'aperçu claude.ai ne s'y retrouve pas : c'est une autre origine.
