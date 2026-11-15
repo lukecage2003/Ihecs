@@ -1,18 +1,7 @@
-# Fichiers des cours
+# Dossier `cours/` — ne pas y déposer tes vrais cours
 
-Dépose ici les fichiers originaux de chaque cours, un dossier par matière :
+Ce dossier date du prototype initial, qui proposait d'y mettre les fichiers des cours.
 
-```
-cours/
-  socio/      Sociologie de la communication
-  droit/      Droit de la communication
-  eco/        Introduction à l'économie
-  semio/      Sémiologie
-  anglais/    Anglais
-  examens/    consignes d'examens, horaire de la session, anciens examens
-```
+**Ce n'est plus recommandé.** Le dépôt GitHub ne doit contenir que le code. Tes documents de cours, tes notes et ta progression sont des données personnelles : ils seront stockés dans **Google Drive** (voir [`docs/GOOGLE_DRIVE_INTEGRATION.md`](../docs/GOOGLE_DRIVE_INTEGRATION.md)), pas dans Git.
 
-Tout est accepté : PDF, PowerPoint, Word, photos de notes, captures d'écran des consignes.
-Les noms de dossiers ci-dessus sont des exemples ; crée ceux qui correspondent à tes vraies matières.
-
-Pour ajouter des fichiers depuis github.com : ouvre le dossier, puis *Add file → Upload files* et glisse-dépose.
+Le dossier est conservé pour l'historique et ne contient aucun cours.

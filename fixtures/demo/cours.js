@@ -1,13 +1,11 @@
 /*
   ============================================================
-  DONNÉES DES COURS
+  FIXTURE DE DÉMONSTRATION (cours fictifs)
   ============================================================
-  Ce fichier contient TOUT le contenu du site : matières, examens,
-  chapitres, résumés, points clés, définitions, fiches et quiz.
-
-  ⚠️ Le contenu ci-dessous est un EXEMPLE (exemple: true).
-  Il sera remplacé par tes vrais cours dès qu'ils seront ajoutés
-  dans le dossier /cours du dépôt.
+  Contenu FICTIF utilisé pour la démonstration et les tests.
+  Il ne doit jamais être mélangé avec le véritable espace académique :
+  il est chargé uniquement dans l'espace « démonstration »
+  (voir src/content/workspaces.js).
 
   Structure d'une matière :
   {
@@ -29,7 +27,7 @@
     ]
   }
 */
-window.REVISION = {
+const DEMO_COURSES = {
   exemple: true,
   ecole: "IHECS",
   annee: "Bachelier 1 — 2026-2027",
@@ -570,3 +568,5 @@ Le texte a deux fonctions par rapport à l'image :
     }
   ]
 };
+
+export default DEMO_COURSES;

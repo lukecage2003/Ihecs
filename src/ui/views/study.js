@@ -1,0 +1,61 @@
+// Révision du jour, examens, planning.
+
+import { addDays, cap, daysBetween, dayKey, examDate, fmt, fmtTime } from "../../core/dates.js";
+import { esc } from "../../core/html.js";
+import { ic } from "../../core/icons.js";
+import { buildPlan } from "../../domain/planner.js";
+import { subjectProgress } from "../../domain/progress.js";
+import { allCards, dueCards } from "../../domain/srs.js";
+import { app } from "../app.js";
+import { mountFlashcards } from "../components/flashcards.js";
+import { $, $$, shuffle } from "../dom.js";
+import { banner, bar, dot, ring, taskRow } from "../widgets.js";
+
+let revFilter = "";
+
+export function revisionView() {
+  const t0 = app.today(), cartes = app.state.cartes;
+  const btn = (id, label) => '<button type="button" aria-pressed="' + (revFilter === id) + '" class="' + (revFilter === id ? "on" : "") + '" data-filter="' + id + '">' + label + "</button>";
+  const chips = '<div class="seg" role="group" aria-label="Filtrer par matière" style="margin-bottom:22px">' + btn("", "Toutes · " + dueCards(app.content, cartes, t0).length) +
+    app.M.filter((m) => (m.chapitres || []).length).map((m) => btn(m.id, esc(m.nom.split(" ")[0]) + " · " + dueCards(app.content, cartes, t0, m.id).length)).join("") + "</div>";
+  const html = '<header class="page-head"><div><div class="eyebrow">Répétition espacée</div><h1 class="h-large">Révision du jour</h1><p class="lead">Les fiches reviennent au bon moment : plus tu les connais, plus elles s\'espacent (1, 2, 4, 8, 16 puis 32 jours).</p></div></header>' +
+    chips + '<div id="fc-slot"></div>';
+  const bind = () => {
+    $$("[data-filter]").forEach((b) => (b.onclick = () => { revFilter = b.dataset.filter; app.render(); }));
+    mountFlashcards($("#fc-slot"), shuffle(dueCards(app.content, app.state.cartes, app.today(), revFilter)), { allCards: allCards(app.content, revFilter), emptyText: "Aucune fiche à réviser aujourd'hui. Les prochaines reviendront automatiquement." });
+  };
+  return { html, bind };
+}
+
+export function examsView() {
+  const t0 = app.today();
+  const list = app.M.filter(examDate).sort((a, b) => examDate(a) - examDate(b));
+  const html = '<header class="page-head"><div><div class="eyebrow">' + esc(app.content.session ? app.content.session.nom : "") + '</div><h1 class="h-large">Examens</h1><p class="lead">Dates, formats, pondérations et consignes de chaque examen.</p></div></header>' + banner() +
+    '<div class="timeline">' + list.map((m) => {
+      const ex = examDate(m), n = daysBetween(t0, ex), p = subjectProgress(app.state, m), e = m.examen;
+      const chip = n < 0 ? '<span class="pill pill-neutral">Passé</span>' : n === 0 ? '<span class="pill pill-bad">Aujourd\'hui</span>' : '<span class="pill ' + (n <= 7 ? "pill-bad" : n <= 21 ? "pill-warn" : "pill-neutral") + '">Dans ' + n + " jour" + (n > 1 ? "s" : "") + "</span>";
+      return '<div class="card exam-row' + (n < 0 ? " past" : "") + '"><div class="datebox"><div class="m">' + fmt(ex, { month: "short" }) + '</div><div class="d">' + ex.getDate() + '</div><div class="w">' + fmt(ex, { weekday: "short" }) + " " + fmtTime(ex) + "</div></div>" +
+        '<div style="min-width:0"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">' + dot(m) + '<a class="h-card" style="color:var(--fg)" href="#m-' + m.id + '">' + esc(m.nom) + "</a></div>" +
+        '<div class="meta-row"><span>' + ic("exam") + esc(e.type || "") + "</span><span>" + ic("clock") + esc(e.duree || "") + "</span><span>" + ic("pin") + esc(e.lieu || "") + "</span></div>" +
+        '<div class="small muted" style="margin-top:6px">Pondération : ' + esc(e.poids || "à préciser") + "</div>" +
+        ((e.consignes || []).length ? "<details><summary>Consignes (" + e.consignes.length + ")</summary><ul>" + e.consignes.map((x) => "<li>" + esc(x) + "</li>").join("") + "</ul></details>" : "") + "</div>" +
+        '<div class="er-right">' + chip + '<div style="width:140px;max-width:100%">' + bar(p, m.couleur) + '</div><span class="small muted tnum">Préparé à ' + Math.round(p * 100) + " %</span></div></div>";
+    }).join("") + "</div>";
+  return { html };
+}
+
+export function planningView() {
+  const t0 = app.today();
+  const plan = buildPlan(app.content, app.state, t0);
+  const tk = dayKey(t0), tomorrow = dayKey(addDays(t0, 1));
+  const total = plan.reduce((a, d) => a + d.tasks.filter((t) => !t.exam).length, 0);
+  const done = plan.reduce((a, d) => a + d.tasks.filter((t) => !t.exam && app.state.plan[t.key]).length, 0);
+  const html = '<header class="page-head"><div><div class="eyebrow">Généré automatiquement</div><h1 class="h-large">Planning de révision</h1><p class="lead">Les chapitres pas encore maîtrisés sont répartis jusqu\'à 3 jours avant chaque examen. Les deux derniers jours sont réservés aux fiches et à un examen blanc. Le planning se met à jour avec ta progression.</p></div>' +
+    '<div class="card" style="padding:16px 20px;display:flex;align-items:center;gap:14px">' + ring(total ? done / total : 0, 52, 6, "var(--good)", '<span class="small" style="font-weight:600">' + (total ? Math.round((done / total) * 100) : 0) + "%</span>") + '<div><b class="tnum">' + done + " / " + total + '</b><div class="small muted">tâches faites</div></div></div></header>' +
+    '<div class="card">' + (plan.length ? plan.map((d) => {
+      const isT = d.k === tk;
+      return '<div class="plan-day' + (isT ? " is-today" : "") + '"><div class="pd-date">' + (isT ? "Aujourd'hui" : d.k === tomorrow ? "Demain" : cap(fmt(d.d, { weekday: "long" }))) + "<small>" + fmt(d.d, { day: "numeric", month: "long" }) + '</small></div><div class="task-list" style="min-width:0">' +
+        d.tasks.map((t) => t.exam ? '<div class="exam-flag">' + ic("exam", 18) + esc(t.titre) + '<span style="font-weight:400;margin-left:auto">' + esc(t.sub) + "</span></div>" : taskRow(t)).join("") + "</div></div>";
+    }).join("") : '<div class="empty"><p>Aucun examen à venir.</p></div>') + "</div>";
+  return { html };
+}
