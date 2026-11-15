@@ -7,7 +7,7 @@ import { cardKey } from "../../src/domain/srs.js";
 
 const NOW = new Date("2026-11-15T22:00:00Z");
 const WID = "6f1c9a52-3b7e-4d2a-9c11-2a4b5c6d7e8f";
-const DEV = "e04d8c30-e87e-4b0f-af1d-395dd1abc2f2";
+const DEV = "00000000-0000-4000-8000-000000000001";
 const manifest = newManifest({ workspaceId: WID, deviceId: DEV, now: NOW });
 
 test("manifeste : valide à la création, refusé s'il est d'un autre format ou d'une autre version", () => {

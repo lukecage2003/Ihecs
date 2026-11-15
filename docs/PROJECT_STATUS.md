@@ -57,4 +57,4 @@
 
 ## Décisions en vigueur
 
-D1 Drive seul, sans Cloud Console (option A retenue) · D2 dépôt privé, aucun déploiement, usage local **sans serveur** · D3 fixtures réservées à la démo · D4 dépendances locales figées, sans CDN · D6 aperçu claude.ai conservé comme référence, GitHub seule source du code.
+D1 Drive seul, sans Cloud Console (option A retenue) · D2 **révisée le 15 novembre 2026** : dépôt public et site publié sur GitHub Pages (code et démo fictive uniquement), données personnelles uniquement dans Google Drive, aucun serveur · D3 fixtures réservées à la démo · D4 dépendances locales figées, sans CDN · D6 aperçu claude.ai conservé comme référence, GitHub seule source du code.

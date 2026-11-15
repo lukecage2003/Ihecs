@@ -1,5 +1,11 @@
 # Journal des modifications
 
+## 0.4.1 — Site en ligne (GitHub Pages)
+
+- Décision D2 révisée : dépôt public, site publié sur https://lukecage2003.github.io/Ihecs/.
+- `.github/workflows/pages.yml` publie uniquement le fichier autonome, après vérification qu'il est à jour.
+- Vérification avant publication : aucun e-mail, nom, identifiant personnel ni secret dans l'historique. L'identifiant d'appareil repris d'un rapport a été remplacé par un identifiant fictif dans les tests.
+
 ## 0.4.0 — Espace académique réel dans Google Drive (branche `espace-reel-drive`)
 
 ### Ajouté

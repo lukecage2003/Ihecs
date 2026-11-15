@@ -56,6 +56,12 @@ tests/fixtures/v1/         états v1 servant aux tests de migration
 
 Au démarrage, l'application rouvre l'espace utilisé la dernière fois. Si Chrome demande à nouveau l'accord pour le dossier, un écran « Ouvrir ton espace académique » s'affiche, avec le bouton « Autoriser mon dossier Drive ». La démonstration n'est jamais affichée à la place de l'espace réel sans que tu le choisisses.
 
+## Publication
+
+`.github/workflows/pages.yml` publie `IHECS-STUDY-OS.html` comme page d'accueil de https://lukecage2003.github.io/Ihecs/ à chaque push sur la branche par défaut, après avoir vérifié qu'il correspond au code source. Rien d'autre n'est publié (ni `prototypes/`, ni `docs/`, ni les tests).
+
+Le site en ligne et le fichier ouvert depuis le disque sont deux **origines** différentes pour le navigateur : chacun a sa propre mémoire (préférences, dossier mémorisé, progression de la démo). Sur le site en ligne, il faut choisir une fois son dossier Drive ; l'espace qui s'y trouve est retrouvé tel quel, puisqu'il est dans les fichiers du dossier.
+
 ## Stockage en `file://`
 
 Dans Chrome, toutes les pages ouvertes depuis le disque partagent la même origine `file://`, donc le même `localStorage`. La progression reste sur cet ordinateur et dans ce navigateur. Une progression enregistrée dans l'aperçu claude.ai ne s'y retrouve pas : c'est une autre origine.

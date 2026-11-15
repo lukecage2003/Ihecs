@@ -6,9 +6,11 @@ Environnement personnel d'étude pour l'IHECS : tableau de bord, matières, rés
 
 ## Ouvrir l'application
 
-**Aucun serveur, aucune installation.** Télécharge le fichier [`IHECS-STUDY-OS.html`](IHECS-STUDY-OS.html) et ouvre-le d'un double-clic dans Chrome ou Edge.
+**En ligne : https://lukecage2003.github.io/Ihecs/**, dans Chrome ou Edge sur ordinateur.
 
-Ce fichier unique contient toute l'application (code, styles, police). Il ne contacte aucun site extérieur.
+Le site publié ne contient que le code et des cours **fictifs** de démonstration. Ton espace académique (cours, progression) reste dans ton dossier Google Drive : le navigateur le lit directement sur ton ordinateur, il ne passe jamais par GitHub.
+
+Hors ligne, tu peux aussi télécharger [`IHECS-STUDY-OS.html`](IHECS-STUDY-OS.html) et l'ouvrir d'un double-clic : c'est le même fichier.
 
 ## Laboratoire Google Drive
 

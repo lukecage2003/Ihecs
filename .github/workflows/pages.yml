@@ -1,0 +1,51 @@
+# Publication du site sur GitHub Pages : https://lukecage2003.github.io/Ihecs/
+# Publie UNIQUEMENT le fichier autonome IHECS-STUDY-OS.html (code + démonstration
+# fictive). Les données personnelles restent dans le dossier Google Drive de
+# l'utilisateur et ne passent jamais par GitHub.
+name: Pages
+
+on:
+  push:
+    branches: ["ccr-3a22c581-fdzalp"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Vérifier que le fichier publié correspond au code source
+        run: node scripts/build.mjs --check
+
+      - name: Préparer le site (un seul fichier)
+        run: |
+          mkdir -p _site
+          cp IHECS-STUDY-OS.html _site/index.html
+          touch _site/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
