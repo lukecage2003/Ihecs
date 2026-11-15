@@ -1,7 +1,7 @@
 // Ouverture, création et enregistrement de l'espace académique réel dans le dossier Drive.
 
 import { DEVICES_DIR, MANIFEST_FILE, STATE_FILE, STRUCTURE_FILE, contentFromStructure, emptyUiState, newManifest, newStructure, reviewLogFile, uiStateToV2, v2ToUiState, validateDeviceState, validateManifest, validateStructure } from "../data/v2/workspace.js";
-import { appendLine, createJsonIfAbsent, listNames, readJson, subdir, writeJson } from "./folder.js";
+import { appendLine, createJsonIfAbsent, listNames, readJson, subdir, writeIfUnchanged, writeJson, writeNewFile } from "./folder.js";
 
 /**
  * Examine un dossier sans rien y écrire.
@@ -100,3 +100,34 @@ export async function appendReview(root, { deviceId, entry }) {
   await appendLine(dev, reviewLogFile(new Date(entry.at)), JSON.stringify(entry));
 }
 
+
+/** Lit structure.json avec son empreinte (pour l'écriture vérifiée). */
+export async function readStructure(root, workspaceId) {
+  const s = await readJson(root, STRUCTURE_FILE);
+  if (!s.exists) throw new Error("structure.json est introuvable.");
+  if (s.error) throw new Error(s.error);
+  const errors = validateStructure(s.data, workspaceId);
+  if (errors.length) throw new Error(errors.join(" "));
+  return { data: s.data, hash: s.hash };
+}
+
+const stamp = (d) => d.toISOString().replace(/[:.]/g, "-").slice(0, 19);
+
+/**
+ * Applique un import planifié. Dans l'ordre :
+ *  1. archive le fichier de cours tel quel dans imports/ ;
+ *  2. sauvegarde la structure actuelle dans sauvegardes/ ;
+ *  3. écrit la nouvelle structure SEULEMENT si structure.json n'a pas changé depuis l'aperçu.
+ * Rien n'est jamais supprimé ni remplacé sans copie.
+ */
+export async function applyImport(root, { plan, expectedHash, packText, sourceName, now }) {
+  const current = await readJson(root, STRUCTURE_FILE);
+  if (!current.exists || current.hash !== expectedHash) {
+    return { ok: false, error: "structure.json a changé depuis l'aperçu (synchronisation Drive ou autre fenêtre). Rien n'a été écrit : relance l'aperçu." };
+  }
+  const archived = await writeNewFile(await subdir(root, ["imports"], true), stamp(now) + " " + (sourceName || "cours.json").replace(/[\\/]/g, "_"), packText);
+  const backup = await writeNewFile(await subdir(root, ["sauvegardes"], true), "structure " + stamp(now) + ".json", current.text);
+  const res = await writeIfUnchanged(root, STRUCTURE_FILE, JSON.stringify(plan.nextStructure, null, 2) + "\n", expectedHash);
+  if (!res.ok) return { ok: false, error: "structure.json a changé pendant l'import. Rien n'a été remplacé ; la sauvegarde « " + backup + " » est conservée." };
+  return { ok: true, archived: "imports/" + archived, backup: "sauvegardes/" + backup };
+}

@@ -59,6 +59,37 @@ export async function appendLine(dir, name, line) {
   await w.close();
 }
 
+/**
+ * Écrit seulement si le contenu actuel a l'empreinte attendue (null = fichier absent).
+ * Sinon n'écrit rien et renvoie { ok: false, conflict: true }.
+ */
+export async function writeIfUnchanged(dir, name, text, expectedHash) {
+  const cur = await readText(dir, name);
+  const curHash = cur.exists ? cur.hash : null;
+  if (curHash !== expectedHash) return { ok: false, conflict: true };
+  return { ok: true, hash: await writeText(dir, name, text) };
+}
+
+/** Écrit un fichier sous un nom libre : ajoute « (2) », « (3) »… si le nom est pris. Ne remplace jamais. */
+export async function writeNewFile(dir, name, text) {
+  const dot = name.lastIndexOf(".");
+  const base = dot > 0 ? name.slice(0, dot) : name, ext = dot > 0 ? name.slice(dot) : "";
+  for (let i = 1; i < 1000; i++) {
+    const candidate = i === 1 ? name : base + " (" + i + ")" + ext;
+    if (!(await readText(dir, candidate)).exists) { await writeText(dir, candidate, text); return candidate; }
+  }
+  throw new Error("Impossible de trouver un nom libre pour " + name);
+}
+
+/** Ouvre un fichier par chemin relatif (« cours/socio/ch1.pdf »). Renvoie un File ou null. */
+export async function fileAt(root, relPath) {
+  const parts = relPath.split("/");
+  try {
+    const dir = await subdir(root, parts.slice(0, -1));
+    return await (await dir.getFileHandle(parts[parts.length - 1])).getFile();
+  } catch (e) { return null; }
+}
+
 export async function listNames(dir) {
   const out = [];
   for await (const [name] of dir.entries()) out.push(name);

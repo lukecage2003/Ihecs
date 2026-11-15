@@ -62,12 +62,16 @@ export function validateStructure(s, workspaceId) {
   if (!Array.isArray(s.years)) e.push("Liste des années invalide.");
   if (!Array.isArray(s.subjects)) e.push("Liste des matières invalide.");
   for (const sub of Array.isArray(s.subjects) ? s.subjects : []) {
-    if (!isObj(sub) || typeof sub.id !== "string" || typeof sub.name !== "string") e.push("Matière invalide.");
+    if (!isObj(sub) || typeof sub.id !== "string" || (typeof sub.nom !== "string" && typeof sub.name !== "string")) e.push("Matière invalide.");
   }
   return e;
 }
 
-/** Contenu affichable par l'interface à partir de la structure (aucune matière pour l'instant). */
+/**
+ * Contenu affichable par l'interface à partir de la structure.
+ * Les matières importées utilisent les noms de champs français (voir COURSE_PACK.md) ;
+ * les noms anglais (name, color…) restent acceptés.
+ */
 export function contentFromStructure(structure, manifest) {
   return {
     exemple: false,
@@ -75,8 +79,11 @@ export function contentFromStructure(structure, manifest) {
     annee: manifest.workspace.name,
     session: null,
     matieres: (structure.subjects || []).map((s) => ({
-      id: s.id, nom: s.name, prof: s.teacher || "", credits: s.credits || null, quadrimestre: s.semester || "",
-      couleur: s.color || "#8e8e93", icone: s.icon || "book", examen: s.exam || null, fichiers: [], chapitres: s.chapters || []
+      id: s.id, nom: s.nom || s.name, prof: s.prof || s.teacher || "", credits: s.credits == null ? null : s.credits,
+      quadrimestre: s.quadrimestre || s.semester || "", couleur: s.couleur || s.color || "#8e8e93", icone: s.icone || s.icon || "book",
+      examen: s.examen || s.exam || null,
+      fichiers: (s.documents || []).map((d) => ({ nom: d.nom, chemin: d.chemin, local: true })),
+      chapitres: s.chapitres || s.chapters || []
     }))
   };
 }
