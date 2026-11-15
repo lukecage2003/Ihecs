@@ -8,7 +8,7 @@
 |---|---|---|
 | Application en un seul fichier ouvrable par double-clic (aucun serveur) | Fait, testé en `file://` | `IHECS-STUDY-OS.html`, `scripts/build.mjs` |
 | Laboratoire Drive autonome (6 étapes, rapport JSON) | Fait, mécanique testée | `prototypes/drive/labo-drive.html` |
-| Mesures réelles avec Google Drive pour ordinateur | **Partielles** (15 novembre) : `file://`, écriture et synchronisation dans les deux sens confirmées ; autorisation après redémarrage et modifications simultanées encore à mesurer | `GOOGLE_DRIVE_INTEGRATION.md#résultats-des-mesures` |
+| Mesures réelles avec Google Drive pour ordinateur | **Partielles** (15 novembre) : `file://`, écriture et synchronisation dans les deux sens confirmées ; autorisation après redémarrage encore à mesurer ; modifications simultanées non mesurées par décision (conception « pire cas ») | `GOOGLE_DRIVE_INTEGRATION.md#résultats-des-mesures` |
 | Laboratoire version 2 : messages clairs quand une étape manque | Fait, testé | `prototypes/drive/labo-drive.html` |
 
 ## Phase 1 — livré

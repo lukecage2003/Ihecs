@@ -114,13 +114,23 @@ Fichier : [`prototypes/drive/labo-drive.html`](../prototypes/drive/labo-drive.ht
 | Délai ordinateur → Drive | ≈ 32 s (1 mesure, au clic, temps de réaction compris) | Confirmé, à répéter |
 | Délai Drive → ordinateur | ≈ 1 min 50 s (1 mesure : image envoyée depuis le téléphone, envoi compris ; détection automatique toutes les 2 s) | Confirmé, à répéter |
 | Autorisation conservée après fermeture de Chrome | Pas encore mesuré : aucune réouverture après le choix du dossier | **À faire** |
-| Modifications simultanées | Incomplet : « Modifier côté ordinateur » non fait, aucune version web arrivée. Le verdict « Résultat inattendu » venait d'un message mal conçu, corrigé dans la version 2 du laboratoire | **À refaire** |
+| Modifications simultanées | Incomplet au premier essai, puis **abandonné par décision** (voir plus bas) | Non mesuré |
 | Erreurs | Aucune | — |
 
 **Conséquences pour la conception, déjà acquises :**
 - l'application peut rester **un fichier ouvert par double-clic** : l'accès au dossier fonctionne en `file://` ;
 - une modification faite ailleurs (téléphone, web) peut mettre **environ 2 minutes** à arriver. L'application doit donc relire le dossier régulièrement (à l'ouverture, au retour sur la fenêtre, puis à intervalle régulier), proposer une synchronisation manuelle, et ne jamais supposer que le dossier est à jour ;
 - dans l'autre sens, il faut attendre **environ 30 secondes** avant qu'une écriture soit visible ailleurs. Il ne faut donc pas passer d'un appareil à l'autre dans la seconde.
+
+### Décision : pas de mesure des modifications simultanées (15 novembre 2026)
+
+On ne mesurera pas le comportement de Google Drive en cas de modifications simultanées. Ce cas ne se produit qu'avec plusieurs ordinateurs ou un travail hors connexion. La conception part donc du **pire cas** (Drive peut garder une version et écarter l'autre sans prévenir), et garantit qu'aucune donnée n'est perdue quoi que fasse Drive :
+
+1. **Ajout seul** : chaque révision, tentative ou note est écrite dans un **nouveau fichier** propre à l'appareil, jamais en réécrivant un fichier existant. Drive n'a donc rien à départager.
+2. **Écriture vérifiée** : pour les rares fichiers modifiables (structure académique, réglages), l'application relit l'empreinte SHA-256 avant d'écrire. Si le fichier a changé, elle n'écrit pas : elle garde les deux versions et demande laquelle conserver (mécanisme déjà testé dans le laboratoire).
+3. **Copies de conflit tolérées** : tout fichier inattendu dans le dossier est signalé, jamais supprimé.
+
+Seule mesure restante : **la conservation de l'autorisation après fermeture de Chrome** (expérience 2).
 
 ## Sources
 
