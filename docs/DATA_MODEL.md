@@ -29,6 +29,8 @@ Défauts : C1 (clé de fiche fondée sur la position), C2 (aucun historique). Vo
   structure.json                                   structure académique (matières…), vide à la création
   appareils/<appareil>/etat.json                   document d'état v2 de CET ordinateur (un seul rédacteur)
   appareils/<appareil>/revisions-AAAA-MM.jsonl     journal des révisions, une ligne par révision, ajout seul
+  imports/                                         fichiers de cours importés, archivés tels quels
+  sauvegardes/                                     copie de structure.json avant chaque import
 ```
 
 - **Création :** `structure.json`, puis l'état de l'appareil, puis le manifeste **en dernier**. Un dossier sans manifeste n'est pas un espace. Aucun fichier existant n'est écrasé : la création s'arrête si un fichier de l'espace est déjà présent. Les autres fichiers du dossier ne sont jamais touchés.

@@ -9,7 +9,7 @@
 <meta name="description" content="Tableau de bord de révision : résumés, fiches, quiz, examens et planning.">
 <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-krPCmLPcSW/Af/iBSNgBTj3x1FXy3fjWYjEAx1oo77c='; style-src 'unsafe-inline'; font-src data:; img-src data: blob:; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-OMYdgp7WQo2BGATALz6Y3sI6RwgbuyuEpGo0vcseSiw='; style-src 'unsafe-inline'; font-src data:; img-src data: blob:; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="referrer" content="no-referrer">
 <style>
 /* Révisions — interface inspirée d'Apple
@@ -668,11 +668,11 @@ return { esc, safeColor };
 const __m1 = (() => {
 
 // Analyse du hash en route. Pur.
-// Routes : #accueil #matieres #revision #examens #planning #parametres
+// Routes : #accueil #matieres #revision #examens #planning #parametres #importer
 //          #m-<matiere>  #c-<matiere>-<chapitre>-<onglet>  #blanc-<matiere>
 
 const CHAPTER_TABS = ["resume", "essentiel", "fiches", "quiz"];
-const SIMPLE = { accueil: "home", revision: "revision", examens: "exams", planning: "planning", parametres: "settings", matieres: "subjects" };
+const SIMPLE = { accueil: "home", revision: "revision", examens: "exams", planning: "planning", parametres: "settings", matieres: "subjects", importer: "import" };
 
 function parseRoute(hash, content) {
   const M = (content && content.matieres) || [];
@@ -755,6 +755,37 @@ async function appendLine(dir, name, line) {
   await w.close();
 }
 
+/**
+ * Écrit seulement si le contenu actuel a l'empreinte attendue (null = fichier absent).
+ * Sinon n'écrit rien et renvoie { ok: false, conflict: true }.
+ */
+async function writeIfUnchanged(dir, name, text, expectedHash) {
+  const cur = await readText(dir, name);
+  const curHash = cur.exists ? cur.hash : null;
+  if (curHash !== expectedHash) return { ok: false, conflict: true };
+  return { ok: true, hash: await writeText(dir, name, text) };
+}
+
+/** Écrit un fichier sous un nom libre : ajoute « (2) », « (3) »… si le nom est pris. Ne remplace jamais. */
+async function writeNewFile(dir, name, text) {
+  const dot = name.lastIndexOf(".");
+  const base = dot > 0 ? name.slice(0, dot) : name, ext = dot > 0 ? name.slice(dot) : "";
+  for (let i = 1; i < 1000; i++) {
+    const candidate = i === 1 ? name : base + " (" + i + ")" + ext;
+    if (!(await readText(dir, candidate)).exists) { await writeText(dir, candidate, text); return candidate; }
+  }
+  throw new Error("Impossible de trouver un nom libre pour " + name);
+}
+
+/** Ouvre un fichier par chemin relatif (« cours/socio/ch1.pdf »). Renvoie un File ou null. */
+async function fileAt(root, relPath) {
+  const parts = relPath.split("/");
+  try {
+    const dir = await subdir(root, parts.slice(0, -1));
+    return await (await dir.getFileHandle(parts[parts.length - 1])).getFile();
+  } catch (e) { return null; }
+}
+
 async function listNames(dir) {
   const out = [];
   for await (const [name] of dir.entries()) out.push(name);
@@ -768,7 +799,7 @@ async function permission(handle, request = false) {
   } catch (e) { return "error"; }
 }
 
-return { sha256, subdir, readText, readJson, writeText, writeJson, createJsonIfAbsent, appendLine, listNames, permission };
+return { sha256, subdir, readText, readJson, writeText, writeJson, createJsonIfAbsent, appendLine, writeIfUnchanged, writeNewFile, fileAt, listNames, permission };
 })();
 
 // ---- src/core/dates.js
@@ -2044,12 +2075,16 @@ function validateStructure(s, workspaceId) {
   if (!Array.isArray(s.years)) e.push("Liste des années invalide.");
   if (!Array.isArray(s.subjects)) e.push("Liste des matières invalide.");
   for (const sub of Array.isArray(s.subjects) ? s.subjects : []) {
-    if (!isObj(sub) || typeof sub.id !== "string" || typeof sub.name !== "string") e.push("Matière invalide.");
+    if (!isObj(sub) || typeof sub.id !== "string" || (typeof sub.nom !== "string" && typeof sub.name !== "string")) e.push("Matière invalide.");
   }
   return e;
 }
 
-/** Contenu affichable par l'interface à partir de la structure (aucune matière pour l'instant). */
+/**
+ * Contenu affichable par l'interface à partir de la structure.
+ * Les matières importées utilisent les noms de champs français (voir COURSE_PACK.md) ;
+ * les noms anglais (name, color…) restent acceptés.
+ */
 function contentFromStructure(structure, manifest) {
   return {
     exemple: false,
@@ -2057,8 +2092,11 @@ function contentFromStructure(structure, manifest) {
     annee: manifest.workspace.name,
     session: null,
     matieres: (structure.subjects || []).map((s) => ({
-      id: s.id, nom: s.name, prof: s.teacher || "", credits: s.credits || null, quadrimestre: s.semester || "",
-      couleur: s.color || "#8e8e93", icone: s.icon || "book", examen: s.exam || null, fichiers: [], chapitres: s.chapters || []
+      id: s.id, nom: s.nom || s.name, prof: s.prof || s.teacher || "", credits: s.credits == null ? null : s.credits,
+      quadrimestre: s.quadrimestre || s.semester || "", couleur: s.couleur || s.color || "#8e8e93", icone: s.icone || s.icon || "book",
+      examen: s.examen || s.exam || null,
+      fichiers: (s.documents || []).map((d) => ({ nom: d.nom, chemin: d.chemin, local: true })),
+      chapitres: s.chapitres || s.chapters || []
     }))
   };
 }
@@ -2199,7 +2237,7 @@ return { getPref, setPref, deletePref, deviceId };
 // ---- src/storage/real-workspace.js
 const __m19 = (() => {
 const { DEVICES_DIR, MANIFEST_FILE, STATE_FILE, STRUCTURE_FILE, contentFromStructure, emptyUiState, newManifest, newStructure, reviewLogFile, uiStateToV2, v2ToUiState, validateDeviceState, validateManifest, validateStructure } = __m17;
-const { appendLine, createJsonIfAbsent, listNames, readJson, subdir, writeJson } = __m2;
+const { appendLine, createJsonIfAbsent, listNames, readJson, subdir, writeIfUnchanged, writeJson, writeNewFile } = __m2;
 // Ouverture, création et enregistrement de l'espace académique réel dans le dossier Drive.
 
 
@@ -2303,7 +2341,38 @@ async function appendReview(root, { deviceId, entry }) {
 }
 
 
-return { inspectFolder, createWorkspace, openWorkspace, createSaver, appendReview };
+/** Lit structure.json avec son empreinte (pour l'écriture vérifiée). */
+async function readStructure(root, workspaceId) {
+  const s = await readJson(root, STRUCTURE_FILE);
+  if (!s.exists) throw new Error("structure.json est introuvable.");
+  if (s.error) throw new Error(s.error);
+  const errors = validateStructure(s.data, workspaceId);
+  if (errors.length) throw new Error(errors.join(" "));
+  return { data: s.data, hash: s.hash };
+}
+
+const stamp = (d) => d.toISOString().replace(/[:.]/g, "-").slice(0, 19);
+
+/**
+ * Applique un import planifié. Dans l'ordre :
+ *  1. archive le fichier de cours tel quel dans imports/ ;
+ *  2. sauvegarde la structure actuelle dans sauvegardes/ ;
+ *  3. écrit la nouvelle structure SEULEMENT si structure.json n'a pas changé depuis l'aperçu.
+ * Rien n'est jamais supprimé ni remplacé sans copie.
+ */
+async function applyImport(root, { plan, expectedHash, packText, sourceName, now }) {
+  const current = await readJson(root, STRUCTURE_FILE);
+  if (!current.exists || current.hash !== expectedHash) {
+    return { ok: false, error: "structure.json a changé depuis l'aperçu (synchronisation Drive ou autre fenêtre). Rien n'a été écrit : relance l'aperçu." };
+  }
+  const archived = await writeNewFile(await subdir(root, ["imports"], true), stamp(now) + " " + (sourceName || "cours.json").replace(/[\\/]/g, "_"), packText);
+  const backup = await writeNewFile(await subdir(root, ["sauvegardes"], true), "structure " + stamp(now) + ".json", current.text);
+  const res = await writeIfUnchanged(root, STRUCTURE_FILE, JSON.stringify(plan.nextStructure, null, 2) + "\n", expectedHash);
+  if (!res.ok) return { ok: false, error: "structure.json a changé pendant l'import. Rien n'a été remplacé ; la sauvegarde « " + backup + " » est conservée." };
+  return { ok: true, archived: "imports/" + archived, backup: "sauvegardes/" + backup };
+}
+
+return { inspectFolder, createWorkspace, openWorkspace, createSaver, appendReview, readStructure, applyImport };
 })();
 
 // ---- src/ui/theme.js
@@ -2978,7 +3047,7 @@ function homeView() {
     : '<p class="muted">Rien de prévu aujourd\'hui. Profite pour revoir tes fiches.</p>';
 
   const emptyReal = app.workspace.kind === "real" && !app.M.length
-    ? '<div class="card empty" style="margin-bottom:16px"><div class="icon-tile" style="background:var(--good-soft);color:var(--good)">' + ic("check") + '</div><h2 class="h-sec">Ton espace est prêt</h2><p>Il est enregistré dans ton dossier Google Drive « ' + esc(app.workspace.folderName || "") + " ». Il est vide pour l'instant, sans aucun cours d'exemple. L'ajout de tes matières, cours et examens est la prochaine étape.</p></div>"
+    ? '<div class="card empty" style="margin-bottom:16px"><div class="icon-tile" style="background:var(--good-soft);color:var(--good)">' + ic("check") + '</div><h2 class="h-sec">Ton espace est prêt</h2><p>Il est enregistré dans ton dossier Google Drive « ' + esc(app.workspace.folderName || "") + " ». Il est vide pour l'instant, sans aucun cours d'exemple. Ajoute tes cours avec un fichier de cours préparé avec Claude.</p><a class=\"btn\" href=\"#importer\">Importer mes cours</a></div>"
     : "";
   const html = banner() +
     '<header class="page-head"><div><div class="eyebrow">' + cap(fmtLong(app.now())) + '</div><h1 class="h-large">' + hello + "</h1></div></header>" + emptyReal +
@@ -3055,7 +3124,7 @@ async function renderWorkspaceCard(message) {
     const m = app.real.manifest;
     const st = sync.state === "error" ? '<span class="pill pill-bad">Échec de l\'enregistrement</span>' : sync.state === "saving" ? '<span class="pill pill-info">Enregistrement…</span>' : '<span class="pill pill-good">Enregistré' + (sync.at ? " à " + fmtTime(sync.at) : "") + "</span>";
     body.innerHTML = msg + '<dl class="kv"><dt>Dossier Drive</dt><dd>' + esc(app.real.folderName) + "</dd><dt>Espace</dt><dd>" + esc(m.workspace.name) + " · créé le " + fmtDate(m.createdAt) + "</dd><dt>Cet ordinateur</dt><dd><code>" + esc(app.real.deviceId.slice(0, 8)) + "</code></dd><dt>État</dt><dd>" + st + (sync.state === "error" ? ' <span class="small">' + esc(sync.message) + "</span>" : "") + "</dd></dl>" +
-      '<div class="confirm" id="ws-actions" style="margin-top:16px">' + (sync.state === "error" ? '<button class="btn btn-sm" id="ws-retry" type="button">Réessayer l\'enregistrement</button>' : "") + '<button class="btn btn-plain btn-sm" id="ws-demo" type="button">Passer en démonstration</button><button class="btn btn-danger btn-sm" id="ws-forget" type="button">Oublier ce dossier</button></div>';
+      '<div class="confirm" id="ws-actions" style="margin-top:16px"><a class="btn btn-sm" href="#importer">Importer mes cours</a>' + (sync.state === "error" ? '<button class="btn btn-sm" id="ws-retry" type="button">Réessayer l\'enregistrement</button>' : "") + '<button class="btn btn-plain btn-sm" id="ws-demo" type="button">Passer en démonstration</button><button class="btn btn-danger btn-sm" id="ws-forget" type="button">Oublier ce dossier</button></div>';
     const retry = $("#ws-retry"); if (retry) retry.onclick = () => { app.retrySave && app.retrySave(); setTimeout(() => renderWorkspaceCard(), 300); };
     $("#ws-demo").onclick = async () => { await switchToDemo(); app.render(); };
     $("#ws-forget").onclick = () => {
@@ -3157,8 +3226,259 @@ function bindSettings() {
 return { settingsView };
 })();
 
-// ---- src/ui/views/study.js
+// ---- src/data/v2/course-pack.js
 const __m31 = (() => {
+const { FORMAT, SCHEMA_VERSION } = __m16;
+const { validateStructure } = __m17;
+// Fichiers de cours (« packs ») : format, validation et plan d'import. Fonctions pures.
+// Spécification lisible : docs/COURSE_PACK.md.
+//
+// Un pack apporte des matières complètes (chapitres, résumés, fiches, quiz, examen,
+// documents). Il est fusionné dans structure.json selon un plan affiché AVANT
+// l'écriture : matières nouvelles ajoutées ; matières existantes ignorées, sauf si
+// l'utilisateur demande explicitement de les remplacer. Le pack d'origine est
+// conservé intégralement dans le dossier (imports/), rien n'est donc perdu.
+
+
+
+
+const PACK_KIND = "course-pack";
+const LIMITS = { bytes: 20 * 1024 * 1024, subjects: 100, chapters: 200, cards: 2000, questions: 1000, text: 300000 };
+
+const isObj = (v) => v !== null && typeof v === "object" && !Array.isArray(v);
+const isStr = (v) => typeof v === "string";
+const SUBJECT_ID = /^[a-z0-9]{1,32}$/i;            // utilisé dans les liens (#m-<id>)
+const ITEM_ID = /^[A-Za-z0-9:._-]{4,80}$/;         // identifiant stable de fiche ou de question
+const HEX = /^#(?:[0-9a-f]{3}|[0-9a-f]{6})$/i;
+
+/** Chemin relatif sûr à l'intérieur du dossier de l'espace (pas de « .. », pas d'absolu). */
+function safeRelativePath(p) {
+  if (!isStr(p) || !p.trim() || p.length > 500) return false;
+  if (p.startsWith("/") || p.startsWith("\\") || /^[a-z]:/i.test(p) || p.includes("\\")) return false;
+  return p.split("/").every((seg) => seg && seg !== "." && seg !== "..");
+}
+
+/**
+ * Valide un pack. Renvoie la liste des erreurs (vide si valide).
+ * @param {object} pack
+ * @param {{iconNames?: string[]}} opts
+ */
+function validatePack(pack, opts = {}) {
+  const e = [];
+  const push = (where, msg) => { if (e.length < 50) e.push(where + " : " + msg); };
+  if (!isObj(pack)) return ["Le fichier n'est pas un objet JSON."];
+  if (pack.format !== FORMAT || pack.kind !== PACK_KIND) return ["Ce fichier n'est pas un fichier de cours IHECS STUDY OS (format ou type inattendu)."];
+  if (pack.schemaVersion !== SCHEMA_VERSION) return ["Version de fichier de cours non prise en charge : " + pack.schemaVersion + " (attendu : " + SCHEMA_VERSION + ")."];
+  if (!isStr(pack.title) || !pack.title.trim()) push("Fichier", "titre manquant");
+  if (!Array.isArray(pack.subjects) || !pack.subjects.length) { push("Fichier", "aucune matière"); return e; }
+  if (pack.subjects.length > LIMITS.subjects) push("Fichier", "trop de matières (" + pack.subjects.length + ")");
+  const subjectIds = new Set(), itemIds = new Set();
+  pack.subjects.forEach((s, si) => {
+    const W = "Matière " + (si + 1) + (isObj(s) && isStr(s.nom) ? " (« " + s.nom + " »)" : "");
+    if (!isObj(s)) { push(W, "n'est pas un objet"); return; }
+    if (!isStr(s.id) || !SUBJECT_ID.test(s.id)) push(W, "identifiant invalide (lettres et chiffres uniquement, 32 au plus)");
+    else if (subjectIds.has(s.id.toLowerCase())) push(W, "identifiant « " + s.id + " » en double");
+    else subjectIds.add(s.id.toLowerCase());
+    if (!isStr(s.nom) || !s.nom.trim()) push(W, "nom manquant");
+    if (s.couleur !== undefined && !(isStr(s.couleur) && HEX.test(s.couleur))) push(W, "couleur invalide (format #rrggbb)");
+    if (s.icone !== undefined && opts.iconNames && !opts.iconNames.includes(s.icone)) push(W, "icône inconnue « " + s.icone + " »");
+    if (s.credits !== undefined && s.credits !== null && !(typeof s.credits === "number" && s.credits >= 0 && s.credits <= 60)) push(W, "crédits invalides");
+    if (s.examen !== undefined && s.examen !== null) {
+      if (!isObj(s.examen)) push(W, "examen invalide");
+      else {
+        if (s.examen.date !== undefined && !(isStr(s.examen.date) && !Number.isNaN(Date.parse(s.examen.date)))) push(W, "date d'examen illisible");
+        if (s.examen.consignes !== undefined && !(Array.isArray(s.examen.consignes) && s.examen.consignes.every(isStr))) push(W, "consignes d'examen invalides");
+      }
+    }
+    for (const d of s.documents || []) {
+      if (!isObj(d) || !isStr(d.nom) || !safeRelativePath(d.chemin)) push(W, "document invalide (nom et chemin relatif dans ton dossier requis)");
+    }
+    if (!Array.isArray(s.chapitres)) { push(W, "liste de chapitres manquante"); return; }
+    if (s.chapitres.length > LIMITS.chapters) push(W, "trop de chapitres");
+    const chapIds = new Set();
+    s.chapitres.forEach((c, ci) => {
+      const C = W + ", chapitre " + (ci + 1);
+      if (!isObj(c)) { push(C, "n'est pas un objet"); return; }
+      if (!isStr(c.id) || !SUBJECT_ID.test(c.id)) push(C, "identifiant invalide");
+      else if (chapIds.has(c.id.toLowerCase())) push(C, "identifiant « " + c.id + " » en double");
+      else chapIds.add(c.id.toLowerCase());
+      if (!isStr(c.titre) || !c.titre.trim()) push(C, "titre manquant");
+      if (c.resume !== undefined && !(isStr(c.resume) && c.resume.length <= LIMITS.text)) push(C, "résumé invalide ou trop long");
+      for (const k of ["pointsCles"]) if (c[k] !== undefined && !(Array.isArray(c[k]) && c[k].every(isStr))) push(C, "points clés invalides");
+      for (const d of c.definitions || []) if (!isObj(d) || !isStr(d.terme) || !isStr(d.def)) push(C, "définition invalide");
+      const fiches = c.fiches || [];
+      if (!Array.isArray(fiches) || fiches.length > LIMITS.cards) push(C, "fiches invalides");
+      else fiches.forEach((f, fi) => {
+        if (!isObj(f) || !isStr(f.q) || !f.q.trim() || !isStr(f.r) || !f.r.trim()) push(C, "fiche " + (fi + 1) + " : question ou réponse manquante");
+        else if (!isStr(f.id) || !ITEM_ID.test(f.id)) push(C, "fiche " + (fi + 1) + " : identifiant stable manquant ou invalide");
+        else if (itemIds.has(f.id)) push(C, "fiche " + (fi + 1) + " : identifiant « " + f.id + " » en double");
+        else itemIds.add(f.id);
+      });
+      const quiz = c.quiz || [];
+      if (!Array.isArray(quiz) || quiz.length > LIMITS.questions) push(C, "quiz invalide");
+      else quiz.forEach((q, qi) => {
+        const Q = "question " + (qi + 1);
+        if (!isObj(q) || !isStr(q.q) || !Array.isArray(q.choix) || q.choix.length < 2 || q.choix.length > 4 || !q.choix.every(isStr)) push(C, Q + " : énoncé ou choix invalides (2 à 4 choix)");
+        else if (!Number.isInteger(q.bonne) || q.bonne < 0 || q.bonne >= q.choix.length) push(C, Q + " : bonne réponse hors des choix");
+        else if (!isStr(q.id) || !ITEM_ID.test(q.id)) push(C, Q + " : identifiant stable manquant ou invalide");
+        else if (itemIds.has(q.id)) push(C, Q + " : identifiant « " + q.id + " » en double");
+        else itemIds.add(q.id);
+      });
+    });
+  });
+  return e;
+}
+
+/** Garde uniquement les champs connus d'une matière (le pack complet est archivé à part). */
+function normalizeSubject(s, meta) {
+  const pick = (o, keys) => Object.fromEntries(keys.filter((k) => o[k] !== undefined).map((k) => [k, o[k]]));
+  return Object.assign(pick(s, ["id", "nom", "prof", "credits", "quadrimestre", "couleur", "icone", "examen", "documents"]), {
+    chapitres: s.chapitres.map((c) => pick(c, ["id", "titre", "duree", "resume", "pointsCles", "definitions", "fiches", "quiz", "sources"])),
+    importedFrom: meta
+  });
+}
+
+/** Identifiants de fiches et de questions d'une matière (structure). */
+const itemIdsOf = (s) => (s.chapitres || s.chapters || []).flatMap((c) => [...(c.fiches || []), ...(c.quiz || [])].map((x) => x && x.id).filter(Boolean));
+
+/**
+ * Calcule le résultat d'un import sans rien écrire.
+ * @param {object} structure  structure.json actuelle (validée)
+ * @param {object} pack       pack validé
+ * @param {{replace?: string[], now: Date, sourceName?: string, iconNames?: string[]}} opts
+ * @returns {{ok: true, added, replaced, skipped, counts, nextStructure} | {ok: false, errors}}
+ */
+function planImport(structure, pack, opts) {
+  const errors = validatePack(pack, { iconNames: opts.iconNames });
+  if (errors.length) return { ok: false, errors };
+  const replace = new Set((opts.replace || []).map((x) => x.toLowerCase()));
+  const existing = new Map((structure.subjects || []).map((s) => [String(s.id).toLowerCase(), s]));
+  const meta = { pack: pack.title, file: opts.sourceName || null, packCreatedAt: pack.createdAt || null, importedAt: opts.now.toISOString() };
+  const added = [], replaced = [], skipped = [];
+  for (const s of pack.subjects) {
+    const k = s.id.toLowerCase();
+    if (!existing.has(k)) added.push(s);
+    else if (replace.has(k)) replaced.push(s);
+    else skipped.push(s);
+  }
+  // Les identifiants de fiches doivent rester uniques dans tout l'espace.
+  const kept = (structure.subjects || []).filter((s) => !replaced.some((r) => r.id.toLowerCase() === String(s.id).toLowerCase()));
+  const taken = new Set(kept.flatMap(itemIdsOf));
+  const clashes = [...added, ...replaced].flatMap((s) => s.chapitres.flatMap((c) => [...(c.fiches || []), ...(c.quiz || [])].map((x) => x.id))).filter((id) => taken.has(id));
+  if (clashes.length) return { ok: false, errors: ["Identifiants déjà utilisés par une autre matière de ton espace : " + [...new Set(clashes)].slice(0, 10).join(", ")] };
+  const replacedMap = new Map(replaced.map((s) => [s.id.toLowerCase(), normalizeSubject(s, meta)]));
+  const subjects = (structure.subjects || []).map((s) => replacedMap.get(String(s.id).toLowerCase()) || s).concat(added.map((s) => normalizeSubject(s, meta)));
+  const nextStructure = Object.assign({}, structure, {
+    updatedAt: opts.now.toISOString(),
+    subjects,
+    imports: (structure.imports || []).concat([{ at: opts.now.toISOString(), pack: pack.title, file: opts.sourceName || null, added: added.map((s) => s.id), replaced: replaced.map((s) => s.id), skipped: skipped.map((s) => s.id) }])
+  });
+  const sErr = validateStructure(nextStructure, structure.workspaceId);
+  if (sErr.length) return { ok: false, errors: sErr };
+  const count = (list) => list.reduce((a, s) => ({ chapitres: a.chapitres + s.chapitres.length, fiches: a.fiches + s.chapitres.reduce((n, c) => n + (c.fiches || []).length, 0), questions: a.questions + s.chapitres.reduce((n, c) => n + (c.quiz || []).length, 0) }), { chapitres: 0, fiches: 0, questions: 0 });
+  return { ok: true, added, replaced, skipped, counts: count([...added, ...replaced]), nextStructure };
+}
+
+return { PACK_KIND, LIMITS, safeRelativePath, validatePack, planImport };
+})();
+
+// ---- src/ui/views/import.js
+const __m32 = (() => {
+const { esc } = __m0;
+const { ic, ICON_NAMES } = __m7;
+const { LIMITS, planImport } = __m31;
+const { contentFromStructure } = __m17;
+const { applyImport, readStructure } = __m19;
+const { app } = __m6;
+const { resetSearchIndex } = __m11;
+const { $, $$, toast } = __m9;
+// Import d'un fichier de cours dans l'espace réel, avec aperçu obligatoire.
+
+
+
+
+
+
+
+
+
+
+const head = '<header class="page-head"><div><div class="eyebrow">Mon espace académique</div><h1 class="h-large">Importer mes cours</h1><p class="lead">Choisis un fichier de cours (.json) préparé avec Claude. Tu verras un aperçu avant que quoi que ce soit soit ajouté à ton espace.</p></div></header>';
+
+function importView() {
+  if (!app.real) {
+    return { html: head + '<div class="card empty"><div class="icon-tile">' + ic("folder") + '</div><h2 class="h-card">Ton espace réel n\'est pas ouvert</h2><p>L\'import ajoute des cours à ton espace académique enregistré dans Google Drive, jamais à la démonstration.</p><a class="btn" href="#parametres">Ouvrir mon espace dans les Réglages</a></div>' };
+  }
+  const html = head +
+    '<div class="card"><div class="form-row" style="border:0;padding-top:0"><div class="fl"><b>Fichier de cours</b><span>Format décrit dans la documentation (COURSE_PACK). Taille maximale : 20 Mo.</span></div><label class="btn" for="pack-file">' + ic("folder", 16) + 'Choisir un fichier…</label><input id="pack-file" type="file" accept="application/json,.json" hidden></div>' +
+    '<ul class="bullets small" style="margin-top:6px"><li>' + ic("check", 16) + "<span>Une matière déjà présente n'est jamais remplacée sans ton accord.</span></li><li>" + ic("check", 16) + "<span>Avant chaque import, une copie de ta structure actuelle est enregistrée dans <code>sauvegardes/</code>, et le fichier importé est archivé dans <code>imports/</code>.</span></li><li>" + ic("check", 16) + "<span>Ta progression suit les fiches grâce à leur identifiant, même si un cours est réimporté.</span></li></ul></div>" +
+    '<div id="imp-preview" class="section" aria-live="polite"></div>';
+  return { html, bind: bindImport };
+}
+
+function bindImport() {
+  let packText = null, pack = null, fileName = null, structure = null, replace = new Set();
+  const preview = $("#imp-preview");
+  const fail = (title, items) => {
+    preview.innerHTML = '<div class="card" role="alert"><h2 class="h-card" style="color:var(--bad)">' + esc(title) + '</h2><ul style="margin:10px 0 0;padding-left:1.2em">' + items.map((x) => "<li>" + esc(x) + "</li>").join("") + "</ul><p class=\"small muted\" style=\"margin-top:12px\">Rien n'a été modifié dans ton espace.</p></div>";
+  };
+
+  async function show() {
+    let plan;
+    try {
+      structure = await readStructure(app.real.root, app.real.manifest.workspace.id);
+      plan = planImport(structure.data, pack, { replace: [...replace], now: new Date(), sourceName: fileName, iconNames: ICON_NAMES });
+    } catch (e) { fail("Lecture de ton espace impossible", [e.message]); return; }
+    if (!plan.ok) { fail("Ce fichier ne peut pas être importé", plan.errors); return; }
+    const rows = pack.subjects.map((s) => {
+      const exists = plan.skipped.includes(s) || plan.replaced.includes(s);
+      const nf = s.chapitres.reduce((n, c) => n + (c.fiches || []).length, 0), nq = s.chapitres.reduce((n, c) => n + (c.quiz || []).length, 0);
+      const status = !exists ? '<span class="pill pill-good">Nouvelle</span>'
+        : '<label style="display:inline-flex;gap:6px;align-items:center"><input type="checkbox" data-replace="' + esc(s.id) + '"' + (replace.has(s.id.toLowerCase()) ? " checked" : "") + '> Remplacer la version actuelle</label>' + (replace.has(s.id.toLowerCase()) ? ' <span class="pill pill-warn">Sera remplacée</span>' : ' <span class="pill pill-neutral">Déjà présente : ignorée</span>');
+      return "<tr><td><b>" + esc(s.nom) + '</b><div class="small muted">' + esc(s.id) + "</div></td><td class=\"tnum\">" + s.chapitres.length + '</td><td class="tnum">' + nf + '</td><td class="tnum">' + nq + "</td><td>" + (s.examen && s.examen.date ? esc(new Date(s.examen.date).toLocaleDateString("fr-BE")) : "—") + "</td><td>" + status + "</td></tr>";
+    }).join("");
+    const nothing = !plan.added.length && !plan.replaced.length;
+    preview.innerHTML = '<div class="card"><div class="section-head" style="margin-bottom:6px"><h2 class="h-sec">Aperçu : ' + esc(pack.title) + '</h2><span class="small muted">' + esc(fileName) + "</span></div>" +
+      '<p class="muted">' + plan.added.length + " matière(s) à ajouter · " + plan.replaced.length + " à remplacer · " + plan.skipped.length + " ignorée(s) · " + plan.counts.chapitres + " chapitres, " + plan.counts.fiches + " fiches, " + plan.counts.questions + " questions importés.</p>" +
+      '<div class="table-wrap prose" style="max-width:none;font-size:14px"><table><thead><tr><th>Matière</th><th>Chapitres</th><th>Fiches</th><th>Questions</th><th>Examen</th><th>Dans ton espace</th></tr></thead><tbody>' + rows + "</tbody></table></div>" +
+      (plan.replaced.length ? '<p class="small" style="color:var(--warn)">Remplacer écrase le contenu actuel de ces matières (une copie est gardée dans sauvegardes/). La progression est conservée pour les fiches qui gardent le même identifiant.</p>' : "") +
+      '<div class="confirm" style="margin-top:14px"><button class="btn" id="imp-go" type="button"' + (nothing ? " disabled" : "") + '>Importer</button><button class="btn btn-plain" id="imp-cancel" type="button">Annuler</button>' + (nothing ? '<span class="small muted">Rien de nouveau à importer.</span>' : "") + "</div></div>";
+    $$("[data-replace]", preview).forEach((cb) => (cb.onchange = () => { const k = cb.dataset.replace.toLowerCase(); cb.checked ? replace.add(k) : replace.delete(k); show(); }));
+    $("#imp-cancel").onclick = () => { preview.innerHTML = ""; $("#pack-file").value = ""; };
+    $("#imp-go").onclick = async () => {
+      $("#imp-go").disabled = true;
+      let res;
+      try { res = await applyImport(app.real.root, { plan, expectedHash: structure.hash, packText, sourceName: fileName, now: new Date() }); }
+      catch (e) { fail("L'import a échoué", [e.message]); return; }
+      if (!res.ok) { fail("L'import n'a pas été fait", [res.error]); return; }
+      $("#pack-file").value = ""; // permet de rechoisir le même fichier ensuite
+      app.content = contentFromStructure(plan.nextStructure, app.real.manifest);
+      resetSearchIndex();
+      app.refreshChrome();
+      toast(plan.added.length + plan.replaced.length + " matière(s) importée(s)");
+      preview.innerHTML = '<div class="card"><h2 class="h-sec" style="color:var(--good)">Import terminé</h2><p class="muted">Fichier archivé : <code>' + esc(res.archived) + "</code> · Sauvegarde de la structure précédente : <code>" + esc(res.backup) + '</code></p><div class="confirm" style="margin-top:12px">' +
+        [...plan.added, ...plan.replaced].map((s) => '<a class="btn btn-plain btn-sm" href="#m-' + esc(s.id) + '">' + esc(s.nom) + "</a>").join("") + "</div></div>";
+    };
+  }
+
+  $("#pack-file").onchange = async (e) => {
+    const f = e.target.files[0];
+    if (!f) return;
+    e.target.value = ""; // une nouvelle sélection du même fichier relancera l'aperçu
+    replace = new Set();
+    if (f.size > LIMITS.bytes) { fail("Fichier trop volumineux", ["Taille : " + Math.round(f.size / 1048576) + " Mo (maximum 20 Mo). Découpe-le en plusieurs fichiers."]); return; }
+    fileName = f.name;
+    packText = await f.text();
+    try { pack = JSON.parse(packText); } catch (err) { fail("Ce fichier n'est pas du JSON valide", [err.message]); return; }
+    show();
+  };
+}
+
+return { importView };
+})();
+
+// ---- src/ui/views/study.js
+const __m33 = (() => {
 const { addDays, cap, daysBetween, dayKey, examDate, fmt, fmtTime } = __m3;
 const { esc } = __m0;
 const { ic } = __m7;
@@ -3236,14 +3556,18 @@ return { revisionView, examsView, planningView };
 })();
 
 // ---- src/ui/views/subjects.js
-const __m32 = (() => {
+const __m34 = (() => {
 const { cap, daysBetween, examDate, fmtLong, fmtTime } = __m3;
 const { esc } = __m0;
 const { ic } = __m7;
 const { chapStats, MASTERED_THRESHOLD, subjectProgress } = __m13;
 const { app } = __m6;
+const { $$, toast } = __m9;
+const { fileAt } = __m2;
 const { banner, bar, ring, statusPill, tile } = __m10;
 // Liste des matières et page d'une matière.
+
+
 
 
 
@@ -3276,7 +3600,12 @@ function subjectView(m) {
     '<dl class="kv"><dt>Type</dt><dd>' + esc(e.type || "À préciser") + "</dd><dt>Durée</dt><dd>" + esc(e.duree || "À préciser") + "</dd><dt>Pondération</dt><dd>" + esc(e.poids || "À préciser") + "</dd><dt>Lieu</dt><dd>" + esc(e.lieu || "À préciser") + "</dd></dl>" +
     ((e.consignes || []).length ? '<div class="eyebrow" style="margin:20px 0 10px">Consignes</div><ul class="bullets">' + e.consignes.map((x) => "<li>" + ic("check", 16) + "<span>" + esc(x) + "</span></li>").join("") + "</ul>" : "") + "</div>";
 
-  const files = (m.fichiers || []).length ? '<div class="files">' + m.fichiers.map((f) => { const ext = (String(f.chemin).split(".").pop() || "").toLowerCase().replace(/[^a-z0-9]/g, ""); return '<a class="file" href="' + esc(f.chemin) + '" target="_blank" rel="noopener"><span class="ext ' + ext + '">' + ext + '</span><span><b style="font-weight:500">' + esc(f.nom) + '</b><br><span class="small muted">' + esc(f.chemin) + "</span></span></a>"; }).join("") + "</div>"
+  const files = (m.fichiers || []).length ? '<div class="files">' + m.fichiers.map((f, i) => {
+    const ext = (String(f.chemin).split(".").pop() || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+    const inner = '<span class="ext ' + ext + '">' + ext + '</span><span><b style="font-weight:500">' + esc(f.nom) + '</b><br><span class="small muted">' + esc(f.chemin) + "</span></span>";
+    // Documents de l'espace réel : lus dans le dossier Drive, jamais téléchargés depuis Internet.
+    return f.local ? '<button type="button" class="file" data-doc="' + i + '" style="border:0;background:none;text-align:left;width:100%;font:inherit;cursor:pointer">' + inner + "</button>" : '<a class="file" href="' + esc(f.chemin) + '" target="_blank" rel="noopener">' + inner + "</a>";
+  }).join("") + "</div>"
     : '<p class="small muted" style="margin:6px 0 0">Aucun document enregistré pour cette matière.</p>';
 
   const html = '<nav class="crumbs" aria-label="Fil d\'Ariane"><a href="#accueil">Tableau de bord</a>' + ic("chev", 12) + "<span>" + esc(m.nom) + "</span></nav>" +
@@ -3284,14 +3613,28 @@ function subjectView(m) {
     ring(p, 96, 10, m.couleur, '<div style="font-size:22px;font-weight:700">' + Math.round(p * 100) + "%</div>") + "</header>" +
     '<div class="split"><div style="min-width:0"><div class="section-head"><h2 class="h-sec">Chapitres</h2>' + (nQuiz ? '<a class="btn btn-ghost btn-sm" href="#blanc-' + m.id + '">' + ic("exam", 16) + "Examen blanc · " + nQuiz + " questions</a>" : "") + "</div>" + chapters + "</div>" +
     '<div class="grid" style="min-width:0">' + examCard + '<div class="card"><h2 class="h-card">Documents du cours</h2>' + files + "</div></div></div>";
-  return { html };
+  return { html, bind: () => bindDocuments(m) };
+}
+
+function bindDocuments(m) {
+  $$("[data-doc]").forEach((b) => (b.onclick = async () => {
+    const f = m.fichiers[+b.dataset.doc];
+    if (!app.real) return;
+    const file = await fileAt(app.real.root, f.chemin);
+    if (!file) { toast("Fichier introuvable dans ton dossier : " + f.chemin); return; }
+    const url = URL.createObjectURL(file);
+    const a = document.createElement("a");
+    a.href = url; a.target = "_blank"; a.rel = "noopener";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 60000);
+  }));
 }
 
 return { subjectsView, subjectView };
 })();
 
 // ---- src/main.js
-const __m33 = (() => {
+const __m35 = (() => {
 const { esc } = __m0;
 const { parseRoute } = __m1;
 const { permission } = __m2;
@@ -3304,9 +3647,11 @@ const { activateDemo, activateReal, activeWorkspacePref, storedRoot, switchToDem
 const { chapterView, mockExamView } = __m26;
 const { homeView } = __m29;
 const { settingsView } = __m30;
-const { examsView, planningView, revisionView } = __m31;
-const { subjectsView, subjectView } = __m32;
+const { importView } = __m32;
+const { examsView, planningView, revisionView } = __m33;
+const { subjectsView, subjectView } = __m34;
 // Point d'entrée : charge l'espace de travail, l'état, puis gère la navigation.
+
 
 
 
@@ -3356,6 +3701,7 @@ function viewFor(r) {
     case "exams": return examsView();
     case "planning": return planningView();
     case "settings": return settingsView();
+    case "import": return importView();
     default: return notFoundView(r.id);
   }
 }

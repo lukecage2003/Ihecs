@@ -5,6 +5,8 @@ import { esc } from "../../core/html.js";
 import { ic } from "../../core/icons.js";
 import { chapStats, MASTERED_THRESHOLD, subjectProgress } from "../../domain/progress.js";
 import { app } from "../app.js";
+import { $$, toast } from "../dom.js";
+import { fileAt } from "../../storage/folder.js";
 import { banner, bar, ring, statusPill, tile } from "../widgets.js";
 
 export function subjectsView() {
@@ -31,7 +33,12 @@ export function subjectView(m) {
     '<dl class="kv"><dt>Type</dt><dd>' + esc(e.type || "À préciser") + "</dd><dt>Durée</dt><dd>" + esc(e.duree || "À préciser") + "</dd><dt>Pondération</dt><dd>" + esc(e.poids || "À préciser") + "</dd><dt>Lieu</dt><dd>" + esc(e.lieu || "À préciser") + "</dd></dl>" +
     ((e.consignes || []).length ? '<div class="eyebrow" style="margin:20px 0 10px">Consignes</div><ul class="bullets">' + e.consignes.map((x) => "<li>" + ic("check", 16) + "<span>" + esc(x) + "</span></li>").join("") + "</ul>" : "") + "</div>";
 
-  const files = (m.fichiers || []).length ? '<div class="files">' + m.fichiers.map((f) => { const ext = (String(f.chemin).split(".").pop() || "").toLowerCase().replace(/[^a-z0-9]/g, ""); return '<a class="file" href="' + esc(f.chemin) + '" target="_blank" rel="noopener"><span class="ext ' + ext + '">' + ext + '</span><span><b style="font-weight:500">' + esc(f.nom) + '</b><br><span class="small muted">' + esc(f.chemin) + "</span></span></a>"; }).join("") + "</div>"
+  const files = (m.fichiers || []).length ? '<div class="files">' + m.fichiers.map((f, i) => {
+    const ext = (String(f.chemin).split(".").pop() || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+    const inner = '<span class="ext ' + ext + '">' + ext + '</span><span><b style="font-weight:500">' + esc(f.nom) + '</b><br><span class="small muted">' + esc(f.chemin) + "</span></span>";
+    // Documents de l'espace réel : lus dans le dossier Drive, jamais téléchargés depuis Internet.
+    return f.local ? '<button type="button" class="file" data-doc="' + i + '" style="border:0;background:none;text-align:left;width:100%;font:inherit;cursor:pointer">' + inner + "</button>" : '<a class="file" href="' + esc(f.chemin) + '" target="_blank" rel="noopener">' + inner + "</a>";
+  }).join("") + "</div>"
     : '<p class="small muted" style="margin:6px 0 0">Aucun document enregistré pour cette matière.</p>';
 
   const html = '<nav class="crumbs" aria-label="Fil d\'Ariane"><a href="#accueil">Tableau de bord</a>' + ic("chev", 12) + "<span>" + esc(m.nom) + "</span></nav>" +
@@ -39,5 +46,19 @@ export function subjectView(m) {
     ring(p, 96, 10, m.couleur, '<div style="font-size:22px;font-weight:700">' + Math.round(p * 100) + "%</div>") + "</header>" +
     '<div class="split"><div style="min-width:0"><div class="section-head"><h2 class="h-sec">Chapitres</h2>' + (nQuiz ? '<a class="btn btn-ghost btn-sm" href="#blanc-' + m.id + '">' + ic("exam", 16) + "Examen blanc · " + nQuiz + " questions</a>" : "") + "</div>" + chapters + "</div>" +
     '<div class="grid" style="min-width:0">' + examCard + '<div class="card"><h2 class="h-card">Documents du cours</h2>' + files + "</div></div></div>";
-  return { html };
+  return { html, bind: () => bindDocuments(m) };
+}
+
+function bindDocuments(m) {
+  $$("[data-doc]").forEach((b) => (b.onclick = async () => {
+    const f = m.fichiers[+b.dataset.doc];
+    if (!app.real) return;
+    const file = await fileAt(app.real.root, f.chemin);
+    if (!file) { toast("Fichier introuvable dans ton dossier : " + f.chemin); return; }
+    const url = URL.createObjectURL(file);
+    const a = document.createElement("a");
+    a.href = url; a.target = "_blank"; a.rel = "noopener";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 60000);
+  }));
 }

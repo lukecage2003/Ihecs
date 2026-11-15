@@ -1,9 +1,9 @@
 // Analyse du hash en route. Pur.
-// Routes : #accueil #matieres #revision #examens #planning #parametres
+// Routes : #accueil #matieres #revision #examens #planning #parametres #importer
 //          #m-<matiere>  #c-<matiere>-<chapitre>-<onglet>  #blanc-<matiere>
 
 export const CHAPTER_TABS = ["resume", "essentiel", "fiches", "quiz"];
-const SIMPLE = { accueil: "home", revision: "revision", examens: "exams", planning: "planning", parametres: "settings", matieres: "subjects" };
+const SIMPLE = { accueil: "home", revision: "revision", examens: "exams", planning: "planning", parametres: "settings", matieres: "subjects", importer: "import" };
 
 export function parseRoute(hash, content) {
   const M = (content && content.matieres) || [];

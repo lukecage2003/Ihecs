@@ -12,6 +12,7 @@ import { activateDemo, activateReal, activeWorkspacePref, storedRoot, switchToDe
 import { chapterView, mockExamView } from "./ui/views/chapter.js";
 import { homeView } from "./ui/views/home.js";
 import { settingsView } from "./ui/views/settings.js";
+import { importView } from "./ui/views/import.js";
 import { examsView, planningView, revisionView } from "./ui/views/study.js";
 import { subjectsView, subjectView } from "./ui/views/subjects.js";
 
@@ -48,6 +49,7 @@ function viewFor(r) {
     case "exams": return examsView();
     case "planning": return planningView();
     case "settings": return settingsView();
+    case "import": return importView();
     default: return notFoundView(r.id);
   }
 }

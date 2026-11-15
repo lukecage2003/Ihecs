@@ -36,6 +36,7 @@ Détails dans [`docs/TESTING.md`](docs/TESTING.md).
 | [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | Structure du code, règles, sécurité |
 | [`docs/DATA_MODEL.md`](docs/DATA_MODEL.md) | Format v1 actuel, conception v2 et règles de migration |
 | [`docs/GOOGLE_DRIVE_INTEGRATION.md`](docs/GOOGLE_DRIVE_INTEGRATION.md) | Options Google Drive sans Google Cloud Console |
+| [`docs/COURSE_PACK.md`](docs/COURSE_PACK.md) | Format des fichiers de cours à importer |
 | [`docs/TESTING.md`](docs/TESTING.md) | Tests et CI |
 | [`docs/audit/`](docs/audit/) | Audit initial du dépôt |
 | [`docs/PRODUCT/`](docs/PRODUCT/) | Vision produit et matrice de couverture |

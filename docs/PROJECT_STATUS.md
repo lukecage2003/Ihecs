@@ -13,7 +13,7 @@
 | Identifiants de fiche stables dans l'espace réel (correction C1) | Fait, testé | `src/domain/srs.js` |
 | Écran d'accès quand Chrome redemande l'autorisation | Fait, testé (simulé) | `src/main.js` |
 | Sauvegardes : refus de mélanger démo et espace réel | Fait, testé | `src/ui/views/settings.js` |
-| Ajout de matières, cours, examens | **Pas encore** (prochaine étape) | — |
+| Ajout de matières, cours, examens | **Fait par import de fichier de cours** (0.5.0) | `src/ui/views/import.js`, `docs/COURSE_PACK.md` |
 | Fusion de la progression de plusieurs ordinateurs | **Pas encore** | — |
 
 ## Prototype Drive et suppression du serveur — livré

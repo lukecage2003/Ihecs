@@ -53,7 +53,7 @@ export function homeView() {
     : '<p class="muted">Rien de prévu aujourd\'hui. Profite pour revoir tes fiches.</p>';
 
   const emptyReal = app.workspace.kind === "real" && !app.M.length
-    ? '<div class="card empty" style="margin-bottom:16px"><div class="icon-tile" style="background:var(--good-soft);color:var(--good)">' + ic("check") + '</div><h2 class="h-sec">Ton espace est prêt</h2><p>Il est enregistré dans ton dossier Google Drive « ' + esc(app.workspace.folderName || "") + " ». Il est vide pour l'instant, sans aucun cours d'exemple. L'ajout de tes matières, cours et examens est la prochaine étape.</p></div>"
+    ? '<div class="card empty" style="margin-bottom:16px"><div class="icon-tile" style="background:var(--good-soft);color:var(--good)">' + ic("check") + '</div><h2 class="h-sec">Ton espace est prêt</h2><p>Il est enregistré dans ton dossier Google Drive « ' + esc(app.workspace.folderName || "") + " ». Il est vide pour l'instant, sans aucun cours d'exemple. Ajoute tes cours avec un fichier de cours préparé avec Claude.</p><a class=\"btn\" href=\"#importer\">Importer mes cours</a></div>"
     : "";
   const html = banner() +
     '<header class="page-head"><div><div class="eyebrow">' + cap(fmtLong(app.now())) + '</div><h1 class="h-large">' + hello + "</h1></div></header>" + emptyReal +

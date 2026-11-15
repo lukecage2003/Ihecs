@@ -1,5 +1,15 @@
 # Journal des modifications
 
+## 0.5.0 — Import des cours (branche `import-cours`)
+
+### Ajouté
+- **Importer mes cours** (`#importer`) : choix d'un fichier de cours, aperçu (nouvelles, à remplacer, ignorées, erreurs), puis import.
+- Sécurités : matière existante ignorée sauf remplacement explicite ; fichier archivé dans `imports/` ; structure précédente copiée dans `sauvegardes/` ; écriture seulement si `structure.json` n'a pas changé depuis l'aperçu.
+- Format documenté : `docs/COURSE_PACK.md` ; exemple fictif : `fixtures/packs/exemple-cours.json`.
+- Documents d'une matière ouverts depuis le dossier Drive (fichier manquant signalé).
+- Bouton « Importer mes cours » sur l'accueil d'un espace vide et dans les Réglages.
+- Tests : 8 unitaires (validation, plan d'import) et 7 parcours (× 2 appareils).
+
 ## 0.4.1 — Site en ligne (GitHub Pages)
 
 - Décision D2 révisée : dépôt public, site publié sur https://lukecage2003.github.io/Ihecs/.
