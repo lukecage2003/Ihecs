@@ -2,7 +2,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import DEMO from "../../fixtures/demo/cours.js";
-import { WORKSPACES, currentWorkspace, realWorkspaceAvailable } from "../../src/content/workspaces.js";
+import { WORKSPACES, currentWorkspace, realWorkspace, realWorkspaceAvailable } from "../../src/content/workspaces.js";
 import { ICON_NAMES } from "../../src/core/icons.js";
 import { safeColor } from "../../src/core/html.js";
 
@@ -12,8 +12,11 @@ test("fixtures : marquées comme exemple et chargées uniquement dans l'espace d
   assert.equal(WORKSPACES.demo.content, DEMO);
   const others = Object.values(WORKSPACES).filter((w) => w.kind !== "demo");
   assert.ok(others.every((w) => w.content !== DEMO), "aucun autre espace ne référence les fixtures");
-  assert.equal(realWorkspaceAvailable, false);
+  assert.equal(realWorkspaceAvailable, true);
   assert.equal(currentWorkspace().kind, "demo");
+  const real = realWorkspace({ workspace: { id: "0d3f2c1a-aaaa-bbbb-cccc-000000000001", kind: "real", name: "Mon espace" } }, "IHECS STUDY OS");
+  assert.equal(real.kind, "real");
+  assert.equal("content" in real, false, "l'espace réel ne transporte aucun contenu, encore moins les fixtures");
 });
 
 test("fixtures : identifiants uniques et compatibles avec le routeur", () => {

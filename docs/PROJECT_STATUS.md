@@ -1,6 +1,20 @@
 # État du projet
 
-**Phase en cours :** prototype Google Drive (option A), **en attente des mesures réelles** faites par l'utilisateur. La phase 1 est terminée et validée (CI réussie). La conception v2 est validée mais **pas encore appliquée**.
+**Étape en cours :** espace académique réel relié au dossier Google Drive (format v2) — **livré, en attente de ton essai**. Prochaine étape proposée : structure académique et ajout des matières.
+
+## Espace réel relié à Drive — livré (0.4.0, branche `espace-reel-drive`)
+
+| Élément | Statut | Emplacement |
+|---|---|---|
+| Choisir le dossier Drive, créer ou rouvrir l'espace | Fait, testé | `src/ui/views/settings.js`, `src/storage/real-workspace.js` |
+| Espace réel vide, séparé de la démo (D3) | Fait, testé | `src/ui/workspace.js` |
+| Progression v2 enregistrée dans le dossier, état d'enregistrement visible | Fait, testé | `appareils/<appareil>/etat.json` |
+| Journal des révisions en ajout seul (correction C2) | Fait, testé | `appareils/<appareil>/revisions-AAAA-MM.jsonl` |
+| Identifiants de fiche stables dans l'espace réel (correction C1) | Fait, testé | `src/domain/srs.js` |
+| Écran d'accès quand Chrome redemande l'autorisation | Fait, testé (simulé) | `src/main.js` |
+| Sauvegardes : refus de mélanger démo et espace réel | Fait, testé | `src/ui/views/settings.js` |
+| Ajout de matières, cours, examens | **Pas encore** (prochaine étape) | — |
+| Fusion de la progression de plusieurs ordinateurs | **Pas encore** | — |
 
 ## Prototype Drive et suppression du serveur — livré
 
@@ -38,7 +52,7 @@
 | Laboratoire en test automatique | Chromium headless plante en relisant une poignée de dossier depuis IndexedDB : cette mémorisation est simulée dans les tests et mesurée pour de vrai seulement chez l'utilisateur |
 | Navigateurs testés | Chromium seulement |
 | Défauts encore présents | C1 et C2 (identifiants positionnels, pas d'historique) tant que la v2 n'est pas appliquée ; M1 à M4 (mesure de progression, quiz, minuteur, planning) prévus aux phases suivantes |
-| Stockage | Toujours `localStorage` dans ce navigateur (C4) |
+| Stockage | Démo : `localStorage`. Espace réel : dossier Drive (C4 corrigé pour l'espace réel) |
 | Aperçu claude.ai | Copie de l'ancienne version, conservée comme référence visuelle (D6), pas mise à jour |
 
 ## Décisions en vigueur

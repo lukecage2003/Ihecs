@@ -31,6 +31,7 @@ export function examsView() {
   const t0 = app.today();
   const list = app.M.filter(examDate).sort((a, b) => examDate(a) - examDate(b));
   const html = '<header class="page-head"><div><div class="eyebrow">' + esc(app.content.session ? app.content.session.nom : "") + '</div><h1 class="h-large">Examens</h1><p class="lead">Dates, formats, pondérations et consignes de chaque examen.</p></div></header>' + banner() +
+    (list.length ? "" : '<div class="card empty"><p>Aucun examen enregistré pour l\'instant.</p></div>') +
     '<div class="timeline">' + list.map((m) => {
       const ex = examDate(m), n = daysBetween(t0, ex), p = subjectProgress(app.state, m), e = m.examen;
       const chip = n < 0 ? '<span class="pill pill-neutral">Passé</span>' : n === 0 ? '<span class="pill pill-bad">Aujourd\'hui</span>' : '<span class="pill ' + (n <= 7 ? "pill-bad" : n <= 21 ? "pill-warn" : "pill-neutral") + '">Dans ' + n + " jour" + (n > 1 ? "s" : "") + "</span>";

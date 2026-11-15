@@ -12,6 +12,9 @@ let lastFocus = null;
 
 export const isSearchOpen = () => !$("#spotlight").hidden;
 
+/** À appeler quand l'espace change : l'index sera reconstruit avec le nouveau contenu. */
+export function resetSearchIndex() { index = null; }
+
 export function openSearch() {
   index = index || buildIndex(app.content);
   lastFocus = document.activeElement;

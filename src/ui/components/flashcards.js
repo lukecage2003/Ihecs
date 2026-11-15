@@ -48,7 +48,10 @@ export function mountFlashcards(slot, cards, opts = {}) {
   function rate(r) {
     if (!flipped) return;
     const x = queue[i];
-    app.state.cartes[x.k] = rateCard(cardState(app.state.cartes, x.k), r, app.today());
+    const before = cardState(app.state.cartes, x.k);
+    const after = rateCard(before, r, app.today());
+    app.state.cartes[x.k] = after;
+    if (app.recordReview) app.recordReview({ cardId: x.k, rating: r, before, after });
     app.log(1);
     counts[r]++; seen++;
     if (r === 1) queue.push(x);

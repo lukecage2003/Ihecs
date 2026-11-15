@@ -19,7 +19,15 @@ export const app = {
   now: () => new Date(),
   today() { return today(this.now()); },
   get M() { return this.content.matieres || []; },
-  save() { return saveState(this.storage, this.state); },
+  /** Enregistre l'état selon l'espace actif (localStorage pour la démo, dossier Drive pour l'espace réel). */
+  persist: null,
+  /** Espace réel ouvert : { root, manifest, deviceId, folderName }, sinon null. */
+  real: null,
+  /** Dossier mémorisé qui attend l'accord de Chrome : { root }, sinon null. */
+  gate: null,
+  /** Enregistre une révision dans le journal (espace réel uniquement). */
+  recordReview: null,
+  save() { return this.persist ? this.persist(this.state) : saveState(this.storage, this.state); },
   log(n = 1) { this.state.journal = addActivity(this.state.journal || {}, this.now(), n); this.save(); }
 };
 

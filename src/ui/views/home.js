@@ -52,8 +52,11 @@ export function homeView() {
   const tasksHtml = todayPlan.length ? '<div class="task-list">' + todayPlan.slice(0, 6).map(taskRow).join("") + "</div>" + (todayPlan.length > 6 ? '<a href="#planning" class="small">+ ' + (todayPlan.length - 6) + " autres tâches</a>" : "")
     : '<p class="muted">Rien de prévu aujourd\'hui. Profite pour revoir tes fiches.</p>';
 
+  const emptyReal = app.workspace.kind === "real" && !app.M.length
+    ? '<div class="card empty" style="margin-bottom:16px"><div class="icon-tile" style="background:var(--good-soft);color:var(--good)">' + ic("check") + '</div><h2 class="h-sec">Ton espace est prêt</h2><p>Il est enregistré dans ton dossier Google Drive « ' + esc(app.workspace.folderName || "") + " ». Il est vide pour l'instant, sans aucun cours d'exemple. L'ajout de tes matières, cours et examens est la prochaine étape.</p></div>"
+    : "";
   const html = banner() +
-    '<header class="page-head"><div><div class="eyebrow">' + cap(fmtLong(app.now())) + '</div><h1 class="h-large">' + hello + "</h1></div></header>" +
+    '<header class="page-head"><div><div class="eyebrow">' + cap(fmtLong(app.now())) + '</div><h1 class="h-large">' + hello + "</h1></div></header>" + emptyReal +
     '<section class="hero">' + hero +
     '<div class="card overall"><div class="h-card">Progression globale</div><div class="overall-top">' + ring(o.p, 132, 14, "var(--accent)", '<div style="font-size:30px;font-weight:700;letter-spacing:-.03em">' + Math.round(o.p * 100) + '%</div><div class="small muted">global</div>') +
     '<div class="legend"><div><i style="background:var(--accent)"></i>' + o.lu + "/" + o.chapters + ' chapitres lus</div><div><i style="background:var(--good)"></i>' + o.mast + "/" + o.cards + ' fiches maîtrisées</div><div><i style="background:var(--warn)"></i>' + o.done + "/" + o.chapters + " chapitres maîtrisés</div></div></div>" +

@@ -5,9 +5,8 @@
 // véritable espace académique (kind "real") arrivera avec le modèle de données
 // v2 et le stockage ; il ne lira jamais les fixtures.
 //
-// Pour l'instant, seul l'espace de démonstration existe. Il réutilise la clé
-// de stockage historique pour ne perdre aucune progression existante (aucune
-// migration en phase 1).
+// L'espace de démonstration réutilise la clé de stockage historique (aucune
+// migration). L'espace réel vit dans le dossier Drive choisi (src/storage/).
 
 import DEMO_COURSES from "../../fixtures/demo/cours.js";
 import { STORAGE_KEY } from "../state/store.js";
@@ -23,7 +22,18 @@ export const WORKSPACES = Object.freeze({
   })
 });
 
-export const realWorkspaceAvailable = false;
+export const realWorkspaceAvailable = true;
+
+/** Descripteur de l'espace réel (contenu lu dans le dossier Drive, jamais les fixtures). */
+export function realWorkspace(manifest, folderName) {
+  return Object.freeze({
+    id: manifest.workspace.id,
+    kind: "real",
+    label: "Mon espace",
+    description: "Ton espace académique, enregistré dans ton dossier Google Drive « " + folderName + " ».",
+    folderName
+  });
+}
 
 export function currentWorkspace() {
   return WORKSPACES.demo;

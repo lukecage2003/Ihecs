@@ -9,7 +9,7 @@
 <meta name="description" content="Tableau de bord de révision : résumés, fiches, quiz, examens et planning.">
 <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-c8qv7DDUUnPwzQH/n49sb1LS57h5/J+2wdTMBy2HUaE='; style-src 'unsafe-inline'; font-src data:; img-src data: blob:; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-krPCmLPcSW/Af/iBSNgBTj3x1FXy3fjWYjEAx1oo77c='; style-src 'unsafe-inline'; font-src data:; img-src data: blob:; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="referrer" content="no-referrer">
 <style>
 /* Révisions — interface inspirée d'Apple
@@ -664,8 +664,630 @@ const safeColor = (c, fallback = "#8e8e93") => (typeof c === "string" && HEX.tes
 return { esc, safeColor };
 })();
 
-// ---- fixtures/demo/cours.js
+// ---- src/domain/router.js
 const __m1 = (() => {
+
+// Analyse du hash en route. Pur.
+// Routes : #accueil #matieres #revision #examens #planning #parametres
+//          #m-<matiere>  #c-<matiere>-<chapitre>-<onglet>  #blanc-<matiere>
+
+const CHAPTER_TABS = ["resume", "essentiel", "fiches", "quiz"];
+const SIMPLE = { accueil: "home", revision: "revision", examens: "exams", planning: "planning", parametres: "settings", matieres: "subjects" };
+
+function parseRoute(hash, content) {
+  const M = (content && content.matieres) || [];
+  const h = String(hash || "").replace(/^#/, "") || "accueil";
+  let mm;
+  if ((mm = h.match(/^m-([a-z0-9]+)$/i))) return { name: "subject", m: M.find((x) => x.id === mm[1]), nav: "#m-" + mm[1], tab: "#matieres" };
+  if ((mm = h.match(/^c-([a-z0-9]+)-([a-z0-9]+)-(resume|essentiel|fiches|quiz)$/i))) {
+    const m = M.find((x) => x.id === mm[1]);
+    return { name: "chapter", m, c: m && (m.chapitres || []).find((x) => x.id === mm[2]), t: mm[3], nav: "#m-" + mm[1], tab: "#matieres" };
+  }
+  if ((mm = h.match(/^blanc-([a-z0-9]+)$/i))) return { name: "blanc", m: M.find((x) => x.id === mm[1]), nav: "#m-" + mm[1], tab: "#matieres" };
+  if (SIMPLE[h]) return { name: SIMPLE[h], nav: "#" + h, tab: "#" + h };
+  return { name: "unknown", id: h };
+}
+
+return { CHAPTER_TABS, parseRoute };
+})();
+
+// ---- src/storage/folder.js
+const __m2 = (() => {
+
+// Accès aux fichiers du dossier choisi (API File System Access).
+// Règles : jamais de suppression ; écriture atomique (createWritable écrit dans
+// un fichier temporaire puis remplace l'original à la fermeture).
+
+async function sha256(text) {
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+  return Array.from(new Uint8Array(buf), (b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+async function subdir(root, path, create = false) {
+  let d = root;
+  for (const p of path) d = await d.getDirectoryHandle(p, { create });
+  return d;
+}
+
+/** Lit un fichier texte. Renvoie { exists:false } s'il n'existe pas. */
+async function readText(dir, name) {
+  try {
+    const f = await (await dir.getFileHandle(name)).getFile();
+    const text = await f.text();
+    return { exists: true, text, size: f.size, lastModified: f.lastModified, hash: await sha256(text) };
+  } catch (e) {
+    if (e && (e.name === "NotFoundError" || e.name === "TypeMismatchError")) return { exists: false };
+    throw e;
+  }
+}
+
+/** Lit et analyse un fichier JSON. { exists, data } ou { exists, error }. */
+async function readJson(dir, name) {
+  const r = await readText(dir, name);
+  if (!r.exists) return r;
+  try { return Object.assign(r, { data: JSON.parse(r.text) }); }
+  catch (e) { return Object.assign(r, { error: "Fichier JSON illisible : " + name }); }
+}
+
+async function writeText(dir, name, text) {
+  const w = await (await dir.getFileHandle(name, { create: true })).createWritable();
+  await w.write(text);
+  await w.close();
+  return sha256(text);
+}
+
+const writeJson = (dir, name, data) => writeText(dir, name, JSON.stringify(data, null, 2) + "\n");
+
+/** N'écrit que si le fichier n'existe pas encore. Renvoie false sinon (rien n'est écrasé). */
+async function createJsonIfAbsent(dir, name, data) {
+  const cur = await readText(dir, name);
+  if (cur.exists) return false;
+  await writeJson(dir, name, data);
+  return true;
+}
+
+/** Ajoute une ligne à la fin d'un fichier, sans réécrire le contenu existant. */
+async function appendLine(dir, name, line) {
+  const fh = await dir.getFileHandle(name, { create: true });
+  const size = (await fh.getFile()).size;
+  const w = await fh.createWritable({ keepExistingData: true });
+  await w.write({ type: "write", position: size, data: line.replace(/\n/g, " ") + "\n" });
+  await w.close();
+}
+
+async function listNames(dir) {
+  const out = [];
+  for await (const [name] of dir.entries()) out.push(name);
+  return out.sort();
+}
+
+async function permission(handle, request = false) {
+  try {
+    const opts = { mode: "readwrite" };
+    return request ? await handle.requestPermission(opts) : await handle.queryPermission(opts);
+  } catch (e) { return "error"; }
+}
+
+return { sha256, subdir, readText, readJson, writeText, writeJson, createJsonIfAbsent, appendLine, listNames, permission };
+})();
+
+// ---- src/core/dates.js
+const __m3 = (() => {
+
+// Utilitaires de dates. Toutes les fonctions sont pures : la date « du jour »
+// est toujours passée en paramètre par l'appelant pour rester testable.
+
+const pad = (n) => String(n).padStart(2, "0");
+
+/** Clé de jour locale AAAA-MM-JJ. */
+const dayKey = (d) => d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
+
+const startOfDay = (d) => { const x = new Date(d); x.setHours(0, 0, 0, 0); return x; };
+
+const addDays = (d, n) => { const x = new Date(d); x.setDate(x.getDate() + n); return x; };
+
+const parseDay = (k) => { const [y, m, d] = k.split("-").map(Number); return new Date(y, m - 1, d); };
+
+/** Nombre de jours calendaires de a à b (négatif si b est avant a). */
+const daysBetween = (a, b) => Math.round((startOfDay(b) - startOfDay(a)) / 86400000);
+
+const today = (now = new Date()) => startOfDay(now);
+
+const fmt = (d, o) => new Intl.DateTimeFormat("fr-BE", o).format(d);
+const fmtLong = (d) => fmt(d, { weekday: "long", day: "numeric", month: "long" });
+const fmtTime = (d) => fmt(d, { hour: "2-digit", minute: "2-digit" });
+const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+
+/** Date d'examen d'une matière, ou null. */
+const examDate = (m) => (m && m.examen && m.examen.date ? new Date(m.examen.date) : null);
+
+return { pad, dayKey, startOfDay, addDays, parseDay, daysBetween, today, fmt, fmtLong, fmtTime, cap, examDate };
+})();
+
+// ---- src/domain/activity.js
+const __m4 = (() => {
+const { addDays, dayKey } = __m3;
+// Journal d'activité quotidien et série de jours (comportement actuel).
+// Défaut connu M3 : les unités sont hétérogènes (fiche, question, tâche, minuteur).
+
+
+
+/** Renvoie un nouveau journal avec n unités ajoutées au jour `now`. */
+const addActivity = (journal, now, n = 1) => {
+  const k = dayKey(now);
+  return Object.assign({}, journal, { [k]: (journal[k] || 0) + n });
+};
+
+/** Nombre de jours consécutifs avec activité, en finissant aujourd'hui ou hier. */
+function streak(journal, today) {
+  let d = today, n = 0;
+  if (!journal[dayKey(d)]) d = addDays(d, -1);
+  while (journal[dayKey(d)]) { n++; d = addDays(d, -1); }
+  return n;
+}
+
+/** Activité des 7 derniers jours (le plus ancien d'abord). */
+function lastWeek(journal, today) {
+  const out = [];
+  for (let i = 6; i >= 0; i--) { const d = addDays(today, -i); out.push({ d, v: journal[dayKey(d)] || 0, today: i === 0 }); }
+  return out;
+}
+
+return { addActivity, streak, lastWeek };
+})();
+
+// ---- src/state/store.js
+const __m5 = (() => {
+
+// État de progression (format v1, inchangé).
+// Clé localStorage : "revisions-ihecs-v1". Le format n'est PAS modifié par la
+// phase 1 : aucune migration n'est appliquée aux données existantes.
+// La conception du format v2 et sa migration sont dans src/data/ (non branchées).
+
+const STORAGE_KEY = "revisions-ihecs-v1";
+
+const blankState = () => ({ lu: {}, quiz: {}, cartes: {}, plan: {}, journal: {}, prenom: "", theme: "auto", focus: { min: 0 } });
+
+/** Lit l'état depuis un objet de type Storage. Ne lève jamais d'exception. */
+function loadState(storage) {
+  try {
+    const raw = storage && storage.getItem(STORAGE_KEY);
+    if (raw) return Object.assign(blankState(), JSON.parse(raw));
+  } catch (e) { /* stockage indisponible ou JSON corrompu : on repart d'un état vide en mémoire, sans écraser le stockage */ }
+  return blankState();
+}
+
+/** Écrit l'état. Renvoie false si l'écriture a échoué (stockage bloqué ou plein). */
+function saveState(storage, state) {
+  try { storage.setItem(STORAGE_KEY, JSON.stringify(state)); return true; } catch (e) { return false; }
+}
+
+const isObj = (v) => v !== null && typeof v === "object" && !Array.isArray(v);
+
+/**
+ * Valide une sauvegarde importée. Renvoie { ok, state } ou { ok: false, error }.
+ * Seuls les champs connus sont repris, avec vérification de leur type ;
+ * un fichier mal formé est refusé en entier (l'état courant n'est pas touché).
+ */
+function validateBackup(obj) {
+  if (!isObj(obj)) return { ok: false, error: "La sauvegarde n'est pas un objet." };
+  for (const k of ["lu", "quiz", "cartes", "plan", "journal"]) {
+    if (k in obj && !isObj(obj[k])) return { ok: false, error: "Champ « " + k + " » invalide." };
+  }
+  if (!isObj(obj.cartes)) return { ok: false, error: "Aucune donnée de fiches trouvée." };
+  for (const [k, v] of Object.entries(obj.cartes)) {
+    if (!isObj(v) || typeof v.box !== "number" || v.box < 0 || v.box > 6) return { ok: false, error: "Fiche « " + k + " » invalide." };
+    if (v.due !== null && v.due !== undefined && !/^\d{4}-\d{2}-\d{2}$/.test(String(v.due))) return { ok: false, error: "Échéance invalide pour « " + k + " »." };
+  }
+  for (const [k, v] of Object.entries(obj.quiz || {})) {
+    if (!isObj(v) || typeof v.best !== "number") return { ok: false, error: "Résultat de quiz « " + k + " » invalide." };
+  }
+  for (const v of Object.values(obj.journal || {})) if (typeof v !== "number") return { ok: false, error: "Journal d'activité invalide." };
+  const s = blankState();
+  for (const k of ["lu", "quiz", "cartes", "plan", "journal"]) if (k in obj) s[k] = obj[k];
+  if (typeof obj.prenom === "string") s.prenom = obj.prenom.slice(0, 80);
+  if (["auto", "light", "dark"].includes(obj.theme)) s.theme = obj.theme;
+  if (isObj(obj.focus) && typeof obj.focus.min === "number") s.focus = { min: obj.focus.min };
+  return { ok: true, state: s };
+}
+
+/** Décode un code de sauvegarde (JSON brut ou JSON encodé en base64). */
+function decodeBackup(text) {
+  const t = String(text || "").trim();
+  try { return JSON.parse(t); } catch (e) { /* essai base64 */ }
+  try {
+    const bin = typeof atob === "function" ? atob(t) : Buffer.from(t, "base64").toString("binary");
+    const bytes = Uint8Array.from(bin, (c) => c.charCodeAt(0));
+    return JSON.parse(new TextDecoder().decode(bytes));
+  } catch (e) { return null; }
+}
+
+/** Encode l'état en code de sauvegarde base64 (UTF-8). */
+function encodeBackup(state) {
+  const bytes = new TextEncoder().encode(JSON.stringify(state));
+  let bin = "";
+  bytes.forEach((b) => { bin += String.fromCharCode(b); });
+  return typeof btoa === "function" ? btoa(bin) : Buffer.from(bin, "binary").toString("base64");
+}
+
+return { STORAGE_KEY, blankState, loadState, saveState, validateBackup, decodeBackup, encodeBackup };
+})();
+
+// ---- src/ui/app.js
+const __m6 = (() => {
+const { today } = __m3;
+const { addActivity } = __m4;
+const { saveState } = __m5;
+// Contexte partagé de l'interface : contenu, état, stockage et actions communes.
+
+
+
+
+
+const app = {
+  workspace: null,
+  /** Contenu de l'espace courant ({ matieres, session, ... }). */
+  content: { matieres: [] },
+  /** État de progression (format v1). */
+  state: null,
+  storage: null,
+  /** Gestionnaire clavier de la vue courante (fiches ou quiz). */
+  keyHandler: null,
+  route: null,
+  render: () => {},
+  refreshChrome: () => {},
+  now: () => new Date(),
+  today() { return today(this.now()); },
+  get M() { return this.content.matieres || []; },
+  /** Enregistre l'état selon l'espace actif (localStorage pour la démo, dossier Drive pour l'espace réel). */
+  persist: null,
+  /** Espace réel ouvert : { root, manifest, deviceId, folderName }, sinon null. */
+  real: null,
+  /** Dossier mémorisé qui attend l'accord de Chrome : { root }, sinon null. */
+  gate: null,
+  /** Enregistre une révision dans le journal (espace réel uniquement). */
+  recordReview: null,
+  save() { return this.persist ? this.persist(this.state) : saveState(this.storage, this.state); },
+  log(n = 1) { this.state.journal = addActivity(this.state.journal || {}, this.now(), n); this.save(); }
+};
+
+/** Accès protégé à localStorage (peut être bloqué : navigation privée, réglages). */
+function safeStorage() {
+  try { const s = window.localStorage; s.getItem("__probe__"); return s; } catch (e) { return null; }
+}
+
+return { app, safeStorage };
+})();
+
+// ---- src/core/icons.js
+const __m7 = (() => {
+
+// Jeu d'icônes SVG (style SF Symbols, trait 1,8). Pur.
+
+const P = {
+  home: '<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/>',
+  cards: '<rect x="3" y="6" width="14" height="14" rx="2.5"/><path d="M7 3h11.5A2.5 2.5 0 0 1 21 5.5V17"/>',
+  calendar: '<rect x="3" y="4.5" width="18" height="16.5" rx="2.5"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/>',
+  plan: '<path d="M9 6h11M9 12h11M9 18h11"/><path d="m3.5 6 1.2 1.2L7 5M3.5 12l1.2 1.2L7 11M3.5 18l1.2 1.2L7 17"/>',
+  gear: '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68 1.65 1.65 0 0 0 10 3.17V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.14.34.45.6.82.67H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>',
+  search: '<circle cx="11" cy="11" r="7"/><path d="m20.5 20.5-4.5-4.5"/>',
+  people: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.3-5.5 6.5-5.5s5.9 1.9 6.5 5.5"/><circle cx="17" cy="9" r="2.6"/><path d="M17 14.5c2.4 0 4.1 1.5 4.6 4"/>',
+  scale: '<path d="M12 3v18M7 21h10M4 7h16"/><path d="m4 7-2.5 6a3 3 0 0 0 5 0L4 7zM20 7l-2.5 6a3 3 0 0 0 5 0L20 7z"/>',
+  chart: '<path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 6-7"/>',
+  eye: '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+  globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/>',
+  book: '<path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H20v15H5.5A1.5 1.5 0 0 0 4 19.5z"/><path d="M4 19.5A1.5 1.5 0 0 0 5.5 21H20"/>',
+  mic: '<rect x="9" y="2.5" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3.5"/>',
+  pen: '<path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>',
+  camera: '<path d="M3 8a2 2 0 0 1 2-2h2.5l1.5-2h6l1.5 2H19a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="3.5"/>',
+  brain: '<path d="M9 4a3 3 0 0 0-3 3 3 3 0 0 0-2 5 3 3 0 0 0 2 5 3 3 0 0 0 3 3 3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zM15 4a3 3 0 0 1 3 3 3 3 0 0 1 2 5 3 3 0 0 1-2 5 3 3 0 0 1-3 3 3 3 0 0 1-3-3"/>',
+  check: '<path d="m5 12.5 4.5 4.5L19 7.5"/>',
+  chev: '<path d="m9 5 7 7-7 7"/>',
+  back: '<path d="m15 5-7 7 7 7"/>',
+  flame: '<path d="M12 21c4 0 7-2.7 7-6.8 0-3.2-2-5.5-3.7-7.4-.4 2-1.4 3.3-2.8 3.8.3-3.4-1-6.4-3.5-7.6.2 3.3-2.3 5.6-3.6 7.6A8 8 0 0 0 5 14.2C5 18.3 8 21 12 21z"/>',
+  target: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
+  timer: '<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9.5 2.5h5"/>',
+  play: '<path d="M7 4.5v15l12.5-7.5z" fill="currentColor"/>',
+  pause: '<path d="M7 4.5h3.5v15H7zM13.5 4.5H17v15h-3.5z" fill="currentColor"/>',
+  reset: '<path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1M3.5 3.5v5h5"/>',
+  doc: '<path d="M6 2.5h8l4.5 4.5V21a.5.5 0 0 1-.5.5H6a.5.5 0 0 1-.5-.5V3a.5.5 0 0 1 .5-.5z"/><path d="M14 2.5V7h4.5M9 12h6M9 16h6"/>',
+  info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.5v.5"/>',
+  shuffle: '<path d="M3 7h3.5c4 0 5 10 9 10H21M3 17h3.5c1.6 0 2.7-1.6 3.6-3.6M14.5 10.6C15.4 8.6 16.5 7 18 7h3M18 4l3 3-3 3M18 14l3 3-3 3"/>',
+  pin: '<path d="M12 21s7-6.2 7-11.5a7 7 0 1 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  award: '<circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 7.5 5-2.5 5 2.5-1.5-7.5"/>',
+  exam: '<path d="M8 3.5h8M9 2.5h6a1 1 0 0 1 1 1V5H8V3.5a1 1 0 0 1 1-1z"/><path d="M8 4H6a1.5 1.5 0 0 0-1.5 1.5v14A1.5 1.5 0 0 0 6 21h12a1.5 1.5 0 0 0 1.5-1.5v-14A1.5 1.5 0 0 0 18 4h-2"/><path d="m8.5 13 2.5 2.5 4.5-5"/>',
+  folder: '<path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4.6l2 2.2h8.4A1.5 1.5 0 0 1 21 8.7v9.8a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5z"/>',
+  flask: '<path d="M9 3h6M10 3v6L4.5 18.5A1.7 1.7 0 0 0 6 21h12a1.7 1.7 0 0 0 1.5-2.5L14 9V3"/><path d="M7.5 15h9"/>'
+};
+
+const ICON_NAMES = Object.keys(P);
+
+const ic = (name, size, extra) => '<svg width="' + (size || 20) + '" height="' + (size || 20) + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"' + (extra || "") + ">" + (P[name] || P.book) + "</svg>";
+
+return { ICON_NAMES, ic };
+})();
+
+// ---- src/domain/search.js
+const __m8 = (() => {
+
+// Index de recherche et classement des résultats. Pur.
+
+const strip = (s) => String(s).replace(/[*=`>#|]/g, "");
+const norm = (s) => String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+
+function buildIndex(content) {
+  const out = [];
+  (content.matieres || []).forEach((m) => {
+    out.push({ g: "Matières", t: m.nom, s: (m.chapitres || []).length + " chapitres", href: "#m-" + m.id, m });
+    (m.chapitres || []).forEach((c) => {
+      out.push({ g: "Chapitres", t: c.titre, s: m.nom, href: "#c-" + m.id + "-" + c.id + "-resume", m, body: strip(c.resume || "") });
+      (c.definitions || []).forEach((d) => out.push({ g: "Définitions", t: d.terme, s: d.def, href: "#c-" + m.id + "-" + c.id + "-essentiel", m }));
+      (c.fiches || []).forEach((f) => out.push({ g: "Fiches", t: strip(f.q), s: strip(f.r), href: "#c-" + m.id + "-" + c.id + "-fiches", m }));
+    });
+  });
+  return out;
+}
+
+/** Tous les mots doivent apparaître (titre, sous-titre ou corps), sans tenir compte des accents. */
+function search(index, query, limit = 40) {
+  const q = norm(String(query || "").trim());
+  if (!q) return index.filter((x) => x.g === "Matières" || x.g === "Chapitres");
+  const words = q.split(/\s+/);
+  return index.map((x) => {
+    const t = norm(x.t), s = norm(x.s), b = norm(x.body);
+    if (!words.every((w) => t.includes(w) || s.includes(w) || b.includes(w))) return null;
+    let score = 0;
+    words.forEach((w) => { if (t.startsWith(w)) score += 6; if (t.includes(w)) score += 4; if (s.includes(w)) score += 1; });
+    return { x, score };
+  }).filter(Boolean).sort((a, b) => b.score - a.score).slice(0, limit).map((r) => r.x);
+}
+
+return { norm, buildIndex, search };
+})();
+
+// ---- src/ui/dom.js
+const __m9 = (() => {
+
+// Aides DOM (navigateur uniquement).
+
+const $ = (s, el) => (el || document).querySelector(s);
+const $$ = (s, el) => Array.from((el || document).querySelectorAll(s));
+
+let toastTimer;
+function toast(msg) {
+  const t = $("#toast");
+  if (!t) return;
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove("show"), 2600);
+}
+
+function shuffle(a) {
+  for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+  return a;
+}
+
+return { $, $$, toast, shuffle };
+})();
+
+// ---- src/ui/widgets.js
+const __m10 = (() => {
+const { esc, safeColor } = __m0;
+const { ic } = __m7;
+const { app } = __m6;
+// Petits composants d'affichage réutilisables (chaînes HTML).
+
+
+
+
+
+const statusPill = (p) => p >= 0.85 ? '<span class="pill pill-good">' + ic("check", 12) + "Maîtrisé</span>"
+  : p >= 0.4 ? '<span class="pill pill-info">En cours</span>'
+  : p > 0 ? '<span class="pill pill-warn">Commencé</span>'
+  : '<span class="pill pill-neutral">À faire</span>';
+
+const bar = (p, color) => '<div class="bar"><i style="width:' + Math.round(p * 100) + "%" + (color ? ";background:" + safeColor(color) : "") + '"></i></div>';
+
+function ring(p, size, stroke, color, label) {
+  const r = (size - stroke) / 2, c = 2 * Math.PI * r;
+  const col = color && color.startsWith("var(") ? color : safeColor(color, "var(--accent)");
+  return '<div class="ring" style="width:' + size + "px;height:" + size + 'px"><svg width="' + size + '" height="' + size + '" aria-hidden="true"><circle class="ring-track" cx="' + size / 2 + '" cy="' + size / 2 + '" r="' + r + '" fill="none" stroke-width="' + stroke + '"/><circle class="ring-val" cx="' + size / 2 + '" cy="' + size / 2 + '" r="' + r + '" fill="none" stroke="' + col + '" stroke-width="' + stroke + '" stroke-linecap="round" stroke-dasharray="' + c + '" stroke-dashoffset="' + c * (1 - Math.max(0, Math.min(1, p))) + '"/></svg><div class="ring-label">' + (label || "") + "</div></div>";
+}
+
+const tile = (m, lg) => '<div class="icon-tile' + (lg ? " lg" : "") + '" style="background:' + safeColor(m.couleur) + '">' + ic(m.icone) + "</div>";
+
+const dot = (m, icon, size = 13, extraStyle = "") => '<span class="nav-dot" style="background:' + safeColor(m.couleur) + (extraStyle ? ";" + extraStyle : "") + '">' + ic(icon || m.icone, size) + "</span>";
+
+const banner = () => app.workspace && app.workspace.kind === "demo"
+  ? '<div class="banner">' + ic("info", 18) + "<div><b>Mode démonstration.</b> Ces matières, examens et résumés sont fictifs. Ils servent à découvrir et tester l'application et ne feront jamais partie de ton véritable espace académique.</div></div>"
+  : "";
+
+function statTile(icon, color, label, val, unit, foot) {
+  return '<div class="card stat"><div class="stat-top"><span style="color:' + color + '">' + ic(icon, 18) + "</span>" + label + '</div><div class="stat-val">' + val + (unit ? " <small>" + unit + "</small>" : "") + "</div>" + foot + "</div>";
+}
+
+function taskRow(t) {
+  const on = !!app.state.plan[t.key];
+  return '<div class="task' + (on ? " done" : "") + '"><button class="check' + (on ? " on" : "") + '" data-task="' + esc(t.key) + '" type="button" aria-label="Marquer comme fait" aria-pressed="' + on + '">' + ic("check", 13) + '</button><span class="dot" style="background:' + safeColor(t.m.couleur) + '"></span><div class="tx"><div class="tt">' + esc(t.titre) + '</div><div class="ts">' + esc(t.sub || "") + "</div></div>" + (t.href ? '<a class="btn btn-plain btn-sm" href="' + t.href + '">Ouvrir</a>' : "") + "</div>";
+}
+
+return { statusPill, bar, ring, tile, dot, banner, statTile, taskRow };
+})();
+
+// ---- src/ui/components/spotlight.js
+const __m11 = (() => {
+const { esc } = __m0;
+const { ic } = __m7;
+const { buildIndex, search } = __m8;
+const { app } = __m6;
+const { $, $$ } = __m9;
+const { dot } = __m10;
+// Recherche globale (⌘K / Ctrl K / « / »).
+
+
+
+
+
+
+
+
+let index = null;
+let lastFocus = null;
+
+const isSearchOpen = () => !$("#spotlight").hidden;
+
+/** À appeler quand l'espace change : l'index sera reconstruit avec le nouveau contenu. */
+function resetSearchIndex() { index = null; }
+
+function openSearch() {
+  index = index || buildIndex(app.content);
+  lastFocus = document.activeElement;
+  const host = $("#spotlight");
+  host.hidden = false;
+  host.innerHTML = '<div class="spot-backdrop" id="spot-bg"><div class="spot" role="dialog" aria-modal="true" aria-label="Recherche"><div class="spot-in">' + ic("search") + '<input id="spot-q" type="text" role="combobox" aria-expanded="true" aria-controls="spot-res" aria-label="Rechercher" placeholder="Rechercher un chapitre, une notion, un auteur…" autocomplete="off" spellcheck="false"><kbd>Échap</kbd></div><div class="spot-res" id="spot-res" role="listbox"></div></div></div>';
+  const input = $("#spot-q"), resEl = $("#spot-res");
+  let results = [], sel = 0;
+  function run() { results = search(index, input.value); sel = 0; paint(); }
+  function paint() {
+    if (!results.length) { resEl.innerHTML = '<div class="spot-empty">Aucun résultat</div>'; return; }
+    let g = "", html = "";
+    results.forEach((x, j) => {
+      if (x.g !== g) { g = x.g; html += '<div class="spot-group" role="presentation">' + g + "</div>"; }
+      html += '<div class="spot-item' + (j === sel ? " sel" : "") + '" role="option" id="spot-' + j + '" aria-selected="' + (j === sel) + '" data-j="' + j + '">' + dot(x.m, x.g === "Fiches" ? "cards" : x.g === "Définitions" ? "book" : x.m.icone) + '<div class="si-x"><div class="si-t">' + esc(x.t) + '</div><div class="si-s">' + esc(x.s) + "</div></div></div>";
+    });
+    resEl.innerHTML = html;
+    input.setAttribute("aria-activedescendant", "spot-" + sel);
+    $$(".spot-item", resEl).forEach((el) => { el.onclick = () => go(+el.dataset.j); el.onmousemove = () => { if (sel !== +el.dataset.j) { sel = +el.dataset.j; paint(); } }; });
+    const s = $(".spot-item.sel", resEl); if (s) s.scrollIntoView({ block: "nearest" });
+  }
+  function go(j) { const x = results[j]; closeSearch(); if (x) location.hash = x.href; }
+  input.oninput = run;
+  input.onkeydown = (e) => {
+    if (e.key === "ArrowDown") { e.preventDefault(); sel = Math.min(results.length - 1, sel + 1); paint(); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); sel = Math.max(0, sel - 1); paint(); }
+    else if (e.key === "Enter") { e.preventDefault(); go(sel); }
+    else if (e.key === "Escape") closeSearch();
+  };
+  $("#spot-bg").onclick = (e) => { if (e.target.id === "spot-bg") closeSearch(); };
+  run();
+  setTimeout(() => input.focus(), 10);
+}
+
+function closeSearch() {
+  const h = $("#spotlight");
+  h.hidden = true;
+  h.innerHTML = "";
+  if (lastFocus && document.body.contains(lastFocus)) lastFocus.focus({ preventScroll: true });
+}
+
+return { isSearchOpen, resetSearchIndex, openSearch, closeSearch };
+})();
+
+// ---- src/domain/srs.js
+const __m12 = (() => {
+const { addDays, dayKey } = __m3;
+// Répétition espacée — système de Leitner (comportement actuel, inchangé).
+// Le remplacement par FSRS est prévu à une phase ultérieure.
+// Fonctions pures : la date du jour est fournie par l'appelant.
+
+
+
+const INTERVALS = [0, 1, 2, 4, 8, 16, 32];
+const MAX_BOX = 6;
+const MASTERED_BOX = 3;
+
+/**
+ * Identifiant d'une fiche : son identifiant stable s'il existe (espace réel, v2),
+ * sinon la clé v1 fondée sur la position (fixtures de démonstration, défaut C1).
+ */
+const cardKey = (m, c, i, f) => (f && f.id ? f.id : m.id + "|" + c.id + "|" + i);
+
+const cardState = (cartes, k) => (cartes && cartes[k]) || { box: 0, due: null };
+
+const isDue = (cartes, k, today) => { const s = cardState(cartes, k); return !s.due || s.due <= dayKey(today); };
+
+/**
+ * Nouvel état d'une fiche après une note.
+ * 1 = à revoir (boîte 0, aujourd'hui) · 2 = difficile (boîte ≥ 1, demain)
+ * 3 = bien (boîte + 1) · 4 = facile (boîte + 2)
+ */
+function rate(prev, r, today) {
+  const s = { box: prev ? prev.box : 0, due: prev ? prev.due : null };
+  if (r === 1) s.box = 0;
+  else if (r === 2) s.box = Math.max(1, s.box);
+  else if (r === 3) s.box = Math.min(MAX_BOX, s.box + 1);
+  else if (r === 4) s.box = Math.min(MAX_BOX, s.box + 2);
+  else throw new RangeError("Note invalide : " + r);
+  const delay = r === 1 ? 0 : r === 2 ? 1 : INTERVALS[s.box];
+  s.due = dayKey(addDays(today, delay));
+  return s;
+}
+
+/** Délai affiché sur le bouton de note (3 ou 4), en jours. */
+const nextDelay = (prev, r) => INTERVALS[Math.min(MAX_BOX, (prev ? prev.box : 0) + (r === 3 ? 1 : 2))];
+
+function allCards(content, filter) {
+  const out = [];
+  (content.matieres || []).forEach((m) => {
+    if (filter && filter !== m.id) return;
+    (m.chapitres || []).forEach((c) => (c.fiches || []).forEach((f, i) => out.push({ m, c, f, k: cardKey(m, c, i, f) })));
+  });
+  return out;
+}
+
+const dueCards = (content, cartes, today, filter) => allCards(content, filter).filter((x) => isDue(cartes, x.k, today));
+
+return { INTERVALS, MAX_BOX, MASTERED_BOX, cardKey, cardState, isDue, rate, nextDelay, allCards, dueCards };
+})();
+
+// ---- src/domain/progress.js
+const __m13 = (() => {
+const { cardKey, cardState, MASTERED_BOX } = __m12;
+// Mesures de progression (comportement actuel, inchangé).
+// Défaut connu M1 : le pourcentage unique pondéré 30/30/40 sera remplacé par
+// des mesures séparées dans la phase « analytique ».
+
+
+
+const MASTERED_THRESHOLD = 0.85;
+const chapKey = (m, c) => m.id + "|" + c.id;
+
+function chapStats(state, m, c) {
+  const k = chapKey(m, c);
+  const fiches = c.fiches || [];
+  const mastered = fiches.filter((f, i) => cardState(state.cartes, cardKey(m, c, i, f)).box >= MASTERED_BOX).length;
+  const lu = !!(state.lu && state.lu[k]);
+  const q = state.quiz && state.quiz[k];
+  const parts = [[lu ? 1 : 0, 0.3]];
+  if ((c.quiz || []).length) parts.push([q ? q.best : 0, 0.3]);
+  if (fiches.length) parts.push([mastered / fiches.length, 0.4]);
+  const w = parts.reduce((a, p) => a + p[1], 0);
+  const p = parts.reduce((a, x) => a + x[0] * x[1], 0) / w;
+  return { lu, quizBest: q ? q.best : null, mastered, total: fiches.length, p };
+}
+
+function subjectProgress(state, m) {
+  const ch = m.chapitres || [];
+  if (!ch.length) return 0;
+  return ch.reduce((a, c) => a + chapStats(state, m, c).p, 0) / ch.length;
+}
+
+function overall(content, state) {
+  let n = 0, sum = 0, lu = 0, mast = 0, cards = 0, chapters = 0, done = 0;
+  (content.matieres || []).forEach((m) => (m.chapitres || []).forEach((c) => {
+    const s = chapStats(state, m, c);
+    n++; sum += s.p; if (s.lu) lu++; mast += s.mastered; cards += s.total; chapters++; if (s.p >= MASTERED_THRESHOLD) done++;
+  }));
+  return { p: n ? sum / n : 0, lu, mast, cards, chapters, done };
+}
+
+return { MASTERED_THRESHOLD, chapKey, chapStats, subjectProgress, overall };
+})();
+
+// ---- fixtures/demo/cours.js
+const __m14 = (() => {
 
 /*
   ============================================================
@@ -1243,87 +1865,10 @@ Le texte a deux fonctions par rapport à l'image :
 return { default: DEMO_COURSES };
 })();
 
-// ---- src/state/store.js
-const __m2 = (() => {
-
-// État de progression (format v1, inchangé).
-// Clé localStorage : "revisions-ihecs-v1". Le format n'est PAS modifié par la
-// phase 1 : aucune migration n'est appliquée aux données existantes.
-// La conception du format v2 et sa migration sont dans src/data/ (non branchées).
-
-const STORAGE_KEY = "revisions-ihecs-v1";
-
-const blankState = () => ({ lu: {}, quiz: {}, cartes: {}, plan: {}, journal: {}, prenom: "", theme: "auto", focus: { min: 0 } });
-
-/** Lit l'état depuis un objet de type Storage. Ne lève jamais d'exception. */
-function loadState(storage) {
-  try {
-    const raw = storage && storage.getItem(STORAGE_KEY);
-    if (raw) return Object.assign(blankState(), JSON.parse(raw));
-  } catch (e) { /* stockage indisponible ou JSON corrompu : on repart d'un état vide en mémoire, sans écraser le stockage */ }
-  return blankState();
-}
-
-/** Écrit l'état. Renvoie false si l'écriture a échoué (stockage bloqué ou plein). */
-function saveState(storage, state) {
-  try { storage.setItem(STORAGE_KEY, JSON.stringify(state)); return true; } catch (e) { return false; }
-}
-
-const isObj = (v) => v !== null && typeof v === "object" && !Array.isArray(v);
-
-/**
- * Valide une sauvegarde importée. Renvoie { ok, state } ou { ok: false, error }.
- * Seuls les champs connus sont repris, avec vérification de leur type ;
- * un fichier mal formé est refusé en entier (l'état courant n'est pas touché).
- */
-function validateBackup(obj) {
-  if (!isObj(obj)) return { ok: false, error: "La sauvegarde n'est pas un objet." };
-  for (const k of ["lu", "quiz", "cartes", "plan", "journal"]) {
-    if (k in obj && !isObj(obj[k])) return { ok: false, error: "Champ « " + k + " » invalide." };
-  }
-  if (!isObj(obj.cartes)) return { ok: false, error: "Aucune donnée de fiches trouvée." };
-  for (const [k, v] of Object.entries(obj.cartes)) {
-    if (!isObj(v) || typeof v.box !== "number" || v.box < 0 || v.box > 6) return { ok: false, error: "Fiche « " + k + " » invalide." };
-    if (v.due !== null && v.due !== undefined && !/^\d{4}-\d{2}-\d{2}$/.test(String(v.due))) return { ok: false, error: "Échéance invalide pour « " + k + " »." };
-  }
-  for (const [k, v] of Object.entries(obj.quiz || {})) {
-    if (!isObj(v) || typeof v.best !== "number") return { ok: false, error: "Résultat de quiz « " + k + " » invalide." };
-  }
-  for (const v of Object.values(obj.journal || {})) if (typeof v !== "number") return { ok: false, error: "Journal d'activité invalide." };
-  const s = blankState();
-  for (const k of ["lu", "quiz", "cartes", "plan", "journal"]) if (k in obj) s[k] = obj[k];
-  if (typeof obj.prenom === "string") s.prenom = obj.prenom.slice(0, 80);
-  if (["auto", "light", "dark"].includes(obj.theme)) s.theme = obj.theme;
-  if (isObj(obj.focus) && typeof obj.focus.min === "number") s.focus = { min: obj.focus.min };
-  return { ok: true, state: s };
-}
-
-/** Décode un code de sauvegarde (JSON brut ou JSON encodé en base64). */
-function decodeBackup(text) {
-  const t = String(text || "").trim();
-  try { return JSON.parse(t); } catch (e) { /* essai base64 */ }
-  try {
-    const bin = typeof atob === "function" ? atob(t) : Buffer.from(t, "base64").toString("binary");
-    const bytes = Uint8Array.from(bin, (c) => c.charCodeAt(0));
-    return JSON.parse(new TextDecoder().decode(bytes));
-  } catch (e) { return null; }
-}
-
-/** Encode l'état en code de sauvegarde base64 (UTF-8). */
-function encodeBackup(state) {
-  const bytes = new TextEncoder().encode(JSON.stringify(state));
-  let bin = "";
-  bytes.forEach((b) => { bin += String.fromCharCode(b); });
-  return typeof btoa === "function" ? btoa(bin) : Buffer.from(bin, "binary").toString("base64");
-}
-
-return { STORAGE_KEY, blankState, loadState, saveState, validateBackup, decodeBackup, encodeBackup };
-})();
-
 // ---- src/content/workspaces.js
-const __m3 = (() => {
-const DEMO_COURSES = __m1.default;
-const { STORAGE_KEY } = __m2;
+const __m15 = (() => {
+const DEMO_COURSES = __m14.default;
+const { STORAGE_KEY } = __m5;
 // Espaces de travail.
 //
 // D3 : les cours fictifs sont des fixtures de démonstration et de test. Ils ne
@@ -1331,9 +1876,8 @@ const { STORAGE_KEY } = __m2;
 // véritable espace académique (kind "real") arrivera avec le modèle de données
 // v2 et le stockage ; il ne lira jamais les fixtures.
 //
-// Pour l'instant, seul l'espace de démonstration existe. Il réutilise la clé
-// de stockage historique pour ne perdre aucune progression existante (aucune
-// migration en phase 1).
+// L'espace de démonstration réutilise la clé de stockage historique (aucune
+// migration). L'espace réel vit dans le dossier Drive choisi (src/storage/).
 
 
 
@@ -1349,477 +1893,540 @@ const WORKSPACES = Object.freeze({
   })
 });
 
-const realWorkspaceAvailable = false;
+const realWorkspaceAvailable = true;
+
+/** Descripteur de l'espace réel (contenu lu dans le dossier Drive, jamais les fixtures). */
+function realWorkspace(manifest, folderName) {
+  return Object.freeze({
+    id: manifest.workspace.id,
+    kind: "real",
+    label: "Mon espace",
+    description: "Ton espace académique, enregistré dans ton dossier Google Drive « " + folderName + " ».",
+    folderName
+  });
+}
 
 function currentWorkspace() {
   return WORKSPACES.demo;
 }
 
-return { WORKSPACES, realWorkspaceAvailable, currentWorkspace };
+return { WORKSPACES, realWorkspaceAvailable, realWorkspace, currentWorkspace };
 })();
 
-// ---- src/domain/router.js
-const __m4 = (() => {
-
-// Analyse du hash en route. Pur.
-// Routes : #accueil #matieres #revision #examens #planning #parametres
-//          #m-<matiere>  #c-<matiere>-<chapitre>-<onglet>  #blanc-<matiere>
-
-const CHAPTER_TABS = ["resume", "essentiel", "fiches", "quiz"];
-const SIMPLE = { accueil: "home", revision: "revision", examens: "exams", planning: "planning", parametres: "settings", matieres: "subjects" };
-
-function parseRoute(hash, content) {
-  const M = (content && content.matieres) || [];
-  const h = String(hash || "").replace(/^#/, "") || "accueil";
-  let mm;
-  if ((mm = h.match(/^m-([a-z0-9]+)$/i))) return { name: "subject", m: M.find((x) => x.id === mm[1]), nav: "#m-" + mm[1], tab: "#matieres" };
-  if ((mm = h.match(/^c-([a-z0-9]+)-([a-z0-9]+)-(resume|essentiel|fiches|quiz)$/i))) {
-    const m = M.find((x) => x.id === mm[1]);
-    return { name: "chapter", m, c: m && (m.chapitres || []).find((x) => x.id === mm[2]), t: mm[3], nav: "#m-" + mm[1], tab: "#matieres" };
-  }
-  if ((mm = h.match(/^blanc-([a-z0-9]+)$/i))) return { name: "blanc", m: M.find((x) => x.id === mm[1]), nav: "#m-" + mm[1], tab: "#matieres" };
-  if (SIMPLE[h]) return { name: SIMPLE[h], nav: "#" + h, tab: "#" + h };
-  return { name: "unknown", id: h };
-}
-
-return { CHAPTER_TABS, parseRoute };
-})();
-
-// ---- src/core/dates.js
-const __m5 = (() => {
-
-// Utilitaires de dates. Toutes les fonctions sont pures : la date « du jour »
-// est toujours passée en paramètre par l'appelant pour rester testable.
-
-const pad = (n) => String(n).padStart(2, "0");
-
-/** Clé de jour locale AAAA-MM-JJ. */
-const dayKey = (d) => d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
-
-const startOfDay = (d) => { const x = new Date(d); x.setHours(0, 0, 0, 0); return x; };
-
-const addDays = (d, n) => { const x = new Date(d); x.setDate(x.getDate() + n); return x; };
-
-const parseDay = (k) => { const [y, m, d] = k.split("-").map(Number); return new Date(y, m - 1, d); };
-
-/** Nombre de jours calendaires de a à b (négatif si b est avant a). */
-const daysBetween = (a, b) => Math.round((startOfDay(b) - startOfDay(a)) / 86400000);
-
-const today = (now = new Date()) => startOfDay(now);
-
-const fmt = (d, o) => new Intl.DateTimeFormat("fr-BE", o).format(d);
-const fmtLong = (d) => fmt(d, { weekday: "long", day: "numeric", month: "long" });
-const fmtTime = (d) => fmt(d, { hour: "2-digit", minute: "2-digit" });
-const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
-
-/** Date d'examen d'une matière, ou null. */
-const examDate = (m) => (m && m.examen && m.examen.date ? new Date(m.examen.date) : null);
-
-return { pad, dayKey, startOfDay, addDays, parseDay, daysBetween, today, fmt, fmtLong, fmtTime, cap, examDate };
-})();
-
-// ---- src/domain/activity.js
-const __m6 = (() => {
-const { addDays, dayKey } = __m5;
-// Journal d'activité quotidien et série de jours (comportement actuel).
-// Défaut connu M3 : les unités sont hétérogènes (fiche, question, tâche, minuteur).
-
-
-
-/** Renvoie un nouveau journal avec n unités ajoutées au jour `now`. */
-const addActivity = (journal, now, n = 1) => {
-  const k = dayKey(now);
-  return Object.assign({}, journal, { [k]: (journal[k] || 0) + n });
-};
-
-/** Nombre de jours consécutifs avec activité, en finissant aujourd'hui ou hier. */
-function streak(journal, today) {
-  let d = today, n = 0;
-  if (!journal[dayKey(d)]) d = addDays(d, -1);
-  while (journal[dayKey(d)]) { n++; d = addDays(d, -1); }
-  return n;
-}
-
-/** Activité des 7 derniers jours (le plus ancien d'abord). */
-function lastWeek(journal, today) {
-  const out = [];
-  for (let i = 6; i >= 0; i--) { const d = addDays(today, -i); out.push({ d, v: journal[dayKey(d)] || 0, today: i === 0 }); }
-  return out;
-}
-
-return { addActivity, streak, lastWeek };
-})();
-
-// ---- src/ui/app.js
-const __m7 = (() => {
-const { today } = __m5;
-const { addActivity } = __m6;
-const { saveState } = __m2;
-// Contexte partagé de l'interface : contenu, état, stockage et actions communes.
-
-
-
-
-
-const app = {
-  workspace: null,
-  /** Contenu de l'espace courant ({ matieres, session, ... }). */
-  content: { matieres: [] },
-  /** État de progression (format v1). */
-  state: null,
-  storage: null,
-  /** Gestionnaire clavier de la vue courante (fiches ou quiz). */
-  keyHandler: null,
-  route: null,
-  render: () => {},
-  refreshChrome: () => {},
-  now: () => new Date(),
-  today() { return today(this.now()); },
-  get M() { return this.content.matieres || []; },
-  save() { return saveState(this.storage, this.state); },
-  log(n = 1) { this.state.journal = addActivity(this.state.journal || {}, this.now(), n); this.save(); }
-};
-
-/** Accès protégé à localStorage (peut être bloqué : navigation privée, réglages). */
-function safeStorage() {
-  try { const s = window.localStorage; s.getItem("__probe__"); return s; } catch (e) { return null; }
-}
-
-return { app, safeStorage };
-})();
-
-// ---- src/core/icons.js
-const __m8 = (() => {
-
-// Jeu d'icônes SVG (style SF Symbols, trait 1,8). Pur.
-
-const P = {
-  home: '<path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/>',
-  cards: '<rect x="3" y="6" width="14" height="14" rx="2.5"/><path d="M7 3h11.5A2.5 2.5 0 0 1 21 5.5V17"/>',
-  calendar: '<rect x="3" y="4.5" width="18" height="16.5" rx="2.5"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/>',
-  plan: '<path d="M9 6h11M9 12h11M9 18h11"/><path d="m3.5 6 1.2 1.2L7 5M3.5 12l1.2 1.2L7 11M3.5 18l1.2 1.2L7 17"/>',
-  gear: '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68 1.65 1.65 0 0 0 10 3.17V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.14.34.45.6.82.67H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>',
-  search: '<circle cx="11" cy="11" r="7"/><path d="m20.5 20.5-4.5-4.5"/>',
-  people: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.3-5.5 6.5-5.5s5.9 1.9 6.5 5.5"/><circle cx="17" cy="9" r="2.6"/><path d="M17 14.5c2.4 0 4.1 1.5 4.6 4"/>',
-  scale: '<path d="M12 3v18M7 21h10M4 7h16"/><path d="m4 7-2.5 6a3 3 0 0 0 5 0L4 7zM20 7l-2.5 6a3 3 0 0 0 5 0L20 7z"/>',
-  chart: '<path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 6-7"/>',
-  eye: '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
-  globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/>',
-  book: '<path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H20v15H5.5A1.5 1.5 0 0 0 4 19.5z"/><path d="M4 19.5A1.5 1.5 0 0 0 5.5 21H20"/>',
-  mic: '<rect x="9" y="2.5" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3.5"/>',
-  pen: '<path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>',
-  camera: '<path d="M3 8a2 2 0 0 1 2-2h2.5l1.5-2h6l1.5 2H19a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="3.5"/>',
-  brain: '<path d="M9 4a3 3 0 0 0-3 3 3 3 0 0 0-2 5 3 3 0 0 0 2 5 3 3 0 0 0 3 3 3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zM15 4a3 3 0 0 1 3 3 3 3 0 0 1 2 5 3 3 0 0 1-2 5 3 3 0 0 1-3 3 3 3 0 0 1-3-3"/>',
-  check: '<path d="m5 12.5 4.5 4.5L19 7.5"/>',
-  chev: '<path d="m9 5 7 7-7 7"/>',
-  back: '<path d="m15 5-7 7 7 7"/>',
-  flame: '<path d="M12 21c4 0 7-2.7 7-6.8 0-3.2-2-5.5-3.7-7.4-.4 2-1.4 3.3-2.8 3.8.3-3.4-1-6.4-3.5-7.6.2 3.3-2.3 5.6-3.6 7.6A8 8 0 0 0 5 14.2C5 18.3 8 21 12 21z"/>',
-  target: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
-  timer: '<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9.5 2.5h5"/>',
-  play: '<path d="M7 4.5v15l12.5-7.5z" fill="currentColor"/>',
-  pause: '<path d="M7 4.5h3.5v15H7zM13.5 4.5H17v15h-3.5z" fill="currentColor"/>',
-  reset: '<path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1M3.5 3.5v5h5"/>',
-  doc: '<path d="M6 2.5h8l4.5 4.5V21a.5.5 0 0 1-.5.5H6a.5.5 0 0 1-.5-.5V3a.5.5 0 0 1 .5-.5z"/><path d="M14 2.5V7h4.5M9 12h6M9 16h6"/>',
-  info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.5v.5"/>',
-  shuffle: '<path d="M3 7h3.5c4 0 5 10 9 10H21M3 17h3.5c1.6 0 2.7-1.6 3.6-3.6M14.5 10.6C15.4 8.6 16.5 7 18 7h3M18 4l3 3-3 3M18 14l3 3-3 3"/>',
-  pin: '<path d="M12 21s7-6.2 7-11.5a7 7 0 1 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
-  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
-  award: '<circle cx="12" cy="9" r="6"/><path d="m8.5 14-1.5 7.5 5-2.5 5 2.5-1.5-7.5"/>',
-  exam: '<path d="M8 3.5h8M9 2.5h6a1 1 0 0 1 1 1V5H8V3.5a1 1 0 0 1 1-1z"/><path d="M8 4H6a1.5 1.5 0 0 0-1.5 1.5v14A1.5 1.5 0 0 0 6 21h12a1.5 1.5 0 0 0 1.5-1.5v-14A1.5 1.5 0 0 0 18 4h-2"/><path d="m8.5 13 2.5 2.5 4.5-5"/>',
-  folder: '<path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4.6l2 2.2h8.4A1.5 1.5 0 0 1 21 8.7v9.8a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 18.5z"/>',
-  flask: '<path d="M9 3h6M10 3v6L4.5 18.5A1.7 1.7 0 0 0 6 21h12a1.7 1.7 0 0 0 1.5-2.5L14 9V3"/><path d="M7.5 15h9"/>'
-};
-
-const ICON_NAMES = Object.keys(P);
-
-const ic = (name, size, extra) => '<svg width="' + (size || 20) + '" height="' + (size || 20) + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"' + (extra || "") + ">" + (P[name] || P.book) + "</svg>";
-
-return { ICON_NAMES, ic };
-})();
-
-// ---- src/domain/search.js
-const __m9 = (() => {
-
-// Index de recherche et classement des résultats. Pur.
-
-const strip = (s) => String(s).replace(/[*=`>#|]/g, "");
-const norm = (s) => String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
-
-function buildIndex(content) {
-  const out = [];
-  (content.matieres || []).forEach((m) => {
-    out.push({ g: "Matières", t: m.nom, s: (m.chapitres || []).length + " chapitres", href: "#m-" + m.id, m });
-    (m.chapitres || []).forEach((c) => {
-      out.push({ g: "Chapitres", t: c.titre, s: m.nom, href: "#c-" + m.id + "-" + c.id + "-resume", m, body: strip(c.resume || "") });
-      (c.definitions || []).forEach((d) => out.push({ g: "Définitions", t: d.terme, s: d.def, href: "#c-" + m.id + "-" + c.id + "-essentiel", m }));
-      (c.fiches || []).forEach((f) => out.push({ g: "Fiches", t: strip(f.q), s: strip(f.r), href: "#c-" + m.id + "-" + c.id + "-fiches", m }));
-    });
-  });
-  return out;
-}
-
-/** Tous les mots doivent apparaître (titre, sous-titre ou corps), sans tenir compte des accents. */
-function search(index, query, limit = 40) {
-  const q = norm(String(query || "").trim());
-  if (!q) return index.filter((x) => x.g === "Matières" || x.g === "Chapitres");
-  const words = q.split(/\s+/);
-  return index.map((x) => {
-    const t = norm(x.t), s = norm(x.s), b = norm(x.body);
-    if (!words.every((w) => t.includes(w) || s.includes(w) || b.includes(w))) return null;
-    let score = 0;
-    words.forEach((w) => { if (t.startsWith(w)) score += 6; if (t.includes(w)) score += 4; if (s.includes(w)) score += 1; });
-    return { x, score };
-  }).filter(Boolean).sort((a, b) => b.score - a.score).slice(0, limit).map((r) => r.x);
-}
-
-return { norm, buildIndex, search };
-})();
-
-// ---- src/ui/dom.js
-const __m10 = (() => {
-
-// Aides DOM (navigateur uniquement).
-
-const $ = (s, el) => (el || document).querySelector(s);
-const $$ = (s, el) => Array.from((el || document).querySelectorAll(s));
-
-let toastTimer;
-function toast(msg) {
-  const t = $("#toast");
-  if (!t) return;
-  t.textContent = msg;
-  t.classList.add("show");
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove("show"), 2600);
-}
-
-function shuffle(a) {
-  for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
-  return a;
-}
-
-return { $, $$, toast, shuffle };
-})();
-
-// ---- src/ui/widgets.js
-const __m11 = (() => {
-const { esc, safeColor } = __m0;
-const { ic } = __m8;
-const { app } = __m7;
-// Petits composants d'affichage réutilisables (chaînes HTML).
-
-
-
-
-
-const statusPill = (p) => p >= 0.85 ? '<span class="pill pill-good">' + ic("check", 12) + "Maîtrisé</span>"
-  : p >= 0.4 ? '<span class="pill pill-info">En cours</span>'
-  : p > 0 ? '<span class="pill pill-warn">Commencé</span>'
-  : '<span class="pill pill-neutral">À faire</span>';
-
-const bar = (p, color) => '<div class="bar"><i style="width:' + Math.round(p * 100) + "%" + (color ? ";background:" + safeColor(color) : "") + '"></i></div>';
-
-function ring(p, size, stroke, color, label) {
-  const r = (size - stroke) / 2, c = 2 * Math.PI * r;
-  const col = color && color.startsWith("var(") ? color : safeColor(color, "var(--accent)");
-  return '<div class="ring" style="width:' + size + "px;height:" + size + 'px"><svg width="' + size + '" height="' + size + '" aria-hidden="true"><circle class="ring-track" cx="' + size / 2 + '" cy="' + size / 2 + '" r="' + r + '" fill="none" stroke-width="' + stroke + '"/><circle class="ring-val" cx="' + size / 2 + '" cy="' + size / 2 + '" r="' + r + '" fill="none" stroke="' + col + '" stroke-width="' + stroke + '" stroke-linecap="round" stroke-dasharray="' + c + '" stroke-dashoffset="' + c * (1 - Math.max(0, Math.min(1, p))) + '"/></svg><div class="ring-label">' + (label || "") + "</div></div>";
-}
-
-const tile = (m, lg) => '<div class="icon-tile' + (lg ? " lg" : "") + '" style="background:' + safeColor(m.couleur) + '">' + ic(m.icone) + "</div>";
-
-const dot = (m, icon, size = 13, extraStyle = "") => '<span class="nav-dot" style="background:' + safeColor(m.couleur) + (extraStyle ? ";" + extraStyle : "") + '">' + ic(icon || m.icone, size) + "</span>";
-
-const banner = () => app.workspace && app.workspace.kind === "demo"
-  ? '<div class="banner">' + ic("info", 18) + "<div><b>Mode démonstration.</b> Ces matières, examens et résumés sont fictifs. Ils servent à découvrir et tester l'application et ne feront jamais partie de ton véritable espace académique.</div></div>"
-  : "";
-
-function statTile(icon, color, label, val, unit, foot) {
-  return '<div class="card stat"><div class="stat-top"><span style="color:' + color + '">' + ic(icon, 18) + "</span>" + label + '</div><div class="stat-val">' + val + (unit ? " <small>" + unit + "</small>" : "") + "</div>" + foot + "</div>";
-}
-
-function taskRow(t) {
-  const on = !!app.state.plan[t.key];
-  return '<div class="task' + (on ? " done" : "") + '"><button class="check' + (on ? " on" : "") + '" data-task="' + esc(t.key) + '" type="button" aria-label="Marquer comme fait" aria-pressed="' + on + '">' + ic("check", 13) + '</button><span class="dot" style="background:' + safeColor(t.m.couleur) + '"></span><div class="tx"><div class="tt">' + esc(t.titre) + '</div><div class="ts">' + esc(t.sub || "") + "</div></div>" + (t.href ? '<a class="btn btn-plain btn-sm" href="' + t.href + '">Ouvrir</a>' : "") + "</div>";
-}
-
-return { statusPill, bar, ring, tile, dot, banner, statTile, taskRow };
-})();
-
-// ---- src/ui/components/spotlight.js
-const __m12 = (() => {
-const { esc } = __m0;
-const { ic } = __m8;
-const { buildIndex, search } = __m9;
-const { app } = __m7;
-const { $, $$ } = __m10;
-const { dot } = __m11;
-// Recherche globale (⌘K / Ctrl K / « / »).
-
-
-
-
-
-
-
-
-let index = null;
-let lastFocus = null;
-
-const isSearchOpen = () => !$("#spotlight").hidden;
-
-function openSearch() {
-  index = index || buildIndex(app.content);
-  lastFocus = document.activeElement;
-  const host = $("#spotlight");
-  host.hidden = false;
-  host.innerHTML = '<div class="spot-backdrop" id="spot-bg"><div class="spot" role="dialog" aria-modal="true" aria-label="Recherche"><div class="spot-in">' + ic("search") + '<input id="spot-q" type="text" role="combobox" aria-expanded="true" aria-controls="spot-res" aria-label="Rechercher" placeholder="Rechercher un chapitre, une notion, un auteur…" autocomplete="off" spellcheck="false"><kbd>Échap</kbd></div><div class="spot-res" id="spot-res" role="listbox"></div></div></div>';
-  const input = $("#spot-q"), resEl = $("#spot-res");
-  let results = [], sel = 0;
-  function run() { results = search(index, input.value); sel = 0; paint(); }
-  function paint() {
-    if (!results.length) { resEl.innerHTML = '<div class="spot-empty">Aucun résultat</div>'; return; }
-    let g = "", html = "";
-    results.forEach((x, j) => {
-      if (x.g !== g) { g = x.g; html += '<div class="spot-group" role="presentation">' + g + "</div>"; }
-      html += '<div class="spot-item' + (j === sel ? " sel" : "") + '" role="option" id="spot-' + j + '" aria-selected="' + (j === sel) + '" data-j="' + j + '">' + dot(x.m, x.g === "Fiches" ? "cards" : x.g === "Définitions" ? "book" : x.m.icone) + '<div class="si-x"><div class="si-t">' + esc(x.t) + '</div><div class="si-s">' + esc(x.s) + "</div></div></div>";
-    });
-    resEl.innerHTML = html;
-    input.setAttribute("aria-activedescendant", "spot-" + sel);
-    $$(".spot-item", resEl).forEach((el) => { el.onclick = () => go(+el.dataset.j); el.onmousemove = () => { if (sel !== +el.dataset.j) { sel = +el.dataset.j; paint(); } }; });
-    const s = $(".spot-item.sel", resEl); if (s) s.scrollIntoView({ block: "nearest" });
-  }
-  function go(j) { const x = results[j]; closeSearch(); if (x) location.hash = x.href; }
-  input.oninput = run;
-  input.onkeydown = (e) => {
-    if (e.key === "ArrowDown") { e.preventDefault(); sel = Math.min(results.length - 1, sel + 1); paint(); }
-    else if (e.key === "ArrowUp") { e.preventDefault(); sel = Math.max(0, sel - 1); paint(); }
-    else if (e.key === "Enter") { e.preventDefault(); go(sel); }
-    else if (e.key === "Escape") closeSearch();
-  };
-  $("#spot-bg").onclick = (e) => { if (e.target.id === "spot-bg") closeSearch(); };
-  run();
-  setTimeout(() => input.focus(), 10);
-}
-
-function closeSearch() {
-  const h = $("#spotlight");
-  h.hidden = true;
-  h.innerHTML = "";
-  if (lastFocus && document.body.contains(lastFocus)) lastFocus.focus({ preventScroll: true });
-}
-
-return { isSearchOpen, openSearch, closeSearch };
-})();
-
-// ---- src/domain/srs.js
-const __m13 = (() => {
-const { addDays, dayKey } = __m5;
-// Répétition espacée — système de Leitner (comportement actuel, inchangé).
-// Le remplacement par FSRS est prévu à une phase ultérieure.
-// Fonctions pures : la date du jour est fournie par l'appelant.
-
-
-
-const INTERVALS = [0, 1, 2, 4, 8, 16, 32];
-const MAX_BOX = 6;
-const MASTERED_BOX = 3;
-
-/** Identifiant v1 d'une fiche (fondé sur la position : défaut C1, corrigé par le modèle v2). */
-const cardKey = (m, c, i) => m.id + "|" + c.id + "|" + i;
-
-const cardState = (cartes, k) => (cartes && cartes[k]) || { box: 0, due: null };
-
-const isDue = (cartes, k, today) => { const s = cardState(cartes, k); return !s.due || s.due <= dayKey(today); };
+// ---- src/data/v2/schema.js
+const __m16 = (() => {
+
+// Modèle de données v2 — CONCEPTION, NON BRANCHÉE SUR L'APPLICATION.
+// Voir docs/DATA_MODEL.md. Rien dans l'application n'importe ce module en phase 1.
+
+const FORMAT = "ihecs-study-os";
+const SCHEMA_VERSION = 2;
+const WORKSPACE_KINDS = ["demo", "real"];
+const ORIGINS = ["migrated-v1", "app"];
+
+const isObj = (v) => v !== null && typeof v === "object" && !Array.isArray(v);
+const isDay = (v) => typeof v === "string" && /^\d{4}-\d{2}-\d{2}$/.test(v);
+const isIso = (v) => typeof v === "string" && !Number.isNaN(Date.parse(v));
 
 /**
- * Nouvel état d'une fiche après une note.
- * 1 = à revoir (boîte 0, aujourd'hui) · 2 = difficile (boîte ≥ 1, demain)
- * 3 = bien (boîte + 1) · 4 = facile (boîte + 2)
+ * Valide un document d'état v2. Renvoie la liste des erreurs (vide si valide).
+ * Validation structurelle stricte des champs connus ; les sections "legacy" et
+ * "orphans" sont conservées telles quelles et seulement vérifiées comme objets.
  */
-function rate(prev, r, today) {
-  const s = { box: prev ? prev.box : 0, due: prev ? prev.due : null };
-  if (r === 1) s.box = 0;
-  else if (r === 2) s.box = Math.max(1, s.box);
-  else if (r === 3) s.box = Math.min(MAX_BOX, s.box + 1);
-  else if (r === 4) s.box = Math.min(MAX_BOX, s.box + 2);
-  else throw new RangeError("Note invalide : " + r);
-  const delay = r === 1 ? 0 : r === 2 ? 1 : INTERVALS[s.box];
-  s.due = dayKey(addDays(today, delay));
-  return s;
+function validateStateV2(doc) {
+  const e = [];
+  const req = (cond, msg) => { if (!cond) e.push(msg); };
+  if (!isObj(doc)) return ["Le document n'est pas un objet."];
+  req(doc.format === FORMAT, "format attendu : " + FORMAT);
+  req(doc.schemaVersion === SCHEMA_VERSION, "schemaVersion attendu : " + SCHEMA_VERSION);
+  req(isObj(doc.workspace) && typeof doc.workspace.id === "string" && WORKSPACE_KINDS.includes(doc.workspace.kind), "workspace invalide");
+  req(isIso(doc.createdAt) && isIso(doc.updatedAt), "dates de création ou de mise à jour invalides");
+  req(isObj(doc.settings), "settings manquant");
+  if (isObj(doc.settings)) {
+    req(typeof doc.settings.firstName === "string", "settings.firstName doit être une chaîne");
+    req(["auto", "light", "dark"].includes(doc.settings.theme), "settings.theme invalide");
+  }
+  const p = doc.progress;
+  req(isObj(p), "progress manquant");
+  if (isObj(p)) {
+    req(isObj(p.cards), "progress.cards manquant");
+    for (const [id, c] of Object.entries(p.cards || {})) {
+      req(isObj(c) && c.scheduler === "leitner", "carte " + id + " : scheduler invalide");
+      req(isObj(c) && Number.isInteger(c.box) && c.box >= 0 && c.box <= 6, "carte " + id + " : boîte invalide");
+      req(isObj(c) && (c.due === null || isDay(c.due)), "carte " + id + " : échéance invalide");
+      req(isObj(c) && ORIGINS.includes(c.origin), "carte " + id + " : origine invalide");
+    }
+    req(Array.isArray(p.reviewLog), "progress.reviewLog doit être un tableau");
+    for (const r of p.reviewLog || []) {
+      req(isObj(r) && typeof r.id === "string" && typeof r.cardId === "string" && isIso(r.at) && [1, 2, 3, 4].includes(r.rating), "entrée de journal invalide");
+    }
+    req(isObj(p.reading), "progress.reading manquant");
+    req(isObj(p.quizSummaries), "progress.quizSummaries manquant");
+    for (const [k, q] of Object.entries(p.quizSummaries || {})) req(isObj(q) && typeof q.best === "number" && ORIGINS.includes(q.origin), "quiz " + k + " invalide");
+    req(isObj(p.planChecks), "progress.planChecks manquant");
+    req(isObj(p.legacyDailyActivity), "progress.legacyDailyActivity manquant");
+    for (const [d, n] of Object.entries(p.legacyDailyActivity || {})) req(isDay(d) && typeof n === "number", "activité " + d + " invalide");
+    req(typeof p.focusMinutes === "number" && p.focusMinutes >= 0, "progress.focusMinutes invalide");
+  }
+  req(isObj(doc.idMap) && isObj(doc.idMap.cards), "idMap.cards manquant");
+  req(isObj(doc.orphans) && isObj(doc.orphans.cards), "orphans.cards manquant");
+  req(isObj(doc.legacy), "legacy manquant");
+  return e;
 }
 
-/** Délai affiché sur le bouton de note (3 ou 4), en jours. */
-const nextDelay = (prev, r) => INTERVALS[Math.min(MAX_BOX, (prev ? prev.box : 0) + (r === 3 ? 1 : 2))];
-
-function allCards(content, filter) {
-  const out = [];
-  (content.matieres || []).forEach((m) => {
-    if (filter && filter !== m.id) return;
-    (m.chapitres || []).forEach((c) => (c.fiches || []).forEach((f, i) => out.push({ m, c, f, k: cardKey(m, c, i) })));
-  });
-  return out;
-}
-
-const dueCards = (content, cartes, today, filter) => allCards(content, filter).filter((x) => isDue(cartes, x.k, today));
-
-return { INTERVALS, MAX_BOX, MASTERED_BOX, cardKey, cardState, isDue, rate, nextDelay, allCards, dueCards };
+return { FORMAT, SCHEMA_VERSION, WORKSPACE_KINDS, ORIGINS, validateStateV2 };
 })();
 
-// ---- src/domain/progress.js
-const __m14 = (() => {
-const { cardKey, cardState, MASTERED_BOX } = __m13;
-// Mesures de progression (comportement actuel, inchangé).
-// Défaut connu M1 : le pourcentage unique pondéré 30/30/40 sera remplacé par
-// des mesures séparées dans la phase « analytique ».
+// ---- src/data/v2/workspace.js
+const __m17 = (() => {
+const { FORMAT, SCHEMA_VERSION, validateStateV2 } = __m16;
+// Espace académique réel au format v2 : fichiers du dossier Drive, validation
+// et conversion avec l'état utilisé par l'interface. Fonctions pures.
+//
+// Organisation du dossier choisi (ex. « Mon Drive/IHECS STUDY OS ») :
+//   ihecs-study-os.json                        manifeste de l'espace (écrit en dernier à la création)
+//   structure.json                             structure académique (fichier partagé, écriture vérifiée)
+//   appareils/<appareil>/etat.json             progression de CET appareil (un seul rédacteur)
+//   appareils/<appareil>/revisions-AAAA-MM.jsonl  journal des révisions, ajout seul
+//
+// Chaque appareil n'écrit que dans son propre sous-dossier : Drive n'a jamais
+// deux versions du même fichier à départager (décision « pire cas »).
 
 
 
-const MASTERED_THRESHOLD = 0.85;
-const chapKey = (m, c) => m.id + "|" + c.id;
+const MANIFEST_FILE = "ihecs-study-os.json";
+const STRUCTURE_FILE = "structure.json";
+const DEVICES_DIR = "appareils";
+const STATE_FILE = "etat.json";
+const reviewLogFile = (date) => "revisions-" + date.toISOString().slice(0, 7) + ".jsonl";
 
-function chapStats(state, m, c) {
-  const k = chapKey(m, c);
-  const fiches = c.fiches || [];
-  const mastered = fiches.filter((f, i) => cardState(state.cartes, cardKey(m, c, i)).box >= MASTERED_BOX).length;
-  const lu = !!(state.lu && state.lu[k]);
-  const q = state.quiz && state.quiz[k];
-  const parts = [[lu ? 1 : 0, 0.3]];
-  if ((c.quiz || []).length) parts.push([q ? q.best : 0, 0.3]);
-  if (fiches.length) parts.push([mastered / fiches.length, 0.4]);
-  const w = parts.reduce((a, p) => a + p[1], 0);
-  const p = parts.reduce((a, x) => a + x[0] * x[1], 0) / w;
-  return { lu, quizBest: q ? q.best : null, mastered, total: fiches.length, p };
+const isObj = (v) => v !== null && typeof v === "object" && !Array.isArray(v);
+const isIso = (v) => typeof v === "string" && !Number.isNaN(Date.parse(v));
+const isId = (v) => typeof v === "string" && /^[A-Za-z0-9-]{8,64}$/.test(v);
+const THEMES = ["auto", "light", "dark"];
+
+/* ---------------- Manifeste ---------------- */
+
+function newManifest({ workspaceId, deviceId, now, name = "Mon espace académique" }) {
+  return {
+    format: FORMAT,
+    kind: "workspace-manifest",
+    schemaVersion: SCHEMA_VERSION,
+    workspace: { id: workspaceId, kind: "real", name },
+    createdAt: now.toISOString(),
+    createdByDevice: deviceId,
+    layout: { structure: STRUCTURE_FILE, devices: DEVICES_DIR + "/" }
+  };
 }
 
-function subjectProgress(state, m) {
-  const ch = m.chapitres || [];
-  if (!ch.length) return 0;
-  return ch.reduce((a, c) => a + chapStats(state, m, c).p, 0) / ch.length;
+function validateManifest(m) {
+  const e = [];
+  if (!isObj(m)) return ["Le manifeste n'est pas un objet."];
+  if (m.format !== FORMAT || m.kind !== "workspace-manifest") e.push("Ce fichier n'est pas un manifeste IHECS STUDY OS.");
+  if (m.schemaVersion !== SCHEMA_VERSION) e.push("Version de format non prise en charge : " + m.schemaVersion + " (attendu : " + SCHEMA_VERSION + ").");
+  if (!isObj(m.workspace) || !isId(m.workspace.id) || m.workspace.kind !== "real" || typeof m.workspace.name !== "string") e.push("Description de l'espace invalide.");
+  if (!isIso(m.createdAt)) e.push("Date de création invalide.");
+  return e;
 }
 
-function overall(content, state) {
-  let n = 0, sum = 0, lu = 0, mast = 0, cards = 0, chapters = 0, done = 0;
-  (content.matieres || []).forEach((m) => (m.chapitres || []).forEach((c) => {
-    const s = chapStats(state, m, c);
-    n++; sum += s.p; if (s.lu) lu++; mast += s.mastered; cards += s.total; chapters++; if (s.p >= MASTERED_THRESHOLD) done++;
-  }));
-  return { p: n ? sum / n : 0, lu, mast, cards, chapters, done };
+/* ---------------- Structure académique ---------------- */
+
+function newStructure({ workspaceId, now }) {
+  return { format: FORMAT, kind: "academic-structure", schemaVersion: SCHEMA_VERSION, workspaceId, updatedAt: now.toISOString(), years: [], subjects: [] };
 }
 
-return { MASTERED_THRESHOLD, chapKey, chapStats, subjectProgress, overall };
+function validateStructure(s, workspaceId) {
+  const e = [];
+  if (!isObj(s)) return ["La structure n'est pas un objet."];
+  if (s.format !== FORMAT || s.kind !== "academic-structure") e.push("Ce fichier n'est pas une structure académique IHECS STUDY OS.");
+  if (s.schemaVersion !== SCHEMA_VERSION) e.push("Version de structure non prise en charge : " + s.schemaVersion + ".");
+  if (workspaceId && s.workspaceId !== workspaceId) e.push("Cette structure appartient à un autre espace.");
+  if (!Array.isArray(s.years)) e.push("Liste des années invalide.");
+  if (!Array.isArray(s.subjects)) e.push("Liste des matières invalide.");
+  for (const sub of Array.isArray(s.subjects) ? s.subjects : []) {
+    if (!isObj(sub) || typeof sub.id !== "string" || typeof sub.name !== "string") e.push("Matière invalide.");
+  }
+  return e;
+}
+
+/** Contenu affichable par l'interface à partir de la structure (aucune matière pour l'instant). */
+function contentFromStructure(structure, manifest) {
+  return {
+    exemple: false,
+    ecole: "IHECS",
+    annee: manifest.workspace.name,
+    session: null,
+    matieres: (structure.subjects || []).map((s) => ({
+      id: s.id, nom: s.name, prof: s.teacher || "", credits: s.credits || null, quadrimestre: s.semester || "",
+      couleur: s.color || "#8e8e93", icone: s.icon || "book", examen: s.exam || null, fichiers: [], chapitres: s.chapters || []
+    }))
+  };
+}
+
+/* ---------------- État de progression (par appareil) ---------------- */
+
+function emptyUiState() {
+  return { lu: {}, quiz: {}, cartes: {}, plan: {}, journal: {}, prenom: "", theme: "auto", focus: { min: 0 } };
+}
+
+/**
+ * Convertit l'état de l'interface en document v2 valide.
+ * Les sections de conservation du document précédent (idMap, orphans, legacy)
+ * sont reprises telles quelles : rien n'est jamais abandonné.
+ */
+function uiStateToV2(ui, { workspace, now, prevDoc = null }) {
+  const iso = now.toISOString();
+  const wrap = (o) => Object.fromEntries(Object.entries(o || {}).map(([k, v]) => [k, { value: v, origin: "app" }]));
+  const cards = {};
+  for (const [id, c] of Object.entries(ui.cartes || {})) cards[id] = { scheduler: "leitner", box: c.box, due: c.due == null ? null : c.due, origin: "app" };
+  const quizSummaries = {};
+  for (const [k, q] of Object.entries(ui.quiz || {})) quizSummaries[k] = Object.assign({}, q, { origin: "app" });
+  return {
+    format: FORMAT,
+    schemaVersion: SCHEMA_VERSION,
+    workspace: { id: workspace.id, kind: "real" },
+    createdAt: prevDoc && prevDoc.createdAt ? prevDoc.createdAt : iso,
+    updatedAt: iso,
+    settings: { firstName: typeof ui.prenom === "string" ? ui.prenom : "", theme: THEMES.includes(ui.theme) ? ui.theme : "auto" },
+    progress: {
+      cards,
+      reviewLog: [], // le journal des révisions vit dans les fichiers mensuels .jsonl
+      reading: wrap(ui.lu),
+      quizSummaries,
+      planChecks: wrap(ui.plan),
+      legacyDailyActivity: Object.assign({}, ui.journal || {}),
+      focusMinutes: ui.focus && typeof ui.focus.min === "number" ? ui.focus.min : 0
+    },
+    idMap: prevDoc && prevDoc.idMap ? prevDoc.idMap : { cards: {} },
+    orphans: prevDoc && prevDoc.orphans ? prevDoc.orphans : { cards: {}, quiz: {} },
+    legacy: prevDoc && prevDoc.legacy ? prevDoc.legacy : {}
+  };
+}
+
+/** Convertit un document v2 en état utilisable par l'interface. */
+function v2ToUiState(doc) {
+  const p = doc.progress;
+  const unwrap = (o) => Object.fromEntries(Object.entries(o || {}).map(([k, v]) => [k, v.value]));
+  const cartes = {};
+  for (const [id, c] of Object.entries(p.cards || {})) cartes[id] = { box: c.box, due: c.due };
+  const quiz = Object.fromEntries(Object.entries(p.quizSummaries || {}).map(([k, v]) => { const c = Object.assign({}, v); delete c.origin; return [k, c]; }));
+  return {
+    lu: unwrap(p.reading), quiz, cartes, plan: unwrap(p.planChecks), journal: Object.assign({}, p.legacyDailyActivity || {}),
+    prenom: doc.settings.firstName, theme: doc.settings.theme, focus: { min: p.focusMinutes }
+  };
+}
+
+function validateDeviceState(doc, workspaceId) {
+  const e = validateStateV2(doc);
+  if (!e.length && doc.workspace.id !== workspaceId) e.push("Cet état appartient à un autre espace.");
+  if (!e.length && doc.workspace.kind !== "real") e.push("Cet état n'appartient pas à un espace réel.");
+  return e;
+}
+
+/* ---------------- Journal des révisions (ajout seul) ---------------- */
+
+function reviewEntry({ id, cardId, rating, before, after, now, deviceId }) {
+  return { id, cardId, at: now.toISOString(), rating, scheduler: "leitner", before: { box: before.box, due: before.due == null ? null : before.due }, after: { box: after.box, due: after.due }, deviceId };
+}
+
+/** Une ligne JSON par révision. Toute ligne illisible est signalée, jamais supprimée. */
+function parseReviewLog(text) {
+  const entries = [], invalidLines = [];
+  String(text || "").split("\n").forEach((line, i) => {
+    if (!line.trim()) return;
+    try { const o = JSON.parse(line); if (isObj(o) && typeof o.cardId === "string" && [1, 2, 3, 4].includes(o.rating)) entries.push(o); else invalidLines.push(i + 1); }
+    catch (e) { invalidLines.push(i + 1); }
+  });
+  return { entries, invalidLines };
+}
+
+return { MANIFEST_FILE, STRUCTURE_FILE, DEVICES_DIR, STATE_FILE, reviewLogFile, newManifest, validateManifest, newStructure, validateStructure, contentFromStructure, emptyUiState, uiStateToV2, v2ToUiState, validateDeviceState, reviewEntry, parseReviewLog };
+})();
+
+// ---- src/storage/prefs.js
+const __m18 = (() => {
+
+// Préférences locales de ce navigateur (IndexedDB) : identifiant d'appareil,
+// dossier Drive mémorisé (poignée), espace actif. Ce ne sont PAS des données
+// académiques : la source de vérité de l'espace réel est le dossier Drive.
+
+const DB = "ihecs-study-os";
+const STORE = "prefs";
+
+function open() {
+  return new Promise((ok, ko) => {
+    const r = indexedDB.open(DB, 1);
+    r.onupgradeneeded = () => r.result.createObjectStore(STORE);
+    r.onsuccess = () => ok(r.result);
+    r.onerror = () => ko(r.error);
+  });
+}
+
+// Crochet réservé aux tests automatisés : Chromium headless plante en relisant une
+// poignée de dossier depuis IndexedDB. Jamais défini en usage réel.
+const testHook = (key) => key === "realRoot" && typeof window !== "undefined" && window.__IHECS_TEST_HANDLE_STORE__;
+
+async function getPref(key) {
+  if (testHook(key)) return window.__IHECS_TEST_HANDLE_STORE__.get();
+  try {
+    const db = await open();
+    return await new Promise((ok, ko) => { const t = db.transaction(STORE).objectStore(STORE).get(key); t.onsuccess = () => ok(t.result); t.onerror = () => ko(t.error); });
+  } catch (e) { return undefined; }
+}
+
+async function setPref(key, value) {
+  if (testHook(key)) return window.__IHECS_TEST_HANDLE_STORE__.set(value);
+  const db = await open();
+  return new Promise((ok, ko) => { const tx = db.transaction(STORE, "readwrite"); tx.objectStore(STORE).put(value, key); tx.oncomplete = () => ok(); tx.onerror = () => ko(tx.error); });
+}
+
+async function deletePref(key) {
+  if (testHook(key)) return window.__IHECS_TEST_HANDLE_STORE__.clear();
+  const db = await open();
+  return new Promise((ok, ko) => { const tx = db.transaction(STORE, "readwrite"); tx.objectStore(STORE).delete(key); tx.oncomplete = () => ok(); tx.onerror = () => ko(tx.error); });
+}
+
+/** Identifiant stable de cet appareil (navigateur), créé une seule fois. */
+async function deviceId() {
+  let id = await getPref("deviceId");
+  if (!id) { id = crypto.randomUUID(); await setPref("deviceId", id); }
+  return id;
+}
+
+return { getPref, setPref, deletePref, deviceId };
+})();
+
+// ---- src/storage/real-workspace.js
+const __m19 = (() => {
+const { DEVICES_DIR, MANIFEST_FILE, STATE_FILE, STRUCTURE_FILE, contentFromStructure, emptyUiState, newManifest, newStructure, reviewLogFile, uiStateToV2, v2ToUiState, validateDeviceState, validateManifest, validateStructure } = __m17;
+const { appendLine, createJsonIfAbsent, listNames, readJson, subdir, writeJson } = __m2;
+// Ouverture, création et enregistrement de l'espace académique réel dans le dossier Drive.
+
+
+
+
+/**
+ * Examine un dossier sans rien y écrire.
+ * @returns {{status: "existing", manifest} | {status: "empty", names} | {status: "invalid", errors}}
+ */
+async function inspectFolder(root) {
+  const m = await readJson(root, MANIFEST_FILE);
+  if (!m.exists) return { status: "empty", names: await listNames(root) };
+  if (m.error) return { status: "invalid", errors: [m.error] };
+  const errors = validateManifest(m.data);
+  return errors.length ? { status: "invalid", errors } : { status: "existing", manifest: m.data };
+}
+
+/**
+ * Crée un espace dans un dossier qui n'en contient pas. N'écrase jamais rien :
+ * si un manifeste apparaît entre-temps (synchronisation), la création s'arrête.
+ * Le manifeste est écrit en dernier : sans lui, le dossier n'est pas un espace.
+ */
+async function createWorkspace(root, { deviceId, now }) {
+  const again = await inspectFolder(root);
+  if (again.status !== "empty") throw new Error("Le dossier contient déjà un espace ou un fichier inattendu : création annulée.");
+  const manifest = newManifest({ workspaceId: crypto.randomUUID(), deviceId, now });
+  if (!(await createJsonIfAbsent(root, STRUCTURE_FILE, newStructure({ workspaceId: manifest.workspace.id, now })))) {
+    throw new Error("Un fichier structure.json existe déjà sans manifeste : création annulée, rien n'a été modifié.");
+  }
+  const dev = await subdir(root, [DEVICES_DIR, deviceId], true);
+  await createJsonIfAbsent(dev, STATE_FILE, uiStateToV2(emptyUiState(), { workspace: manifest.workspace, now }));
+  if (!(await createJsonIfAbsent(root, MANIFEST_FILE, manifest))) throw new Error("Un manifeste est apparu pendant la création : rien n'a été écrasé.");
+  return manifest;
+}
+
+/**
+ * Ouvre un espace existant et charge la progression de cet appareil.
+ * @returns {{manifest, structure, content, uiState, stateDoc}}
+ */
+async function openWorkspace(root, { deviceId, now }) {
+  const info = await inspectFolder(root);
+  if (info.status !== "existing") throw new Error(info.status === "empty" ? "Ce dossier ne contient pas d'espace IHECS STUDY OS." : info.errors.join(" "));
+  const manifest = info.manifest;
+  const s = await readJson(root, STRUCTURE_FILE);
+  if (!s.exists) throw new Error("structure.json est introuvable. Si tu viens de créer l'espace sur un autre ordinateur, attends la fin de la synchronisation Drive puis réessaie.");
+  if (s.error) throw new Error(s.error);
+  const sErr = validateStructure(s.data, manifest.workspace.id);
+  if (sErr.length) throw new Error(sErr.join(" "));
+  const dev = await subdir(root, [DEVICES_DIR, deviceId], true);
+  let st = await readJson(dev, STATE_FILE);
+  if (!st.exists) {
+    // Nouvel appareil : il démarre avec son propre fichier, sans toucher à ceux des autres.
+    await createJsonIfAbsent(dev, STATE_FILE, uiStateToV2(emptyUiState(), { workspace: manifest.workspace, now }));
+    st = await readJson(dev, STATE_FILE);
+  }
+  if (st.error) throw new Error(st.error);
+  const stErr = validateDeviceState(st.data, manifest.workspace.id);
+  if (stErr.length) throw new Error("Progression de cet appareil invalide : " + stErr.join(" "));
+  return { manifest, structure: s.data, content: contentFromStructure(s.data, manifest), uiState: v2ToUiState(st.data), stateDoc: st.data };
+}
+
+/**
+ * File d'enregistrement : écrit l'état de cet appareil, une écriture à la fois,
+ * en regroupant les demandes rapprochées. Les échecs sont signalés, jamais ignorés.
+ */
+function createSaver(root, { manifest, deviceId, stateDoc, onStatus }) {
+  let prev = stateDoc, pending = null, running = false;
+  const status = (s, extra) => onStatus && onStatus(Object.assign({ state: s, at: new Date() }, extra || {}));
+  async function run() {
+    if (running) return;
+    running = true;
+    while (pending) {
+      const ui = pending; pending = null;
+      status("saving");
+      try {
+        const doc = uiStateToV2(ui, { workspace: manifest.workspace, now: new Date(), prevDoc: prev });
+        const errors = validateDeviceState(doc, manifest.workspace.id);
+        if (errors.length) throw new Error("Document invalide, non enregistré : " + errors.join(" "));
+        await writeJson(await subdir(root, [DEVICES_DIR, deviceId], true), STATE_FILE, doc);
+        prev = doc;
+        if (!pending) status("saved");
+      } catch (e) {
+        pending = pending || ui; // on garde la dernière version pour réessayer
+        status("error", { message: (e && e.message) || String(e) });
+        break;
+      }
+    }
+    running = false;
+  }
+  return {
+    save(ui) { pending = JSON.parse(JSON.stringify(ui)); run(); return true; },
+    retry() { run(); },
+    hasPending: () => !!pending || running
+  };
+}
+
+/** Ajoute une révision au journal mensuel de cet appareil (ajout seul). */
+async function appendReview(root, { deviceId, entry }) {
+  const dev = await subdir(root, [DEVICES_DIR, deviceId], true);
+  await appendLine(dev, reviewLogFile(new Date(entry.at)), JSON.stringify(entry));
+}
+
+
+return { inspectFolder, createWorkspace, openWorkspace, createSaver, appendReview };
+})();
+
+// ---- src/ui/theme.js
+const __m20 = (() => {
+
+// Thème : "auto" suit le système, "light" ou "dark" forcent l'apparence.
+
+function applyTheme(theme) {
+  const r = document.documentElement;
+  if (theme === "light" || theme === "dark") r.setAttribute("data-theme", theme);
+  else r.removeAttribute("data-theme");
+}
+
+return { applyTheme };
+})();
+
+// ---- src/ui/workspace.js
+const __m21 = (() => {
+const { WORKSPACES, realWorkspace } = __m15;
+const { reviewEntry } = __m17;
+const { loadState, saveState } = __m5;
+const { deletePref, deviceId, getPref, setPref } = __m18;
+const { appendReview, createSaver, openWorkspace } = __m19;
+const { app, safeStorage } = __m6;
+const { resetSearchIndex } = __m11;
+const { applyTheme } = __m20;
+// Activation des espaces : démonstration (fixtures, localStorage) ou espace réel (dossier Drive).
+// D3 : les deux ne partagent ni contenu ni progression.
+
+
+
+
+
+
+
+
+
+
+/** État de l'enregistrement dans Drive, affiché dans l'interface. */
+const sync = { state: "idle", at: null, message: "" };
+
+function reset() {
+  app.startupError = null;
+  app.real = null;
+  app.gate = null;
+  app.recordReview = null;
+  app.retrySave = null;
+  resetSearchIndex();
+}
+
+function activateDemo() {
+  reset();
+  app.workspace = WORKSPACES.demo;
+  app.content = WORKSPACES.demo.content;
+  app.storage = safeStorage();
+  app.state = loadState(app.storage);
+  app.persist = (st) => saveState(app.storage, st);
+  Object.assign(sync, { state: "idle", at: null, message: "" });
+  applyTheme(app.state.theme);
+}
+
+/** Ouvre l'espace réel du dossier (permission déjà accordée). Lève une erreur explicite sinon. */
+async function activateReal(root) {
+  const dev = await deviceId();
+  const opened = await openWorkspace(root, { deviceId: dev, now: new Date() });
+  reset();
+  const saver = createSaver(root, {
+    manifest: opened.manifest, deviceId: dev, stateDoc: opened.stateDoc,
+    onStatus: (s) => { Object.assign(sync, s, s.state === "error" ? {} : { message: "" }); app.refreshChrome(); }
+  });
+  app.workspace = realWorkspace(opened.manifest, root.name);
+  app.content = opened.content;
+  app.state = opened.uiState;
+  app.persist = (st) => saver.save(st);
+  app.retrySave = () => saver.retry();
+  app.recordReview = async ({ cardId, rating, before, after }) => {
+    const entry = reviewEntry({ id: crypto.randomUUID(), cardId, rating, before, after, now: new Date(), deviceId: dev });
+    try { await appendReview(root, { deviceId: dev, entry }); }
+    catch (e) { Object.assign(sync, { state: "error", at: new Date(), message: "Journal des révisions non enregistré : " + e.message }); app.refreshChrome(); }
+  };
+  app.real = { root, manifest: opened.manifest, deviceId: dev, folderName: root.name };
+  Object.assign(sync, { state: "saved", at: new Date(), message: "" });
+  applyTheme(app.state.theme);
+  await setPref("realRoot", root);
+  await setPref("activeWorkspace", "real");
+}
+
+async function switchToDemo() {
+  await setPref("activeWorkspace", "demo");
+  activateDemo();
+}
+
+/** Oublie le dossier sur cet ordinateur. Aucun fichier n'est supprimé dans Drive. */
+async function forgetFolder() {
+  await deletePref("realRoot");
+  await setPref("activeWorkspace", "demo");
+  activateDemo();
+}
+
+async function storedRoot() {
+  return getPref("realRoot");
+}
+
+async function activeWorkspacePref() {
+  return getPref("activeWorkspace");
+}
+
+return { sync, activateDemo, activateReal, switchToDemo, forgetFolder, storedRoot, activeWorkspacePref };
 })();
 
 // ---- src/ui/shell.js
-const __m15 = (() => {
+const __m22 = (() => {
 const { esc } = __m0;
-const { ic } = __m8;
-const { subjectProgress } = __m14;
-const { dueCards } = __m13;
-const { app } = __m7;
-const { $ } = __m10;
-const { openSearch } = __m12;
-const { dot } = __m11;
+const { ic } = __m7;
+const { subjectProgress } = __m13;
+const { dueCards } = __m12;
+const { app } = __m6;
+const { $ } = __m9;
+const { openSearch } = __m11;
+const { sync } = __m21;
+const { dot } = __m10;
 // Coquille : barre latérale, barre d'onglets mobile, en-tête mobile.
+
 
 
 
@@ -1835,7 +2442,8 @@ function renderShell(route) {
   const due = dueCards(D, app.state.cartes, app.today()).length;
   const cur = (href) => (route.nav === href ? ' class="active" aria-current="page"' : "");
   const a = (href, label, icon, badge) => '<a href="' + href + '"' + cur(href) + '><span class="nav-ico">' + ic(icon, 18) + '</span><span class="t">' + label + "</span>" + (badge ? '<span class="badge">' + badge + "</span>" : "") + "</a>";
-  const demo = app.workspace && app.workspace.kind === "demo" ? '<span class="pill pill-warn" title="Cours fictifs">Démo</span>' : "";
+  const demo = app.workspace && app.workspace.kind === "demo" ? '<span class="pill pill-warn" title="Cours fictifs">Démo</span>' : '<span class="pill pill-good" title="Ton espace académique">Mon espace</span>';
+  const syncLine = app.real ? (sync.state === "error" ? '<a href="#parametres" style="color:var(--bad)">Échec de l\'enregistrement</a>' : sync.state === "saving" ? "Enregistrement dans Drive…" : "Enregistré dans Drive" + (sync.at ? " à " + sync.at.toLocaleTimeString("fr-BE", { hour: "2-digit", minute: "2-digit" }) : "")) : "";
   $("#sidebar").innerHTML =
     '<div class="brand"><div class="brand-mark">' + ic("book", 18) + '</div><div><div class="brand-name">Révisions ' + demo + '</div><div class="brand-sub">' + esc(D.ecole || "") + " · " + esc((D.annee || "").split("—")[0].trim()) + "</div></div></div>" +
     '<button class="search-btn" id="open-search" type="button">' + ic("search", 16) + "Rechercher<kbd>⌘K</kbd></button>" +
@@ -1844,7 +2452,7 @@ function renderShell(route) {
     app.M.map((m) => '<a href="#m-' + m.id + '"' + cur("#m-" + m.id) + ">" + dot(m) + '<span class="t">' + esc(m.nom) + '</span><span class="badge">' + Math.round(subjectProgress(app.state, m) * 100) + "%</span></a>").join("") +
     "</nav>" +
     '<nav class="nav" style="margin-top:14px" aria-label="Réglages">' + a("#parametres", "Réglages", "gear") + "</nav>" +
-    '<div class="sidebar-foot">' + esc(D.session ? D.session.nom : "") + "</div>";
+    '<div class="sidebar-foot" id="sync-status" role="status">' + (syncLine || esc(D.session ? D.session.nom : "")) + "</div>";
   const t = (href, label, icon) => '<a href="' + href + '"' + (route.tab === href ? ' class="active" aria-current="page"' : "") + ">" + ic(icon, 24) + label + "</a>";
   $("#tabbar").innerHTML = t("#accueil", "Accueil", "home") + t("#matieres", "Matières", "book") + t("#revision", "Révision", "cards") + t("#examens", "Examens", "exam") + t("#planning", "Planning", "plan");
   $("#mobile-top").innerHTML = '<div class="brand"><div class="brand-mark">' + ic("book", 18) + '</div><div class="brand-name">Révisions ' + demo + '</div></div><div style="display:flex;gap:8px"><button class="icon-btn" id="open-search-m" type="button" aria-label="Rechercher">' + ic("search", 18) + '</button><a class="icon-btn" href="#parametres" aria-label="Réglages">' + ic("gear", 18) + "</a></div>";
@@ -1855,22 +2463,8 @@ function renderShell(route) {
 return { renderShell };
 })();
 
-// ---- src/ui/theme.js
-const __m16 = (() => {
-
-// Thème : "auto" suit le système, "light" ou "dark" forcent l'apparence.
-
-function applyTheme(theme) {
-  const r = document.documentElement;
-  if (theme === "light" || theme === "dark") r.setAttribute("data-theme", theme);
-  else r.removeAttribute("data-theme");
-}
-
-return { applyTheme };
-})();
-
 // ---- src/core/markdown.js
-const __m17 = (() => {
+const __m23 = (() => {
 const { esc } = __m0;
 // Rendu Markdown minimal et sûr (sous-ensemble) : titres, listes, tableaux,
 // citations, gras, italique, surlignage (==x==), code, liens restreints.
@@ -1949,14 +2543,14 @@ return { inline, slug, md };
 })();
 
 // ---- src/ui/components/flashcards.js
-const __m18 = (() => {
+const __m24 = (() => {
 const { esc } = __m0;
-const { ic } = __m8;
-const { inline } = __m17;
-const { cardState, nextDelay, rate: rateCard } = __m13;
-const { app } = __m7;
-const { $, $$, shuffle } = __m10;
-const { dot, ring } = __m11;
+const { ic } = __m7;
+const { inline } = __m23;
+const { cardState, nextDelay, rate: rateCard } = __m12;
+const { app } = __m6;
+const { $, $$, shuffle } = __m9;
+const { dot, ring } = __m10;
 // Session de fiches recto verso avec notation Leitner.
 
 
@@ -2007,7 +2601,10 @@ function mountFlashcards(slot, cards, opts = {}) {
   function rate(r) {
     if (!flipped) return;
     const x = queue[i];
-    app.state.cartes[x.k] = rateCard(cardState(app.state.cartes, x.k), r, app.today());
+    const before = cardState(app.state.cartes, x.k);
+    const after = rateCard(before, r, app.today());
+    app.state.cartes[x.k] = after;
+    if (app.recordReview) app.recordReview({ cardId: x.k, rating: r, before, after });
     app.log(1);
     counts[r]++; seen++;
     if (r === 1) queue.push(x);
@@ -2027,13 +2624,13 @@ return { mountFlashcards };
 })();
 
 // ---- src/ui/components/quiz.js
-const __m19 = (() => {
+const __m25 = (() => {
 const { esc } = __m0;
-const { ic } = __m8;
-const { inline } = __m17;
-const { app } = __m7;
-const { $, $$, shuffle } = __m10;
-const { ring } = __m11;
+const { ic } = __m7;
+const { inline } = __m23;
+const { app } = __m6;
+const { $, $$, shuffle } = __m9;
+const { ring } = __m10;
 // Quiz à choix unique avec correction expliquée.
 
 
@@ -2092,17 +2689,17 @@ return { mountQuiz };
 })();
 
 // ---- src/ui/views/chapter.js
-const __m20 = (() => {
+const __m26 = (() => {
 const { esc, safeColor } = __m0;
-const { ic } = __m8;
-const { inline, md } = __m17;
-const { chapKey, chapStats } = __m14;
-const { cardKey } = __m13;
-const { app } = __m7;
-const { mountFlashcards } = __m18;
-const { mountQuiz } = __m19;
-const { $, $$, toast } = __m10;
-const { statusPill } = __m11;
+const { ic } = __m7;
+const { inline, md } = __m23;
+const { chapKey, chapStats } = __m13;
+const { cardKey } = __m12;
+const { app } = __m6;
+const { mountFlashcards } = __m24;
+const { mountQuiz } = __m25;
+const { $, $$, toast } = __m9;
+const { statusPill } = __m10;
 // Chapitre : onglets Résumé, L'essentiel, Fiches, Quiz (motif ARIA « tabs »).
 
 
@@ -2170,7 +2767,7 @@ function bindChapter(m, c, tab) {
   const mr = $("#mark-read");
   if (mr) mr.onclick = () => { app.state.lu[k] = true; app.log(2); app.save(); toast("Chapitre marqué comme lu"); app.render(); };
   if (tab === "fiches") {
-    const cards = (c.fiches || []).map((f, i) => ({ m, c, f, k: cardKey(m, c, i) }));
+    const cards = (c.fiches || []).map((f, i) => ({ m, c, f, k: cardKey(m, c, i, f) }));
     if (!cards.length) $("#fc-slot").innerHTML = '<div class="card empty"><p>Pas encore de fiches pour ce chapitre.</p></div>';
     else mountFlashcards($("#fc-slot"), cards, { after: '<a class="btn btn-ghost" href="#c-' + m.id + "-" + c.id + '-quiz">Passer au quiz</a>' });
   }
@@ -2197,9 +2794,9 @@ return { chapterView, mockExamView };
 })();
 
 // ---- src/domain/planner.js
-const __m21 = (() => {
-const { addDays, dayKey, daysBetween, examDate, fmtTime, parseDay, startOfDay } = __m5;
-const { chapStats, MASTERED_THRESHOLD } = __m14;
+const __m27 = (() => {
+const { addDays, dayKey, daysBetween, examDate, fmtTime, parseDay, startOfDay } = __m3;
+const { chapStats, MASTERED_THRESHOLD } = __m13;
 // Planning automatique (comportement actuel, inchangé).
 // Défaut connu M4 : recalculé chaque jour, sans capacité quotidienne ni
 // modification manuelle ; prévu pour la phase « planificateur ».
@@ -2249,12 +2846,12 @@ return { buildPlan };
 })();
 
 // ---- src/ui/components/timer.js
-const __m22 = (() => {
-const { pad } = __m5;
-const { ic } = __m8;
-const { app } = __m7;
-const { $, $$, toast } = __m10;
-const { ring } = __m11;
+const __m28 = (() => {
+const { pad } = __m3;
+const { ic } = __m7;
+const { app } = __m6;
+const { $, $$, toast } = __m9;
+const { ring } = __m10;
 // Minuteur Focus (Pomodoro 25 / 5 / 15 minutes). Ne tourne que page ouverte.
 
 
@@ -2315,17 +2912,17 @@ return { renderTimer };
 })();
 
 // ---- src/ui/views/home.js
-const __m23 = (() => {
-const { cap, daysBetween, dayKey, examDate, fmt, fmtLong, fmtTime, startOfDay } = __m5;
+const __m29 = (() => {
+const { cap, daysBetween, dayKey, examDate, fmt, fmtLong, fmtTime, startOfDay } = __m3;
 const { esc, safeColor } = __m0;
-const { ic } = __m8;
-const { lastWeek, streak } = __m6;
-const { buildPlan } = __m21;
-const { overall, subjectProgress } = __m14;
-const { dueCards } = __m13;
-const { app } = __m7;
-const { renderTimer } = __m22;
-const { banner, bar, ring, statTile, taskRow, tile } = __m11;
+const { ic } = __m7;
+const { lastWeek, streak } = __m4;
+const { buildPlan } = __m27;
+const { overall, subjectProgress } = __m13;
+const { dueCards } = __m12;
+const { app } = __m6;
+const { renderTimer } = __m28;
+const { banner, bar, ring, statTile, taskRow, tile } = __m10;
 // Tableau de bord.
 
 
@@ -2380,8 +2977,11 @@ function homeView() {
   const tasksHtml = todayPlan.length ? '<div class="task-list">' + todayPlan.slice(0, 6).map(taskRow).join("") + "</div>" + (todayPlan.length > 6 ? '<a href="#planning" class="small">+ ' + (todayPlan.length - 6) + " autres tâches</a>" : "")
     : '<p class="muted">Rien de prévu aujourd\'hui. Profite pour revoir tes fiches.</p>';
 
+  const emptyReal = app.workspace.kind === "real" && !app.M.length
+    ? '<div class="card empty" style="margin-bottom:16px"><div class="icon-tile" style="background:var(--good-soft);color:var(--good)">' + ic("check") + '</div><h2 class="h-sec">Ton espace est prêt</h2><p>Il est enregistré dans ton dossier Google Drive « ' + esc(app.workspace.folderName || "") + " ». Il est vide pour l'instant, sans aucun cours d'exemple. L'ajout de tes matières, cours et examens est la prochaine étape.</p></div>"
+    : "";
   const html = banner() +
-    '<header class="page-head"><div><div class="eyebrow">' + cap(fmtLong(app.now())) + '</div><h1 class="h-large">' + hello + "</h1></div></header>" +
+    '<header class="page-head"><div><div class="eyebrow">' + cap(fmtLong(app.now())) + '</div><h1 class="h-large">' + hello + "</h1></div></header>" + emptyReal +
     '<section class="hero">' + hero +
     '<div class="card overall"><div class="h-card">Progression globale</div><div class="overall-top">' + ring(o.p, 132, 14, "var(--accent)", '<div style="font-size:30px;font-weight:700;letter-spacing:-.03em">' + Math.round(o.p * 100) + '%</div><div class="small muted">global</div>') +
     '<div class="legend"><div><i style="background:var(--accent)"></i>' + o.lu + "/" + o.chapters + ' chapitres lus</div><div><i style="background:var(--good)"></i>' + o.mast + "/" + o.cards + ' fiches maîtrisées</div><div><i style="background:var(--warn)"></i>' + o.done + "/" + o.chapters + " chapitres maîtrisés</div></div></div>" +
@@ -2405,14 +3005,22 @@ return { homeView };
 })();
 
 // ---- src/ui/views/settings.js
-const __m24 = (() => {
-const { dayKey } = __m5;
+const __m30 = (() => {
+const { dayKey, fmtTime } = __m3;
 const { esc } = __m0;
-const { blankState, decodeBackup, encodeBackup, validateBackup } = __m2;
-const { app } = __m7;
-const { $, $$, toast } = __m10;
-const { applyTheme } = __m16;
+const { blankState, decodeBackup, encodeBackup, validateBackup } = __m5;
+const { app } = __m6;
+const { $, $$, toast } = __m9;
+const { applyTheme } = __m20;
+const { inspectFolder, createWorkspace } = __m19;
+const { permission } = __m2;
+const { deviceId } = __m18;
+const { activateReal, forgetFolder, storedRoot, switchToDemo, sync } = __m21;
 // Réglages : prénom, thème, espace de travail, sauvegarde, restauration, réinitialisation.
+
+
+
+
 
 
 
@@ -2423,15 +3031,86 @@ const { applyTheme } = __m16;
 
 function settingsView() {
   const S = app.state, w = app.workspace;
-  const html = '<header class="page-head"><div><h1 class="h-large">Réglages</h1><p class="lead">Ta progression est enregistrée dans ce navigateur.</p></div></header>' +
-    '<div class="card"><div class="form-row"><div class="fl"><b>Espace de travail</b><span>' + esc(w.description) + ' Ton espace académique réel arrivera avec le stockage des données ; les cours fictifs n\'y apparaîtront pas.</span></div><span class="pill pill-warn">' + esc(w.label) + "</span></div>" +
-    '<div class="form-row"><div class="fl"><label for="set-name"><b>Prénom</b></label><span>Affiché sur le tableau de bord.</span></div><input class="input" id="set-name" type="text" autocomplete="given-name" maxlength="80" value="' + esc(S.prenom) + '" placeholder="Ton prénom"></div>' +
+  const where = w.kind === "real" ? "Ta progression est enregistrée dans ton dossier Google Drive « " + esc(w.folderName) + " »." : "Mode démonstration : la progression est enregistrée dans ce navigateur.";
+  const html = '<header class="page-head"><div><h1 class="h-large">Réglages</h1><p class="lead">' + where + "</p></div></header>" +
+    '<div class="card" id="ws-card"><h2 class="h-card">Mon espace académique</h2><div id="ws-body"><p class="muted small">Chargement…</p></div></div>' +
+    '<div class="card section"><div class="form-row"><div class="fl"><label for="set-name"><b>Prénom</b></label><span>Affiché sur le tableau de bord.</span></div><input class="input" id="set-name" type="text" autocomplete="given-name" maxlength="80" value="' + esc(S.prenom) + '" placeholder="Ton prénom"></div>' +
     '<div class="form-row"><div class="fl"><b id="theme-label">Apparence</b><span>Automatique suit le réglage de ton appareil.</span></div><div class="seg" id="set-theme" role="group" aria-labelledby="theme-label">' + [["auto", "Automatique"], ["light", "Clair"], ["dark", "Sombre"]].map((t) => '<button type="button" data-theme-set="' + t[0] + '" aria-pressed="' + (S.theme === t[0]) + '" class="' + (S.theme === t[0] ? "on" : "") + '">' + t[1] + "</button>").join("") + "</div></div>" +
     '<div class="form-row"><div class="fl"><b>Sauvegarder ma progression</b><span>Copie un code à garder, ou télécharge un fichier, pour la retrouver sur un autre appareil.</span></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-plain btn-sm" id="exp-copy" type="button">Copier</button><button class="btn btn-plain btn-sm" id="exp-dl" type="button">Télécharger</button></div></div>' +
     '<div class="form-row"><div class="fl"><label for="imp-text"><b>Restaurer une sauvegarde</b></label><span>Colle le code copié ou choisis le fichier. Une sauvegarde invalide est refusée sans toucher à ta progression.</span></div><div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><input class="input" id="imp-text" type="text" placeholder="Colle le code ici"><button class="btn btn-plain btn-sm" id="imp-go" type="button">Restaurer</button><label class="btn btn-plain btn-sm" for="imp-file">Fichier…</label><input id="imp-file" type="file" accept="application/json,.json" hidden></div></div>' +
     '<div class="form-row"><div class="fl"><b>Réinitialiser</b><span>Efface toute la progression (fiches, quiz, planning).</span></div><div class="confirm" id="reset-zone"><button class="btn btn-danger btn-sm" id="reset" type="button">Réinitialiser</button></div></div></div>' +
     '<div class="card section"><h2 class="h-card">Raccourcis clavier</h2><dl class="kv"><dt><kbd>⌘</kbd> <kbd>K</kbd></dt><dd>Rechercher partout</dd><dt><kbd>Espace</kbd></dt><dd>Retourner une fiche</dd><dt><kbd>1</kbd> à <kbd>4</kbd></dt><dd>Noter une fiche (à revoir, difficile, bien, facile)</dd><dt><kbd>A</kbd> à <kbd>D</kbd></dt><dd>Répondre à une question de quiz</dd><dt><kbd>Entrée</kbd></dt><dd>Question suivante</dd><dt><kbd>←</kbd> <kbd>→</kbd></dt><dd>Changer d\'onglet dans un chapitre</dd></dl></div>';
-  return { html, bind: bindSettings };
+  return { html, bind: () => { bindSettings(); renderWorkspaceCard(); } };
+}
+
+/* ---------------- Carte « Mon espace académique » ---------------- */
+
+const fmtDate = (iso) => new Date(iso).toLocaleDateString("fr-BE", { day: "numeric", month: "long", year: "numeric" });
+
+async function renderWorkspaceCard(message) {
+  const body = $("#ws-body");
+  if (!body) return;
+  const msg = message ? '<p class="small" style="color:' + (message.error ? "var(--bad)" : "var(--good)") + '">' + esc(message.text) + "</p>" : "";
+  if (app.real) {
+    const m = app.real.manifest;
+    const st = sync.state === "error" ? '<span class="pill pill-bad">Échec de l\'enregistrement</span>' : sync.state === "saving" ? '<span class="pill pill-info">Enregistrement…</span>' : '<span class="pill pill-good">Enregistré' + (sync.at ? " à " + fmtTime(sync.at) : "") + "</span>";
+    body.innerHTML = msg + '<dl class="kv"><dt>Dossier Drive</dt><dd>' + esc(app.real.folderName) + "</dd><dt>Espace</dt><dd>" + esc(m.workspace.name) + " · créé le " + fmtDate(m.createdAt) + "</dd><dt>Cet ordinateur</dt><dd><code>" + esc(app.real.deviceId.slice(0, 8)) + "</code></dd><dt>État</dt><dd>" + st + (sync.state === "error" ? ' <span class="small">' + esc(sync.message) + "</span>" : "") + "</dd></dl>" +
+      '<div class="confirm" id="ws-actions" style="margin-top:16px">' + (sync.state === "error" ? '<button class="btn btn-sm" id="ws-retry" type="button">Réessayer l\'enregistrement</button>' : "") + '<button class="btn btn-plain btn-sm" id="ws-demo" type="button">Passer en démonstration</button><button class="btn btn-danger btn-sm" id="ws-forget" type="button">Oublier ce dossier</button></div>';
+    const retry = $("#ws-retry"); if (retry) retry.onclick = () => { app.retrySave && app.retrySave(); setTimeout(() => renderWorkspaceCard(), 300); };
+    $("#ws-demo").onclick = async () => { await switchToDemo(); app.render(); };
+    $("#ws-forget").onclick = () => {
+      $("#ws-actions").innerHTML = '<span>Le site oubliera ce dossier sur cet ordinateur. Tes fichiers dans Drive ne seront ni modifiés ni supprimés.</span><button class="btn btn-danger btn-sm" id="ws-forget-yes" type="button">Oublier</button><button class="btn btn-plain btn-sm" id="ws-forget-no" type="button">Annuler</button>';
+      $("#ws-forget-yes").onclick = async () => { await forgetFolder(); app.render(); };
+      $("#ws-forget-no").onclick = () => renderWorkspaceCard();
+    };
+    return;
+  }
+  const supported = typeof window.showDirectoryPicker === "function";
+  const root = await storedRoot();
+  if (!supported) {
+    body.innerHTML = msg + '<p class="muted">Pour relier ton dossier Google Drive, ouvre ce fichier dans <b>Google Chrome</b> ou <b>Microsoft Edge</b> sur ordinateur.</p>';
+    return;
+  }
+  body.innerHTML = msg + '<p class="muted" style="margin:6px 0 14px">Ton espace réel est enregistré dans un dossier synchronisé par <b>Google Drive pour ordinateur</b> (par exemple « Mon Drive/IHECS STUDY OS »). Il est séparé de la démonstration : les cours fictifs n\'y apparaissent jamais.</p>' +
+    '<div class="confirm" id="ws-actions">' + (root ? '<button class="btn btn-sm" id="ws-open" type="button">Ouvrir mon espace (« ' + esc(root.name) + ' »)</button><button class="btn btn-plain btn-sm" id="ws-pick" type="button">Choisir un autre dossier</button>' : '<button class="btn btn-sm" id="ws-pick" type="button">Choisir mon dossier Drive</button>') + "</div>";
+  const open = $("#ws-open");
+  if (open) open.onclick = async () => {
+    const p = await permission(root, true);
+    if (p !== "granted") { renderWorkspaceCard({ error: true, text: "Chrome n'a pas donné l'accès au dossier. Réessaie et choisis « Autoriser »." }); return; }
+    await openAndRender(root);
+  };
+  $("#ws-pick").onclick = pickFolder;
+}
+
+async function pickFolder() {
+  let root;
+  try { root = await window.showDirectoryPicker({ id: "ihecs-study-os", mode: "readwrite" }); }
+  catch (e) { if (e && e.name !== "AbortError") renderWorkspaceCard({ error: true, text: "Impossible d'ouvrir le sélecteur : " + e.message }); return; }
+  let info;
+  try { info = await inspectFolder(root); }
+  catch (e) { renderWorkspaceCard({ error: true, text: "Lecture du dossier impossible : " + e.message }); return; }
+  if (info.status === "existing") { await openAndRender(root); return; }
+  if (info.status === "invalid") {
+    renderWorkspaceCard({ error: true, text: "Le dossier « " + root.name + " » contient un fichier ihecs-study-os.json inutilisable. Rien n'a été modifié. " + info.errors.join(" ") });
+    return;
+  }
+  const others = info.names.length ? '<p class="small muted">Le dossier contient déjà : ' + info.names.map(esc).join(", ") + ". Ces éléments ne seront ni modifiés ni supprimés.</p>" : "";
+  $("#ws-body").innerHTML = '<p>Aucun espace dans « <b>' + esc(root.name) + '</b> ». Créer ton espace académique ici ?</p><p class="small muted">Seront créés : <code>ihecs-study-os.json</code>, <code>structure.json</code> et <code>appareils/</code> (la progression de cet ordinateur).</p>' + others +
+    '<div class="confirm" style="margin-top:12px"><button class="btn btn-sm" id="ws-create" type="button">Créer mon espace</button><button class="btn btn-plain btn-sm" id="ws-cancel" type="button">Annuler</button></div>';
+  $("#ws-cancel").onclick = () => renderWorkspaceCard();
+  $("#ws-create").onclick = async () => {
+    $("#ws-create").disabled = true;
+    try { await createWorkspace(root, { deviceId: await deviceId(), now: new Date() }); }
+    catch (e) { renderWorkspaceCard({ error: true, text: e.message }); return; }
+    await openAndRender(root, "Ton espace a été créé dans « " + root.name + " ».");
+  };
+}
+
+async function openAndRender(root, okText) {
+  try { await activateReal(root); }
+  catch (e) { renderWorkspaceCard({ error: true, text: "Impossible d'ouvrir l'espace : " + e.message }); return; }
+  app.render();
+  if (okText) renderWorkspaceCard({ text: okText });
 }
 
 function bindSettings() {
@@ -2441,8 +3120,9 @@ function bindSettings() {
     app.state.theme = b.dataset.themeSet; app.save(); applyTheme(app.state.theme);
     $$("[data-theme-set]").forEach((x) => { x.classList.toggle("on", x === b); x.setAttribute("aria-pressed", String(x === b)); });
   }));
+  const exported = () => Object.assign({ _workspace: app.workspace.kind }, app.state);
   $("#exp-copy").onclick = () => {
-    const txt = encodeBackup(app.state);
+    const txt = encodeBackup(exported());
     const fallback = () => { $("#imp-text").value = txt; $("#imp-text").select(); toast("Sélectionne et copie le code"); };
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(() => toast("Code de sauvegarde copié"), fallback);
     else fallback();
@@ -2450,13 +3130,17 @@ function bindSettings() {
   $("#exp-dl").onclick = () => {
     try {
       const a = document.createElement("a");
-      a.href = URL.createObjectURL(new Blob([JSON.stringify(app.state)], { type: "application/json" }));
+      a.href = URL.createObjectURL(new Blob([JSON.stringify(exported())], { type: "application/json" }));
       a.download = "revisions-progression-" + dayKey(app.now()) + ".json";
       document.body.appendChild(a); a.click(); a.remove();
     } catch (e) { toast("Téléchargement impossible ici. Utilise Copier."); }
   };
   const restore = (txt) => {
-    const res = validateBackup(decodeBackup(txt));
+    const raw = decodeBackup(txt);
+    // D3 : une sauvegarde de la démonstration ne peut pas entrer dans l'espace réel, et inversement.
+    const from = raw && typeof raw === "object" && raw._workspace ? raw._workspace : "demo";
+    if (from !== app.workspace.kind) { toast(from === "demo" ? "Sauvegarde refusée : elle vient de la démonstration et ne peut pas entrer dans ton espace réel." : "Sauvegarde refusée : elle vient de ton espace réel et ne peut pas entrer dans la démonstration."); return; }
+    const res = validateBackup(raw);
     if (!res.ok) { toast("Sauvegarde refusée : " + (res.error || "format invalide.")); return; }
     app.state = res.state; app.save(); applyTheme(app.state.theme); toast("Progression restaurée"); app.render();
   };
@@ -2474,17 +3158,17 @@ return { settingsView };
 })();
 
 // ---- src/ui/views/study.js
-const __m25 = (() => {
-const { addDays, cap, daysBetween, dayKey, examDate, fmt, fmtTime } = __m5;
+const __m31 = (() => {
+const { addDays, cap, daysBetween, dayKey, examDate, fmt, fmtTime } = __m3;
 const { esc } = __m0;
-const { ic } = __m8;
-const { buildPlan } = __m21;
-const { subjectProgress } = __m14;
-const { allCards, dueCards } = __m13;
-const { app } = __m7;
-const { mountFlashcards } = __m18;
-const { $, $$, shuffle } = __m10;
-const { banner, bar, dot, ring, taskRow } = __m11;
+const { ic } = __m7;
+const { buildPlan } = __m27;
+const { subjectProgress } = __m13;
+const { allCards, dueCards } = __m12;
+const { app } = __m6;
+const { mountFlashcards } = __m24;
+const { $, $$, shuffle } = __m9;
+const { banner, bar, dot, ring, taskRow } = __m10;
 // Révision du jour, examens, planning.
 
 
@@ -2518,6 +3202,7 @@ function examsView() {
   const t0 = app.today();
   const list = app.M.filter(examDate).sort((a, b) => examDate(a) - examDate(b));
   const html = '<header class="page-head"><div><div class="eyebrow">' + esc(app.content.session ? app.content.session.nom : "") + '</div><h1 class="h-large">Examens</h1><p class="lead">Dates, formats, pondérations et consignes de chaque examen.</p></div></header>' + banner() +
+    (list.length ? "" : '<div class="card empty"><p>Aucun examen enregistré pour l\'instant.</p></div>') +
     '<div class="timeline">' + list.map((m) => {
       const ex = examDate(m), n = daysBetween(t0, ex), p = subjectProgress(app.state, m), e = m.examen;
       const chip = n < 0 ? '<span class="pill pill-neutral">Passé</span>' : n === 0 ? '<span class="pill pill-bad">Aujourd\'hui</span>' : '<span class="pill ' + (n <= 7 ? "pill-bad" : n <= 21 ? "pill-warn" : "pill-neutral") + '">Dans ' + n + " jour" + (n > 1 ? "s" : "") + "</span>";
@@ -2551,13 +3236,13 @@ return { revisionView, examsView, planningView };
 })();
 
 // ---- src/ui/views/subjects.js
-const __m26 = (() => {
-const { cap, daysBetween, examDate, fmtLong, fmtTime } = __m5;
+const __m32 = (() => {
+const { cap, daysBetween, examDate, fmtLong, fmtTime } = __m3;
 const { esc } = __m0;
-const { ic } = __m8;
-const { chapStats, MASTERED_THRESHOLD, subjectProgress } = __m14;
-const { app } = __m7;
-const { banner, bar, ring, statusPill, tile } = __m11;
+const { ic } = __m7;
+const { chapStats, MASTERED_THRESHOLD, subjectProgress } = __m13;
+const { app } = __m6;
+const { banner, bar, ring, statusPill, tile } = __m10;
 // Liste des matières et page d'une matière.
 
 
@@ -2606,21 +3291,21 @@ return { subjectsView, subjectView };
 })();
 
 // ---- src/main.js
-const __m27 = (() => {
+const __m33 = (() => {
 const { esc } = __m0;
-const { currentWorkspace } = __m3;
-const { parseRoute } = __m4;
-const { loadState } = __m2;
-const { app, safeStorage } = __m7;
-const { closeSearch, isSearchOpen, openSearch } = __m12;
-const { $, $$ } = __m10;
-const { renderShell } = __m15;
-const { applyTheme } = __m16;
-const { chapterView, mockExamView } = __m20;
-const { homeView } = __m23;
-const { settingsView } = __m24;
-const { examsView, planningView, revisionView } = __m25;
-const { subjectsView, subjectView } = __m26;
+const { parseRoute } = __m1;
+const { permission } = __m2;
+const { app } = __m6;
+const { closeSearch, isSearchOpen, openSearch } = __m11;
+const { $, $$ } = __m9;
+const { renderShell } = __m22;
+const { ic } = __m7;
+const { activateDemo, activateReal, activeWorkspacePref, storedRoot, switchToDemo } = __m21;
+const { chapterView, mockExamView } = __m26;
+const { homeView } = __m29;
+const { settingsView } = __m30;
+const { examsView, planningView, revisionView } = __m31;
+const { subjectsView, subjectView } = __m32;
 // Point d'entrée : charge l'espace de travail, l'état, puis gère la navigation.
 
 
@@ -2642,7 +3327,25 @@ function notFoundView(id) {
   return { html: '<div class="card empty"><h1 class="h-card">Page introuvable</h1><p>Le lien « ' + esc(id) + " » ne correspond à aucune page.</p><a class=\"btn\" href=\"#accueil\">Retour au tableau de bord</a></div>" };
 }
 
+/** Écran affiché quand ton espace réel attend l'accord de Chrome pour lire le dossier. */
+function accessView() {
+  const name = app.gate.root.name;
+  return {
+    html: '<div class="card empty" style="max-width:560px;margin:8vh auto 0"><div class="icon-tile" style="background:var(--accent-soft);color:var(--accent)">' + ic("folder") + '</div><h1 class="h-sec">Ouvrir ton espace académique</h1><p>Ton espace est dans le dossier Drive « <b>' + esc(name) + "</b> ». Chrome demande ton accord pour l'ouvrir.</p><div class=\"confirm\" style=\"justify-content:center\"><button class=\"btn\" id=\"gate-allow\" type=\"button\">Autoriser mon dossier Drive</button><button class=\"btn btn-plain\" id=\"gate-demo\" type=\"button\">Continuer en démonstration</button></div><p class=\"small\" id=\"gate-msg\" style=\"margin-top:14px\"></p></div>",
+    bind: () => {
+      $("#gate-allow").onclick = async () => {
+        const root = app.gate.root;
+        if ((await permission(root, true)) !== "granted") { $("#gate-msg").textContent = "Accès refusé par Chrome. Réessaie et choisis « Autoriser »."; return; }
+        try { await activateReal(root); } catch (e) { $("#gate-msg").textContent = "Impossible d'ouvrir l'espace : " + e.message; return; }
+        render();
+      };
+      $("#gate-demo").onclick = async () => { await switchToDemo(); render(); };
+    }
+  };
+}
+
 function viewFor(r) {
+  if (app.gate) return accessView();
   switch (r.name) {
     case "home": return homeView();
     case "subjects": return subjectsView();
@@ -2666,8 +3369,10 @@ function render() {
   }
   app.route = r;
   app.keyHandler = null;
+  document.documentElement.dataset.workspace = app.gate ? "pending" : app.workspace.kind;
   const v = viewFor(r);
-  $("#view").innerHTML = '<div class="view">' + v.html + "</div>";
+  const notice = app.startupError ? '<div class="banner" role="alert" style="background:var(--bad-soft)"><div><b>Attention.</b> ' + esc(app.startupError) + "</div></div>" : "";
+  $("#view").innerHTML = '<div class="view">' + notice + v.html + "</div>";
   renderShell(r.name === "unknown" ? { nav: "", tab: "" } : r);
   window.scrollTo(0, 0);
   bindCommon();
@@ -2693,14 +3398,27 @@ function bindCommon() {
   }));
 }
 
-function boot() {
-  app.workspace = currentWorkspace();
-  app.content = app.workspace.content;
-  app.storage = safeStorage();
-  app.state = loadState(app.storage);
+/** Choisit l'espace au démarrage : l'espace réel s'il était ouvert la dernière fois, sinon la démonstration. */
+async function startWorkspace() {
+  activateDemo();
+  if ((await activeWorkspacePref()) !== "real") return;
+  const root = await storedRoot();
+  if (!root) return;
+  const p = await permission(root);
+  if (p === "granted") {
+    try { await activateReal(root); }
+    catch (e) { app.startupError = "Impossible d'ouvrir ton espace dans « " + root.name + " » : " + e.message + " La démonstration est affichée en attendant."; }
+  } else {
+    // Espace réel attendu : on n'affiche pas la démonstration à sa place (D3).
+    app.gate = { root };
+    app.workspace = { id: "pending", kind: "real", label: "Mon espace", folderName: root.name, description: "" };
+    app.content = { matieres: [] };
+  }
+}
+
+async function boot() {
   app.render = render;
   app.refreshChrome = () => { if (app.route) renderShell(app.route.name === "unknown" ? { nav: "", tab: "" } : app.route); };
-  document.documentElement.dataset.workspace = app.workspace.kind;
 
   document.addEventListener("keydown", (e) => {
     if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") { e.preventDefault(); isSearchOpen() ? closeSearch() : openSearch(); return; }
@@ -2710,8 +3428,10 @@ function boot() {
     if (app.keyHandler) app.keyHandler(e);
   });
   window.addEventListener("hashchange", render);
-  applyTheme(app.state.theme);
+  $("#view").innerHTML = '<div class="card empty" style="margin-top:8vh"><p>Ouverture…</p></div>';
+  try { await startWorkspace(); } catch (e) { activateDemo(); app.startupError = "Erreur au démarrage : " + e.message; }
   render();
+  document.body.dataset.ready = "1";
 }
 
 boot();

@@ -15,7 +15,8 @@ src/
   domain/                  pur, sans DOM : srs (Leitner), progress, planner, activity, search, router
   state/store.js           état v1 : lecture, écriture, validation et encodage des sauvegardes
   content/workspaces.js    espaces de travail (démo seulement pour l'instant, D3)
-  data/v2/                 CONCEPTION v2 (schéma, migration) — non importée par l'application
+  data/v2/                 format v2 : schéma, espace réel (workspace.js), migration v1 (non utilisée)
+  storage/                 navigateur : préférences (IndexedDB), accès au dossier, espace réel
   ui/                      navigateur : contexte (app.js), dom, widgets, shell, thème
     components/            fiches, quiz, minuteur, recherche
     views/                 accueil, matières, chapitre, révision, examens, planning, réglages
@@ -33,7 +34,7 @@ tests/fixtures/v1/         états v1 servant aux tests de migration
 - `core` ne dépend de rien. `domain` dépend de `core`. `state` ne dépend de rien.
 - `ui` dépend de `core`, `domain` et `state`. Seuls `ui` et `main.js` touchent le DOM.
 - Les fonctions de `domain` reçoivent « aujourd'hui » en paramètre : aucune n'appelle `new Date()` pour décider.
-- `data/v2` n'est importé que par les tests tant que la migration n'est pas approuvée.
+- `data/v2` est pur (testable dans Node). `storage` est le seul module qui touche au dossier Drive ; il n'écrit jamais en dehors des fichiers de l'espace et ne supprime rien.
 
 ## Sécurité
 
@@ -45,6 +46,15 @@ tests/fixtures/v1/         états v1 servant aux tests de migration
 ## Assemblage
 
 `npm run build` parcourt les imports depuis `src/main.js`, place chaque module dans sa propre fonction (aucune collision de noms), les ordonne selon leurs dépendances, intègre la feuille de style et la police (data: URI), puis calcule la CSP. Le résultat est déterministe.
+
+## Espaces
+
+| Espace | Contenu | Progression |
+|---|---|---|
+| Démonstration | Fixtures `fixtures/demo/` | `localStorage` de ce navigateur, format v1 |
+| Mon espace (réel) | `structure.json` du dossier Drive | `appareils/<appareil>/` du dossier Drive, format v2 |
+
+Au démarrage, l'application rouvre l'espace utilisé la dernière fois. Si Chrome demande à nouveau l'accord pour le dossier, un écran « Ouvrir ton espace académique » s'affiche, avec le bouton « Autoriser mon dossier Drive ». La démonstration n'est jamais affichée à la place de l'espace réel sans que tu le choisisses.
 
 ## Stockage en `file://`
 

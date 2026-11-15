@@ -65,7 +65,7 @@ function bindChapter(m, c, tab) {
   const mr = $("#mark-read");
   if (mr) mr.onclick = () => { app.state.lu[k] = true; app.log(2); app.save(); toast("Chapitre marqué comme lu"); app.render(); };
   if (tab === "fiches") {
-    const cards = (c.fiches || []).map((f, i) => ({ m, c, f, k: cardKey(m, c, i) }));
+    const cards = (c.fiches || []).map((f, i) => ({ m, c, f, k: cardKey(m, c, i, f) }));
     if (!cards.length) $("#fc-slot").innerHTML = '<div class="card empty"><p>Pas encore de fiches pour ce chapitre.</p></div>';
     else mountFlashcards($("#fc-slot"), cards, { after: '<a class="btn btn-ghost" href="#c-' + m.id + "-" + c.id + '-quiz">Passer au quiz</a>' });
   }

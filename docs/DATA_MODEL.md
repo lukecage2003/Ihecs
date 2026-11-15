@@ -17,9 +17,28 @@ Clé `localStorage` : `revisions-ihecs-v1`.
 
 Défauts : C1 (clé de fiche fondée sur la position), C2 (aucun historique). Voir `docs/audit/TECHNICAL_DEBT.md`.
 
-## Conception v2 — **non appliquée**
+## v2 — **en service pour l'espace réel** (version 0.4.0)
 
-> Phase 1 : conception, règles et tests seulement. Le code se trouve dans `src/data/v2/` et **n'est importé par aucune partie de l'application**. Aucune donnée existante n'a été migrée.
+> La v2 est validée et utilisée par **l'espace académique réel** (dossier Google Drive). L'espace de démonstration garde le format v1 dans le navigateur : il n'a pas été migré, et rien ne l'exige, puisque ses données sont fictives. La migration v1 → v2 (`src/data/v2/migrate-v1.js`) reste disponible, testée et inutilisée.
+
+### Fichiers de l'espace réel
+
+```
+<dossier choisi>/                                  ex. Mon Drive/IHECS STUDY OS
+  ihecs-study-os.json                              manifeste : format, version, identifiant et nom de l'espace
+  structure.json                                   structure académique (matières…), vide à la création
+  appareils/<appareil>/etat.json                   document d'état v2 de CET ordinateur (un seul rédacteur)
+  appareils/<appareil>/revisions-AAAA-MM.jsonl     journal des révisions, une ligne par révision, ajout seul
+```
+
+- **Création :** `structure.json`, puis l'état de l'appareil, puis le manifeste **en dernier**. Un dossier sans manifeste n'est pas un espace. Aucun fichier existant n'est écrasé : la création s'arrête si un fichier de l'espace est déjà présent. Les autres fichiers du dossier ne sont jamais touchés.
+- **Ouverture :** manifeste, structure et état sont validés. En cas d'erreur, l'application affiche le message et n'écrit rien. Un nouvel ordinateur crée seulement **son** sous-dossier.
+- **Enregistrement :** à chaque changement, l'état complet de l'appareil est réécrit de façon atomique (fichier temporaire, puis remplacement), une écriture à la fois. Un échec est affiché (« Échec de l'enregistrement », bouton Réessayer) et la dernière version reste en mémoire pour réessayer.
+- **Révisions :** chaque note de fiche ajoute une ligne `{ id, cardId, at, rating, scheduler, before, after, deviceId }` sans réécrire les précédentes. C'est la correction du défaut C2 : un historique réel, à partir de maintenant.
+- **Identifiants stables :** les fiches de l'espace réel utilisent leur `id` (correction de C1). Les fixtures de démonstration gardent leur clé v1.
+- **Limite connue :** la progression de chaque ordinateur est séparée. La fusion entre plusieurs ordinateurs n'est pas encore faite.
+
+## Conception v2 (référence)
 
 ### Document d'état v2
 
@@ -76,9 +95,9 @@ Défauts : C1 (clé de fiche fondée sur la position), C2 (aucun historique). Vo
 
 On a aussi vérifié que les tests échouent quand on introduit volontairement une perte dans la migration (fiches orphelines jetées : 3 échecs ; journal vidé : 4 échecs).
 
-### Ce qui reste à décider avant d'appliquer la v2
+### Décisions prises
 
-1. **Quand** migrer : au démarrage, après une sauvegarde automatique de la v1, et avec ta confirmation.
-2. **Où** écrire la v2 : localement (IndexedDB) puis dans le dossier Drive (option A de `GOOGLE_DRIVE_INTEGRATION.md`).
-3. L'espace de démonstration actuel migre vers un espace `demo`. Ton espace réel démarre vide, sans aucune donnée des fixtures.
-4. La hiérarchie complète (années, semestres, objectifs, concepts) et le contenu v2 seront spécifiés à l'étape suivante. Cette phase ne couvre que l'état de progression et les identifiants du contenu.
+1. L'espace réel démarre **vide**, directement en v2 : aucune migration n'est nécessaire.
+2. Les données v2 sont écrites **dans le dossier Drive**. IndexedDB ne garde que des préférences du navigateur (identifiant d'appareil, dossier mémorisé, espace actif), jamais de données académiques.
+3. La démonstration reste en v1 dans le navigateur, isolée (D3).
+4. **À spécifier à l'étape suivante :** la hiérarchie complète de `structure.json` (années, semestres, matières, chapitres, objectifs, concepts) et son éditeur.

@@ -1,5 +1,20 @@
 # Journal des modifications
 
+## 0.4.0 — Espace académique réel dans Google Drive (branche `espace-reel-drive`)
+
+### Ajouté
+- **Mon espace académique** (Réglages) : choisir le dossier synchronisé par Google Drive pour ordinateur, y créer l'espace (vide) ou rouvrir un espace existant. Bascule démo ↔ espace réel ; « Oublier ce dossier » sans rien supprimer.
+- Format v2 en service pour l'espace réel : manifeste, structure, état par ordinateur, journal des révisions en ajout seul.
+- Écran « Ouvrir ton espace académique » quand Chrome redemande l'accord ; état « Enregistré dans Drive à … » ou « Échec de l'enregistrement » avec Réessayer.
+- Identifiants de fiche stables (espace réel).
+- Tests : 8 unitaires (format v2) et 9 parcours (espace réel), en bureau et mobile.
+
+### Modifié
+- Les codes de sauvegarde portent l'espace d'origine ; une sauvegarde de la démo est refusée dans l'espace réel, et inversement.
+
+### Données
+- Démonstration : inchangée (v1, `localStorage`). Aucune migration appliquée.
+
 ## 0.3.1 — Premiers résultats réels du laboratoire Drive
 
 - Résultats du 15 novembre (Windows, Chrome 157) consignés dans `docs/GOOGLE_DRIVE_INTEGRATION.md` : `file://` et synchronisation dans les deux sens confirmés.

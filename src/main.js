@@ -1,14 +1,14 @@
 // Point d'entrée : charge l'espace de travail, l'état, puis gère la navigation.
 
 import { esc } from "./core/html.js";
-import { currentWorkspace } from "./content/workspaces.js";
 import { parseRoute } from "./domain/router.js";
-import { loadState } from "./state/store.js";
-import { app, safeStorage } from "./ui/app.js";
+import { permission } from "./storage/folder.js";
+import { app } from "./ui/app.js";
 import { closeSearch, isSearchOpen, openSearch } from "./ui/components/spotlight.js";
 import { $, $$ } from "./ui/dom.js";
 import { renderShell } from "./ui/shell.js";
-import { applyTheme } from "./ui/theme.js";
+import { ic } from "./core/icons.js";
+import { activateDemo, activateReal, activeWorkspacePref, storedRoot, switchToDemo } from "./ui/workspace.js";
 import { chapterView, mockExamView } from "./ui/views/chapter.js";
 import { homeView } from "./ui/views/home.js";
 import { settingsView } from "./ui/views/settings.js";
@@ -19,7 +19,25 @@ function notFoundView(id) {
   return { html: '<div class="card empty"><h1 class="h-card">Page introuvable</h1><p>Le lien « ' + esc(id) + " » ne correspond à aucune page.</p><a class=\"btn\" href=\"#accueil\">Retour au tableau de bord</a></div>" };
 }
 
+/** Écran affiché quand ton espace réel attend l'accord de Chrome pour lire le dossier. */
+function accessView() {
+  const name = app.gate.root.name;
+  return {
+    html: '<div class="card empty" style="max-width:560px;margin:8vh auto 0"><div class="icon-tile" style="background:var(--accent-soft);color:var(--accent)">' + ic("folder") + '</div><h1 class="h-sec">Ouvrir ton espace académique</h1><p>Ton espace est dans le dossier Drive « <b>' + esc(name) + "</b> ». Chrome demande ton accord pour l'ouvrir.</p><div class=\"confirm\" style=\"justify-content:center\"><button class=\"btn\" id=\"gate-allow\" type=\"button\">Autoriser mon dossier Drive</button><button class=\"btn btn-plain\" id=\"gate-demo\" type=\"button\">Continuer en démonstration</button></div><p class=\"small\" id=\"gate-msg\" style=\"margin-top:14px\"></p></div>",
+    bind: () => {
+      $("#gate-allow").onclick = async () => {
+        const root = app.gate.root;
+        if ((await permission(root, true)) !== "granted") { $("#gate-msg").textContent = "Accès refusé par Chrome. Réessaie et choisis « Autoriser »."; return; }
+        try { await activateReal(root); } catch (e) { $("#gate-msg").textContent = "Impossible d'ouvrir l'espace : " + e.message; return; }
+        render();
+      };
+      $("#gate-demo").onclick = async () => { await switchToDemo(); render(); };
+    }
+  };
+}
+
 function viewFor(r) {
+  if (app.gate) return accessView();
   switch (r.name) {
     case "home": return homeView();
     case "subjects": return subjectsView();
@@ -43,8 +61,10 @@ function render() {
   }
   app.route = r;
   app.keyHandler = null;
+  document.documentElement.dataset.workspace = app.gate ? "pending" : app.workspace.kind;
   const v = viewFor(r);
-  $("#view").innerHTML = '<div class="view">' + v.html + "</div>";
+  const notice = app.startupError ? '<div class="banner" role="alert" style="background:var(--bad-soft)"><div><b>Attention.</b> ' + esc(app.startupError) + "</div></div>" : "";
+  $("#view").innerHTML = '<div class="view">' + notice + v.html + "</div>";
   renderShell(r.name === "unknown" ? { nav: "", tab: "" } : r);
   window.scrollTo(0, 0);
   bindCommon();
@@ -70,14 +90,27 @@ function bindCommon() {
   }));
 }
 
-function boot() {
-  app.workspace = currentWorkspace();
-  app.content = app.workspace.content;
-  app.storage = safeStorage();
-  app.state = loadState(app.storage);
+/** Choisit l'espace au démarrage : l'espace réel s'il était ouvert la dernière fois, sinon la démonstration. */
+async function startWorkspace() {
+  activateDemo();
+  if ((await activeWorkspacePref()) !== "real") return;
+  const root = await storedRoot();
+  if (!root) return;
+  const p = await permission(root);
+  if (p === "granted") {
+    try { await activateReal(root); }
+    catch (e) { app.startupError = "Impossible d'ouvrir ton espace dans « " + root.name + " » : " + e.message + " La démonstration est affichée en attendant."; }
+  } else {
+    // Espace réel attendu : on n'affiche pas la démonstration à sa place (D3).
+    app.gate = { root };
+    app.workspace = { id: "pending", kind: "real", label: "Mon espace", folderName: root.name, description: "" };
+    app.content = { matieres: [] };
+  }
+}
+
+async function boot() {
   app.render = render;
   app.refreshChrome = () => { if (app.route) renderShell(app.route.name === "unknown" ? { nav: "", tab: "" } : app.route); };
-  document.documentElement.dataset.workspace = app.workspace.kind;
 
   document.addEventListener("keydown", (e) => {
     if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") { e.preventDefault(); isSearchOpen() ? closeSearch() : openSearch(); return; }
@@ -87,8 +120,10 @@ function boot() {
     if (app.keyHandler) app.keyHandler(e);
   });
   window.addEventListener("hashchange", render);
-  applyTheme(app.state.theme);
+  $("#view").innerHTML = '<div class="card empty" style="margin-top:8vh"><p>Ouverture…</p></div>';
+  try { await startWorkspace(); } catch (e) { activateDemo(); app.startupError = "Erreur au démarrage : " + e.message; }
   render();
+  document.body.dataset.ready = "1";
 }
 
 boot();
