@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Laboratoire Drive — IHECS STUDY OS</title>
+<!-- Fichier autonome : aucune ressource externe, aucune requête réseau. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta name="referrer" content="no-referrer">
+<style>
+:root {
+  --bg: #f5f5f7; --surface: #fff; --surface-2: #f0f0f3; --fg: #1d1d1f; --fg-2: #6e6e73; --line: rgba(0,0,0,.09);
+  --accent: #0071e3; --accent-soft: rgba(0,113,227,.1); --good: #248a3d; --good-soft: rgba(52,199,89,.14);
+  --warn: #b25000; --warn-soft: rgba(255,149,0,.14); --bad: #d70015; --bad-soft: rgba(255,59,48,.12);
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #000; --surface: #1c1c1e; --surface-2: #2c2c2e; --fg: #f5f5f7; --fg-2: #a1a1a6; --line: rgba(255,255,255,.1);
+    --accent: #2997ff; --accent-soft: rgba(41,151,255,.16); --good: #30d158; --good-soft: rgba(48,209,88,.16);
+    --warn: #ffb340; --warn-soft: rgba(255,159,10,.16); --bad: #ff6961; --bad-soft: rgba(255,69,58,.16); color-scheme: dark; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.55 var(--font); -webkit-font-smoothing: antialiased; }
+main { max-width: 860px; margin: 0 auto; padding: 40px 20px 80px; display: flex; flex-direction: column; gap: 16px; }
+h1 { font-size: clamp(28px, 4vw, 38px); letter-spacing: -.03em; line-height: 1.1; margin: 4px 0 6px; }
+h2 { font-size: 19px; letter-spacing: -.015em; margin: 0; }
+p { margin: 0; }
+.eyebrow { font-size: 12px; font-weight: 600; color: var(--fg-2); text-transform: uppercase; letter-spacing: .06em; }
+.lead { color: var(--fg-2); font-size: 16px; max-width: 64ch; }
+.card { background: var(--surface); border-radius: 18px; padding: 22px; box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 4px 16px rgba(0,0,0,.05); display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.card-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.steps { margin: 0; padding-left: 1.3em; color: var(--fg-2); display: flex; flex-direction: column; gap: 4px; }
+.steps b { color: var(--fg); font-weight: 600; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+button { font: inherit; border: 0; border-radius: 980px; padding: 8px 16px; background: var(--accent); color: #fff; font-weight: 500; cursor: pointer; }
+button.plain { background: var(--surface-2); color: var(--fg); }
+button[disabled] { opacity: .45; cursor: default; }
+button:focus-visible { outline: 3px solid var(--accent-soft); outline-offset: 2px; }
+.pill { display: inline-flex; padding: 3px 10px; border-radius: 980px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+.ok { background: var(--good-soft); color: var(--good); }
+.warn { background: var(--warn-soft); color: var(--warn); }
+.ko { background: var(--bad-soft); color: var(--bad); }
+.neutral { background: var(--surface-2); color: var(--fg-2); }
+.out { font-family: var(--mono); font-size: 13px; background: var(--surface-2); border-radius: 12px; padding: 12px 14px; white-space: pre-wrap; word-break: break-word; max-height: 320px; overflow: auto; }
+.out:empty { display: none; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { color: var(--fg-2); font-weight: 600; }
+.table-wrap { overflow-x: auto; }
+.notice { padding: 14px 16px; border-radius: 14px; background: var(--accent-soft); font-size: 14px; }
+.hidden { display: none !important; }
+code { font-family: var(--mono); font-size: .9em; background: var(--surface-2); padding: 1px 5px; border-radius: 5px; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="eyebrow">IHECS STUDY OS · Prototype option A</div>
+    <h1>Laboratoire Google Drive</h1>
+    <p class="lead">Ce fichier vérifie, sur ton ordinateur, si le site peut utiliser un dossier synchronisé par Google Drive pour ordinateur. Fais les expériences dans l'ordre, puis copie le rapport et envoie-le dans la conversation.</p>
+  </header>
+
+  <div class="notice"><b>Sécurité.</b> Le laboratoire n'écrit que dans un sous-dossier <code>_labo-ihecs</code> du dossier que tu choisis, ne lit rien d'autre, ne supprime aucun fichier et n'envoie rien sur Internet.</div>
+
+  <section class="card" id="diag">
+    <div class="card-head"><h2>0. Compatibilité du navigateur</h2><span id="diag-pill" class="pill neutral">…</span></div>
+    <div class="out" id="diag-out"></div>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><h2>1. Choisir le dossier</h2><span id="folder-pill" class="pill neutral">Aucun dossier</span></div>
+    <ol class="steps">
+      <li>Dans <b>Google Drive pour ordinateur</b>, ouvre le dossier « Mon Drive » sur ton ordinateur et crée un dossier vide <b>IHECS STUDY OS</b>.</li>
+      <li>Clique sur le bouton ci-dessous et choisis ce dossier. Chrome demande l'autorisation de modifier : accepte.</li>
+    </ol>
+    <div class="row"><button id="pick" type="button">Choisir le dossier</button><button id="regrant" class="plain hidden" type="button">Réautoriser l'accès</button></div>
+    <div class="out" id="folder-out"></div>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><h2>2. L'autorisation survit-elle à un redémarrage ?</h2><span id="e1-pill" class="pill neutral">À faire</span></div>
+    <ol class="steps">
+      <li>Après l'étape 1, <b>ferme complètement Chrome</b> (toutes les fenêtres).</li>
+      <li>Rouvre ce fichier. Le résultat s'enregistre automatiquement à l'ouverture.</li>
+      <li>Si possible, recommence le lendemain ou après un redémarrage de l'ordinateur.</li>
+    </ol>
+    <div class="table-wrap"><table><thead><tr><th>Ouverture</th><th>Autorisation</th><th>Navigateur</th></tr></thead><tbody id="e1-rows"></tbody></table></div>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><h2>3. Ordinateur → Drive : délai</h2><span id="e2-pill" class="pill neutral">À faire</span></div>
+    <ol class="steps">
+      <li>Clique sur « Écrire un fichier ». Il est créé dans <code>_labo-ihecs/sortant</code>.</li>
+      <li>Ouvre <b>drive.google.com</b> (ou l'application Drive du téléphone) dans ce dossier et actualise.</li>
+      <li>Dès que le fichier apparaît, clique sur « Je le vois dans Drive ».</li>
+    </ol>
+    <div class="row"><button id="e2-write" type="button" disabled>Écrire un fichier</button><button id="e2-seen" class="plain" type="button" disabled>Je le vois dans Drive</button></div>
+    <div class="out" id="e2-out"></div>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><h2>4. Drive → ordinateur : délai</h2><span id="e3-pill" class="pill neutral">À faire</span></div>
+    <ol class="steps">
+      <li>Clique sur « Démarrer l'attente ».</li>
+      <li>Sur <b>drive.google.com</b> ou le téléphone, ajoute un fichier quelconque (photo, PDF, note) dans <code>IHECS STUDY OS/_labo-ihecs/entrant</code>.</li>
+      <li>Le laboratoire vérifie toutes les 2 secondes et mesure le délai d'arrivée (10 minutes au maximum).</li>
+    </ol>
+    <div class="row"><button id="e3-start" type="button" disabled>Démarrer l'attente</button><button id="e3-stop" class="plain" type="button" disabled>Arrêter</button></div>
+    <div class="out" id="e3-out"></div>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><h2>5. Modifications simultanées</h2><span id="e4-pill" class="pill neutral">À faire</span></div>
+    <ol class="steps">
+      <li>Clique sur « Préparer » : le fichier <code>_labo-ihecs/partage.json</code> est créé. Attends qu'il apparaisse sur drive.google.com.</li>
+      <li>Dans Google Drive pour ordinateur, <b>suspends la synchronisation</b> (menu de l'icône Drive, puis Réglages).</li>
+      <li>Clique sur « Modifier côté ordinateur ».</li>
+      <li>Clique sur « Télécharger la version web », puis importe ce fichier sur <b>drive.google.com</b> dans <code>_labo-ihecs</code>. S'il s'appelle <code>partage (1).json</code>, renomme-le d'abord <code>partage.json</code>. Si Drive demande, choisis <b>Remplacer</b>.</li>
+      <li><b>Reprends la synchronisation</b>, attends une minute, puis clique sur « Analyser ».</li>
+    </ol>
+    <div class="row"><button id="e4-prep" type="button" disabled>Préparer</button><button id="e4-local" class="plain" type="button" disabled>Modifier côté ordinateur</button><button id="e4-web" class="plain" type="button" disabled>Télécharger la version web</button><button id="e4-scan" type="button" disabled>Analyser</button></div>
+    <div class="out" id="e4-out"></div>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><h2>6. Rapport</h2><span class="pill neutral" id="report-size"></span></div>
+    <p class="lead" style="font-size:14px">Le rapport contient ton navigateur, ton système, le nom du dossier choisi et les noms des fichiers de <code>_labo-ihecs</code>. Aucun autre contenu.</p>
+    <div class="row"><button id="copy" type="button">Copier le rapport</button><button id="dl" class="plain" type="button">Télécharger le rapport</button></div>
+    <div class="out" id="report-out"></div>
+  </section>
+</main>
+
+<script>
+"use strict";
+/* ===================================================================
+   Bibliothèque (logique réutilisable, testée)
+   =================================================================== */
+const Labo = (() => {
+  const SUB = "_labo-ihecs";
+  const DB = "ihecs-labo-drive";
+
+  // --- Stockage local du laboratoire (IndexedDB) : poignée du dossier et rapport.
+  function idb() {
+    return new Promise((ok, ko) => {
+      const r = indexedDB.open(DB, 1);
+      r.onupgradeneeded = () => r.result.createObjectStore("kv");
+      r.onsuccess = () => ok(r.result);
+      r.onerror = () => ko(r.error);
+    });
+  }
+  // Crochet réservé aux tests automatisés : Chromium headless plante en relisant
+  // une poignée de dossier depuis IndexedDB. Jamais défini en usage réel.
+  const testStore = () => (key) => key === "root" && window.__LABO_TEST_HANDLE_STORE__;
+  async function get(key) {
+    if (testStore()(key)) return window.__LABO_TEST_HANDLE_STORE__.get();
+    const db = await idb();
+    return new Promise((ok, ko) => { const t = db.transaction("kv").objectStore("kv").get(key); t.onsuccess = () => ok(t.result); t.onerror = () => ko(t.error); });
+  }
+  async function set(key, val) {
+    if (testStore()(key)) return window.__LABO_TEST_HANDLE_STORE__.set(val);
+    const db = await idb();
+    return new Promise((ok, ko) => { const tx = db.transaction("kv", "readwrite"); tx.objectStore("kv").put(val, key); tx.oncomplete = () => ok(); tx.onerror = () => ko(tx.error); });
+  }
+
+  // --- Empreinte SHA-256 (hexadécimal).
+  async function sha256(text) {
+    const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+    return Array.from(new Uint8Array(buf), (b) => b.toString(16).padStart(2, "0")).join("");
+  }
+
+  // --- Accès fichiers, toujours sous <dossier>/_labo-ihecs.
+  async function labDir(root, ...path) {
+    let d = await root.getDirectoryHandle(SUB, { create: true });
+    for (const p of path) d = await d.getDirectoryHandle(p, { create: true });
+    return d;
+  }
+  async function writeText(dir, name, text) {
+    const fh = await dir.getFileHandle(name, { create: true });
+    const w = await fh.createWritable();       // écrit dans un fichier temporaire…
+    await w.write(text);
+    await w.close();                          // …puis remplace l'original en une fois
+    return fh;
+  }
+  async function readMeta(dir, name) {
+    try {
+      const fh = await dir.getFileHandle(name);
+      const f = await fh.getFile();
+      const text = await f.text();
+      return { exists: true, size: f.size, lastModified: f.lastModified, hash: await sha256(text), text };
+    } catch (e) {
+      if (e && e.name === "NotFoundError") return { exists: false };
+      throw e;
+    }
+  }
+  /** Écrit seulement si le fichier n'a pas changé depuis la dernière lecture (empreinte attendue). */
+  async function writeIfUnchanged(dir, name, text, expectedHash) {
+    const cur = await readMeta(dir, name);
+    const curHash = cur.exists ? cur.hash : null;
+    if (curHash !== expectedHash) return { ok: false, conflict: true, expectedHash, actualHash: curHash, current: cur };
+    await writeText(dir, name, text);
+    return { ok: true, hash: await sha256(text) };
+  }
+  async function list(dir) {
+    const out = [];
+    for await (const [name, h] of dir.entries()) {
+      if (h.kind === "file") { const f = await h.getFile(); out.push({ name, kind: "file", size: f.size, lastModified: f.lastModified }); }
+      else out.push({ name, kind: "directory" });
+    }
+    return out.sort((a, b) => a.name.localeCompare(b.name));
+  }
+  const newNames = (before, after) => after.filter((x) => !before.some((y) => y.name === x.name)).map((x) => x.name);
+  const isTempName = (n) => /\.crswap$|^~\$|\.tmp$/i.test(n);
+
+  /** Interprète l'analyse de l'expérience 5. */
+  function analyseConcurrent({ expectedLocalHash, partage, files, baselineNames }) {
+    const extra = files.filter((f) => f.kind === "file" && !baselineNames.includes(f.name) && f.name !== "partage.json" && f.name !== "version-web.json");
+    let version = null;
+    try { version = partage.exists ? JSON.parse(partage.text).version : null; } catch (e) { version = "illisible"; }
+    const externalChange = partage.exists && partage.hash !== expectedLocalHash;
+    let verdict;
+    if (!partage.exists) verdict = "partage.json a disparu";
+    else if (version === "web" && extra.length) verdict = "La version web a remplacé le fichier ; une autre copie existe aussi";
+    else if (version === "web") verdict = "La version web a remplacé la version de l'ordinateur, sans copie de conflit visible";
+    else if (version === "ordinateur-2" && extra.length) verdict = "La version de l'ordinateur est conservée ; une copie supplémentaire existe";
+    else if (version === "ordinateur-2") verdict = "La version de l'ordinateur est conservée ; la version web n'apparaît pas (encore ?) ici";
+    else verdict = "Résultat inattendu : version « " + version + " »";
+    return { version, externalChange, extraFiles: extra.map((f) => f.name), tempFiles: files.filter((f) => isTempName(f.name)).map((f) => f.name), verdict };
+  }
+
+  function environment() {
+    return {
+      userAgent: navigator.userAgent,
+      platform: (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || "inconnu",
+      secureContext: window.isSecureContext,
+      protocol: location.protocol,
+      showDirectoryPicker: typeof window.showDirectoryPicker === "function",
+      indexedDB: typeof indexedDB !== "undefined",
+      cryptoSubtle: !!(window.crypto && crypto.subtle)
+    };
+  }
+
+  return { SUB, get, set, sha256, labDir, writeText, readMeta, writeIfUnchanged, list, newNames, isTempName, analyseConcurrent, environment };
+})();
+
+/* ===================================================================
+   Interface
+   =================================================================== */
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const now = () => new Date().toISOString();
+  const fmtMs = (ms) => (ms < 60000 ? Math.round(ms / 1000) + " s" : Math.floor(ms / 60000) + " min " + Math.round((ms % 60000) / 1000) + " s");
+  const pill = (id, cls, text) => { const p = $(id); p.className = "pill " + cls; p.textContent = text; };
+  const log = (id, line) => { const o = $(id); o.textContent = (o.textContent ? o.textContent + "\n" : "") + line; o.scrollTop = o.scrollHeight; };
+  let root = null;
+  let report = null;
+  let e3timer = null;
+
+  async function loadReport() {
+    report = (await Labo.get("report")) || { prototype: "drive-option-a", formatVersion: 1, createdAt: now(), deviceId: crypto.randomUUID(), environment: null, folderName: null, e1: [], e2: [], e3: [], e4: null, errors: [] };
+  }
+  async function saveReport() {
+    report.updatedAt = now();
+    report.environment = Labo.environment();
+    await Labo.set("report", report);
+    const txt = JSON.stringify(report, null, 2);
+    $("report-out").textContent = txt;
+    $("report-size").textContent = (report.e1.length + report.e2.length + report.e3.length + (report.e4 ? 1 : 0)) + " mesures";
+  }
+  function fail(where, e) {
+    const msg = where + " : " + (e && (e.name + " — " + e.message));
+    report.errors.push({ at: now(), where, error: e && e.name, message: e && e.message });
+    saveReport();
+    return msg;
+  }
+  function enable(on) { ["e2-write", "e3-start", "e4-prep"].forEach((id) => ($(id).disabled = !on)); }
+
+  // --- 0. Diagnostic
+  function diagnose() {
+    const env = Labo.environment();
+    const okAll = env.secureContext && env.showDirectoryPicker && env.indexedDB && env.cryptoSubtle;
+    $("diag-out").textContent = [
+      "Contexte sécurisé : " + (env.secureContext ? "oui" : "NON"),
+      "Sélecteur de dossier (File System Access) : " + (env.showDirectoryPicker ? "disponible" : "INDISPONIBLE"),
+      "IndexedDB : " + (env.indexedDB ? "oui" : "non"),
+      "Ouvert via : " + env.protocol,
+      "Navigateur : " + env.userAgent
+    ].join("\n");
+    pill("diag-pill", okAll ? "ok" : "ko", okAll ? "Compatible" : "Incompatible");
+    if (!env.showDirectoryPicker) log("diag-out", "\n→ Ouvre ce fichier avec Google Chrome ou Microsoft Edge sur ordinateur.");
+    return okAll;
+  }
+
+  // --- 1. Dossier + 2. persistance de l'autorisation
+  async function useRoot(handle, how) {
+    root = handle;
+    report.folderName = handle.name;
+    pill("folder-pill", "ok", "« " + handle.name + " »");
+    $("folder-out").textContent = "Dossier : " + handle.name + " (" + how + ")\nSous-dossier de test : " + Labo.SUB;
+    $("regrant").classList.add("hidden");
+    await Labo.labDir(root);
+    enable(true);
+    $("e4-scan").disabled = !report.e4;
+    $("e4-local").disabled = !(report.e4 && report.e4.prepared);
+    $("e4-web").disabled = !(report.e4 && report.e4.prepared);
+  }
+
+  async function checkStoredPermission() {
+    const handle = await Labo.get("root");
+    if (!handle) { renderE1(); return; }
+    let state = "inconnu";
+    try { state = await handle.queryPermission({ mode: "readwrite" }); } catch (e) { state = "erreur : " + e.name; }
+    report.e1.push({ at: now(), permission: state, userAgent: navigator.userAgent });
+    await saveReport();
+    renderE1();
+    if (state === "granted") await useRoot(handle, "autorisation conservée");
+    else {
+      pill("folder-pill", "warn", "Autorisation à renouveler");
+      $("folder-out").textContent = "Le dossier « " + handle.name + " » est mémorisé, mais Chrome demande de réautoriser l'accès (" + state + ").";
+      $("regrant").classList.remove("hidden");
+      $("regrant").onclick = async () => {
+        try {
+          const r = await handle.requestPermission({ mode: "readwrite" });
+          report.e1[report.e1.length - 1].afterRequest = r;
+          await saveReport(); renderE1();
+          if (r === "granted") await useRoot(handle, "réautorisé en un clic");
+        } catch (e) { log("folder-out", fail("réautorisation", e)); }
+      };
+    }
+  }
+
+  function renderE1() {
+    const rows = report.e1.map((c, i) => "<tr><td>" + new Date(c.at).toLocaleString("fr-BE") + "</td><td>" + (c.permission === "granted" ? '<span class="pill ok">conservée</span>' : '<span class="pill warn">' + String(c.permission).replace(/[<>&]/g, "") + "</span>") + (c.afterRequest ? " → " + String(c.afterRequest).replace(/[<>&]/g, "") : "") + "</td><td>" + (i === 0 ? "première vérification" : "réouverture " + i) + "</td></tr>");
+    $("e1-rows").innerHTML = rows.join("") || '<tr><td colspan="3">Pas encore de mesure : choisis un dossier, puis ferme et rouvre Chrome.</td></tr>';
+    const after = report.e1.slice(1);
+    if (!after.length) pill("e1-pill", "neutral", report.e1.length ? "Ferme et rouvre Chrome" : "À faire");
+    else if (after.every((c) => c.permission === "granted")) pill("e1-pill", "ok", "Persistante");
+    else pill("e1-pill", "warn", "Un clic par session");
+  }
+
+  $("pick").onclick = async () => {
+    try {
+      const h = await window.showDirectoryPicker({ id: "ihecs-labo", mode: "readwrite" });
+      await Labo.set("root", h);
+      report.e1 = [{ at: now(), permission: await h.queryPermission({ mode: "readwrite" }), userAgent: navigator.userAgent, note: "choix du dossier" }];
+      await saveReport(); renderE1();
+      await useRoot(h, "choisi maintenant");
+    } catch (e) {
+      if (e && e.name === "AbortError") return;
+      log("folder-out", fail("choix du dossier", e));
+    }
+  };
+
+  // --- 3. Ordinateur → Drive
+  let e2current = null;
+  $("e2-write").onclick = async () => {
+    try {
+      const dir = await Labo.labDir(root, "sortant");
+      const name = "sortant-" + Date.now() + ".txt";
+      await Labo.writeText(dir, name, "Fichier de test IHECS STUDY OS\nÉcrit le " + now() + "\n");
+      e2current = { name, writtenAt: now(), t: performance.now() };
+      log("e2-out", "Écrit : _labo-ihecs/sortant/" + name + " à " + new Date().toLocaleTimeString("fr-BE"));
+      $("e2-seen").disabled = false;
+      pill("e2-pill", "neutral", "En attente…");
+    } catch (e) { log("e2-out", fail("écriture sortante", e)); }
+  };
+  $("e2-seen").onclick = async () => {
+    if (!e2current) return;
+    const ms = performance.now() - e2current.t;
+    report.e2.push({ file: e2current.name, writtenAt: e2current.writtenAt, seenAt: now(), delayMs: Math.round(ms), measuredBy: "clic de l'utilisateur" });
+    await saveReport();
+    log("e2-out", "Visible dans Drive après " + fmtMs(ms) + " (mesure manuelle, à quelques secondes près).");
+    pill("e2-pill", "ok", fmtMs(ms));
+    e2current = null; $("e2-seen").disabled = true;
+  };
+
+  // --- 4. Drive → ordinateur
+  $("e3-start").onclick = async () => {
+    try {
+      const dir = await Labo.labDir(root, "entrant");
+      const before = await Labo.list(dir);
+      const t0 = performance.now(), startedAt = now();
+      log("e3-out", "Attente démarrée à " + new Date().toLocaleTimeString("fr-BE") + " (" + before.length + " élément(s) déjà présent(s)).");
+      pill("e3-pill", "neutral", "En attente…");
+      $("e3-start").disabled = true; $("e3-stop").disabled = false;
+      const stop = async (result) => {
+        clearInterval(e3timer); e3timer = null;
+        $("e3-start").disabled = false; $("e3-stop").disabled = true;
+        report.e3.push(Object.assign({ startedAt, endedAt: now() }, result));
+        await saveReport();
+      };
+      $("e3-stop").onclick = () => { stop({ result: "arrêté" }); log("e3-out", "Arrêté."); pill("e3-pill", "neutral", "Arrêté"); };
+      e3timer = setInterval(async () => {
+        const ms = performance.now() - t0;
+        try {
+          const after = await Labo.list(dir);
+          const fresh = Labo.newNames(before, after);
+          if (fresh.length) {
+            const files = after.filter((f) => fresh.includes(f.name));
+            await stop({ result: "reçu", delayMs: Math.round(ms), files: files.map((f) => ({ name: f.name, kind: f.kind, size: f.size })) });
+            log("e3-out", "Reçu après " + fmtMs(ms) + " : " + fresh.join(", "));
+            pill("e3-pill", "ok", fmtMs(ms));
+          } else if (ms > 10 * 60000) {
+            await stop({ result: "délai dépassé", delayMs: Math.round(ms) });
+            log("e3-out", "Rien reçu en 10 minutes.");
+            pill("e3-pill", "ko", "Rien reçu");
+          }
+        } catch (e) { await stop({ result: "erreur" }); log("e3-out", fail("attente entrante", e)); }
+      }, 2000);
+    } catch (e) { log("e3-out", fail("préparation entrante", e)); }
+  };
+
+  // --- 5. Modifications simultanées
+  $("e4-prep").onclick = async () => {
+    try {
+      const dir = await Labo.labDir(root);
+      const text = JSON.stringify({ version: "ordinateur-1", at: now() }, null, 2);
+      const before = await Labo.readMeta(dir, "partage.json");
+      if (before.exists) log("e4-out", "partage.json existait déjà : il est réécrit (fichier du laboratoire uniquement).");
+      await Labo.writeText(dir, "partage.json", text);
+      const files = await Labo.list(dir);
+      report.e4 = { prepared: now(), hashV1: await Labo.sha256(text), baselineNames: files.map((f) => f.name) };
+      await saveReport();
+      log("e4-out", "Préparé : partage.json (version ordinateur-1). Attends qu'il apparaisse sur drive.google.com.");
+      $("e4-local").disabled = false; $("e4-web").disabled = false; $("e4-scan").disabled = false;
+      pill("e4-pill", "neutral", "Étape 2");
+    } catch (e) { log("e4-out", fail("préparation", e)); }
+  };
+  $("e4-local").onclick = async () => {
+    try {
+      const dir = await Labo.labDir(root);
+      const text = JSON.stringify({ version: "ordinateur-2", at: now() }, null, 2);
+      const res = await Labo.writeIfUnchanged(dir, "partage.json", text, report.e4.hashV1);
+      if (!res.ok) {
+        report.e4.localWriteConflict = { at: now(), actualHash: res.actualHash };
+        log("e4-out", "Conflit détecté AVANT d'écrire : partage.json a déjà changé (empreinte différente). Rien n'a été écrasé.");
+      } else {
+        report.e4.hashV2 = res.hash; report.e4.localModifiedAt = now();
+        log("e4-out", "Modifié côté ordinateur (version ordinateur-2). Importe maintenant la version web sur drive.google.com.");
+      }
+      await saveReport();
+      pill("e4-pill", "neutral", "Étapes 4–5");
+    } catch (e) { log("e4-out", fail("modification locale", e)); }
+  };
+  $("e4-web").onclick = () => {
+    const blob = new Blob([JSON.stringify({ version: "web", at: now() }, null, 2)], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob); a.download = "partage.json";
+    document.body.appendChild(a); a.click(); a.remove();
+    log("e4-out", "Fichier « partage.json » (version web) téléchargé. Importe-le sur drive.google.com dans _labo-ihecs et choisis « Remplacer ».");
+  };
+  $("e4-scan").onclick = async () => {
+    try {
+      const dir = await Labo.labDir(root);
+      const files = await Labo.list(dir);
+      const partage = await Labo.readMeta(dir, "partage.json");
+      const a = Labo.analyseConcurrent({ expectedLocalHash: report.e4.hashV2 || report.e4.hashV1, partage, files, baselineNames: report.e4.baselineNames });
+      report.e4.analyses = report.e4.analyses || [];
+      report.e4.analyses.push(Object.assign({ at: now(), files: files.map((f) => ({ name: f.name, kind: f.kind, size: f.size })) }, a));
+      await saveReport();
+      log("e4-out", "Analyse : " + a.verdict + "\nModification extérieure détectée par l'empreinte : " + (a.externalChange ? "oui" : "non") + (a.extraFiles.length ? "\nAutres fichiers : " + a.extraFiles.join(", ") : "") + (a.tempFiles.length ? "\nFichiers temporaires visibles : " + a.tempFiles.join(", ") : ""));
+      pill("e4-pill", a.externalChange || a.extraFiles.length ? "warn" : "ok", a.version === "web" ? "Version web gagnante" : a.version === "ordinateur-2" ? "Version ordinateur gagnante" : "Voir l'analyse");
+    } catch (e) { log("e4-out", fail("analyse", e)); }
+  };
+
+  // --- 6. Rapport
+  $("copy").onclick = async () => {
+    const txt = JSON.stringify(report, null, 2);
+    try { await navigator.clipboard.writeText(txt); $("copy").textContent = "Rapport copié"; }
+    catch (e) { const r = document.createRange(); r.selectNodeContents($("report-out")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); $("copy").textContent = "Sélectionné : copie avec Ctrl C"; }
+    setTimeout(() => ($("copy").textContent = "Copier le rapport"), 2500);
+  };
+  $("dl").onclick = () => {
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(report, null, 2)], { type: "application/json" }));
+    a.download = "rapport-labo-drive.json";
+    document.body.appendChild(a); a.click(); a.remove();
+  };
+
+  // --- Démarrage
+  (async () => {
+    const ok = diagnose();
+    try {
+      await loadReport();
+      await saveReport();
+      renderE1();
+      if (ok) await checkStoredPermission();
+      else $("pick").disabled = true;
+      document.body.dataset.ready = "1";
+    } catch (e) {
+      $("diag-out").textContent += "\nErreur au démarrage : " + (e && e.message);
+      document.body.dataset.ready = "error";
+    }
+  })();
+})();
+</script>
+</body>
+</html>

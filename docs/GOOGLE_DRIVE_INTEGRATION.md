@@ -1,6 +1,6 @@
 # Google Drive sans Google Cloud Console — étude de faisabilité
 
-**Statut : étude uniquement. Aucune intégration Drive n'est implémentée.** (Décision D1 du 15 novembre 2026.)
+**Statut : option A retenue (15 novembre 2026). Prototype prêt à être essayé (voir [Prototype](#prototype)). Aucune intégration dans l'application tant que les mesures ne sont pas faites.**
 
 ## Contraintes fixées
 
@@ -25,7 +25,7 @@ Il reste trois voies officielles.
 | Permissions | L'utilisateur choisit un seul dossier ; l'application ne voit rien d'autre du Drive |
 | Synchronisation bidirectionnelle | Oui, assurée par le client Google, y compris quand l'application est fermée |
 | Navigateurs | Chromium sur ordinateur (Chrome, Edge). L'API est marquée « disponibilité limitée » par MDN et non disponible dans Firefox et Safari **[à vérifier sur le tableau MDN]** |
-| Contexte sécurisé | Exigé (HTTPS) ; `http://127.0.0.1` est considéré comme sûr, compatible avec le serveur local. Un geste de l'utilisateur est requis pour ouvrir le sélecteur **[vérifié, MDN]** |
+| Contexte sécurisé | Exigé (HTTPS) **[vérifié, MDN]**. Un fichier ouvert depuis le disque (`file://`) est un contexte sécurisé dans Chromium (vérifié par les tests), mais la mémorisation du dossier dans ce cas reste à confirmer sur ton ordinateur. Un geste de l'utilisateur est requis pour ouvrir le sélecteur **[vérifié, MDN]** |
 | Permission persistante | Selon la version de Chrome, il faut peut-être réautoriser le dossier à chaque session **[à vérifier]** |
 | Téléphone | Non : pas de client Drive « dossier » ni de File System Access sur mobile. Cohérent avec D2 (usage local) |
 | Conflits | Deux appareils modifiant le même fichier peuvent produire des copies de conflit côté Drive **[à vérifier : comportement exact du client]**. Mitigation par conception, voir plus bas |
@@ -66,6 +66,42 @@ L'application exporte ou importe un fichier de sauvegarde que tu ranges toi-mêm
 - conservation de l'autorisation sur le dossier entre deux sessions de Chrome ;
 - comportement du client Drive en cas d'écritures concurrentes ;
 - délai de synchronisation observé.
+
+## Prototype
+
+Fichier : [`prototypes/drive/labo-drive.html`](../prototypes/drive/labo-drive.html). Il est autonome, s'ouvre **d'un double-clic** (aucun serveur), ne fait aucune requête réseau et n'écrit que dans `<dossier choisi>/_labo-ihecs`. Il ne supprime jamais rien.
+
+### Ce qu'il te faut
+
+- Un ordinateur Windows ou macOS avec **Google Chrome** (ou Edge).
+- **Google Drive pour ordinateur** installé et connecté à ton compte.
+- Le fichier `labo-drive.html`, téléchargé depuis GitHub (bouton « Download raw file »).
+
+### Les expériences
+
+| # | Question | Comment |
+|---|---|---|
+| 0 | Le navigateur est-il compatible ? | Diagnostic automatique à l'ouverture (contexte sécurisé, sélecteur de dossier, IndexedDB) |
+| 1 | — | Choisir un dossier vide `IHECS STUDY OS` dans « Mon Drive » sur l'ordinateur |
+| 2 | **L'autorisation survit-elle au redémarrage de Chrome ?** | Fermer complètement Chrome, rouvrir le fichier : le résultat s'enregistre seul |
+| 3 | Délai ordinateur → Drive | Écrire un fichier, cliquer quand il apparaît sur drive.google.com |
+| 4 | Délai Drive → ordinateur | Ajouter un fichier depuis le web ou le téléphone ; détection automatique toutes les 2 s |
+| 5 | **Que fait Drive en cas de modifications simultanées ?** | Suspendre la synchronisation, modifier des deux côtés, reprendre, analyser |
+
+À la fin, « Copier le rapport » produit un JSON. Il contient le navigateur, le système, le nom du dossier choisi et les noms des fichiers de `_labo-ihecs`, sans aucun autre contenu. Ce rapport décidera de la conception finale (réautorisation, rythme de synchronisation, gestion des conflits).
+
+### Mécanismes déjà vérifiés automatiquement (sans Drive réel)
+
+- écriture limitée à `_labo-ihecs` ;
+- détection d'un fichier arrivé de l'extérieur ;
+- **conflit détecté avant d'écrire** grâce à l'empreinte SHA-256, sans rien écraser ;
+- analyse de la version gagnante et des copies ;
+- ouverture en `file://` avec un contexte sécurisé.
+
+**Restent à mesurer sur ton ordinateur :**
+- le comportement réel de Google Drive ;
+- la conservation de l'autorisation ;
+- le fonctionnement du sélecteur de dossier et de sa mémorisation quand le fichier est ouvert depuis le disque (`file://`).
 
 ## Sources
 

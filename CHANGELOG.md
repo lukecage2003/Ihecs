@@ -1,5 +1,16 @@
 # Journal des modifications
 
+## 0.3.0 — Sans serveur et prototype Drive (branche `prototype-drive-a`)
+
+### Modifié
+- **Plus de serveur local.** L'application est livrée en un seul fichier, `IHECS-STUDY-OS.html` (code, styles et police intégrés, CSP par empreinte), qui s'ouvre d'un double-clic. `scripts/serve.mjs` est supprimé.
+- Les tests de bout en bout ouvrent ce fichier en `file://`.
+
+### Ajouté
+- `scripts/build.mjs` : assemblage déterministe des modules de `src/` ; vérifié par la CI (`npm run build:check`).
+- `prototypes/drive/labo-drive.html` : laboratoire autonome pour mesurer, sur l'ordinateur de l'utilisateur, la conservation de l'autorisation, les délais de synchronisation et le comportement en cas de modifications simultanées.
+- Tests du laboratoire (7 parcours) et de l'assemblage.
+
 ## 0.2.0 — Phase 1 : fondations (branche `phase-1-fondations`)
 
 ### Modifié
