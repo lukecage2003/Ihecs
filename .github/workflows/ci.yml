@@ -1,0 +1,54 @@
+# Vérifications automatiques : syntaxe, tests unitaires, tests de bout en bout.
+# Ne publie et ne déploie rien. Aucun secret utilisé.
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Installer les dépendances (versions figées par package-lock.json)
+        run: npm ci
+
+      - name: Syntaxe
+        run: npm run check
+
+      - name: Tests unitaires
+        run: npm test
+
+      - name: Installer Chromium pour Playwright
+        run: npx playwright install --with-deps chromium
+
+      - name: Tests de bout en bout
+        run: npm run test:e2e
+        env:
+          CI: "true"
+
+      - name: Rapport Playwright (en cas d'échec)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7

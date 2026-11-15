@@ -1,0 +1,12 @@
+node_modules/
+test-results/
+playwright-report/
+blob-report/
+.DS_Store
+*.log
+# Sécurité : jamais d'identifiants ni de données personnelles dans le dépôt
+.env
+.env.*
+*.pem
+credentials*.json
+token*.json

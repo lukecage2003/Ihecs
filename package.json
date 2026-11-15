@@ -1,0 +1,21 @@
+{
+  "name": "ihecs-study-os",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Environnement personnel d'étude IHECS (application statique, locale).",
+  "type": "module",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "serve": "node scripts/serve.mjs",
+    "check": "node scripts/check-syntax.mjs",
+    "test": "node --test \"tests/unit/**/*.test.js\"",
+    "test:e2e": "playwright test --trace off",
+    "test:all": "npm run check && npm test && npm run test:e2e"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0"
+  }
+}
