@@ -1,0 +1,19 @@
+{
+  "lu": { "socio|c9": true },
+  "quiz": { "socio|c1": { "best": 1, "last": 1, "tries": 1 }, "cassé|c1": "pas un objet" },
+  "cartes": {
+    "socio|c1|99": { "box": 2, "due": "2026-11-20" },
+    "matiere-supprimee|c1|0": { "box": 4, "due": "2026-12-01" },
+    "socio|c1|1": { "box": 9, "due": "2026-11-20" },
+    "socio|c1|2": { "box": 2 },
+    "socio|c1|3": { "box": 1, "due": null, "note": "champ en plus" },
+    "format-inattendu": "texte"
+  },
+  "plan": {},
+  "journal": { "2026-11-10": 2 },
+  "prenom": 42,
+  "theme": "violet",
+  "focus": { "min": 30, "sessions": 2 },
+  "champFutur": { "a": [1, 2, 3] },
+  "autre": null
+}

@@ -1,0 +1,15 @@
+{
+  "lu": { "socio|c1": true, "droit|c2": true },
+  "quiz": { "socio|c1": { "best": 0.8333333333333334, "last": 0.6666666666666666, "tries": 3 }, "semio|c1": { "best": 0, "last": 0, "tries": 1 } },
+  "cartes": {
+    "socio|c1|0": { "box": 3, "due": "2026-11-19" },
+    "socio|c1|8": { "box": 0, "due": "2026-11-15" },
+    "eco|c1|2": { "box": 6, "due": "2026-12-17" },
+    "droit|c2|5": { "box": 1, "due": "2026-11-16" }
+  },
+  "plan": { "socio|etude|c1": true, "droit|quiz|c1": false, "anglais|ajout": true },
+  "journal": { "2026-11-13": 4, "2026-11-14": 17, "2026-11-15": 9 },
+  "prenom": "Zoé",
+  "theme": "dark",
+  "focus": { "min": 75 }
+}
