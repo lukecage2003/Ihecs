@@ -164,3 +164,29 @@ test("documents : ouverts depuis le dossier, fichier manquant signalé", async (
   await popup;
   expect(await page.evaluate(() => window.__lastBlob)).toEqual({ name: "chapitre-1.pdf", size: "%PDF-1.4 exemple".length });
 });
+
+test("examens sans date : listés à part avec format, crédits et consignes", async ({ page }) => {
+  const pack = {
+    format: "ihecs-study-os", kind: "course-pack", schemaVersion: 2, title: "Examen sans date (exemple)", createdAt: "2026-11-16T10:00:00.000Z",
+    source: { kind: "manual", note: "test" },
+    subjects: [{
+      id: "exnodate", nom: "Matière sans date (exemple)", prof: "Prof. Exemple", credits: 5, quadrimestre: "Q1", couleur: "#30d158", icone: "book",
+      examen: { type: "Écrit : QCM", duree: "1 h 30", consignes: ["Session de janvier, date à venir."] },
+      documents: [],
+      chapitres: [{ id: "c1", titre: "Chapitre exemple", duree: 10, resume: "Résumé.", pointsCles: [], definitions: [], fiches: [{ id: "card:exnodate:c1:001", q: "Q ?", r: "R." }], quiz: [], sources: [] }]
+    }]
+  };
+  await createSpace(page);
+  await page.evaluate(() => { location.hash = "#importer"; });
+  await page.locator("#pack-file").setInputFiles({ name: "sans-date.json", mimeType: "application/json", buffer: Buffer.from(JSON.stringify(pack)) });
+  await expect(page.locator("#imp-preview")).toContainText("Aperçu");
+  await page.getByRole("button", { name: "Importer", exact: true }).click();
+  await expect(page.locator("#imp-preview")).toContainText("Import terminé");
+  await page.evaluate(() => { location.hash = "#examens"; });
+  await expect(page.getByRole("heading", { name: "Date à confirmer" })).toBeVisible();
+  const row = page.locator(".exam-row", { hasText: "Matière sans date (exemple)" });
+  await expect(row).toContainText("Écrit : QCM");
+  await expect(row).toContainText("5 ECTS");
+  await row.locator("summary").click();
+  await expect(row).toContainText("Session de janvier, date à venir.");
+});

@@ -31,7 +31,7 @@ export function examsView() {
   const t0 = app.today();
   const list = app.M.filter(examDate).sort((a, b) => examDate(a) - examDate(b));
   const html = '<header class="page-head"><div><div class="eyebrow">' + esc(app.content.session ? app.content.session.nom : "") + '</div><h1 class="h-large">Examens</h1><p class="lead">Dates, formats, pondérations et consignes de chaque examen.</p></div></header>' + banner() +
-    (list.length ? "" : '<div class="card empty"><p>Aucun examen enregistré pour l\'instant.</p></div>') +
+    (list.length ? "" : '<div class="card empty"><p>Aucune date d\'examen enregistrée pour l\'instant.</p></div>') +
     '<div class="timeline">' + list.map((m) => {
       const ex = examDate(m), n = daysBetween(t0, ex), p = subjectProgress(app.state, m), e = m.examen;
       const chip = n < 0 ? '<span class="pill pill-neutral">Passé</span>' : n === 0 ? '<span class="pill pill-bad">Aujourd\'hui</span>' : '<span class="pill ' + (n <= 7 ? "pill-bad" : n <= 21 ? "pill-warn" : "pill-neutral") + '">Dans ' + n + " jour" + (n > 1 ? "s" : "") + "</span>";
@@ -41,8 +41,26 @@ export function examsView() {
         '<div class="small muted" style="margin-top:6px">Pondération : ' + esc(e.poids || "à préciser") + "</div>" +
         ((e.consignes || []).length ? "<details><summary>Consignes (" + e.consignes.length + ")</summary><ul>" + e.consignes.map((x) => "<li>" + esc(x) + "</li>").join("") + "</ul></details>" : "") + "</div>" +
         '<div class="er-right">' + chip + '<div style="width:140px;max-width:100%">' + bar(p, m.couleur) + '</div><span class="small muted tnum">Préparé à ' + Math.round(p * 100) + " %</span></div></div>";
-    }).join("") + "</div>";
+    }).join("") + "</div>" + undatedExams();
   return { html };
+}
+
+// Matières dont l'examen est décrit mais pas encore daté : affichées à part,
+// pour que leur format, leurs crédits et leurs consignes restent visibles.
+function undatedExams() {
+  const has = (e) => e && (e.type || e.duree || e.poids || e.lieu || (e.consignes || []).length);
+  const list = app.M.filter((m) => !examDate(m) && has(m.examen));
+  if (!list.length) return "";
+  return '<h2 class="h-sec" style="margin:32px 0 12px">Date à confirmer</h2><div class="timeline">' + list.map((m) => {
+    const e = m.examen, p = subjectProgress(app.state, m);
+    const meta = [e.type ? "<span>" + ic("exam") + esc(e.type) + "</span>" : "", e.duree ? "<span>" + ic("clock") + esc(e.duree) + "</span>" : "", e.lieu ? "<span>" + ic("pin") + esc(e.lieu) + "</span>" : "", m.credits ? "<span>" + ic("award") + m.credits + " ECTS</span>" : ""].join("");
+    return '<div class="card exam-row"><div class="datebox"><div class="m">date</div><div class="d">?</div><div class="w">' + esc(m.quadrimestre || "") + "</div></div>" +
+      '<div style="min-width:0"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">' + dot(m) + '<a class="h-card" style="color:var(--fg)" href="#m-' + m.id + '">' + esc(m.nom) + "</a></div>" +
+      (meta ? '<div class="meta-row">' + meta + "</div>" : "") +
+      (e.poids ? '<div class="small muted" style="margin-top:6px">Pondération : ' + esc(e.poids) + "</div>" : "") +
+      ((e.consignes || []).length ? "<details><summary>Consignes (" + e.consignes.length + ")</summary><ul>" + e.consignes.map((x) => "<li>" + esc(x) + "</li>").join("") + "</ul></details>" : "") + "</div>" +
+      '<div class="er-right"><span class="pill pill-neutral">Date à confirmer</span><div style="width:140px;max-width:100%">' + bar(p, m.couleur) + '</div><span class="small muted tnum">Préparé à ' + Math.round(p * 100) + " %</span></div></div>";
+  }).join("") + "</div>";
 }
 
 export function planningView() {

@@ -1,5 +1,11 @@
 # Journal des modifications
 
+## 0.5.1 — Examens sans date
+
+### Ajouté
+- Page **Examens** : section « Date à confirmer » pour les matières dont l'examen est décrit (type, durée, crédits, consignes) mais pas encore daté.
+- Test de parcours correspondant (× 2 appareils).
+
 ## 0.5.0 — Import des cours (branche `import-cours`)
 
 ### Ajouté
