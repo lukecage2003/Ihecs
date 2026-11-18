@@ -1,5 +1,11 @@
 # Journal des modifications
 
+## 0.9.2 — Le dossier Drive s'ouvre seulement quand tu le demandes
+
+### Modifié
+- Au démarrage, le site ne lit plus jamais le dossier Drive tout seul : il s'ouvre tout de suite sur « Ouvrir ton espace académique ». Le bouton **Ouvrir mon espace** lit le dossier ; **Continuer en démonstration** reste possible à tout moment.
+- Si l'ouverture prend plus de 8 secondes, l'étape en attente est affichée sous le bouton.
+
 ## 0.9.1 — Démarrage qui ne reste plus bloqué
 
 ### Corrigé

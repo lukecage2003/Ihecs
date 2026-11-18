@@ -96,7 +96,11 @@ test("la progression est enregistrée dans le dossier et retrouvée au rechargem
   await expect(page.locator("#sync-status")).toContainText("Enregistré dans Drive");
   await page.reload();
   await ready(page);
-  await page.goto(APP + "#accueil");
+  // Au démarrage, rien n'est lu dans le dossier avant le clic.
+  await expect(page.getByRole("heading", { name: "Ouvrir ton espace académique" })).toBeVisible();
+  await page.getByRole("button", { name: "Ouvrir mon espace" }).click();
+  await expect(page.locator("#sidebar")).toContainText("Mon espace");
+  await page.evaluate(() => { location.hash = "#accueil"; });
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Zoé");
   const dev = (await list(page, "appareils"))[0];
   const state = JSON.parse(await read(page, "appareils/" + dev + "/etat.json"));
@@ -155,7 +159,7 @@ test("au redémarrage sans autorisation : écran d'accès, pas de démo à la pl
   await ready(page);
   await expect(page.getByRole("heading", { name: "Ouvrir ton espace académique" })).toBeVisible();
   await expect(page.getByText("Sociologie de la communication")).toHaveCount(0);
-  await page.getByRole("button", { name: "Autoriser mon dossier Drive" }).click();
+  await page.getByRole("button", { name: "Ouvrir mon espace" }).click();
   // On reste sur la page où l'on était (Réglages), avec l'espace réel ouvert.
   await expect(page.locator("#ws-body")).toContainText("Dossier Drive");
   await expect(page.locator("#sidebar")).toContainText("Mon espace");
@@ -169,7 +173,9 @@ test("fiches avec identifiant stable : révision enregistrée dans l'état et da
   await write(page, "structure.json", JSON.stringify(st));
   await page.reload();
   await ready(page);
-  await page.goto(APP + "#c-test-c1-fiches");
+  await page.getByRole("button", { name: "Ouvrir mon espace" }).click();
+  await expect(page.locator("#sidebar")).toContainText("Matière de test");
+  await page.evaluate(() => { location.hash = "#c-test-c1-fiches"; });
   await page.locator("#fc").click();
   await page.getByRole("button", { name: /^Bien/ }).click();
   await expect(page.locator("#sync-status")).toContainText("Enregistré dans Drive");

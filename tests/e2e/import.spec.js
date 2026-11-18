@@ -253,7 +253,7 @@ test("modifier l'examen dans le site : enregistré avec sauvegarde, gardé au r�
   await expect(page.locator(".timeline").first()).toContainText("Auditoire Delvaux");
 });
 
-test("dossier Drive qui ne répond plus : étape affichée, puis démonstration possible", async ({ page }) => {
+test("dossier Drive qui ne répond plus : le site s'ouvre quand même, étape affichée, démonstration possible", async ({ page }) => {
   await createSpace(page);
   // Au prochain chargement, toute lecture de fichier dans le dossier reste en attente.
   await page.addInitScript(() => {
@@ -263,10 +263,13 @@ test("dossier Drive qui ne répond plus : étape affichée, puis démonstration 
   await page.evaluate(() => sessionStorage.setItem("hang", "1"));
   await page.clock.install();
   await page.reload();
-  await expect(page.locator("#view")).toContainText("Ouverture");
+  // Le site s'ouvre sans lire le dossier : pas de blocage au démarrage.
+  await expect(page.locator("body")).toHaveAttribute("data-ready", "1");
+  await page.getByRole("button", { name: "Ouvrir mon espace" }).click();
+  await expect(page.locator("#gate-msg")).toContainText("Ouverture");
   await page.clock.runFor(9000);
-  await expect(page.locator("#view")).toContainText("Ton espace met trop de temps à s'ouvrir");
-  await expect(page.locator("#view")).toContainText("ihecs-study-os.json");
+  await expect(page.locator("#gate-msg")).toContainText("Ça prend du temps");
+  await expect(page.locator("#gate-msg")).toContainText("ihecs-study-os.json");
   await page.evaluate(() => sessionStorage.setItem("hang", "0"));
   await page.getByRole("button", { name: "Continuer en démonstration" }).click();
   await expect(page.locator("body")).toHaveAttribute("data-ready", "1");
