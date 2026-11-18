@@ -252,3 +252,23 @@ test("modifier l'examen dans le site : enregistré avec sauvegarde, gardé au r�
   await page.evaluate(() => { location.hash = "#examens"; });
   await expect(page.locator(".timeline").first()).toContainText("Auditoire Delvaux");
 });
+
+test("dossier Drive qui ne répond plus : étape affichée, puis démonstration possible", async ({ page }) => {
+  await createSpace(page);
+  // Au prochain chargement, toute lecture de fichier dans le dossier reste en attente.
+  await page.addInitScript(() => {
+    if (sessionStorage.getItem("hang") !== "1") return;
+    FileSystemDirectoryHandle.prototype.getFileHandle = () => new Promise(() => {});
+  });
+  await page.evaluate(() => sessionStorage.setItem("hang", "1"));
+  await page.clock.install();
+  await page.reload();
+  await expect(page.locator("#view")).toContainText("Ouverture");
+  await page.clock.runFor(9000);
+  await expect(page.locator("#view")).toContainText("Ton espace met trop de temps à s'ouvrir");
+  await expect(page.locator("#view")).toContainText("ihecs-study-os.json");
+  await page.evaluate(() => sessionStorage.setItem("hang", "0"));
+  await page.getByRole("button", { name: "Continuer en démonstration" }).click();
+  await expect(page.locator("body")).toHaveAttribute("data-ready", "1");
+  await expect(page.locator("#view")).toContainText("Mode démonstration");
+});

@@ -34,9 +34,9 @@ export function activateDemo() {
 }
 
 /** Ouvre l'espace réel du dossier (permission déjà accordée). Lève une erreur explicite sinon. */
-export async function activateReal(root) {
+export async function activateReal(root, onStep) {
   const dev = await deviceId();
-  const opened = await openWorkspace(root, { deviceId: dev, now: new Date() });
+  const opened = await openWorkspace(root, { deviceId: dev, now: new Date(), onStep });
   reset();
   const saver = createSaver(root, {
     manifest: opened.manifest, deviceId: dev, stateDoc: opened.stateDoc,

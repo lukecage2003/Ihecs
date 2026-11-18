@@ -37,15 +37,19 @@ export async function createWorkspace(root, { deviceId, now }) {
  * Ouvre un espace existant et charge la progression de cet appareil.
  * @returns {{manifest, structure, content, uiState, stateDoc}}
  */
-export async function openWorkspace(root, { deviceId, now }) {
+export async function openWorkspace(root, { deviceId, now, onStep }) {
+  const step = (t) => { if (onStep) onStep(t); };
+  step("lecture de ihecs-study-os.json");
   const info = await inspectFolder(root);
   if (info.status !== "existing") throw new Error(info.status === "empty" ? "Ce dossier ne contient pas d'espace IHECS STUDY OS." : info.errors.join(" "));
   const manifest = info.manifest;
+  step("lecture de structure.json");
   const s = await readJson(root, STRUCTURE_FILE);
   if (!s.exists) throw new Error("structure.json est introuvable. Si tu viens de créer l'espace sur un autre ordinateur, attends la fin de la synchronisation Drive puis réessaie.");
   if (s.error) throw new Error(s.error);
   const sErr = validateStructure(s.data, manifest.workspace.id);
   if (sErr.length) throw new Error(sErr.join(" "));
+  step("lecture de ta progression (dossier appareils/)");
   const dev = await subdir(root, [DEVICES_DIR, deviceId], true);
   let st = await readJson(dev, STATE_FILE);
   if (!st.exists) {

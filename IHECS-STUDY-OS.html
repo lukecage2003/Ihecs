@@ -9,7 +9,7 @@
 <meta name="description" content="Tableau de bord de révision : résumés, fiches, quiz, examens et planning.">
 <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-/qYcIvK2ko502LTgjbvwlxtVfbwf/wtvyRtE+uWoOCo='; style-src 'unsafe-inline'; font-src data:; img-src data: blob:; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-YY617aKP578aG8hmAFZiSNm6YBJvm1l42QG515UVG5E='; style-src 'unsafe-inline'; font-src data:; img-src data: blob:; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="referrer" content="no-referrer">
 <style>
 /* Révisions — interface inspirée d'Apple
@@ -2290,15 +2290,19 @@ async function createWorkspace(root, { deviceId, now }) {
  * Ouvre un espace existant et charge la progression de cet appareil.
  * @returns {{manifest, structure, content, uiState, stateDoc}}
  */
-async function openWorkspace(root, { deviceId, now }) {
+async function openWorkspace(root, { deviceId, now, onStep }) {
+  const step = (t) => { if (onStep) onStep(t); };
+  step("lecture de ihecs-study-os.json");
   const info = await inspectFolder(root);
   if (info.status !== "existing") throw new Error(info.status === "empty" ? "Ce dossier ne contient pas d'espace IHECS STUDY OS." : info.errors.join(" "));
   const manifest = info.manifest;
+  step("lecture de structure.json");
   const s = await readJson(root, STRUCTURE_FILE);
   if (!s.exists) throw new Error("structure.json est introuvable. Si tu viens de créer l'espace sur un autre ordinateur, attends la fin de la synchronisation Drive puis réessaie.");
   if (s.error) throw new Error(s.error);
   const sErr = validateStructure(s.data, manifest.workspace.id);
   if (sErr.length) throw new Error(sErr.join(" "));
+  step("lecture de ta progression (dossier appareils/)");
   const dev = await subdir(root, [DEVICES_DIR, deviceId], true);
   let st = await readJson(dev, STATE_FILE);
   if (!st.exists) {
@@ -2466,9 +2470,9 @@ function activateDemo() {
 }
 
 /** Ouvre l'espace réel du dossier (permission déjà accordée). Lève une erreur explicite sinon. */
-async function activateReal(root) {
+async function activateReal(root, onStep) {
   const dev = await deviceId();
-  const opened = await openWorkspace(root, { deviceId: dev, now: new Date() });
+  const opened = await openWorkspace(root, { deviceId: dev, now: new Date(), onStep });
   reset();
   const saver = createSaver(root, {
     manifest: opened.manifest, deviceId: dev, stateDoc: opened.stateDoc,
@@ -4105,6 +4109,14 @@ function viewFor(r) {
 }
 
 function render() {
+  try { renderView(); }
+  catch (e) {
+    console.error(e);
+    $("#view").innerHTML = '<div class="card empty" style="max-width:620px;margin:8vh auto 0" role="alert"><h1 class="h-sec">Cette page n\'a pas pu s\'afficher</h1><p>Erreur : <code>' + esc(e && e.message ? e.message : String(e)) + '</code></p><p class="small muted">Tes fichiers n\'ont pas été modifiés. Envoie une capture de ce message pour que le problème soit corrigé.</p><div class="confirm" style="justify-content:center"><a class="btn" href="#accueil">Tableau de bord</a><a class="btn btn-plain" href="#parametres">Réglages</a></div></div>';
+  }
+}
+
+function renderView() {
   const r = parseRoute(location.hash, app.content);
   if (r.name === "unknown") {
     // Ancre interne (sommaire d'un résumé) : on défile sans changer de vue.
@@ -4143,16 +4155,19 @@ function bindCommon() {
 }
 
 /** Choisit l'espace au démarrage : l'espace réel s'il était ouvert la dernière fois, sinon la démonstration. */
+let bootStep = "démarrage";
 async function startWorkspace() {
   activateDemo();
+  bootStep = "lecture des préférences de ce navigateur";
   const pref = await activeWorkspacePref();
   if (pref === "copy") { await activateCopy(); return; }
   if (pref !== "real") return;
   const root = await storedRoot();
   if (!root) return;
+  bootStep = "vérification de l'accès au dossier « " + root.name + " »";
   const p = await permission(root);
   if (p === "granted") {
-    try { await activateReal(root); }
+    try { await activateReal(root, (t) => { bootStep = t + " dans « " + root.name + " »"; }); }
     catch (e) { app.startupError = "Impossible d'ouvrir ton espace dans « " + root.name + " » : " + e.message + " La démonstration est affichée en attendant."; }
   } else {
     // Espace réel attendu : on n'affiche pas la démonstration à sa place (D3).
@@ -4175,9 +4190,22 @@ async function boot() {
   });
   window.addEventListener("hashchange", render);
   $("#view").innerHTML = '<div class="card empty" style="margin-top:8vh"><p>Ouverture…</p></div>';
+  // Le dossier Drive peut ne jamais répondre (fichier en cours de synchronisation,
+  // Drive pour ordinateur arrêté…). Après un délai, on dit quelle étape bloque au
+  // lieu de rester sur « Ouverture… ». Si l'ouverture finit ensuite, l'espace s'affiche.
+  let decided = false;
+  const finish = () => { if (decided) return; decided = true; render(); document.body.dataset.ready = "1"; };
+  const slow = setTimeout(() => { if (!decided) stuckScreen(); }, 8000);
   try { await startWorkspace(); } catch (e) { activateDemo(); app.startupError = "Erreur au démarrage : " + e.message; }
-  render();
-  document.body.dataset.ready = "1";
+  clearTimeout(slow);
+  finish();
+
+  function stuckScreen() {
+    $("#view").innerHTML = '<div class="card empty" style="max-width:620px;margin:8vh auto 0" role="alert"><h1 class="h-sec">Ton espace met trop de temps à s\'ouvrir</h1><p>Étape en attente : <b>' + esc(bootStep) + '</b>.</p><p class="small muted">Vérifie que Google Drive pour ordinateur est lancé et connecté, et que la synchronisation est terminée. Rien n\'a été modifié dans tes fichiers.</p><div class="confirm" style="justify-content:center"><button class="btn" id="stuck-retry" type="button">Réessayer</button><button class="btn btn-plain" id="stuck-demo" type="button">Continuer en démonstration</button></div></div>';
+    $("#stuck-retry").onclick = () => location.reload();
+    // Rechargement : l'ouverture en cours est abandonnée proprement, le dossier n'est plus lu.
+    $("#stuck-demo").onclick = async () => { decided = true; try { await switchToDemo(); } catch (e) { /* préférence non enregistrée */ } location.reload(); };
+  }
 }
 
 boot();

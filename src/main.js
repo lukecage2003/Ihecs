@@ -55,6 +55,14 @@ function viewFor(r) {
 }
 
 function render() {
+  try { renderView(); }
+  catch (e) {
+    console.error(e);
+    $("#view").innerHTML = '<div class="card empty" style="max-width:620px;margin:8vh auto 0" role="alert"><h1 class="h-sec">Cette page n\'a pas pu s\'afficher</h1><p>Erreur : <code>' + esc(e && e.message ? e.message : String(e)) + '</code></p><p class="small muted">Tes fichiers n\'ont pas été modifiés. Envoie une capture de ce message pour que le problème soit corrigé.</p><div class="confirm" style="justify-content:center"><a class="btn" href="#accueil">Tableau de bord</a><a class="btn btn-plain" href="#parametres">Réglages</a></div></div>';
+  }
+}
+
+function renderView() {
   const r = parseRoute(location.hash, app.content);
   if (r.name === "unknown") {
     // Ancre interne (sommaire d'un résumé) : on défile sans changer de vue.
@@ -93,16 +101,19 @@ function bindCommon() {
 }
 
 /** Choisit l'espace au démarrage : l'espace réel s'il était ouvert la dernière fois, sinon la démonstration. */
+let bootStep = "démarrage";
 async function startWorkspace() {
   activateDemo();
+  bootStep = "lecture des préférences de ce navigateur";
   const pref = await activeWorkspacePref();
   if (pref === "copy") { await activateCopy(); return; }
   if (pref !== "real") return;
   const root = await storedRoot();
   if (!root) return;
+  bootStep = "vérification de l'accès au dossier « " + root.name + " »";
   const p = await permission(root);
   if (p === "granted") {
-    try { await activateReal(root); }
+    try { await activateReal(root, (t) => { bootStep = t + " dans « " + root.name + " »"; }); }
     catch (e) { app.startupError = "Impossible d'ouvrir ton espace dans « " + root.name + " » : " + e.message + " La démonstration est affichée en attendant."; }
   } else {
     // Espace réel attendu : on n'affiche pas la démonstration à sa place (D3).
@@ -125,9 +136,22 @@ async function boot() {
   });
   window.addEventListener("hashchange", render);
   $("#view").innerHTML = '<div class="card empty" style="margin-top:8vh"><p>Ouverture…</p></div>';
+  // Le dossier Drive peut ne jamais répondre (fichier en cours de synchronisation,
+  // Drive pour ordinateur arrêté…). Après un délai, on dit quelle étape bloque au
+  // lieu de rester sur « Ouverture… ». Si l'ouverture finit ensuite, l'espace s'affiche.
+  let decided = false;
+  const finish = () => { if (decided) return; decided = true; render(); document.body.dataset.ready = "1"; };
+  const slow = setTimeout(() => { if (!decided) stuckScreen(); }, 8000);
   try { await startWorkspace(); } catch (e) { activateDemo(); app.startupError = "Erreur au démarrage : " + e.message; }
-  render();
-  document.body.dataset.ready = "1";
+  clearTimeout(slow);
+  finish();
+
+  function stuckScreen() {
+    $("#view").innerHTML = '<div class="card empty" style="max-width:620px;margin:8vh auto 0" role="alert"><h1 class="h-sec">Ton espace met trop de temps à s\'ouvrir</h1><p>Étape en attente : <b>' + esc(bootStep) + '</b>.</p><p class="small muted">Vérifie que Google Drive pour ordinateur est lancé et connecté, et que la synchronisation est terminée. Rien n\'a été modifié dans tes fichiers.</p><div class="confirm" style="justify-content:center"><button class="btn" id="stuck-retry" type="button">Réessayer</button><button class="btn btn-plain" id="stuck-demo" type="button">Continuer en démonstration</button></div></div>';
+    $("#stuck-retry").onclick = () => location.reload();
+    // Rechargement : l'ouverture en cours est abandonnée proprement, le dossier n'est plus lu.
+    $("#stuck-demo").onclick = async () => { decided = true; try { await switchToDemo(); } catch (e) { /* préférence non enregistrée */ } location.reload(); };
+  }
 }
 
 boot();

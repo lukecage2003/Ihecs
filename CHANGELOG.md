@@ -1,5 +1,12 @@
 # Journal des modifications
 
+## 0.9.1 — Démarrage qui ne reste plus bloqué
+
+### Corrigé
+- Si le dossier Drive ne répond pas (synchronisation en cours, Drive pour ordinateur arrêté), le site ne reste plus sur « Ouverture… » : après 8 secondes, il indique l'étape en attente et propose « Réessayer » ou « Continuer en démonstration ».
+- Une erreur d'affichage montre maintenant son message au lieu d'une page figée.
+- Test : 1 parcours (× 2 appareils).
+
 ## 0.9.0 — Révision plus efficace
 
 ### Ajouté
