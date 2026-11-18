@@ -120,14 +120,19 @@ const stamp = (d) => d.toISOString().replace(/[:.]/g, "-").slice(0, 19);
  *  3. écrit la nouvelle structure SEULEMENT si structure.json n'a pas changé depuis l'aperçu.
  * Rien n'est jamais supprimé ni remplacé sans copie.
  */
-export async function applyImport(root, { plan, expectedHash, packText, sourceName, now }) {
+export async function applyImport(root, { plan, expectedHash, packText, sourceName, files, now }) {
   const current = await readJson(root, STRUCTURE_FILE);
   if (!current.exists || current.hash !== expectedHash) {
     return { ok: false, error: "structure.json a changé depuis l'aperçu (synchronisation Drive ou autre fenêtre). Rien n'a été écrit : relance l'aperçu." };
   }
-  const archived = await writeNewFile(await subdir(root, ["imports"], true), stamp(now) + " " + (sourceName || "cours.json").replace(/[\\/]/g, "_"), packText);
+  // Chaque fichier choisi est archivé tel quel (plusieurs fichiers possibles).
+  const list = files && files.length ? files : [{ name: sourceName, text: packText }];
+  const dir = await subdir(root, ["imports"], true);
+  const names = [];
+  for (const f of list) names.push("imports/" + await writeNewFile(dir, stamp(now) + " " + (f.name || "cours.json").replace(/[\\/]/g, "_"), f.text));
+  const archived = names.join(", ");
   const backup = await writeNewFile(await subdir(root, ["sauvegardes"], true), "structure " + stamp(now) + ".json", current.text);
   const res = await writeIfUnchanged(root, STRUCTURE_FILE, JSON.stringify(plan.nextStructure, null, 2) + "\n", expectedHash);
   if (!res.ok) return { ok: false, error: "structure.json a changé pendant l'import. Rien n'a été remplacé ; la sauvegarde « " + backup + " » est conservée." };
-  return { ok: true, archived: "imports/" + archived, backup: "sauvegardes/" + backup };
+  return { ok: true, archived, archives: names, backup: "sauvegardes/" + backup };
 }

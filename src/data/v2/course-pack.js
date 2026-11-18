@@ -106,6 +106,68 @@ function normalizeSubject(s, meta) {
   });
 }
 
+/** Champs d'une matière que l'utilisateur peut modifier dans le site (préservés lors d'un réimport). */
+export const EDITABLE_FIELDS = ["credits", "quadrimestre"];
+export const EDITABLE_EXAM_FIELDS = ["date", "type", "duree", "poids", "lieu", "consignes"];
+
+/**
+ * Réapplique les modifications faites dans le site (s.userEdits) sur une matière.
+ * Un champ modifié par l'utilisateur l'emporte sur la valeur du fichier de cours.
+ */
+export function applyUserEdits(subject, edits) {
+  if (!isObj(edits)) return subject;
+  const out = Object.assign({}, subject);
+  for (const k of EDITABLE_FIELDS) if (k in edits) out[k] = edits[k];
+  if (isObj(edits.examen)) {
+    const ex = Object.assign({}, isObj(out.examen) ? out.examen : {});
+    for (const k of EDITABLE_EXAM_FIELDS) if (k in edits.examen) { if (edits.examen[k] === null) delete ex[k]; else ex[k] = edits.examen[k]; }
+    out.examen = ex;
+  }
+  out.userEdits = edits;
+  return out;
+}
+
+/** JSON à clés triées, pour comparer deux contenus indépendamment de l'ordre des champs. */
+const canon = (v) => Array.isArray(v) ? "[" + v.map(canon).join(",") + "]"
+  : isObj(v) ? "{" + Object.keys(v).sort().filter((k) => v[k] !== undefined).map((k) => JSON.stringify(k) + ":" + canon(v[k])).join(",") + "}"
+  : JSON.stringify(v);
+const withoutMeta = (s) => { const c = Object.assign({}, s); delete c.importedFrom; return c; };
+
+/** Vrai si la matière du fichier diffère de celle déjà présente (provenance ignorée). */
+export function subjectChanged(existing, incoming) {
+  const next = applyUserEdits(normalizeSubject(incoming, null), existing && existing.userEdits);
+  return canon(withoutMeta(next)) !== canon(withoutMeta(existing || {}));
+}
+
+/**
+ * Réunit plusieurs fichiers de cours en un seul. Si une matière apparaît dans
+ * plusieurs fichiers, la version du fichier le plus récent (createdAt) est gardée.
+ * @param {{name: string, pack: object}[]} files  fichiers déjà validés un par un
+ * @returns {{pack: object, sourceOf: Map<string, string>, duplicates: {id: string, kept: string, dropped: string}[]}}
+ */
+export function mergePacks(files) {
+  const time = (p) => { const t = Date.parse(p && p.createdAt); return Number.isNaN(t) ? 0 : t; };
+  const byId = new Map(), duplicates = [];
+  files.forEach((f, order) => {
+    for (const s of f.pack.subjects) {
+      const k = s.id.toLowerCase(), cur = byId.get(k);
+      const cand = { s, file: f.name, t: time(f.pack), order };
+      if (!cur) { byId.set(k, cand); continue; }
+      const newer = cand.t > cur.t || (cand.t === cur.t && cand.order > cur.order);
+      duplicates.push({ id: s.id, kept: newer ? cand.file : cur.file, dropped: newer ? cur.file : cand.file });
+      if (newer) byId.set(k, cand);
+    }
+  });
+  const kept = [...byId.values()].sort((a, b) => a.order - b.order);
+  const first = files[0] ? files[0].pack : {};
+  const pack = files.length === 1 ? first : {
+    format: first.format, kind: first.kind, schemaVersion: first.schemaVersion,
+    title: files.length + " fichiers de cours", createdAt: new Date(Math.max(...files.map((f) => time(f.pack)))).toISOString(),
+    subjects: kept.map((x) => x.s)
+  };
+  return { pack, sourceOf: new Map(kept.map((x) => [x.s.id.toLowerCase(), x.file])), duplicates };
+}
+
 /** Identifiants de fiches et de questions d'une matière (structure). */
 const itemIdsOf = (s) => (s.chapitres || s.chapters || []).flatMap((c) => [...(c.fiches || []), ...(c.quiz || [])].map((x) => x && x.id).filter(Boolean));
 
@@ -113,8 +175,9 @@ const itemIdsOf = (s) => (s.chapitres || s.chapters || []).flatMap((c) => [...(c
  * Calcule le résultat d'un import sans rien écrire.
  * @param {object} structure  structure.json actuelle (validée)
  * @param {object} pack       pack validé
- * @param {{replace?: string[], now: Date, sourceName?: string, iconNames?: string[]}} opts
- * @returns {{ok: true, added, replaced, skipped, counts, nextStructure} | {ok: false, errors}}
+ * @param {{replace?: string[], now: Date, sourceName?: string, sourceOf?: Map<string, string>, iconNames?: string[]}} opts
+ * @returns {{ok: true, added, replaced, skipped, changed, counts, nextStructure} | {ok: false, errors}}
+ *   changed : matières déjà présentes dont le fichier apporte une version différente.
  */
 export function planImport(structure, pack, opts) {
   const errors = validatePack(pack, { iconNames: opts.iconNames });
@@ -122,11 +185,13 @@ export function planImport(structure, pack, opts) {
   const replace = new Set((opts.replace || []).map((x) => x.toLowerCase()));
   const existing = new Map((structure.subjects || []).map((s) => [String(s.id).toLowerCase(), s]));
   const meta = { pack: pack.title, file: opts.sourceName || null, packCreatedAt: pack.createdAt || null, importedAt: opts.now.toISOString() };
-  const added = [], replaced = [], skipped = [];
+  const metaOf = (s) => (opts.sourceOf && opts.sourceOf.get(s.id.toLowerCase()) ? Object.assign({}, meta, { file: opts.sourceOf.get(s.id.toLowerCase()) }) : meta);
+  const added = [], replaced = [], skipped = [], changed = [];
   for (const s of pack.subjects) {
     const k = s.id.toLowerCase();
-    if (!existing.has(k)) added.push(s);
-    else if (replace.has(k)) replaced.push(s);
+    if (!existing.has(k)) { added.push(s); continue; }
+    if (subjectChanged(existing.get(k), s)) changed.push(s);
+    if (replace.has(k)) replaced.push(s);
     else skipped.push(s);
   }
   // Les identifiants de fiches doivent rester uniques dans tout l'espace.
@@ -134,8 +199,9 @@ export function planImport(structure, pack, opts) {
   const taken = new Set(kept.flatMap(itemIdsOf));
   const clashes = [...added, ...replaced].flatMap((s) => s.chapitres.flatMap((c) => [...(c.fiches || []), ...(c.quiz || [])].map((x) => x.id))).filter((id) => taken.has(id));
   if (clashes.length) return { ok: false, errors: ["Identifiants déjà utilisés par une autre matière de ton espace : " + [...new Set(clashes)].slice(0, 10).join(", ")] };
-  const replacedMap = new Map(replaced.map((s) => [s.id.toLowerCase(), normalizeSubject(s, meta)]));
-  const subjects = (structure.subjects || []).map((s) => replacedMap.get(String(s.id).toLowerCase()) || s).concat(added.map((s) => normalizeSubject(s, meta)));
+  // Les modifications faites dans le site (date d'examen, crédits…) survivent au remplacement.
+  const replacedMap = new Map(replaced.map((s) => [s.id.toLowerCase(), applyUserEdits(normalizeSubject(s, metaOf(s)), existing.get(s.id.toLowerCase()).userEdits)]));
+  const subjects = (structure.subjects || []).map((s) => replacedMap.get(String(s.id).toLowerCase()) || s).concat(added.map((s) => normalizeSubject(s, metaOf(s))));
   const nextStructure = Object.assign({}, structure, {
     updatedAt: opts.now.toISOString(),
     subjects,
@@ -144,5 +210,5 @@ export function planImport(structure, pack, opts) {
   const sErr = validateStructure(nextStructure, structure.workspaceId);
   if (sErr.length) return { ok: false, errors: sErr };
   const count = (list) => list.reduce((a, s) => ({ chapitres: a.chapitres + s.chapitres.length, fiches: a.fiches + s.chapitres.reduce((n, c) => n + (c.fiches || []).length, 0), questions: a.questions + s.chapitres.reduce((n, c) => n + (c.quiz || []).length, 0) }), { chapitres: 0, fiches: 0, questions: 0 });
-  return { ok: true, added, replaced, skipped, counts: count([...added, ...replaced]), nextStructure };
+  return { ok: true, added, replaced, skipped, changed, counts: count([...added, ...replaced]), nextStructure };
 }

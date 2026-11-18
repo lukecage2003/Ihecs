@@ -1,5 +1,14 @@
 # Journal des modifications
 
+## 0.6.0 — Import plus simple
+
+### Ajouté
+- Import de **plusieurs fichiers de cours à la fois**, réunis dans un seul aperçu (doublons : la version la plus récente est gardée et signalée).
+- Mise à jour automatique : une matière dont le contenu a changé est pré-cochée « Mettre à jour » ; une matière identique est marquée « Déjà à jour ».
+- Les informations modifiées dans le site (`userEdits`) sont conservées lors d'une mise à jour.
+- Chaque fichier importé est archivé dans `imports/`.
+- Tests : 3 unitaires et 1 parcours (× 2 appareils).
+
 ## 0.5.1 — Examens sans date
 
 ### Ajouté

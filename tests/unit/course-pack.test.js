@@ -2,7 +2,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { planImport, safeRelativePath, validatePack } from "../../src/data/v2/course-pack.js";
+import { applyUserEdits, mergePacks, planImport, safeRelativePath, subjectChanged, validatePack } from "../../src/data/v2/course-pack.js";
 import { newStructure, contentFromStructure, newManifest } from "../../src/data/v2/workspace.js";
 import { ICON_NAMES } from "../../src/core/icons.js";
 
@@ -96,4 +96,47 @@ test("le plan ne modifie ni la structure ni le pack d'origine", () => {
   const before = JSON.stringify([st, p]);
   planImport(st, p, opts());
   assert.equal(JSON.stringify([st, p]), before);
+});
+
+test("matières modifiées : détectées, les identiques ne le sont pas", () => {
+  const first = planImport(empty(), PACK, opts()).nextStructure;
+  assert.equal(planImport(first, PACK, opts()).changed.length, 0);
+  const updated = clone(PACK);
+  updated.subjects[2].chapitres[0].fiches[0].r = "Réponse corrigée";
+  const plan = planImport(first, updated, opts());
+  assert.deepEqual(plan.changed.map((s) => s.id), [updated.subjects[2].id]);
+  assert.equal(subjectChanged(first.subjects[0], PACK.subjects[0]), false);
+});
+
+test("plusieurs fichiers : réunis, la version la plus récente d'une matière l'emporte", () => {
+  const a = clone(PACK); a.createdAt = "2026-11-01T00:00:00Z"; a.subjects = a.subjects.slice(0, 2);
+  const b = clone(PACK); b.createdAt = "2026-11-10T00:00:00Z"; b.subjects = [clone(PACK.subjects[1]), clone(PACK.subjects[3])];
+  b.subjects[0].nom = "Version récente";
+  const m = mergePacks([{ name: "a.json", pack: a }, { name: "b.json", pack: b }]);
+  assert.deepEqual(m.pack.subjects.map((s) => s.id), [PACK.subjects[0].id, PACK.subjects[1].id, PACK.subjects[3].id]);
+  assert.equal(m.pack.subjects[1].nom, "Version récente");
+  assert.equal(m.sourceOf.get(PACK.subjects[1].id.toLowerCase()), "b.json");
+  assert.deepEqual(m.duplicates, [{ id: PACK.subjects[1].id, kept: "b.json", dropped: "a.json" }]);
+  assert.deepEqual(validatePack(m.pack, { iconNames: ICON_NAMES }), []);
+  const plan = planImport(empty(), m.pack, opts({ sourceOf: m.sourceOf }));
+  assert.equal(plan.nextStructure.subjects[2].importedFrom.file, "b.json");
+  assert.equal(mergePacks([{ name: "a.json", pack: a }]).pack, a);
+});
+
+test("mise à jour : les modifications faites dans le site sont conservées", () => {
+  const first = planImport(empty(), PACK, opts()).nextStructure;
+  const edits = { credits: 7, examen: { date: "2027-01-12T09:00", lieu: "Auditoire S102" } };
+  first.subjects[0] = applyUserEdits(first.subjects[0], edits);
+  const updated = clone(PACK);
+  updated.subjects[0].chapitres[0].titre = "Nouveau titre";
+  updated.subjects[0].credits = 3;
+  updated.subjects[0].examen.date = "2027-06-01T09:00";
+  const plan = planImport(first, updated, opts({ replace: [updated.subjects[0].id] }));
+  const s = plan.nextStructure.subjects[0];
+  assert.equal(s.chapitres[0].titre, "Nouveau titre");
+  assert.equal(s.credits, 7);
+  assert.equal(s.examen.date, "2027-01-12T09:00");
+  assert.equal(s.examen.lieu, "Auditoire S102");
+  assert.deepEqual(s.userEdits, edits);
+  assert.equal(subjectChanged(first.subjects[0], PACK.subjects[0]), false, "un fichier identique reste « à jour » malgré les modifications");
 });

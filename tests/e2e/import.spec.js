@@ -91,7 +91,7 @@ test("réimport : matières déjà présentes ignorées, bouton désactivé", as
   await expect(page.locator("#imp-preview")).toContainText("Import terminé");
   await importPack(page);
   await expect(page.locator("#imp-preview")).toContainText("0 matière(s) à ajouter");
-  await expect(page.locator("#imp-preview")).toContainText("Déjà présente : ignorée");
+  await expect(page.locator("#imp-preview")).toContainText("Déjà à jour");
   await expect(page.getByRole("button", { name: "Importer", exact: true })).toBeDisabled();
 });
 
@@ -107,7 +107,7 @@ test("remplacement : la progression liée aux identifiants est conservée", asyn
   updated.subjects[0].chapitres[0].titre = "Les modèles de la communication (version corrigée)";
   await importPack(page, { name: "cours-v2.json", mimeType: "application/json", buffer: Buffer.from(JSON.stringify(updated)) });
   await page.locator('[data-replace="exsocio"]').check();
-  await expect(page.locator("#imp-preview")).toContainText("1 à remplacer");
+  await expect(page.locator("#imp-preview")).toContainText("1 à mettre à jour");
   await page.getByRole("button", { name: "Importer", exact: true }).click();
   await expect(page.locator("#imp-preview")).toContainText("Import terminé");
   await page.evaluate(() => { location.hash = "#c-exsocio-c1-resume"; });
@@ -189,4 +189,31 @@ test("examens sans date : listés à part avec format, crédits et consignes", a
   await expect(row).toContainText("5 ECTS");
   await row.locator("summary").click();
   await expect(row).toContainText("Session de janvier, date à venir.");
+});
+
+test("plusieurs fichiers : un seul aperçu, mises à jour cochées, chaque fichier archivé", async ({ page }) => {
+  const base = JSON.parse(PACK_TEXT);
+  const a = Object.assign({}, base, { subjects: base.subjects.slice(0, 2) });
+  await createSpace(page);
+  await importPack(page, { name: "a.json", mimeType: "application/json", buffer: Buffer.from(JSON.stringify(a)) });
+  await page.getByRole("button", { name: "Importer", exact: true }).click();
+  await expect(page.locator("#imp-preview")).toContainText("Import terminé");
+  const a2 = JSON.parse(JSON.stringify(a));
+  a2.subjects[0].chapitres[0].titre = "Titre mis à jour";
+  const b = Object.assign({}, base, { subjects: base.subjects.slice(2, 4) });
+  await page.locator("#pack-file").setInputFiles([
+    { name: "a-v2.json", mimeType: "application/json", buffer: Buffer.from(JSON.stringify(a2)) },
+    { name: "b.json", mimeType: "application/json", buffer: Buffer.from(JSON.stringify(b)) }
+  ]);
+  const pv = page.locator("#imp-preview");
+  await expect(pv).toContainText("2 matière(s) à ajouter · 1 à mettre à jour · 1 inchangée(s)");
+  await expect(page.locator('[data-replace="' + a.subjects[0].id + '"]')).toBeChecked();
+  await expect(pv).toContainText("Déjà à jour");
+  await page.getByRole("button", { name: "Importer", exact: true }).click();
+  await expect(pv).toContainText("Fichiers archivés");
+  expect((await list(page, "imports")).length).toBe(3);
+  const st = JSON.parse(await read(page, "structure.json"));
+  expect(st.subjects.map((s) => s.id)).toEqual(base.subjects.slice(0, 4).map((s) => s.id));
+  expect(st.subjects[0].chapitres[0].titre).toBe("Titre mis à jour");
+  expect(st.subjects[2].importedFrom.file).toBe("b.json");
 });

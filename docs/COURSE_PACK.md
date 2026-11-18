@@ -70,10 +70,14 @@ Exemple complet (cours fictifs) : [`fixtures/packs/exemple-cours.json`](../fixtu
 
 ## Comportement de l'import
 
-1. **Aperçu** : nombre de matières nouvelles, déjà présentes et ignorées, ainsi que les erreurs éventuelles. Rien n'est écrit à ce stade.
-2. Une matière **déjà présente** (même `id`) est **ignorée**, sauf si tu coches « Remplacer la version actuelle ».
-3. À la validation :
-   - le fichier est archivé tel quel dans `imports/` ;
+1. Tu peux choisir **plusieurs fichiers d'un coup**. Ils sont réunis dans un seul aperçu ; si une même matière apparaît dans deux fichiers, la version la plus récente (`createdAt`) est gardée et l'aperçu le signale.
+2. **Aperçu** : matières nouvelles, à mettre à jour, déjà à jour, ainsi que les erreurs éventuelles. Rien n'est écrit à ce stade.
+3. Une matière **déjà présente** (même `id`) :
+   - identique au fichier → « Déjà à jour », rien ne change ;
+   - différente → « Mettre à jour » est **pré-coché** ; décoche pour garder la version actuelle.
+4. Les informations que tu as **modifiées dans le site** (crédits, quadrimestre, date et détails de l'examen) sont conservées lors d'une mise à jour.
+5. À la validation :
+   - chaque fichier est archivé tel quel dans `imports/` ;
    - la structure actuelle est copiée dans `sauvegardes/` ;
    - `structure.json` est mis à jour **seulement s'il n'a pas changé depuis l'aperçu**. Sinon, rien n'est écrit et l'application te demande de relancer l'aperçu.
 
