@@ -142,3 +142,49 @@ test("l'application fonctionne quand le stockage est bloqué", async ({ page }) 
   await page.goto(APP + "#accueil");
   await expect(page.locator(".subject-card").first()).toBeVisible();
 });
+
+test("révision : points faibles = fiches notées « À revoir », révisables même non dues", async ({ page }) => {
+  await page.goto(APP + "#c-eco-c1-fiches");
+  await page.locator("#fc").click();
+  await page.getByRole("button", { name: /^À revoir/ }).click();
+  await page.goto(APP + "#revision");
+  await page.getByRole("button", { name: /^Points faibles · 1/ }).click();
+  await expect(page.locator(".fc-top")).toContainText("1 / 1");
+  await page.locator("#fc").click();
+  await page.getByRole("button", { name: /^Facile/ }).click();
+  await expect(page.locator("#view")).toContainText("Session terminée");
+  await page.reload();
+  await expect(page.getByRole("button", { name: /^Points faibles · 0/ })).toBeVisible();
+});
+
+test("examen blanc : choix du nombre, bilan par chapitre, refaire les ratées", async ({ page }) => {
+  await page.goto(APP + "#blanc-droit");
+  await page.locator("[data-n]").first().click();
+  const n = +(await page.locator("[data-n].on").getAttribute("data-n")) || 0;
+  await page.getByRole("button", { name: "Commencer" }).click();
+  const total = +(await page.locator(".fc-top .tnum").last().textContent()).split("/")[1];
+  if (n) expect(total).toBe(n);
+  for (let i = 0; i < total; i++) {
+    await page.locator(".choice").first().click();
+    await page.locator("#q-next").click();
+  }
+  await expect(page.getByRole("button", { name: "Recommencer" })).toBeVisible();
+  const missed = page.getByRole("button", { name: /^Refaire les \d+ question/ });
+  if (await missed.count()) {
+    const k = +(await missed.textContent()).match(/\d+/)[0];
+    await missed.click();
+    await expect(page.locator(".fc-top .tnum").last()).toHaveText("1 / " + k);
+  }
+});
+
+test("examen blanc chronométré : temps écoulé, questions sans réponse comptées", async ({ page }) => {
+  await page.clock.install();
+  await page.goto(APP + "#blanc-droit");
+  await page.locator('[data-t="30"]').click();
+  await page.getByRole("button", { name: "Commencer" }).click();
+  await expect(page.locator("#q-clock")).toBeVisible();
+  await page.locator(".choice").first().click();
+  await page.clock.runFor(60 * 60 * 1000);
+  await expect(page.locator("#view")).toContainText("Temps écoulé");
+  await expect(page.locator("#view")).toContainText("sans réponse");
+});

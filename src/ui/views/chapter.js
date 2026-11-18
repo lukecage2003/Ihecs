@@ -8,7 +8,7 @@ import { cardKey } from "../../domain/srs.js";
 import { app } from "../app.js";
 import { mountFlashcards } from "../components/flashcards.js";
 import { mountQuiz } from "../components/quiz.js";
-import { $, $$, toast } from "../dom.js";
+import { $, $$, shuffle, toast } from "../dom.js";
 import { statusPill } from "../widgets.js";
 
 export function chapterView(m, c, tab) {
@@ -79,11 +79,26 @@ function bindChapter(m, c, tab) {
 }
 
 export function mockExamView(m) {
-  const html = '<nav class="crumbs" aria-label="Fil d\'Ariane"><a href="#accueil">Tableau de bord</a>' + ic("chev", 12) + '<a href="#m-' + m.id + '">' + esc(m.nom) + "</a>" + ic("chev", 12) + '<span>Examen blanc</span></nav><header class="page-head"><div><div class="eyebrow" style="color:' + safeColor(m.couleur) + '">' + esc(m.nom) + '</div><h1 class="h-large">Examen blanc</h1><p class="lead">Toutes les questions de la matière, dans un ordre aléatoire.</p></div></header><div id="quiz-slot"></div>';
+  const items = [];
+  (m.chapitres || []).forEach((c) => (c.quiz || []).forEach((q) => items.push(Object.assign({ _m: c.titre }, q))));
+  const html = '<nav class="crumbs" aria-label="Fil d\'Ariane"><a href="#accueil">Tableau de bord</a>' + ic("chev", 12) + '<a href="#m-' + m.id + '">' + esc(m.nom) + "</a>" + ic("chev", 12) + '<span>Examen blanc</span></nav><header class="page-head"><div><div class="eyebrow" style="color:' + safeColor(m.couleur) + '">' + esc(m.nom) + '</div><h1 class="h-large">Examen blanc</h1><p class="lead">Questions de toute la matière, dans un ordre aléatoire. À la fin : ton score par chapitre et les questions ratées à refaire.</p></div></header><div id="quiz-slot"></div>';
   const bind = () => {
-    const items = [];
-    (m.chapitres || []).forEach((c) => (c.quiz || []).forEach((q) => items.push(Object.assign({ _m: c.titre }, q))));
-    mountQuiz($("#quiz-slot"), items, null, { after: '<a class="btn btn-ghost" href="#m-' + m.id + '">Retour à la matière</a>' });
+    const slot = $("#quiz-slot");
+    if (!items.length) { mountQuiz(slot, items); return; }
+    const seg = (name, label, opts, def) => '<div class="form-row"><div class="fl"><b id="mx-' + name + '">' + label + '</b></div><div class="seg" role="group" aria-labelledby="mx-' + name + '">' +
+      opts.map((o) => '<button type="button" data-' + name + '="' + o[0] + '" aria-pressed="' + (o[0] === def) + '" class="' + (o[0] === def ? "on" : "") + '">' + o[1] + "</button>").join("") + "</div></div>";
+    const counts = [10, 20].filter((n) => n < items.length).map((n) => [String(n), String(n)]).concat([["all", "Toutes (" + items.length + ")"]]);
+    slot.innerHTML = '<div class="card">' + seg("n", "Nombre de questions", counts, counts.length > 1 ? counts[counts.length - 2][0] : "all") +
+      seg("t", "Chronomètre", [["0", "Sans"], ["30", "30 s / question"], ["60", "1 min / question"]], "0") +
+      '<div class="confirm" style="margin-top:14px"><button class="btn" id="mx-go" type="button">' + ic("play", 16) + "Commencer</button></div></div>";
+    ["n", "t"].forEach((name) => $$("[data-" + name + "]", slot).forEach((b) => (b.onclick = () => {
+      $$("[data-" + name + "]", slot).forEach((x) => { x.classList.toggle("on", x === b); x.setAttribute("aria-pressed", String(x === b)); });
+    })));
+    $("#mx-go", slot).onclick = () => {
+      const n = $("[data-n].on", slot).dataset.n, per = +$("[data-t].on", slot).dataset.t;
+      const chosen = n === "all" ? items : shuffle(items.slice()).slice(0, +n);
+      mountQuiz(slot, chosen, null, { report: true, timeLimit: per * chosen.length, after: '<a class="btn btn-ghost" href="#m-' + m.id + '">Retour à la matière</a>' });
+    };
   };
   return { html, bind };
 }

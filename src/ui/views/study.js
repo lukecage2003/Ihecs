@@ -5,24 +5,33 @@ import { esc } from "../../core/html.js";
 import { ic } from "../../core/icons.js";
 import { buildPlan } from "../../domain/planner.js";
 import { subjectProgress } from "../../domain/progress.js";
-import { allCards, dueCards } from "../../domain/srs.js";
+import { allCards, dueCards, weakCards } from "../../domain/srs.js";
 import { app } from "../app.js";
 import { mountFlashcards } from "../components/flashcards.js";
 import { $, $$, shuffle } from "../dom.js";
 import { banner, bar, dot, ring, taskRow } from "../widgets.js";
 
 let revFilter = "";
+let revMode = "jour"; // "jour" : fiches dues · "faibles" : fiches vues mais encore fragiles
 
 export function revisionView() {
   const t0 = app.today(), cartes = app.state.cartes;
+  const count = (f) => (revMode === "faibles" ? weakCards(app.content, cartes, f) : dueCards(app.content, cartes, t0, f)).length;
   const btn = (id, label) => '<button type="button" aria-pressed="' + (revFilter === id) + '" class="' + (revFilter === id ? "on" : "") + '" data-filter="' + id + '">' + label + "</button>";
-  const chips = '<div class="seg" role="group" aria-label="Filtrer par matière" style="margin-bottom:22px">' + btn("", "Toutes · " + dueCards(app.content, cartes, t0).length) +
-    app.M.filter((m) => (m.chapitres || []).length).map((m) => btn(m.id, esc(m.nom.split(" ")[0]) + " · " + dueCards(app.content, cartes, t0, m.id).length)).join("") + "</div>";
-  const html = '<header class="page-head"><div><div class="eyebrow">Répétition espacée</div><h1 class="h-large">Révision du jour</h1><p class="lead">Les fiches reviennent au bon moment : plus tu les connais, plus elles s\'espacent (1, 2, 4, 8, 16 puis 32 jours).</p></div></header>' +
-    chips + '<div id="fc-slot"></div>';
+  const mbtn = (id, label) => '<button type="button" aria-pressed="' + (revMode === id) + '" class="' + (revMode === id ? "on" : "") + '" data-mode="' + id + '">' + label + "</button>";
+  const modes = '<div class="seg" role="group" aria-label="Type de révision" style="margin-bottom:12px">' + mbtn("jour", "À réviser aujourd'hui · " + dueCards(app.content, cartes, t0).length) + mbtn("faibles", "Points faibles · " + weakCards(app.content, cartes).length) + "</div>";
+  const chips = '<div class="seg" role="group" aria-label="Filtrer par matière" style="margin-bottom:22px">' + btn("", "Toutes · " + count("")) +
+    app.M.filter((m) => (m.chapitres || []).length).map((m) => btn(m.id, esc(m.nom.split(" ")[0]) + " · " + count(m.id))).join("") + "</div>";
+  const lead = revMode === "faibles"
+    ? "Les fiches que tu as notées « À revoir » ou « Difficile » et pas encore consolidées, les plus fragiles d'abord. Tu peux les revoir maintenant, même si elles ne sont pas encore dues."
+    : "Les fiches reviennent au bon moment : plus tu les connais, plus elles s'espacent (1, 2, 4, 8, 16 puis 32 jours).";
+  const html = '<header class="page-head"><div><div class="eyebrow">Répétition espacée</div><h1 class="h-large">Révision du jour</h1><p class="lead">' + lead + "</p></div></header>" +
+    modes + chips + '<div id="fc-slot"></div>';
   const bind = () => {
     $$("[data-filter]").forEach((b) => (b.onclick = () => { revFilter = b.dataset.filter; app.render(); }));
-    mountFlashcards($("#fc-slot"), shuffle(dueCards(app.content, app.state.cartes, app.today(), revFilter)), { allCards: allCards(app.content, revFilter), emptyText: "Aucune fiche à réviser aujourd'hui. Les prochaines reviendront automatiquement." });
+    $$("[data-mode]").forEach((b) => (b.onclick = () => { revMode = b.dataset.mode; app.render(); }));
+    if (revMode === "faibles") mountFlashcards($("#fc-slot"), weakCards(app.content, app.state.cartes, revFilter), { emptyText: "Aucun point faible pour l'instant : les fiches notées « À revoir » ou « Difficile » apparaîtront ici." });
+    else mountFlashcards($("#fc-slot"), shuffle(dueCards(app.content, app.state.cartes, app.today(), revFilter)), { allCards: allCards(app.content, revFilter), emptyText: "Aucune fiche à réviser aujourd'hui. Les prochaines reviendront automatiquement." });
   };
   return { html, bind };
 }

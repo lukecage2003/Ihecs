@@ -48,3 +48,11 @@ export function allCards(content, filter) {
 }
 
 export const dueCards = (content, cartes, today, filter) => allCards(content, filter).filter((x) => isDue(cartes, x.k, today));
+
+/**
+ * Points faibles : fiches déjà révisées mais encore fragiles (boîte 0 ou 1),
+ * qu'elles soient dues ou non. Les plus fragiles d'abord. Les fiches jamais vues n'y sont pas.
+ */
+export const weakCards = (content, cartes, filter) => allCards(content, filter)
+  .filter((x) => { const s = cartes && cartes[x.k]; return s && s.due && s.box <= 1; })
+  .sort((a, b) => cartes[a.k].box - cartes[b.k].box);

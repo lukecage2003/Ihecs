@@ -1,5 +1,13 @@
 # Journal des modifications
 
+## 0.9.0 — Révision plus efficace
+
+### Ajouté
+- **Révision du jour → Points faibles** : les fiches déjà notées « À revoir » ou « Difficile » et pas encore consolidées (boîte 0 ou 1), les plus fragiles d'abord, révisables même si elles ne sont pas dues. Filtre par matière.
+- **Examen blanc** : choix du nombre de questions (10, 20, toutes) et chronomètre facultatif (30 s ou 1 min par question). Quand le temps est écoulé, les questions sans réponse comptent comme ratées.
+- Bilan de l'examen blanc : score **par chapitre** (le plus faible d'abord) et bouton « Refaire les questions ratées ».
+- Tests : 2 unitaires et 3 parcours (× 2 appareils).
+
 ## 0.8.0 — Sur téléphone
 
 ### Ajouté

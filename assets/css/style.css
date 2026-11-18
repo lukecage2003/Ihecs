@@ -610,3 +610,6 @@ kbd { font-family: var(--font); font-size: 11px; padding: 1px 6px; border-radius
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+.q-clock { display: inline-flex; align-items: center; gap: 4px; }
+.q-clock.low { color: var(--bad); font-weight: 600; }
