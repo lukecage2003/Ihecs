@@ -12,6 +12,7 @@ const state = (page) => page.evaluate((k) => JSON.parse(localStorage.getItem(k) 
 // Chaque test vérifie qu'aucune erreur JS, aucune violation CSP et aucune requête
 // hors de l'application n'a eu lieu (aucun CDN, aucune donnée envoyée ailleurs).
 test.beforeEach(async ({ page }, info) => {
+  await page.addInitScript(() => { window.__IHECS_TEST_NO_BUILTIN__ = true; }); // parcours sans les cours intégrés
   info.errors = [];
   info.external = [];
   page.on("pageerror", (e) => info.errors.push(e.message));

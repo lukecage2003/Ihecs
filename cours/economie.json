@@ -1,0 +1,2846 @@
+{
+ "format": "ihecs-study-os",
+ "kind": "course-pack",
+ "schemaVersion": 2,
+ "title": "ECOP1126 — Économie politique",
+ "createdAt": "2026-11-16T02:09:53.122Z",
+ "source": {
+  "kind": "claude",
+  "note": "Généré à partir des slides d'économie politique (Coralie Muylaert, chapitres 0 à 9) et des lectures obligatoires déposés dans le dossier Drive IHECS STUDY OS. Les slides indiquent l'année 2025-2026, Q2."
+ },
+ "subjects": [
+  {
+   "id": "ecop",
+   "nom": "Économie politique",
+   "prof": "Coralie Muylaert",
+   "couleur": "#30d158",
+   "icone": "chart",
+   "examen": {
+    "type": "Écrit",
+    "duree": "1 h 30",
+    "consignes": [
+     "Trois parties : un QCM, des questions à réponses très courtes (quelques mots) et des questions ouvertes.",
+     "Les lectures et les questions sur les lectures sont matière d'examen.",
+     "Slides et lectures sont publiés sur Learn ; la participation se fait par les questions posées au cours.",
+     "Lexiques conseillés : définitions de l'Insee, glossaire CORE Econ, glossaire de la BNB.",
+     "Sessions 2026-2027 : janvier du 4 au 22 janvier 2027, juin du 31 mai au 17 juin 2027, seconde session du 16 au 27 août 2027. La date précise sera dans l'horaire de session de l'IHECS.",
+     "Date et session de l'examen non indiquées dans tes documents : vérifie sur Learn."
+    ]
+   },
+   "documents": [
+    {
+     "nom": "EcoPol Chapitre 0 - Introduction",
+     "chemin": "ECOP1126 - EcoPol Chapitre 0 - Introduction.pdf"
+    },
+    {
+     "nom": "EcoPol Chapitre 1 - Définition et histoire",
+     "chemin": "ECOP1126 - EcoPol Chapitre 1 - Définition et histoire.pdf"
+    },
+    {
+     "nom": "EcoPol Chapitre 2 - Indicateurs",
+     "chemin": "ECOP1126 - EcoPol Chapitre 2 - Indicateurs.pdf"
+    },
+    {
+     "nom": "EcoPol Chapitre 3 - Inégalités",
+     "chemin": "ECOP1126 - EcoPol Chapitre 3 - Inégalités.pdf"
+    },
+    {
+     "nom": "EcoPol Chapitre 4 - Les marchés",
+     "chemin": "ECOP1126 - EcoPol Chapitre 4 - Les marchés.pdf"
+    },
+    {
+     "nom": "EcoPol Chapitre 5 - Offre et demande",
+     "chemin": "ECOP1126 - EcoPol Chapitre 5 - Offre et demande.pdf"
+    },
+    {
+     "nom": "EcoPol Chapitre 6 - Surplus",
+     "chemin": "ECOP1126 - EcoPol Chapitre 6 - Surplus.pdf"
+    },
+    {
+     "nom": "EcoPol Chapitre 7 - Comportement entreprises",
+     "chemin": "ECOP1126 - EcoPol Chapitre 7 - Comportement entreprises.pdf"
+    },
+    {
+     "nom": "EcoPol Chapitre 8 - Marché du travail",
+     "chemin": "ECOP1126 - EcoPol Chapitre 8 - Marché du travail.pdf"
+    },
+    {
+     "nom": "EcoPol Chapitre 9 - La monnaie",
+     "chemin": "ECOP1126 - EcoPol Chapitre 9 - La monnaie.pdf"
+    },
+    {
+     "nom": "Lecture 1 Ostrom",
+     "chemin": "ECOP1126 - Lecture 1 Ostrom.pdf"
+    },
+    {
+     "nom": "Dossier-l-eoconomie-du-donut-web-V02",
+     "chemin": "ECOP1126 - Dossier-l-eoconomie-du-donut-web-V02.pdf"
+    },
+    {
+     "nom": "Oxfam_resume-executif-rapport_Resister-au-regne-des-plus-riches_sous-embargo-19-janvier-2026_00h01",
+     "chemin": "ECOP1126 - Oxfam_resume-executif-rapport_Resister-au-regne-des-plus-riches_sous-embargo-19-janvier-2026_00h01.pdf"
+    },
+    {
+     "nom": "taxer-les-marches-publicitaires-pour-consommer-autrement",
+     "chemin": "ECOP1126 - taxer-les-marches-publicitaires-pour-consommer-autrement.pdf"
+    },
+    {
+     "nom": "2019zerochomeur",
+     "chemin": "ECOP1126 - 2019zerochomeur.pdf"
+    },
+    {
+     "nom": "Atelier EcoPol",
+     "chemin": "ECOP1126 - Atelier EcoPol.pdf"
+    }
+   ],
+   "chapitres": [
+    {
+     "id": "c1",
+     "titre": "Chapitre 0 — Introduction : pourquoi l'économie politique ?",
+     "duree": 35,
+     "resume": "## Qu'est-ce que l'économie ?\n\n==L'économie est la science qui étudie comment des **ressources rares** sont employées pour la **satisfaction des besoins** des hommes vivant **en société**.==\n\n- **Ressources** : travail, technologies, capital, ressources naturelles…\n- **Besoins** : se nourrir, se loger, s'habiller…\n- **En société** : on doit y répondre collectivement.\n\nIl n'existe pas une seule « économie » : plusieurs écoles de pensée coexistent.\n\n## Nos préoccupations sont des questions d'économie politique\n\nLe cours démonte des phrases toutes faites en montrant les **choix collectifs** derrière chaque situation :\n\n| Idée reçue | Ce qu'il y a derrière |\n|---|---|\n| « Si tu veux vraiment travailler, tu trouveras. » | conjoncture (ex. 10 000 demandeurs pour 6 000 postes → 4 000 restent sans emploi), politique industrielle, cotisations patronales et fiscalité, droit du travail (arbitrage **sécurité / flexibilité**) |\n| « Nos parents ont acheté à 25 ans… » | **taux d'intérêt** (300 000 € sur 25 ans : ≈ 1 130 €/mois à 1 %, ≈ 1 580 €/mois à 4 %), **politique monétaire de la BCE**, régulation immobilière (permis, normes, fiscalité, droits d'enregistrement), prix qui montent plus vite que les revenus |\n| « Si chacun faisait un effort… » (climat) | **taxe carbone** (incitation par les prix, mais effets redistributifs), **subventions** (encouragent, mais doivent être financées et profitent souvent aux plus aisés), **réglementation** (normes, interdictions) |\n| « S'il y a du chômage, c'est un manque d'efforts. » | le volume d'emplois dépend de la croissance, des investissements, de la demande : **chômage conjoncturel** ; « la motivation ne crée pas mécaniquement des postes » |\n\n==L'économie politique, ce n'est pas apprendre « comment fonctionne le marché » : c'est comprendre comment une société choisit d'organiser la vie collective.==\n\n**Politique économique** : ensemble des moyens mis en œuvre par l'État pour atteindre les objectifs qu'il s'est fixés afin d'améliorer la situation économique générale du pays.\n\n## Pourquoi étudier l'économie politique ?\n\n- identifier les mécanismes économiques sous les débats publics ;\n- distinguer les **jugements de valeur (normatifs)** des **constats fondés sur des données (empiriques)** ;\n- analyser les **effets distributifs** des politiques publiques ;\n- évaluer les arbitrages entre **efficacité, équité et soutenabilité** ;\n- situer l'économie dans son contexte social et historique (règles, rapports de pouvoir, institutions, compromis sociaux).\n\n## Communication et économie politique\n\n> La communication ne crée pas la politique économique, mais elle conditionne sa **légitimité**.\n\n1. **Ressource économique** : l'information est une marchandise ; données personnelles, publicité, monétisation de l'attention (Meta, Google).\n2. **Instrument de pouvoir** : Marx (les idées dominantes reflètent les intérêts des classes dominantes) ; **Gramsci** (**hégémonie culturelle**).\n3. **Économie politique de la communication (EPC)** : concentration et propriété des médias, modèles de financement, influence des marchés sur les contenus.\n4. **Mondialisation** : flux transfrontaliers, médias transnationaux ; les réseaux sociaux sont des acteurs économiques et géopolitiques.\n\n## Dix principes d'économie\n\n**Choix individuels** : (1) nécessité de faire des **choix** ; (2) **coût d'opportunité** = valeur de la meilleure alternative à laquelle on renonce (cinéma ou étude ; éducation ou défense) ; (3) **marginalisme** (on raisonne « un peu plus ou un peu moins », ex. indexation des salaires) ; (4) les individus réagissent aux **incitations** (carotte : prime à l'isolation ; bâton : taxe carbone).\n\n**Interactions** : (5) **gains mutuels à l'échange** (offre et demande) ; (6) **efficacité des marchés** — remise en question pour ses impacts environnementaux et sociaux ; (7) l'**intervention publique** est souvent bénéfique.\n\n**Économie globale** : (8) **valeur ajoutée** = production − consommations intermédiaires ; (9) **croissance** = évolution du PIB ; (10) **compétitivité** = aptitude à faire face à la concurrence ; (+) **spéculation** = paris sur des événements à venir.\n\n## Classification des biens\n\n**Bien** : moyen ou produit qui satisfait un besoin (matériel, immatériel/service, voire spirituel). Un **bien économique** est **utile, disponible et rare**.\n\nDeux critères : **rivalité** (mon usage empêche-t-il celui des autres ?) et **exclusivité** (l'accès est-il restreint, faut-il payer ?).\n\n| | Exclusif | Non exclusif |\n|---|---|---|\n| **Rival** | **Biens privés** (ordinateur, pomme) | **Biens communs** (forêt sauvage, climat) |\n| **Non rival** | **Biens clubs** (autoroute à péage, club de golf) | **Biens publics** (Wikipédia, armée) |",
+     "pointsCles": [
+      "L'économie étudie l'emploi de ressources rares pour satisfaire les besoins d'hommes vivant en société.",
+      "Derrière l'emploi, le logement, le climat ou le chômage, il y a des choix collectifs et politiques, pas seulement des efforts individuels.",
+      "Il faut distinguer jugements de valeur (normatifs) et constats empiriques.",
+      "Les politiques s'évaluent selon l'efficacité, l'équité et la soutenabilité.",
+      "La communication conditionne la légitimité des politiques économiques ; l'information est une ressource et un instrument de pouvoir.",
+      "Coût d'opportunité : valeur de la meilleure alternative abandonnée.",
+      "Les individus réagissent aux incitations (taxes, primes, normes).",
+      "Quatre types de biens selon rivalité et exclusivité : privés, clubs, communs, publics.",
+      "Les lectures et les questions sur les lectures sont matière d'examen."
+     ],
+     "definitions": [
+      {
+       "terme": "Économie",
+       "def": "Science qui étudie comment des ressources rares sont employées pour satisfaire les besoins des hommes vivant en société."
+      },
+      {
+       "terme": "Politique économique",
+       "def": "Ensemble des moyens mis en œuvre par l'État pour atteindre ses objectifs d'amélioration de la situation économique générale du pays."
+      },
+      {
+       "terme": "Normatif / empirique",
+       "def": "Un énoncé normatif exprime un jugement de valeur ; un énoncé empirique est un constat fondé sur des données."
+      },
+      {
+       "terme": "Hégémonie culturelle",
+       "def": "Notion de Gramsci : le pouvoir s'exerce aussi par le contrôle des discours et des représentations."
+      },
+      {
+       "terme": "Économie politique de la communication (EPC)",
+       "def": "Champ qui étudie la concentration et la propriété des médias, leurs financements et l'influence des marchés sur les contenus."
+      },
+      {
+       "terme": "Coût d'opportunité",
+       "def": "Valeur de la meilleure alternative à laquelle on renonce pour obtenir un bien."
+      },
+      {
+       "terme": "Marginalisme",
+       "def": "Raisonnement sur une unité supplémentaire (un peu plus ou un peu moins) plutôt que tout ou rien."
+      },
+      {
+       "terme": "Incitation",
+       "def": "Ce qui pousse un individu à agir : récompense (prime) ou sanction (taxe, amende)."
+      },
+      {
+       "terme": "Valeur ajoutée",
+       "def": "Valeur de la production diminuée de la consommation intermédiaire."
+      },
+      {
+       "terme": "Croissance",
+       "def": "Évolution du PIB d'un pays sur une période donnée."
+      },
+      {
+       "terme": "Compétitivité",
+       "def": "Aptitude d'une entreprise, d'un secteur ou d'un pays à faire face à la concurrence."
+      },
+      {
+       "terme": "Spéculation",
+       "def": "Pari sur des événements à venir susceptibles d'influencer le prix de produits financiers ou de matières premières."
+      },
+      {
+       "terme": "Bien économique",
+       "def": "Bien à la fois utile, disponible et rare."
+      },
+      {
+       "terme": "Rivalité",
+       "def": "Un bien est rival si son usage par une personne empêche d'autres de l'utiliser."
+      },
+      {
+       "terme": "Exclusivité",
+       "def": "Un bien est exclusif si son accès est restreint, par exemple en devant payer."
+      },
+      {
+       "terme": "Bien commun",
+       "def": "Bien rival mais non exclusif (forêt sauvage, climat)."
+      },
+      {
+       "terme": "Bien public",
+       "def": "Bien non rival et non exclusif (Wikipédia, armée)."
+      },
+      {
+       "terme": "Bien club",
+       "def": "Bien non rival mais exclusif (autoroute à péage, club de golf)."
+      },
+      {
+       "terme": "Bien privé",
+       "def": "Bien rival et exclusif (ordinateur personnel, pomme)."
+      }
+     ],
+     "fiches": [
+      {
+       "id": "card:ecop:c1:001",
+       "q": "Définis l'économie.",
+       "r": "La science qui étudie comment des ressources rares sont employées pour la satisfaction des besoins des hommes vivant en société."
+      },
+      {
+       "id": "card:ecop:c1:002",
+       "q": "Pourquoi « trouver un emploi » n'est-il pas qu'une question de motivation ?",
+       "r": "Cela dépend de la conjoncture (offre/demande de travail), de la politique industrielle, de la fiscalité du travail et du droit du travail."
+      },
+      {
+       "id": "card:ecop:c1:003",
+       "q": "Quel arbitrage pose le droit du travail ?",
+       "r": "Sécurité contre flexibilité : un système protecteur sécurise les travailleurs mais rend l'embauche plus prudente ; un système flexible facilite l'embauche mais précarise."
+      },
+      {
+       "id": "card:ecop:c1:004",
+       "q": "Pourquoi l'accès au logement est-il une question d'économie politique ?",
+       "r": "Il dépend des taux d'intérêt et de la politique monétaire de la BCE, de la régulation immobilière et de l'écart entre prix et revenus."
+      },
+      {
+       "id": "card:ecop:c1:005",
+       "q": "Quel est l'effet d'une hausse des taux par la BCE sur le logement ?",
+       "r": "Le crédit devient plus cher, la demande immobilière baisse et la hausse des prix peut ralentir (pas toujours immédiatement)."
+      },
+      {
+       "id": "card:ecop:c1:006",
+       "q": "Quels sont les trois outils climatiques présentés et leurs limites ?",
+       "r": "Taxe carbone (touche plus les ménages modestes sans compensation), subventions (à financer, profitent souvent aux aisés), réglementation (coûts et tensions sociales à court terme)."
+      },
+      {
+       "id": "card:ecop:c1:007",
+       "q": "Qu'est-ce que le chômage conjoncturel ?",
+       "r": "Un chômage dû au ralentissement de l'économie : moins d'emplois créés, même si tout le monde veut travailler."
+      },
+      {
+       "id": "card:ecop:c1:008",
+       "q": "Définis la politique économique.",
+       "r": "L'ensemble des moyens mis en œuvre par l'État pour atteindre les objectifs fixés afin d'améliorer la situation économique générale du pays."
+      },
+      {
+       "id": "card:ecop:c1:009",
+       "q": "Quels arbitrages l'économie politique aide-t-elle à évaluer ?",
+       "r": "Entre efficacité, équité et soutenabilité."
+      },
+      {
+       "id": "card:ecop:c1:010",
+       "q": "Quel lien entre communication et politique économique ?",
+       "r": "La communication ne crée pas la politique économique, mais elle conditionne sa légitimité."
+      },
+      {
+       "id": "card:ecop:c1:011",
+       "q": "Qu'apporte Gramsci à l'analyse des médias ?",
+       "r": "L'hégémonie culturelle : le pouvoir s'exerce aussi par le contrôle des discours et des représentations."
+      },
+      {
+       "id": "card:ecop:c1:012",
+       "q": "Qu'étudie l'économie politique de la communication ?",
+       "r": "La concentration et la propriété des médias, leurs modèles de financement et l'influence des marchés sur les contenus."
+      },
+      {
+       "id": "card:ecop:c1:013",
+       "q": "Qu'est-ce que le coût d'opportunité ?",
+       "r": "La valeur de la meilleure alternative à laquelle on renonce (ex. investir dans l'éducation plutôt que dans la défense)."
+      },
+      {
+       "id": "card:ecop:c1:014",
+       "q": "Donne un exemple de raisonnement marginal en économie politique.",
+       "r": "L'indexation des salaires ou une hausse/baisse d'impôts : on ne se demande pas s'il faut payer des salaires, mais de combien les ajuster."
+      },
+      {
+       "id": "card:ecop:c1:015",
+       "q": "Donne un exemple d'incitation positive et négative en économie politique.",
+       "r": "Prime à l'isolation des toitures (positive) ; taxe carbone sur la pollution industrielle (négative)."
+      },
+      {
+       "id": "card:ecop:c1:016",
+       "q": "Pourquoi l'efficacité des marchés est-elle remise en question ?",
+       "r": "À cause de ses impacts environnementaux et sociaux, pas économiques."
+      },
+      {
+       "id": "card:ecop:c1:017",
+       "q": "Comment calcule-t-on la valeur ajoutée ?",
+       "r": "Valeur de la production moins consommation intermédiaire."
+      },
+      {
+       "id": "card:ecop:c1:018",
+       "q": "Quelles sont les trois conditions d'un bien économique ?",
+       "r": "Être utile, disponible et rare."
+      },
+      {
+       "id": "card:ecop:c1:019",
+       "q": "Quels sont les deux critères de classification des biens ?",
+       "r": "La rivalité (mon usage empêche-t-il celui des autres ?) et l'exclusivité (l'accès est-il restreint/payant ?)."
+      },
+      {
+       "id": "card:ecop:c1:020",
+       "q": "Classe : pomme, autoroute à péage, climat, armée.",
+       "r": "Pomme : bien privé ; autoroute à péage : bien club ; climat : bien commun ; armée : bien public."
+      },
+      {
+       "id": "card:ecop:c1:021",
+       "q": "Quelles sont les trois parties de l'examen écrit ?",
+       "r": "Un QCM, des questions à réponses très courtes (quelques mots) et des questions ouvertes ; durée 1 h 30."
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:ecop:c1:001",
+       "q": "Un bien rival et non exclusif est un :",
+       "choix": [
+        "bien privé",
+        "bien club",
+        "bien commun",
+        "bien public"
+       ],
+       "bonne": 2,
+       "explication": "Ex. forêt sauvage, climat."
+      },
+      {
+       "id": "question:ecop:c1:002",
+       "q": "Wikipédia est un exemple de :",
+       "choix": [
+        "bien public",
+        "bien club",
+        "bien privé",
+        "bien commun"
+       ],
+       "bonne": 0,
+       "explication": "Non rival et non exclusif."
+      },
+      {
+       "id": "question:ecop:c1:003",
+       "q": "Le coût d'opportunité correspond à :",
+       "choix": [
+        "le prix payé",
+        "la valeur de la meilleure alternative abandonnée",
+        "le coût marginal",
+        "le coût de production"
+       ],
+       "bonne": 1,
+       "explication": "Ce à quoi on renonce pour obtenir un bien."
+      },
+      {
+       "id": "question:ecop:c1:004",
+       "q": "« Le salaire minimum devrait augmenter » est un énoncé :",
+       "choix": [
+        "empirique",
+        "normatif",
+        "marginal",
+        "statistique"
+       ],
+       "bonne": 1,
+       "explication": "Il exprime un jugement de valeur."
+      },
+      {
+       "id": "question:ecop:c1:005",
+       "q": "La valeur ajoutée est égale à :",
+       "choix": [
+        "production + consommation intermédiaire",
+        "production − consommation intermédiaire",
+        "chiffre d'affaires − salaires",
+        "PIB / population"
+       ],
+       "bonne": 1,
+       "explication": "Principe n° 8."
+      },
+      {
+       "id": "question:ecop:c1:006",
+       "q": "La notion d'hégémonie culturelle est associée à :",
+       "choix": [
+        "Marx",
+        "Gramsci",
+        "Smith",
+        "Keynes"
+       ],
+       "bonne": 1,
+       "explication": "Le pouvoir passe par le contrôle des discours."
+      },
+      {
+       "id": "question:ecop:c1:007",
+       "q": "Une autoroute à péage est un :",
+       "choix": [
+        "bien club",
+        "bien commun",
+        "bien public",
+        "bien privé"
+       ],
+       "bonne": 0,
+       "explication": "Exclusive (payante) mais non rivale (hors congestion)."
+      }
+     ],
+     "sources": [
+      {
+       "document": "ECOP1126 - EcoPol Chapitre 0 - Introduction.pdf",
+       "pages": "slides 1-70"
+      }
+     ]
+    },
+    {
+     "id": "c2",
+     "titre": "Chapitre 1 — Définitions et histoire de l'économie politique",
+     "duree": 35,
+     "resume": "## Définitions\n\n**Étymologie** : *oïkos* (maison, propriété, avoirs), *nomos* (usage, règle de conduite), *politikos* (citoyen, affaires publiques).\n\n- **Aristote** : l'« économique » est l'**art du maître de maison** (administration domestique) ; l'homme est « par nature un **animal politique** ». Question centrale : le rapport entre l'économique et l'art d'acquérir des richesses pour la « **vie heureuse** ».\n- **Antoine de Montchrestien**, *Traité de l'économie politique* (**1615**) : premier usage de l'expression ; logique mercantiliste (« l'argent est le nerf de la guerre »).\n- **Richard Cantillon**, *Essai sur la nature du commerce en général* (1755) : premier traité systématique ; transition du mercantilisme vers les classiques ; **effet Cantillon** : une injection de monnaie a un effet progressif et différencié sur les prix.\n- **Adam Smith** (*Richesse des nations*, 1776) : l'économie politique a deux objectifs : procurer revenu et subsistance aux gens, et fournir à l'État un revenu suffisant pour les services publics.\n- Aujourd'hui : science des lois qui régissent les relations de production et de répartition des biens ; ==analyse économique qui prend en compte les **conséquences sociales, morales ou environnementales** des choix économiques== (ex. interdire l'importation de biens fabriqués par des enfants, allocations pour jeunes diplômés, taxer selon les émissions de carbone).\n\n## Les grands courants\n\nChaque courant est une « **représentation située de la société** » : il faut tenir compte du contexte de l'époque. Chaque courant est illustré par un exemple d'actualité belge.\n\n| Courant | Période et auteurs | Idées clés | Exemple d'actualité |\n|---|---|---|---|\n| **Mercantilistes** | 16e-18e s. — Montchrestien, Colbert, Petty | puissance par l'accumulation de **métaux précieux** ; abondance d'hommes et d'argent ; **intervention de l'État** (commerce extérieur) | sanctions sur les diamants russes, Anvers comme hub de contrôle (2024) |\n| **Physiocrates** | 18e s. — **Quesnay** | « gouvernement de la nature » ; seule la **terre/les paysans** produisent la richesse ; **laisser faire, laisser passer** ; pas de rôle de l'État | mobilisations d'agriculteurs à Bruxelles (1er février 2024) |\n| **Classiques** | 19e s. — **Smith** (avantage absolu), **Ricardo** (avantages comparatifs), **Malthus** (population > subsistances) | l'**équilibre offre-demande** détermine l'échange ; lois économiques universelles ; État réduit au minimum | norme salariale 2025-2026 à 0 % |\n| **Marxistes** | 19e s. — **Marx** | analyse **matérialiste** : conditions matérielles et modes de production ; féodalisme → capitalisme → socialisme/communisme ; le capitalisme s'effondrera | grève nationale du 13 janvier 2025 (conflit capital/travail) |\n| **Keynésiens** | 20e s. — **Keynes**, *Théorie générale* (**1936**) | après 1929, le laisser-faire échoue ; « **esprit animal** » (comportements non rationnels) ; **demande effective** ; l'État soutient revenus et consommation en crise ; New Deal | plan de relance et d'investissement (2024) |\n| **Monétaristes** | vers 1960 — **Friedman** | politiques « laxistes » = inflation sans effet sur l'activité ; masse monétaire calquée sur la croissance ; **séparation politique monétaire / budgétaire** | BCE : inflation visée ≈ 2 % |\n| **Nouveaux classiques** | 20e s. — **Robert Lucas** (Nobel 1995) | agents **rationnels** qui utilisent toute l'information et **anticipent** ; critique de Lucas | procédure de déficit excessif pour la Belgique |\n\n## Exercice : la tragédie des communs\n\nLe matériel audiovisuel partagé d'un campus subit retards, casse et *free riding*. Quatre « solutions-types » : **A** privatiser (droits clairs), **B** règlement central et contrôles, **C** règles co-écrites par les utilisateurs + surveillance + sanctions graduelles (approche d'Ostrom), **D** laisser faire.",
+     "pointsCles": [
+      "Économie vient de oïkos (maison) et nomos (règle) ; politique de politikos (citoyen).",
+      "Pour Aristote, l'économique est l'art du maître de maison, au service de la « vie heureuse ».",
+      "L'expression « économie politique » apparaît en 1615 avec Montchrestien.",
+      "Adam Smith : procurer revenu et subsistance aux gens, et un revenu suffisant à l'État.",
+      "Définition moderne : l'économie politique intègre les conséquences sociales, morales et environnementales des choix.",
+      "Mercantilistes (État, métaux précieux) → physiocrates (nature, laisser-faire) → classiques (marché, lois universelles).",
+      "Marx : analyse matérialiste et succession des modes de production.",
+      "Keynes (1936) : demande effective, esprit animal, intervention de l'État en crise.",
+      "Friedman : l'inflation est monétaire ; séparation des politiques monétaire et budgétaire.",
+      "Nouveaux classiques (Lucas) : agents rationnels qui anticipent."
+     ],
+     "definitions": [
+      {
+       "terme": "Oïkos / nomos / politikos",
+       "def": "Maison / règle de conduite / citoyen : les racines grecques de « économie politique »."
+      },
+      {
+       "terme": "Mercantilisme",
+       "def": "Courant (16e-18e s.) qui vise la puissance des nations par l'accumulation de métaux précieux et l'intervention de l'État dans le commerce extérieur."
+      },
+      {
+       "terme": "Physiocratie",
+       "def": "« Gouvernement de la nature » : seule la terre produit la richesse ; l'État ne doit pas intervenir (Quesnay)."
+      },
+      {
+       "terme": "Avantage absolu",
+       "def": "Théorie de Smith : un pays se spécialise dans ce qu'il produit mieux que les autres."
+      },
+      {
+       "terme": "Avantages comparatifs",
+       "def": "Théorie de Ricardo fondée sur le coût d'opportunité : chacun se spécialise là où il est relativement le plus efficace."
+      },
+      {
+       "terme": "Loi de Malthus",
+       "def": "La population progresse plus vite que les subsistances."
+      },
+      {
+       "terme": "Matérialisme historique",
+       "def": "Analyse marxiste : ce sont les conditions matérielles et les modes de production, non les idées, qui font l'histoire."
+      },
+      {
+       "terme": "Esprit animal",
+       "def": "Notion keynésienne : les comportements économiques sont guidés par des émotions, pas par la seule rationalité."
+      },
+      {
+       "terme": "Demande effective",
+       "def": "Chez Keynes, la demande globale qui détermine à court terme la production et les revenus."
+      },
+      {
+       "terme": "Monétarisme",
+       "def": "Courant de Friedman : l'inflation est un phénomène monétaire ; la masse monétaire doit croître comme l'économie."
+      },
+      {
+       "terme": "Anticipations rationnelles",
+       "def": "Postulat des nouveaux classiques : les agents utilisent toute l'information disponible et anticipent l'avenir avant d'agir."
+      },
+      {
+       "terme": "Effet Cantillon",
+       "def": "Une injection de monnaie a un effet progressif et différencié sur les prix."
+      }
+     ],
+     "fiches": [
+      {
+       "id": "card:ecop:c2:001",
+       "q": "Que signifient oïkos, nomos et politikos ?",
+       "r": "Maison/propriété, usage/règle de conduite, citoyen/affaires publiques."
+      },
+      {
+       "id": "card:ecop:c2:002",
+       "q": "Comment Aristote définit-il l'économique ?",
+       "r": "L'art du maître de maison, l'administration domestique, au service de la « vie heureuse »."
+      },
+      {
+       "id": "card:ecop:c2:003",
+       "q": "Qui introduit l'expression « économie politique » et quand ?",
+       "r": "Antoine de Montchrestien, Traité de l'économie politique, 1615."
+      },
+      {
+       "id": "card:ecop:c2:004",
+       "q": "Quel est l'apport de Cantillon ?",
+       "r": "Le premier traité systématique d'économie politique (1755) et l'idée qu'une injection de monnaie a un effet progressif et différencié sur les prix."
+      },
+      {
+       "id": "card:ecop:c2:005",
+       "q": "Quels sont les deux objectifs de l'économie politique selon Adam Smith ?",
+       "r": "Permettre aux gens de se procurer revenu et subsistance ; fournir à l'État un revenu suffisant pour les services publics."
+      },
+      {
+       "id": "card:ecop:c2:006",
+       "q": "Quelle est la définition moderne de l'économie politique ?",
+       "r": "Une analyse économique qui prend en compte les conséquences sociales, morales ou environnementales des choix économiques."
+      },
+      {
+       "id": "card:ecop:c2:007",
+       "q": "Quels sont les trois facteurs de croissance des mercantilistes ?",
+       "r": "Abondance d'hommes, abondance d'argent, intervention de l'État (commerce extérieur)."
+      },
+      {
+       "id": "card:ecop:c2:008",
+       "q": "Que pensent les physiocrates ?",
+       "r": "Seule la nature (les paysans) produit la richesse ; laisser faire, laisser passer ; pas d'intervention de l'État."
+      },
+      {
+       "id": "card:ecop:c2:009",
+       "q": "Qui est le chef de file des physiocrates ?",
+       "r": "François Quesnay."
+      },
+      {
+       "id": "card:ecop:c2:010",
+       "q": "Quels sont les apports de Smith, Ricardo et Malthus ?",
+       "r": "Smith : avantage absolu ; Ricardo : avantages comparatifs ; Malthus : la population croît plus vite que les subsistances."
+      },
+      {
+       "id": "card:ecop:c2:011",
+       "q": "Que cherchent les économistes classiques ?",
+       "r": "Des lois économiques universelles ; l'équilibre offre-demande détermine l'échange ; l'État est limité au minimum."
+      },
+      {
+       "id": "card:ecop:c2:012",
+       "q": "Comment les marxistes voient-ils l'histoire économique ?",
+       "r": "Comme une succession de modes de production (féodal, capitaliste, puis socialiste/communiste), déterminée par les conditions matérielles."
+      },
+      {
+       "id": "card:ecop:c2:013",
+       "q": "Pourquoi Keynes rompt-il avec les classiques ?",
+       "r": "Après 1929, le laisser-faire ne résout ni le chômage massif ni la crise : l'État doit soutenir la demande."
+      },
+      {
+       "id": "card:ecop:c2:014",
+       "q": "Quel est le grand livre de Keynes et sa date ?",
+       "r": "Théorie générale de l'emploi, de l'intérêt et de la monnaie, 1936."
+      },
+      {
+       "id": "card:ecop:c2:015",
+       "q": "Que préconisent les monétaristes ?",
+       "r": "Une masse monétaire qui croît au rythme de la croissance ; pas de politiques laxistes ; séparation des politiques monétaire et budgétaire."
+      },
+      {
+       "id": "card:ecop:c2:016",
+       "q": "Quel est l'objectif d'inflation de la BCE ?",
+       "r": "Environ 2 % à moyen terme."
+      },
+      {
+       "id": "card:ecop:c2:017",
+       "q": "Que postulent les nouveaux classiques ?",
+       "r": "Des agents rationnels qui utilisent toute l'information et anticipent l'avenir (Robert Lucas)."
+      },
+      {
+       "id": "card:ecop:c2:018",
+       "q": "Quelles sont les quatre solutions-types à la tragédie des communs ?",
+       "r": "Privatiser, réglementer centralement, règles co-écrites par les usagers avec surveillance et sanctions graduelles, laisser faire."
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:ecop:c2:001",
+       "q": "« Laisser faire, laisser passer » résume la pensée des :",
+       "choix": [
+        "mercantilistes",
+        "physiocrates",
+        "keynésiens",
+        "marxistes"
+       ],
+       "bonne": 1,
+       "explication": "Seule la nature produit la richesse ; pas d'intervention de l'État."
+      },
+      {
+       "id": "question:ecop:c2:002",
+       "q": "La théorie des avantages comparatifs est due à :",
+       "choix": [
+        "Adam Smith",
+        "David Ricardo",
+        "Thomas Malthus",
+        "Karl Marx"
+       ],
+       "bonne": 1,
+       "explication": "Fondée sur le coût d'opportunité."
+      },
+      {
+       "id": "question:ecop:c2:003",
+       "q": "Le concept d'« esprit animal » est associé à :",
+       "choix": [
+        "Friedman",
+        "Lucas",
+        "Keynes",
+        "Quesnay"
+       ],
+       "bonne": 2,
+       "explication": "Opposé à la rationalité des agents."
+      },
+      {
+       "id": "question:ecop:c2:004",
+       "q": "Pour les mercantilistes, la richesse d'une nation repose sur :",
+       "choix": [
+        "la terre",
+        "les métaux précieux",
+        "le travail",
+        "la monnaie électronique"
+       ],
+       "bonne": 1,
+       "explication": "Avec une forte intervention de l'État."
+      },
+      {
+       "id": "question:ecop:c2:005",
+       "q": "Les monétaristes considèrent l'inflation comme :",
+       "choix": [
+        "un phénomène monétaire",
+        "un effet de la demande effective",
+        "une conséquence de la lutte des classes",
+        "un bienfait"
+       ],
+       "bonne": 0,
+       "explication": "D'où la priorité à la stabilité des prix."
+      },
+      {
+       "id": "question:ecop:c2:006",
+       "q": "L'expression « économie politique » apparaît en :",
+       "choix": [
+        "1615",
+        "1755",
+        "1776",
+        "1936"
+       ],
+       "bonne": 0,
+       "explication": "Montchrestien, Traité de l'économie politique."
+      }
+     ],
+     "sources": [
+      {
+       "document": "ECOP1126 - EcoPol Chapitre 1 - Définition et histoire.pdf",
+       "pages": "slides 1-28"
+      }
+     ]
+    },
+    {
+     "id": "c3",
+     "titre": "Chapitre 2 — Les indicateurs : PIB, croissance et alternatives",
+     "duree": 45,
+     "resume": "## Pourquoi le PIB ?\n\nLe PIB est la mesure la plus utilisée de la performance d'une économie : comparaisons internationales, **croissance** (taux de variation du PIB), définition des **récessions**, règles européennes (**déficit ≤ 3 % du PIB**, **dette ≤ 60 % du PIB**). Le PIB par habitant est souvent utilisé (à tort) comme indicateur de développement : ==le PIB est devenu, dans une certaine mesure, un mythe.==\n\n## La comptabilité nationale\n\n**Secteurs** : ménages (et **ISBLSM** : institutions sans but lucratif au service des ménages — églises, clubs sportifs, syndicats), sociétés non financières, administrations publiques, sociétés financières, reste du monde.\n\nOrigines : **William Petty** et les **physiocrates** (Quesnay) ; mesures du revenu national au 19e siècle ; essor avec la Grande Dépression et la Seconde Guerre mondiale.\n\n## Le PIB\n\n==**PIB** : valeur marchande totale des **biens et services finaux nouvellement produits** à l'**intérieur des frontières** d'un pays sur une **période donnée** (souvent un an).==\n\n- **Valeur marchande** : prix du marché ; pour le non-marchand (éducation), prix **imputés** sur base des coûts.\n- **Biens finaux** seulement : on exclut les biens intermédiaires pour éviter le **double comptage** (blé → farine → pain → sandwich : on ne compte que le sandwich).\n- Seuls les biens **nouveaux**, produits **sur le territoire**.\n\n**Trois approches** qui aboutissent au même résultat : **production** (somme des valeurs ajoutées : quels secteurs tirent l'activité), **dépenses** (d'où vient la croissance), **revenus** (revenus du travail + du capital : qui capte la richesse).\n\n**Y = C + I + G + (X − M)** : consommation des ménages + investissements + dépenses publiques + exportations nettes (balance commerciale).\n\n## Croissance, prix et PIB réel\n\n- Taux de croissance = (Yt − Yt−1) / Yt−1. Croissance positive : **expansion** ; négative : **récession** ; **dépression** : baisse forte et durable pendant plusieurs années. Le **cycle économique** alterne expansions et contractions irrégulières autour d'une tendance croissante.\n- **PIB nominal** (prix courants) vs **PIB réel** (corrigé de l'inflation : seulement l'effet-quantité). Ex. : 10 guitares à 200 € puis à 300 € → nominal ↑, réel stable ; 15 guitares à 200 € → nominal et réel ↑.\n- **Inflation** : hausse entretenue du niveau général des prix ; **déflation** : baisse ; **désinflation** : ralentissement de l'inflation. L'inflation n'est jamais « pure » : prix et salaires ne montent pas au même rythme → **distorsions**.\n- **Parité de pouvoir d'achat (PPA)** : élimine les différences de niveaux de prix entre pays (l'inflation corrige un « effet prix », la PPA un « effet monnaie ») ; ex. l'**indice Big Mac**. **Pouvoir d'achat** = quantité de biens qu'un revenu permet d'acheter ; il monte si les revenus augmentent plus vite que les prix.\n\n## Les limites du PIB\n\n- ne dit rien des **inégalités** ni de qui possède l'appareil productif ;\n- ignore les **dommages environnementaux** ;\n- ignore la **qualité** et la **satisfaction** (subjective) ;\n- ignore le **travail non rémunéré** (bénévolat, travail domestique, **care**) et les **loisirs** (le surtravail peut augmenter le PIB et réduire le bien-être) ;\n- ignore l'**économie souterraine** (revenus non déclarés, légaux ou illégaux : drogue, travail au noir, fraude…).\n\n## Mesurer le travail domestique\n\nEn 1921, les services ménagers américains représentaient 25 à 30 % de la production marchande ; en Allemagne (début des années 2000), environ 820 milliards d'euros (+34 % de PIB). Les négliger **sous-estime le PIB**, **fausse les tendances** (la sortie des femmes du foyer, de 40 % en 1870 à 16 % en 2000 aux États-Unis, apparaît comme de la croissance) et **complique les comparaisons** Nord-Sud. Conséquence concrète : les pensions reposent sur le travail rémunéré.\n\n**Enquêtes sur l'emploi du temps** + deux méthodes de valorisation : **coût de remplacement** (ce qu'il faudrait payer à quelqu'un) et **coût d'opportunité** (ce que la personne aurait gagné en emploi rémunéré).\n\n## Indicateurs alternatifs\n\n| Indicateur | Contenu |\n|---|---|\n| **IDH** (PNUD) | indicateur composite : espérance de vie, accès à l'éducation, PIB/hab. en PPA |\n| **IPV** (indicateur de progrès véritable) | « PIB vert » (années 1990, surtout États-Unis) : ajoute ce qui accroît le bien-être, retire ce qui le réduit |\n| **Épargne véritable** (Banque mondiale, 1999) | épargne nette ajustée des dommages environnementaux : mesure la **soutenabilité** |\n| **BNB** (Bhoutan) | **bonheur national brut** : vision de société, « **seuils de suffisance** », dans la Constitution en 2008 |\n\n**Lecture** : l'**économie du Donut** (Kate Raworth) — plancher social et plafond écologique ; le donut comme « boussole ».",
+     "pointsCles": [
+      "Le PIB mesure la valeur des biens et services finaux nouvellement produits sur le territoire pendant une période.",
+      "On ne compte que les biens finaux pour éviter le double comptage.",
+      "Trois approches du PIB : production, dépenses, revenus ; Y = C + I + G + (X − M).",
+      "Règles européennes : déficit ≤ 3 % et dette ≤ 60 % du PIB.",
+      "PIB réel = PIB nominal corrigé de l'inflation ; la PPA corrige l'effet monnaie.",
+      "Le PIB ignore inégalités, environnement, travail domestique, loisirs et économie souterraine.",
+      "Le travail domestique se valorise par le coût de remplacement ou le coût d'opportunité.",
+      "Alternatives : IDH, IPV, épargne véritable, BNB, Donut."
+     ],
+     "definitions": [
+      {
+       "terme": "PIB",
+       "def": "Valeur marchande totale des biens et services finaux nouvellement produits à l'intérieur des frontières d'un pays pendant une période donnée."
+      },
+      {
+       "terme": "ISBLSM",
+       "def": "Institutions sans but lucratif au service des ménages (églises, clubs de sport, syndicats), classées avec les ménages."
+      },
+      {
+       "terme": "Bien final / intermédiaire",
+       "def": "Un bien final est prêt à l'usage ; un bien intermédiaire subira une transformation ultérieure."
+      },
+      {
+       "terme": "Balance commerciale",
+       "def": "Exportations moins importations (X − M)."
+      },
+      {
+       "terme": "Récession",
+       "def": "Période de croissance négative du PIB."
+      },
+      {
+       "terme": "Dépression",
+       "def": "Baisse forte et durable de la production et de la consommation, sur plusieurs années."
+      },
+      {
+       "terme": "PIB nominal / réel",
+       "def": "Le nominal est mesuré à prix courants ; le réel est corrigé de l'inflation (effet-quantité seul)."
+      },
+      {
+       "terme": "Inflation",
+       "def": "Hausse entretenue du niveau général des prix."
+      },
+      {
+       "terme": "Déflation",
+       "def": "Baisse du niveau général des prix."
+      },
+      {
+       "terme": "Désinflation",
+       "def": "Ralentissement du rythme de l'inflation."
+      },
+      {
+       "terme": "Parité de pouvoir d'achat (PPA)",
+       "def": "Taux qui égalise le pouvoir d'achat des monnaies en éliminant les différences de niveaux de prix entre pays."
+      },
+      {
+       "terme": "Pouvoir d'achat",
+       "def": "Quantité de biens et services qu'un revenu permet d'acheter."
+      },
+      {
+       "terme": "Économie souterraine",
+       "def": "Activités engendrant des revenus non déclarés, légaux ou illégaux."
+      },
+      {
+       "terme": "Méthode du coût de remplacement",
+       "def": "Valoriser le travail domestique au prix qu'il faudrait payer à quelqu'un pour le faire."
+      },
+      {
+       "terme": "Méthode du coût d'opportunité",
+       "def": "Valoriser le travail domestique au salaire que la personne aurait pu gagner en emploi rémunéré."
+      },
+      {
+       "terme": "IDH",
+       "def": "Indicateur de développement humain du PNUD : espérance de vie, éducation, PIB par habitant en PPA."
+      },
+      {
+       "terme": "Épargne véritable",
+       "def": "Épargne nette ajustée des dommages environnementaux, publiée par la Banque mondiale depuis 1999."
+      },
+      {
+       "terme": "Bonheur national brut",
+       "def": "Indicateur du Bhoutan fondé sur des seuils de suffisance, inscrit dans la Constitution en 2008."
+      }
+     ],
+     "fiches": [
+      {
+       "id": "card:ecop:c3:001",
+       "q": "Définis le PIB.",
+       "r": "La valeur marchande totale des biens et services finaux nouvellement produits à l'intérieur des frontières d'un pays sur une période donnée."
+      },
+      {
+       "id": "card:ecop:c3:002",
+       "q": "Pourquoi exclut-on les biens intermédiaires du PIB ?",
+       "r": "Pour éviter le double comptage (blé, farine, pain : on ne compte que le produit final)."
+      },
+      {
+       "id": "card:ecop:c3:003",
+       "q": "Quelle est l'équation du PIB par les dépenses ?",
+       "r": "Y = C + I + G + (X − M)."
+      },
+      {
+       "id": "card:ecop:c3:004",
+       "q": "Quelles sont les trois approches du PIB et ce qu'elles montrent ?",
+       "r": "Production (quels secteurs tirent l'activité), dépenses (d'où vient la croissance), revenus (qui capte la richesse)."
+      },
+      {
+       "id": "card:ecop:c3:005",
+       "q": "Quels sont les critères européens de finances publiques ?",
+       "r": "Déficit public ≤ 3 % du PIB et dette publique ≤ 60 % du PIB."
+      },
+      {
+       "id": "card:ecop:c3:006",
+       "q": "Quels sont les secteurs de la comptabilité nationale ?",
+       "r": "Ménages (et ISBLSM), sociétés non financières, administrations publiques, sociétés financières, reste du monde."
+      },
+      {
+       "id": "card:ecop:c3:007",
+       "q": "Comment valorise-t-on une activité non marchande comme l'éducation ?",
+       "r": "Par un prix imputé sur base des coûts."
+      },
+      {
+       "id": "card:ecop:c3:008",
+       "q": "Différence entre récession et dépression ?",
+       "r": "Récession : croissance négative ; dépression : baisse forte et durable de la production et de la consommation sur plusieurs années."
+      },
+      {
+       "id": "card:ecop:c3:009",
+       "q": "Différence entre PIB nominal et réel ?",
+       "r": "Le nominal est à prix courants (effet-prix + effet-quantité) ; le réel est corrigé de l'inflation (effet-quantité seul)."
+      },
+      {
+       "id": "card:ecop:c3:010",
+       "q": "Si la croissance nominale dépasse la croissance réelle, que se passe-t-il ?",
+       "r": "Il y a de l'inflation."
+      },
+      {
+       "id": "card:ecop:c3:011",
+       "q": "Qu'est-ce que la désinflation ?",
+       "r": "Un ralentissement du rythme de l'inflation (les prix montent encore, mais moins vite)."
+      },
+      {
+       "id": "card:ecop:c3:012",
+       "q": "Pourquoi l'inflation préoccupe-t-elle les économistes ?",
+       "r": "Elle n'est jamais pure : prix et salaires ne montent pas au même rythme, ce qui crée des distorsions."
+      },
+      {
+       "id": "card:ecop:c3:013",
+       "q": "Que corrige la PPA ?",
+       "r": "L'« effet monnaie » : les différences de niveaux de prix entre pays (l'inflation corrige l'effet prix)."
+      },
+      {
+       "id": "card:ecop:c3:014",
+       "q": "Quand le pouvoir d'achat augmente-t-il ?",
+       "r": "Quand les revenus augmentent plus vite que les prix."
+      },
+      {
+       "id": "card:ecop:c3:015",
+       "q": "Cite cinq limites du PIB.",
+       "r": "Inégalités, environnement, qualité/satisfaction, travail non rémunéré et loisirs, économie souterraine."
+      },
+      {
+       "id": "card:ecop:c3:016",
+       "q": "Qu'est-ce que l'économie souterraine ?",
+       "r": "Les activités engendrant des revenus non déclarés, légaux (babysitting, vente entre particuliers) ou illégaux (drogue, travail au noir)."
+      },
+      {
+       "id": "card:ecop:c3:017",
+       "q": "Quelles sont les conséquences de négliger la production des ménages ?",
+       "r": "Sous-estimation du PIB, fausse impression sur la croissance, comparaisons Nord-Sud difficiles."
+      },
+      {
+       "id": "card:ecop:c3:018",
+       "q": "Quelles sont les deux méthodes pour valoriser le travail domestique ?",
+       "r": "Coût de remplacement et coût d'opportunité."
+      },
+      {
+       "id": "card:ecop:c3:019",
+       "q": "Quelles sont les trois composantes de l'IDH ?",
+       "r": "Espérance de vie à la naissance, accès à l'éducation, PIB par habitant en PPA."
+      },
+      {
+       "id": "card:ecop:c3:020",
+       "q": "Que mesure l'épargne véritable ?",
+       "r": "La soutenabilité : la création ou destruction nette de richesse nationale, dommages environnementaux compris (Banque mondiale, 1999)."
+      },
+      {
+       "id": "card:ecop:c3:021",
+       "q": "Qu'est-ce que le BNB ?",
+       "r": "Le bonheur national brut du Bhoutan, fondé sur des seuils de suffisance, inscrit dans la Constitution en 2008."
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:ecop:c3:001",
+       "q": "Dans Y = C + I + G + (X − M), G désigne :",
+       "choix": [
+        "les investissements",
+        "les dépenses publiques",
+        "la consommation",
+        "les exportations"
+       ],
+       "bonne": 1,
+       "explication": "Dépenses de biens et services des gouvernements."
+      },
+      {
+       "id": "question:ecop:c3:002",
+       "q": "On produit 10 guitares à 200 € puis 10 guitares à 300 €. Le PIB réel :",
+       "choix": [
+        "augmente de 50 %",
+        "reste stable",
+        "diminue",
+        "double"
+       ],
+       "bonne": 1,
+       "explication": "Seul le prix a changé : le nominal monte, le réel est stable."
+      },
+      {
+       "id": "question:ecop:c3:003",
+       "q": "La désinflation, c'est :",
+       "choix": [
+        "une baisse des prix",
+        "un ralentissement de l'inflation",
+        "une hausse des prix",
+        "une dévaluation"
+       ],
+       "bonne": 1,
+       "explication": "Les prix continuent de monter, mais moins vite."
+      },
+      {
+       "id": "question:ecop:c3:004",
+       "q": "L'indice Big Mac illustre :",
+       "choix": [
+        "l'inflation",
+        "la parité de pouvoir d'achat",
+        "le chômage",
+        "l'IDH"
+       ],
+       "bonne": 1,
+       "explication": "Un même bien devrait avoir le même prix partout."
+      },
+      {
+       "id": "question:ecop:c3:005",
+       "q": "Lequel n'entre PAS dans l'IDH ?",
+       "choix": [
+        "Espérance de vie",
+        "Éducation",
+        "Émissions de CO2",
+        "PIB/hab. en PPA"
+       ],
+       "bonne": 2,
+       "explication": "L'IDH ne mesure pas l'environnement."
+      },
+      {
+       "id": "question:ecop:c3:006",
+       "q": "Valoriser le travail domestique au salaire que la personne aurait gagné ailleurs, c'est la méthode :",
+       "choix": [
+        "du coût de remplacement",
+        "du coût d'opportunité",
+        "de la PPA",
+        "des prix imputés"
+       ],
+       "bonne": 1,
+       "explication": "Le coût de remplacement utilise le prix d'un prestataire."
+      },
+      {
+       "id": "question:ecop:c3:007",
+       "q": "Le bonheur national brut vient :",
+       "choix": [
+        "de Norvège",
+        "du Bhoutan",
+        "du Costa Rica",
+        "de Nouvelle-Zélande"
+       ],
+       "bonne": 1,
+       "explication": "Inscrit dans sa Constitution en 2008."
+      }
+     ],
+     "sources": [
+      {
+       "document": "ECOP1126 - EcoPol Chapitre 2 - Indicateurs.pdf",
+       "pages": "slides 1-60"
+      }
+     ]
+    },
+    {
+     "id": "c4",
+     "titre": "Chapitre 3 — Croissance, productivité et inégalités",
+     "duree": 45,
+     "resume": "## Un enjeu de politique économique\n\nDepuis les années **1970**, les inégalités ont explosé dans de nombreux pays. Tendance inéluctable ou réversible ? En Belgique, on mesure notamment la **privation matérielle et sociale** : un ménage est en privation s'il ne peut se permettre, pour des raisons financières, **5 des 13 dépenses** de la liste (**sévère** : **7 sur 13**).\n\n**Causes de la hausse** : la baisse des inégalités dans la première moitié du 20e siècle venait des **chocs** (crise des années 1930, guerre) qui ont détruit les patrimoines des rentiers ; depuis, les rentiers ont été remplacés au sommet par des **salariés très bien payés** ; hausse des inégalités de rémunération ; inégalité des chances d'accès aux professions à hauts revenus ; **affaiblissement des syndicats**.\n\nAux États-Unis, l'inégalité réelle des richesses est bien plus forte que ce que les gens estiment, et leur estimation dépasse elle-même leur répartition idéale.\n\n## Différences, inégalités, injustices\n\n- **Inégalité** : différence entre individus ou groupes qui se traduit en **avantages ou désavantages** et fonde une **hiérarchie**.\n- ==Toutes les différences ne sont pas des inégalités== (cheveux blonds ou bruns… sauf s'il existe des écarts économiques systématiques liés à cette couleur).\n- ==Toutes les inégalités ne sont pas injustes== (travailler plus pour gagner plus), et une distribution égale peut être injuste.\n\n## Inégalité de quoi ? entre qui ?\n\n**Variables** : revenu, revenu disponible, richesse nette, patrimoine/héritage, accès au logement, à l'emploi, à l'enseignement supérieur…\n\n- **Revenus primaires** : revenus du travail, du capital, revenus mixtes (avant impôts et allocations).\n- **Revenu disponible** = revenus primaires − impôts et cotisations + prestations sociales : ce qui sert à consommer, épargner, investir.\n- **Richesse nette** = actifs − dettes.\n\n**Groupes comparés** : ville/campagne, origines ou pays, niveau d'éducation, capital social, travailleurs/propriétaires du capital, sexe, qualification…\n\n- **Inégalité catégorielle** : écarts entre catégories, souvent fondés sur les « **hasards de la naissance** » (pays, origine, genre, patrimoine, scolarité ; le passeport limite les opportunités).\n- **À l'intérieur des pays**, **entre pays** (le Chinois moyen vs le Belge moyen), **globale** (tous les individus du monde) = somme des deux.\n- **Inégalité intergénérationnelle** : transmission des différences des parents aux enfants (héritage, patrimoine génétique, influence parentale).\n- **Inégalité d'opportunités** : ressources de départ inégales ; l'**égalité des chances** = mêmes ressources au départ.\n\n## Le rôle de l'État\n\nInstruments : **fiscalité, protection sociale, services collectifs, lutte contre les discriminations**, sous contrainte de financement. Débats sur l'**efficacité**, la **légitimité** (consentement à l'impôt : un État légitime qui protège, et une charge équitablement répartie) et les **effets pervers** (désincitations).\n\n## Tendances\n\n- ==La **richesse** est bien plus inégalement répartie que le **revenu marchand**, lui-même plus inégal que le **revenu disponible**== (effet des impôts et transferts).\n- Écarts de salaires patrons/salariés : ratio de 354 aux États-Unis, 104 en France, 28 en Pologne (données Oxfam/Le Figaro) ; au CAC 40 (2009-2018), PDG +60 %, actionnaires +70 %, salaire moyen +20 %, SMIC +12 %.\n- **Inégalités et climat** (GIEC 2022) : les **10 %** les plus riches détiennent **76 %** de la richesse, perçoivent **52 %** des revenus et causent **48 %** des émissions.\n- Dans les pays : **milieu manquant** — les emplois à bas et à hauts salaires augmentent, ceux à revenus moyens se raréfient.\n\n## Mesurer les inégalités\n\n**Sources** : enquêtes auprès des ménages (incertitude sur les hauts revenus), **données fiscales** (Piketty ; saisissent les très hauts revenus mais oublient ceux qui ne paient pas d'impôt), salaires sectoriels (UTIP, Galbraith ; ignorent les revenus non salariaux).\n\n- **Courbe de Lorenz** : associe à chaque part X de la population la part Y de la richesse détenue. ==Plus elle s'éloigne de la bissectrice (égalité parfaite), plus la répartition est inégale.==\n- **Coefficient de Gini** (Corrado Gini) : rapport entre l'aire comprise entre la bissectrice et la courbe de Lorenz, et l'aire totale du triangle sous la bissectrice ; de **0 (égalité parfaite) à 1 (inégalité extrême)**.\n\n## Évaluer les inégalités : trois exemples (CORE Econ)\n\nBeaucoup jugent injuste l'inégalité **catégorielle**, mais pas celle qui vient du **travail** ou de la **prise de risque**.\n\n1. **Hausse de la productivité** (main-d'œuvre mieux formée) : profits ↑ → nouvelles entreprises → chômage ↓ → salaires ↑ → **inégalités ↓**.\n2. **Segmentation du marché du travail** (primaire : bons salaires, sécurité, syndicats ; secondaire : contrats courts, salaires moyens) : la supprimer réduit les inégalités.\n3. **Automatisation** : à court terme, chômage des tâches routinières et hausse des salaires des compétences complémentaires → **inégalités ↑** ; à long terme, deux effets opposés (chômage qui pèse sur les salaires vs profits qui financent de nouveaux emplois). Politiques : **formation continue**, soutien aux emplois non automatisables (soins, éducation).\n\n## Lecture : rapport Oxfam\n\n1. La concentration de la richesse produit une **concentration du pouvoir politique**.\n2. Opposition **oligarchie / démocratie**.\n3. La richesse extrême est une **capacité d'action**, pas seulement un stock.\n4. Les politiques reflètent davantage les préférences des hauts revenus (**capture politique**, biais de représentation).\n5. L'inégalité est un problème **systémique** : risque d'**érosion démocratique** (contre-pouvoirs affaiblis, libertés restreintes, manipulation électorale).\n6. Coexistence de l'enrichissement des milliardaires et de la pauvreté/insécurité alimentaire.\n7. Médias, réseaux sociaux et IA : nouveau terrain d'inégalité de pouvoir.",
+     "pointsCles": [
+      "Les inégalités augmentent depuis les années 1970 ; leur baisse antérieure venait des chocs (crise, guerre).",
+      "Différence ≠ inégalité ≠ injustice.",
+      "Revenu disponible = revenus primaires − impôts et cotisations + prestations sociales.",
+      "Inégalités catégorielles, entre/à l'intérieur des pays, globales, intergénérationnelles, d'opportunités.",
+      "La richesse est plus inégalement répartie que le revenu marchand, lui-même plus inégal que le revenu disponible.",
+      "Les 10 % les plus riches causent 48 % des émissions de carbone.",
+      "Courbe de Lorenz : plus elle s'éloigne de la diagonale, plus c'est inégal ; Gini de 0 à 1.",
+      "Productivité et fin de la segmentation réduisent les inégalités ; l'automatisation les accroît à court terme.",
+      "Oxfam : la concentration de la richesse concentre le pouvoir politique et menace la démocratie."
+     ],
+     "definitions": [
+      {
+       "terme": "Inégalité",
+       "def": "Différence entre individus ou groupes qui se traduit en avantages ou désavantages et fonde une hiérarchie."
+      },
+      {
+       "terme": "Privation matérielle et sociale",
+       "def": "Ménage qui ne peut se permettre 5 des 13 dépenses de référence pour raisons financières (sévère : 7 sur 13)."
+      },
+      {
+       "terme": "Revenus primaires",
+       "def": "Revenus du travail, du capital ou revenus mixtes, avant impôts et allocations."
+      },
+      {
+       "terme": "Revenu disponible",
+       "def": "Revenus primaires moins impôts et cotisations plus prestations sociales."
+      },
+      {
+       "terme": "Richesse nette",
+       "def": "Actifs moins dettes."
+      },
+      {
+       "terme": "Inégalité catégorielle",
+       "def": "Différences économiques entre des personnes traitées comme des catégories différentes, souvent liées aux hasards de la naissance."
+      },
+      {
+       "terme": "Inégalité globale",
+       "def": "Inégalité entre tous les individus du monde : somme des inégalités à l'intérieur des pays et entre pays."
+      },
+      {
+       "terme": "Inégalité intergénérationnelle",
+       "def": "Mesure dans laquelle les différences entre parents sont transmises à la génération suivante."
+      },
+      {
+       "terme": "Égalité des chances",
+       "def": "Situation où chacun reçoit les mêmes ressources au départ."
+      },
+      {
+       "terme": "Milieu manquant",
+       "def": "Raréfaction des emplois à revenus moyens au profit des emplois à bas et hauts salaires."
+      },
+      {
+       "terme": "Courbe de Lorenz",
+       "def": "Courbe qui associe à chaque part de la population la part de richesse qu'elle détient."
+      },
+      {
+       "terme": "Coefficient de Gini",
+       "def": "Indicateur d'inégalité de 0 (égalité parfaite) à 1 (inégalité extrême), calculé à partir de la courbe de Lorenz."
+      },
+      {
+       "terme": "Segmentation du marché du travail",
+       "def": "Coexistence d'un marché primaire (bons salaires, sécurité) et d'un marché secondaire (contrats courts, salaires moyens)."
+      },
+      {
+       "terme": "Capture politique",
+       "def": "Situation où les politiques publiques reflètent surtout les préférences des groupes les plus riches."
+      }
+     ],
+     "fiches": [
+      {
+       "id": "card:ecop:c4:001",
+       "q": "Pourquoi les inégalités avaient-elles baissé dans la première moitié du 20e siècle ?",
+       "r": "La crise des années 1930 et la Seconde Guerre ont détruit les patrimoines des plus riches et mis fin à l'opulence des rentiers."
+      },
+      {
+       "id": "card:ecop:c4:002",
+       "q": "Quelles sont les causes de la hausse récente des inégalités ?",
+       "r": "Salariés très bien payés au sommet, inégalités de rémunération, inégalité des chances d'accès aux hauts revenus, affaiblissement des syndicats."
+      },
+      {
+       "id": "card:ecop:c4:003",
+       "q": "Quand un ménage est-il en privation matérielle et sociale (sévère) ?",
+       "r": "S'il ne peut se permettre 5 des 13 dépenses (7 sur 13 pour la privation sévère)."
+      },
+      {
+       "id": "card:ecop:c4:004",
+       "q": "Toute différence est-elle une inégalité ?",
+       "r": "Non : il faut qu'elle se traduise en avantages/désavantages et fonde une hiérarchie (ex. couleur de cheveux : différence, pas inégalité, sauf écarts économiques systématiques)."
+      },
+      {
+       "id": "card:ecop:c4:005",
+       "q": "Toute inégalité est-elle injuste ?",
+       "r": "Non (travailler plus pour gagner plus) ; et une distribution égale peut être injuste."
+      },
+      {
+       "id": "card:ecop:c4:006",
+       "q": "Comment calcule-t-on le revenu disponible ?",
+       "r": "Revenus primaires − impôts et cotisations + prestations sociales."
+      },
+      {
+       "id": "card:ecop:c4:007",
+       "q": "Qu'est-ce qu'une inégalité catégorielle ?",
+       "r": "Un écart entre catégories (genre, origine, pays…), souvent fondé sur les hasards de la naissance."
+      },
+      {
+       "id": "card:ecop:c4:008",
+       "q": "Qu'est-ce que l'inégalité globale ?",
+       "r": "L'inégalité entre tous les individus du monde, égale à la somme des inégalités à l'intérieur des pays et entre pays."
+      },
+      {
+       "id": "card:ecop:c4:009",
+       "q": "Sur quoi repose le consentement à l'impôt ?",
+       "r": "Sur la conviction que l'impôt finance un État légitime qui protège, et que sa charge est équitablement répartie."
+      },
+      {
+       "id": "card:ecop:c4:010",
+       "q": "Classe richesse, revenu marchand et revenu disponible du plus au moins inégal.",
+       "r": "Richesse > revenu marchand > revenu disponible (grâce aux impôts et transferts)."
+      },
+      {
+       "id": "card:ecop:c4:011",
+       "q": "Quel lien entre inégalités et climat (GIEC 2022) ?",
+       "r": "Les 10 % les plus riches détiennent 76 % de la richesse, 52 % des revenus et causent 48 % des émissions."
+      },
+      {
+       "id": "card:ecop:c4:012",
+       "q": "Qu'est-ce que le « milieu manquant » ?",
+       "r": "La raréfaction des emplois à revenus moyens, tandis que les emplois à bas et hauts salaires augmentent."
+      },
+      {
+       "id": "card:ecop:c4:013",
+       "q": "Quelles sont les trois sources de données sur les inégalités et leurs limites ?",
+       "r": "Enquêtes ménages (incertaines pour les hauts revenus), données fiscales (oublient ceux qui ne paient pas d'impôt), salaires sectoriels (ignorent les revenus non salariaux)."
+      },
+      {
+       "id": "card:ecop:c4:014",
+       "q": "Comment lire une courbe de Lorenz ?",
+       "r": "Plus elle est éloignée de la bissectrice (égalité parfaite), plus la répartition est inégalitaire."
+      },
+      {
+       "id": "card:ecop:c4:015",
+       "q": "Comment se calcule le coefficient de Gini ?",
+       "r": "Aire entre la bissectrice et la courbe de Lorenz divisée par l'aire du triangle sous la bissectrice ; de 0 (égalité) à 1 (inégalité extrême)."
+      },
+      {
+       "id": "card:ecop:c4:016",
+       "q": "Pourquoi une hausse de productivité peut-elle réduire les inégalités ?",
+       "r": "Profits ↑ → entrée de nouvelles entreprises → chômage ↓ → meilleur pouvoir de négociation et salaires ↑."
+      },
+      {
+       "id": "card:ecop:c4:017",
+       "q": "Quels sont les effets de l'automatisation sur les inégalités ?",
+       "r": "À court terme, hausse (chômage des tâches routinières, salaires ↑ des compétences complémentaires) ; à long terme, effets opposés ; d'où formation continue et soutien aux emplois de soins/éducation."
+      },
+      {
+       "id": "card:ecop:c4:018",
+       "q": "Quelle est la thèse centrale du rapport Oxfam ?",
+       "r": "La concentration de la richesse produit une concentration du pouvoir politique et un risque d'érosion démocratique (oligarchie contre démocratie)."
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:ecop:c4:001",
+       "q": "Un coefficient de Gini de 0 signifie :",
+       "choix": [
+        "inégalité extrême",
+        "égalité parfaite",
+        "pauvreté nulle",
+        "croissance nulle"
+       ],
+       "bonne": 1,
+       "explication": "Il varie de 0 (égalité parfaite) à 1."
+      },
+      {
+       "id": "question:ecop:c4:002",
+       "q": "Le plus inégalement réparti est en général :",
+       "choix": [
+        "le revenu disponible",
+        "le revenu marchand",
+        "la richesse",
+        "la consommation"
+       ],
+       "bonne": 2,
+       "explication": "Richesse > revenu marchand > revenu disponible."
+      },
+      {
+       "id": "question:ecop:c4:003",
+       "q": "Une courbe de Lorenz très éloignée de la bissectrice indique :",
+       "choix": [
+        "une forte égalité",
+        "une forte inégalité",
+        "une forte croissance",
+        "un faible chômage"
+       ],
+       "bonne": 1,
+       "explication": "La bissectrice représente l'égalité parfaite."
+      },
+      {
+       "id": "question:ecop:c4:004",
+       "q": "Les 10 % les plus riches du monde sont responsables d'environ :",
+       "choix": [
+        "10 % des émissions",
+        "25 % des émissions",
+        "48 % des émissions",
+        "90 % des émissions"
+       ],
+       "bonne": 2,
+       "explication": "GIEC, 2022."
+      },
+      {
+       "id": "question:ecop:c4:005",
+       "q": "L'inégalité liée au pays de naissance est une inégalité :",
+       "choix": [
+        "intergénérationnelle",
+        "catégorielle",
+        "salariale",
+        "marginale"
+       ],
+       "bonne": 1,
+       "explication": "Un « hasard de la naissance »."
+      },
+      {
+       "id": "question:ecop:c4:006",
+       "q": "À court terme, l'automatisation tend à :",
+       "choix": [
+        "réduire les inégalités",
+        "accroître les inégalités",
+        "n'avoir aucun effet",
+        "supprimer le chômage"
+       ],
+       "bonne": 1,
+       "explication": "Elle remplace le travail routinier et valorise les compétences complémentaires."
+      }
+     ],
+     "sources": [
+      {
+       "document": "ECOP1126 - EcoPol Chapitre 3 - Inégalités.pdf",
+       "pages": "slides 1-66"
+      }
+     ]
+    },
+    {
+     "id": "c5",
+     "titre": "Chapitre 4 — Bénéfices de l'échange et rôle des marchés",
+     "duree": 30,
+     "resume": "## La parabole de l'économie moderne\n\nPourquoi les individus dépendent-ils les uns des autres ? Parce que l'échange **améliore leur situation** par rapport à l'**autarcie**.\n\nÉconomie simplifiée : deux biens (**viande**, **pommes de terre**), deux personnes (**le cultivateur**, **l'éleveur**), qui veulent consommer les deux.\n\n==**Gain à l'échange** : on se procure davantage de biens en se **spécialisant** dans une production : on y est plus performant et la production totale augmente.==\n\nTrois scénarios : (1) chacun ne sait produire qu'un bien → l'échange apporte la diversité ; (2) chacun est meilleur dans un bien ; (3) l'un est meilleur dans **les deux**.\n\n## Frontière des possibilités de production\n\nChacun travaille 48 h par semaine.\n\n| | Temps pour 1 kg de viande | Temps pour 1 kg de PDT | Max. viande en 48 h | Max. PDT en 48 h |\n|---|---|---|---|---|\n| Cultivateur | 6 h | 1,5 h | 8 kg | 32 kg |\n| Éleveur | 2 h | 1 h | 24 kg | 48 kg |\n\n**Frontière des possibilités de production (FPP)** : courbe des combinaisons de deux biens qu'on peut produire avec une ressource finie (ici le temps) → **arbitrage**. Sans échange, chacun consomme ce qu'il produit : **FPP = frontière des possibilités de consommation** (en partageant son temps en deux : cultivateur 4 kg de viande + 16 kg de PDT ; éleveur 12 kg + 24 kg).\n\nAvec spécialisation et échange, ==chacun consomme plus des deux biens **sans travailler plus**==, à des niveaux inaccessibles en autarcie.\n\n## Avantage absolu\n\n**Avantage absolu** : capacité à produire un bien en plus grande quantité que les autres avec autant, voire moins, de facteurs de production. Ici l'**éleveur** a l'avantage absolu dans **les deux** biens. Comment le cultivateur peut-il alors se spécialiser ? → il faut raisonner en coûts d'opportunité.\n\n## Coût d'opportunité et avantage comparatif\n\n| Coût d'opportunité de… | 1 kg de viande | 1 kg de PDT |\n|---|---|---|\n| Cultivateur | 4 kg de PDT | 0,25 kg de viande |\n| Éleveur | 2 kg de PDT | 0,5 kg de viande |\n\n==**Avantage comparatif** : avoir le **coût d'opportunité le plus faible** pour produire un bien.== Le cultivateur a l'avantage comparatif dans les **pommes de terre**, l'éleveur dans la **viande**.\n\n- On peut avoir un avantage absolu dans les deux biens, mais ==**jamais un avantage comparatif dans les deux**== : le coût d'opportunité d'un bien est l'**inverse** de celui de l'autre.\n- Sauf coûts d'opportunité identiques, chacun a un avantage comparatif dans un bien.\n- Les **différences de coûts d'opportunité** sont la source des gains à l'échange : en se spécialisant selon l'avantage comparatif, la production totale augmente, et chacun obtient un bien à un prix inférieur à son propre coût d'opportunité.\n\n## Et les tarifs douaniers ?\n\nUn **tarif** rend l'importation plus chère : il réduit l'échange (on s'éloigne de l'avantage comparatif), fait perdre une partie des gains (le **surplus**) et introduit de l'**instabilité**, alors que les gains à l'échange exigent un cadre prévisible.\n\n*Référence : Mankiw et Taylor, Principes de l'économie, chapitre 3.*",
+     "pointsCles": [
+      "L'échange permet la spécialisation et améliore la situation de chacun par rapport à l'autarcie.",
+      "La FPP montre les combinaisons possibles avec une ressource finie ; sans échange, elle est aussi la frontière de consommation.",
+      "Avantage absolu : produire plus avec autant ou moins de facteurs.",
+      "Avantage comparatif : avoir le coût d'opportunité le plus faible.",
+      "On ne peut pas avoir l'avantage comparatif dans les deux biens.",
+      "Les différences de coûts d'opportunité sont la source des gains à l'échange.",
+      "Un tarif réduit l'échange, fait perdre du surplus et crée de l'instabilité."
+     ],
+     "definitions": [
+      {
+       "terme": "Autarcie",
+       "def": "Situation où chacun consomme uniquement ce qu'il produit, sans échange."
+      },
+      {
+       "terme": "Gain à l'échange",
+       "def": "Supplément de biens obtenu en se spécialisant dans une production et en échangeant."
+      },
+      {
+       "terme": "Frontière des possibilités de production",
+       "def": "Courbe des combinaisons de deux biens qu'on peut produire avec une même ressource finie."
+      },
+      {
+       "terme": "Avantage absolu",
+       "def": "Capacité de produire un bien en plus grande quantité que les autres avec autant ou moins de facteurs de production."
+      },
+      {
+       "terme": "Coût d'opportunité",
+       "def": "Ce à quoi il faut renoncer pour obtenir quelque chose."
+      },
+      {
+       "terme": "Avantage comparatif",
+       "def": "Le fait d'avoir le coût d'opportunité le plus faible pour produire un bien."
+      },
+      {
+       "terme": "Tarif douanier",
+       "def": "Taxe qui rend les importations plus chères et réduit les gains à l'échange."
+      }
+     ],
+     "fiches": [
+      {
+       "id": "card:ecop:c5:001",
+       "q": "Pourquoi les individus dépendent-ils les uns des autres ?",
+       "r": "Parce que la spécialisation et l'échange améliorent leur situation par rapport à l'autarcie."
+      },
+      {
+       "id": "card:ecop:c5:002",
+       "q": "Qu'est-ce que la frontière des possibilités de production ?",
+       "r": "La courbe des combinaisons de deux biens qu'on peut produire avec une même ressource finie (ici le temps)."
+      },
+      {
+       "id": "card:ecop:c5:003",
+       "q": "Sans échange, que vaut la frontière de consommation ?",
+       "r": "Elle est égale à la frontière des possibilités de production : chacun consomme ce qu'il produit."
+      },
+      {
+       "id": "card:ecop:c5:004",
+       "q": "Qui a l'avantage absolu dans l'exemple viande/pommes de terre ?",
+       "r": "L'éleveur, dans les deux biens (2 h/kg de viande et 1 h/kg de PDT, contre 6 h et 1,5 h)."
+      },
+      {
+       "id": "card:ecop:c5:005",
+       "q": "Quel est le coût d'opportunité de 1 kg de viande pour le cultivateur ?",
+       "r": "4 kg de pommes de terre (6 h / 1,5 h)."
+      },
+      {
+       "id": "card:ecop:c5:006",
+       "q": "Quel est le coût d'opportunité de 1 kg de PDT pour l'éleveur ?",
+       "r": "0,5 kg de viande (1 h / 2 h)."
+      },
+      {
+       "id": "card:ecop:c5:007",
+       "q": "Qui a l'avantage comparatif dans les pommes de terre ?",
+       "r": "Le cultivateur (0,25 kg de viande par kg, contre 0,5 pour l'éleveur)."
+      },
+      {
+       "id": "card:ecop:c5:008",
+       "q": "Peut-on avoir l'avantage comparatif dans les deux biens ?",
+       "r": "Non : le coût d'opportunité d'un bien est l'inverse de celui de l'autre."
+      },
+      {
+       "id": "card:ecop:c5:009",
+       "q": "D'où viennent les gains à l'échange ?",
+       "r": "Des différences de coûts d'opportunité : chacun se spécialise selon son avantage comparatif et la production totale augmente."
+      },
+      {
+       "id": "card:ecop:c5:010",
+       "q": "Quels sont les effets d'un tarif douanier ?",
+       "r": "Il réduit l'échange, éloigne de l'avantage comparatif, fait perdre du surplus et introduit de l'instabilité."
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:ecop:c5:001",
+       "q": "L'avantage comparatif repose sur :",
+       "choix": [
+        "la quantité produite",
+        "le coût d'opportunité",
+        "le prix de vente",
+        "le nombre de travailleurs"
+       ],
+       "bonne": 1,
+       "explication": "Le producteur qui sacrifie le moins a l'avantage comparatif."
+      },
+      {
+       "id": "question:ecop:c5:002",
+       "q": "Le cultivateur met 6 h pour 1 kg de viande et 1,5 h pour 1 kg de PDT. Le coût d'opportunité de 1 kg de viande est :",
+       "choix": [
+        "0,25 kg de PDT",
+        "4 kg de PDT",
+        "6 kg de PDT",
+        "1,5 kg de PDT"
+       ],
+       "bonne": 1,
+       "explication": "6 / 1,5 = 4."
+      },
+      {
+       "id": "question:ecop:c5:003",
+       "q": "Un individu peut avoir l'avantage absolu dans les deux biens :",
+       "choix": [
+        "vrai",
+        "faux"
+       ],
+       "bonne": 0,
+       "explication": "Mais jamais l'avantage comparatif dans les deux."
+      },
+      {
+       "id": "question:ecop:c5:004",
+       "q": "Grâce à la spécialisation et à l'échange, l'éleveur et le cultivateur :",
+       "choix": [
+        "travaillent plus pour consommer plus",
+        "consomment plus sans travailler plus",
+        "consomment autant",
+        "perdent tous deux"
+       ],
+       "bonne": 1,
+       "explication": "Ils atteignent des niveaux inaccessibles en autarcie."
+      }
+     ],
+     "sources": [
+      {
+       "document": "ECOP1126 - EcoPol Chapitre 4 - Les marchés.pdf",
+       "pages": "slides 1-38"
+      }
+     ]
+    },
+    {
+     "id": "c6",
+     "titre": "Chapitre 5 — L'offre, la demande et le rôle de l'État",
+     "duree": 40,
+     "resume": "## La demande\n\n**Demande** : quantité d'un bien que les agents sont disposés à acquérir à un prix donné. **Quantité demandée** : ce que les acheteurs veulent **et peuvent** payer.\n\n==**Loi de la demande** : toutes choses égales par ailleurs, quand le prix augmente, la quantité demandée diminue== → courbe de demande **décroissante**.\n\n**Déterminants** : le **prix** ; le **revenu** ; le **prix des biens comparables** (substituts) ; les **goûts** ; les **anticipations**. La **demande de marché** est la somme des demandes individuelles et dépend en plus du **nombre d'acheteurs**.\n\n**Déplacement vs glissement** : une variation du **prix** fait **glisser** le long de la courbe ; une variation de tout **autre déterminant** **déplace** la courbe (gauche ou droite).\n\n*Exemple du tabac* : (1) campagnes anti-tabac et messages sanitaires → la courbe de demande se **déplace** vers la gauche ; (2) hausse des **accises** (taxe sur la quantité) → prix plus élevé → **glissement** le long de la courbe.\n\n## L'offre\n\n**Offre** : relation entre les prix possibles et les quantités offertes. **Quantité offerte** : ce que les vendeurs veulent **et peuvent** vendre.\n\n==**Loi de l'offre** : quand le prix augmente, la quantité offerte augmente== → courbe d'offre **croissante**.\n\n**Déterminants** : le **prix** ; le **prix des facteurs de production** (s'il monte, la production est moins rentable → moins d'offre) ; la **technologie** ; les **anticipations**. L'offre de marché dépend en plus du **nombre de vendeurs**. Même logique : seul le prix fait glisser, les autres déterminants déplacent la courbe.\n\n## L'équilibre\n\n**Équilibre** : le prix est tel que **offre = demande** (intersection des courbes) → **prix** et **quantité d'équilibre**. ==Le prix s'ajuste pour équilibrer l'offre et la demande== (loi de l'offre et de la demande).\n\n- **Offre excédentaire (surplus)** : prix au-dessus de l'équilibre (2,50 € : 10 cornets offerts, 4 demandés) → les vendeurs baissent le prix.\n- **Demande excédentaire (pénurie)** : prix en dessous (1,50 € : 10 demandés, 4 offerts) → les vendeurs montent le prix.\n\n**Analyser un changement en trois étapes** : (1) quelle courbe est affectée (offre, demande, les deux) ? (2) dans quel sens se déplace-t-elle ? (3) comparer le nouvel équilibre à l'ancien sur un graphique.\n\n| Événement | Courbe | Prix | Quantité |\n|---|---|---|---|\n| Hausse du prix du sucre (facteur de production de la glace) | offre → gauche | ↑ (2 € → 2,50 €) | ↓ (7 → 4) |\n| Été anormalement chaud | demande → droite | ↑ (2 € → 2,50 €) | ↑ (7 → 10) |\n| Demande ↑ et offre ↓ en même temps | les deux | ↑ | **ambigu** (selon l'ampleur des déplacements) |\n\n## Ce que peut faire l'État\n\n| | Définition | Contraignant si… | Effet |\n|---|---|---|---|\n| **Prix plafond** (lobbying des consommateurs) | prix **maximum** légal | il est **sous** le prix d'équilibre | **pénurie** (demande > offre), rationnement |\n| **Prix plancher** (lobbying des entreprises) | prix **minimum** légal | il est **au-dessus** du prix d'équilibre | **excédent** (offre > demande) |\n\nUn plafond au-dessus de l'équilibre, ou un plancher en dessous, est **non contraignant** : sans effet, le marché reste à l'équilibre.\n\n## Lecture : taxer les marchés publicitaires\n\nPoints à maîtriser : (1) la publicité **accroît la demande agrégée** ; (2) il faut **organiser socialement la sobriété** ; (3) une **taxe ciblée** paraît préférable à une taxe générale ; (4) la seule logique de la taxe ne suffit pas ; (5) l'**obsolescence marketing** ; et les tensions : taxe générale vs ciblée, **autorégulation** vs **régulation publique indépendante**, intérêt privé vs **intérêt collectif**, **information** du consommateur vs **influence** sur les comportements.\n\n*Référence : Mankiw et Taylor, Principes de l'économie, chapitres 4 et 6.*",
+     "pointsCles": [
+      "Loi de la demande : le prix monte, la quantité demandée baisse (courbe décroissante).",
+      "Loi de l'offre : le prix monte, la quantité offerte monte (courbe croissante).",
+      "Le prix fait glisser le long de la courbe ; les autres déterminants la déplacent.",
+      "Déterminants de la demande : prix, revenu, prix des biens comparables, goûts, anticipations (+ nombre d'acheteurs).",
+      "Déterminants de l'offre : prix, coût des facteurs, technologie, anticipations (+ nombre de vendeurs).",
+      "L'équilibre est atteint quand offre = demande ; surplus et pénurie poussent le prix vers l'équilibre.",
+      "Analyse en trois étapes : quelle courbe, quel sens, quel nouvel équilibre.",
+      "Prix plafond contraignant → pénurie ; prix plancher contraignant → excédent.",
+      "Lecture : la publicité gonfle la demande ; une taxe ciblée pour organiser la sobriété."
+     ],
+     "definitions": [
+      {
+       "terme": "Demande",
+       "def": "Quantité d'un bien que les agents sont disposés à acquérir à un niveau de prix déterminé."
+      },
+      {
+       "terme": "Loi de la demande",
+       "def": "Toutes choses égales par ailleurs, quand le prix d'un bien augmente, la quantité demandée diminue."
+      },
+      {
+       "terme": "Substituts",
+       "def": "Biens tels que la baisse du prix de l'un réduit la demande de l'autre."
+      },
+      {
+       "terme": "Offre",
+       "def": "Relation entre les prix possibles et les quantités que les vendeurs veulent et peuvent vendre."
+      },
+      {
+       "terme": "Loi de l'offre",
+       "def": "Toutes choses égales par ailleurs, quand le prix d'un bien augmente, la quantité offerte augmente."
+      },
+      {
+       "terme": "Équilibre",
+       "def": "Situation où le prix est tel que la quantité offerte égale la quantité demandée."
+      },
+      {
+       "terme": "Surplus (offre excédentaire)",
+       "def": "Quantité offerte supérieure à la quantité demandée, quand le prix dépasse l'équilibre."
+      },
+      {
+       "terme": "Pénurie (demande excédentaire)",
+       "def": "Quantité demandée supérieure à la quantité offerte, quand le prix est sous l'équilibre."
+      },
+      {
+       "terme": "Accise",
+       "def": "Taxe qui porte sur la quantité et non sur le prix (ex. tabac)."
+      },
+      {
+       "terme": "Prix plafond",
+       "def": "Prix maximum légal ; contraignant s'il est inférieur au prix d'équilibre, il crée une pénurie."
+      },
+      {
+       "terme": "Prix plancher",
+       "def": "Prix minimum légal ; contraignant s'il est supérieur au prix d'équilibre, il crée un excédent."
+      }
+     ],
+     "fiches": [
+      {
+       "id": "card:ecop:c6:001",
+       "q": "Énonce la loi de la demande.",
+       "r": "Toutes choses égales par ailleurs, quand le prix d'un bien augmente, la quantité demandée diminue."
+      },
+      {
+       "id": "card:ecop:c6:002",
+       "q": "Quels sont les déterminants de la demande individuelle ?",
+       "r": "Le prix, le revenu, le prix des biens comparables, les goûts, les anticipations."
+      },
+      {
+       "id": "card:ecop:c6:003",
+       "q": "Quel déterminant s'ajoute pour la demande de marché ?",
+       "r": "Le nombre d'acheteurs."
+      },
+      {
+       "id": "card:ecop:c6:004",
+       "q": "Quelle différence entre glissement et déplacement de la courbe de demande ?",
+       "r": "Une variation du prix fait glisser le long de la courbe ; une variation d'un autre déterminant déplace la courbe."
+      },
+      {
+       "id": "card:ecop:c6:005",
+       "q": "Quelles sont les deux façons de réduire la demande de tabac ?",
+       "r": "Campagnes et messages sanitaires (déplacement de la courbe) ; hausse des accises (glissement le long de la courbe)."
+      },
+      {
+       "id": "card:ecop:c6:006",
+       "q": "Énonce la loi de l'offre.",
+       "r": "Toutes choses égales par ailleurs, quand le prix d'un bien augmente, la quantité offerte augmente."
+      },
+      {
+       "id": "card:ecop:c6:007",
+       "q": "Quels sont les déterminants de l'offre ?",
+       "r": "Le prix, le prix des facteurs de production, la technologie, les anticipations (+ le nombre de vendeurs pour l'offre de marché)."
+      },
+      {
+       "id": "card:ecop:c6:008",
+       "q": "Que se passe-t-il si le prix est au-dessus de l'équilibre ?",
+       "r": "Offre excédentaire (surplus) : les vendeurs baissent le prix jusqu'à l'équilibre."
+      },
+      {
+       "id": "card:ecop:c6:009",
+       "q": "Que se passe-t-il si le prix est en dessous de l'équilibre ?",
+       "r": "Pénurie (demande excédentaire) : les vendeurs augmentent le prix."
+      },
+      {
+       "id": "card:ecop:c6:010",
+       "q": "Quelles sont les trois étapes pour analyser un changement d'équilibre ?",
+       "r": "Quelle courbe est affectée ; dans quel sens elle se déplace ; comparer le nouvel équilibre à l'ancien."
+      },
+      {
+       "id": "card:ecop:c6:011",
+       "q": "Effet d'une hausse du prix d'un facteur de production ?",
+       "r": "L'offre se déplace vers la gauche : prix d'équilibre ↑, quantité ↓."
+      },
+      {
+       "id": "card:ecop:c6:012",
+       "q": "Effet d'un été très chaud sur le marché de la glace ?",
+       "r": "La demande se déplace vers la droite : prix et quantité d'équilibre ↑."
+      },
+      {
+       "id": "card:ecop:c6:013",
+       "q": "Demande ↑ et offre ↓ en même temps : quel effet ?",
+       "r": "Le prix augmente ; l'effet sur la quantité est ambigu (dépend de l'ampleur des déplacements)."
+      },
+      {
+       "id": "card:ecop:c6:014",
+       "q": "Quand un prix plafond est-il contraignant et que produit-il ?",
+       "r": "Quand il est sous le prix d'équilibre : il crée une pénurie et un rationnement."
+      },
+      {
+       "id": "card:ecop:c6:015",
+       "q": "Quand un prix plancher est-il contraignant et que produit-il ?",
+       "r": "Quand il est au-dessus du prix d'équilibre : il crée un excédent (offre > demande)."
+      },
+      {
+       "id": "card:ecop:c6:016",
+       "q": "Prix du cacao en baisse : effet sur le marché du chocolat ?",
+       "r": "L'offre se déplace vers la droite : prix ↓, quantité ↑."
+      },
+      {
+       "id": "card:ecop:c6:017",
+       "q": "Quels sont les messages clés de la lecture sur la taxe publicitaire ?",
+       "r": "La publicité accroît la demande agrégée ; il faut organiser socialement la sobriété ; une taxe ciblée est préférable ; la taxe seule ne suffit pas."
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:ecop:c6:001",
+       "q": "Une hausse des accises sur le tabac provoque :",
+       "choix": [
+        "un déplacement de la courbe de demande",
+        "un glissement le long de la courbe de demande",
+        "un déplacement de l'offre vers la droite",
+        "aucun effet"
+       ],
+       "bonne": 1,
+       "explication": "Le prix change : on glisse le long de la courbe."
+      },
+      {
+       "id": "question:ecop:c6:002",
+       "q": "Un prix plafond fixé sous le prix d'équilibre crée :",
+       "choix": [
+        "un excédent",
+        "une pénurie",
+        "l'équilibre",
+        "une inflation"
+       ],
+       "bonne": 1,
+       "explication": "La demande dépasse l'offre."
+      },
+      {
+       "id": "question:ecop:c6:003",
+       "q": "Un prix plancher fixé sous le prix d'équilibre est :",
+       "choix": [
+        "contraignant",
+        "non contraignant",
+        "illégal",
+        "source de pénurie"
+       ],
+       "bonne": 1,
+       "explication": "Le marché reste à l'équilibre."
+      },
+      {
+       "id": "question:ecop:c6:004",
+       "q": "Les gens ont moins envie de chocolat. Le prix d'équilibre :",
+       "choix": [
+        "augmente",
+        "diminue",
+        "reste stable",
+        "est indéterminé"
+       ],
+       "bonne": 1,
+       "explication": "La demande se déplace vers la gauche : prix et quantité baissent."
+      },
+      {
+       "id": "question:ecop:c6:005",
+       "q": "Lequel N'est PAS un déterminant de l'offre ?",
+       "choix": [
+        "La technologie",
+        "Le prix des facteurs",
+        "Les goûts des consommateurs",
+        "Les anticipations des vendeurs"
+       ],
+       "bonne": 2,
+       "explication": "Les goûts déterminent la demande."
+      },
+      {
+       "id": "question:ecop:c6:006",
+       "q": "Baisse du prix du cacao ET baisse de l'envie de chocolat : le prix d'équilibre…",
+       "choix": [
+        "augmente",
+        "diminue",
+        "est ambigu",
+        "ne bouge pas"
+       ],
+       "bonne": 1,
+       "explication": "Offre → droite et demande → gauche : le prix baisse ; la quantité est ambiguë."
+      }
+     ],
+     "sources": [
+      {
+       "document": "ECOP1126 - EcoPol Chapitre 5 - Offre et demande.pdf",
+       "pages": "slides 1-38"
+      }
+     ]
+    },
+    {
+     "id": "c7",
+     "titre": "Chapitre 6 — Surplus, efficacité des marchés, taxes et externalités",
+     "duree": 45,
+     "resume": "## Économie du bien-être\n\nAcheteurs et vendeurs ont des intérêts opposés : quel est le « juste » prix ? L'**analyse positive** décrit ce qui est (le prix s'ajuste pour que offre = demande) ; l'**analyse normative** juge ce qui devrait être.\n\n- **Économie du bien-être** : étude de la façon dont l'**allocation des ressources** affecte le bien-être économique.\n- **Efficacité allocative** : la valeur de la production des vendeurs correspond à la valeur que lui confèrent les acheteurs.\n\n## Le surplus du consommateur\n\n**Volonté de payer** (prix de réserve de l'acheteur) : montant **maximum** qu'un acheteur est prêt à payer.\n\n==**Surplus du consommateur** = volonté de payer − prix effectivement payé.== Graphiquement : l'**aire entre la courbe de demande et le prix**.\n\n*Exemple de l'album de Queen* : John 100 $, Paul 80 $, Georges 70 $, Ringo 50 $. À **80 $** : 2 acheteurs, surplus **20 $** ; à **70 $** : 3 acheteurs, surplus **40 $**.\n\nL'**acheteur marginal** est le premier à quitter le marché si le prix monte. ==Plus le prix est bas, plus le surplus du consommateur est grand== : les anciens acheteurs paient moins cher et de nouveaux acheteurs entrent.\n\n## Le surplus du producteur\n\n**Volonté de vendre** (prix de réserve du vendeur) : montant **minimum** auquel il accepte de vendre ; **coût** = valeur de tout ce à quoi il renonce pour produire.\n\n==**Surplus du producteur** = prix reçu − coût de production.== Graphiquement : l'**aire entre le prix et la courbe d'offre**.\n\n*Exemple de la peinture d'une maison* : Olga 900 $, Nancy 800 $, Any 600 $, Mémé 500 $. À **600 $** : 2 peintres, surplus **100 $** ; à **800 $** : 3 peintres, surplus **500 $**.\n\nLe **vendeur marginal** est le premier à quitter le marché si le prix baisse. Plus le prix est élevé, plus le surplus du producteur est grand.\n\n## L'efficience des marchés\n\n==**Surplus total** = SC + SP = valeur pour les acheteurs − coûts des vendeurs.== Une allocation qui **maximise le surplus total** est **efficiente**.\n\n- **Efficience** : rapport entre résultats obtenus et ressources utilisées ; **efficacité** : résultats conformes aux objectifs ; **pertinence** : moyens suffisants et adéquats. Les politiques visent aussi l'**équité**.\n- Le marché concurrentiel attribue les biens aux acheteurs **les plus disposés à payer** et la production aux vendeurs **aux coûts les plus faibles** (ce qui exclut ceux qui ne peuvent pas suivre) → il maximise le surplus total.\n- Mais cela suppose une **concurrence parfaite** et l'absence d'effets sur des tiers. Le **pouvoir de marché** et les **externalités** sont des **déficiences de marché** (incapacité du marché laissé à lui-même d'allouer efficacement les ressources) ; les politiques publiques peuvent alors améliorer la situation.\n\n## Le coût des taxes\n\nUne taxe T rapporte **T × Q** à l'État (routes, police, éducation, aide sociale), mais elle **réduit les quantités échangées** : une partie des gains à l'échange disparaît. ==La baisse des surplus dépasse en général les recettes fiscales : c'est la **perte sèche**.== Plus la taxe est élevée, plus la perte sèche **et** les recettes sont importantes. (Évaluation purement monétaire, qui ignore les bienfaits pour la communauté.)\n\n## Les externalités\n\n**Externalité** : effet direct d'une transaction sur des **tiers**.\n\n- **Négative** (pollution) : la quantité d'équilibre du marché est **supérieure** à l'**optimum social**.\n- **Positive** (retombées technologiques) : la quantité d'équilibre est **inférieure** à l'optimum social.\n\n**Trois instruments publics** :\n\n| Instrument | Mode d'action | Détails |\n|---|---|---|\n| **Réglementation** | contrainte juridique | normes, quotas de production, interdictions ; très efficace mais réduit les profits ; sans alternative, la production baisse |\n| **Taxe / subvention pigouvienne** | incitation par les **prix** | principe **pollueur-payeur** : taxe égale au coût de la pollution ; une subvention valorise une externalité positive |\n| **Marché des droits à polluer** | incitation par les **quantités** | plafond légal d'émissions, quotas négociables ; chaque entreprise compare le prix du quota à son **coût marginal de dépollution** |\n\n*Référence : Mankiw et Taylor, Principes de l'économie, chapitres 7, 8 et 10.*",
+     "pointsCles": [
+      "Analyse positive (ce qui est) vs normative (ce qui devrait être).",
+      "Surplus du consommateur = volonté de payer − prix payé (aire sous la demande, au-dessus du prix).",
+      "Surplus du producteur = prix reçu − coût (aire au-dessus de l'offre, sous le prix).",
+      "Surplus total = valeur pour les acheteurs − coûts ; une allocation qui le maximise est efficiente.",
+      "Le marché concurrentiel est efficient sous hypothèses ; pouvoir de marché et externalités sont des déficiences de marché.",
+      "Une taxe réduit les quantités échangées et crée une perte sèche supérieure aux recettes perdues par les agents.",
+      "Externalité négative : trop produit ; positive : pas assez produit par rapport à l'optimum social.",
+      "Trois instruments : réglementation, taxe/subvention pigouvienne, marché des droits à polluer."
+     ],
+     "definitions": [
+      {
+       "terme": "Économie du bien-être",
+       "def": "Étude de la façon dont l'allocation des ressources affecte le bien-être économique."
+      },
+      {
+       "terme": "Efficacité allocative",
+       "def": "Allocation où la valeur de la production des vendeurs correspond à la valeur que lui confèrent les acheteurs."
+      },
+      {
+       "terme": "Volonté de payer",
+       "def": "Montant maximum qu'un acheteur est prêt à payer pour un bien (prix de réserve)."
+      },
+      {
+       "terme": "Surplus du consommateur",
+       "def": "Volonté de payer moins montant effectivement payé."
+      },
+      {
+       "terme": "Acheteur marginal",
+       "def": "L'acheteur qui quitterait le premier le marché si le prix augmentait."
+      },
+      {
+       "terme": "Volonté de vendre",
+       "def": "Montant minimum auquel un vendeur accepte de vendre (prix de réserve)."
+      },
+      {
+       "terme": "Surplus du producteur",
+       "def": "Montant reçu de la vente moins coûts de production."
+      },
+      {
+       "terme": "Surplus total",
+       "def": "Somme des surplus du consommateur et du producteur = valeur pour les acheteurs − coûts."
+      },
+      {
+       "terme": "Efficience",
+       "def": "Rapport entre les résultats obtenus et les ressources utilisées ; une allocation qui maximise le surplus total est efficiente."
+      },
+      {
+       "terme": "Efficacité",
+       "def": "Le fait que les résultats obtenus correspondent aux objectifs fixés."
+      },
+      {
+       "terme": "Pouvoir de marché",
+       "def": "Situation permettant à une entreprise de dominer un marché grâce à ses avantages sur la concurrence."
+      },
+      {
+       "terme": "Déficience de marché",
+       "def": "Incapacité d'un marché livré à lui-même d'allouer les ressources efficacement."
+      },
+      {
+       "terme": "Perte sèche",
+       "def": "Baisse du surplus total causée par une taxe, au-delà des recettes fiscales."
+      },
+      {
+       "terme": "Externalité",
+       "def": "Effet direct d'une transaction entre un acheteur et un vendeur sur des tiers."
+      },
+      {
+       "terme": "Optimum social",
+       "def": "Quantité qu'il serait bon d'échanger compte tenu des externalités (notion normative)."
+      },
+      {
+       "terme": "Taxe pigouvienne",
+       "def": "Taxe sur une activité génératrice d'externalités négatives, destinée à corriger un résultat de marché inefficace (pollueur-payeur)."
+      },
+      {
+       "terme": "Subvention pigouvienne",
+       "def": "Aide de l'État pour valoriser une externalité positive."
+      },
+      {
+       "terme": "Marché des droits à polluer",
+       "def": "Marché où s'échangent des quotas d'émission, dont la confrontation de l'offre et de la demande fixe le prix."
+      }
+     ],
+     "fiches": [
+      {
+       "id": "card:ecop:c7:001",
+       "q": "Différence entre analyse positive et normative ?",
+       "r": "Positive : décrit ce qui est (faits) ; normative : dit ce qui devrait être (jugement)."
+      },
+      {
+       "id": "card:ecop:c7:002",
+       "q": "Comment calcule-t-on le surplus du consommateur ?",
+       "r": "Volonté de payer − prix effectivement payé ; graphiquement, l'aire entre la courbe de demande et le prix."
+      },
+      {
+       "id": "card:ecop:c7:003",
+       "q": "Album de Queen : John 100, Paul 80, Georges 70, Ringo 50. Surplus à 70 $ ?",
+       "r": "3 acheteurs : (100−70) + (80−70) + (70−70) = 40 $."
+      },
+      {
+       "id": "card:ecop:c7:004",
+       "q": "Qu'est-ce que l'acheteur marginal ?",
+       "r": "Celui qui quitterait le premier le marché si le prix augmentait."
+      },
+      {
+       "id": "card:ecop:c7:005",
+       "q": "Pourquoi une baisse de prix augmente-t-elle le surplus du consommateur ?",
+       "r": "Les anciens acheteurs paient moins cher et de nouveaux acheteurs entrent sur le marché."
+      },
+      {
+       "id": "card:ecop:c7:006",
+       "q": "Comment calcule-t-on le surplus du producteur ?",
+       "r": "Prix reçu − coût de production ; graphiquement, l'aire entre le prix et la courbe d'offre."
+      },
+      {
+       "id": "card:ecop:c7:007",
+       "q": "Peintres : Olga 900, Nancy 800, Any 600, Mémé 500. Surplus à 800 $ ?",
+       "r": "3 peintres : (800−800) + (800−600) + (800−500) = 500 $."
+      },
+      {
+       "id": "card:ecop:c7:008",
+       "q": "Que vaut le surplus total ?",
+       "r": "SC + SP = valeur pour les acheteurs − coûts des vendeurs (le prix s'annule)."
+      },
+      {
+       "id": "card:ecop:c7:009",
+       "q": "Différence entre efficience, efficacité et pertinence ?",
+       "r": "Efficience : résultats / ressources ; efficacité : résultats conformes aux objectifs ; pertinence : moyens suffisants et adéquats pour les objectifs."
+      },
+      {
+       "id": "card:ecop:c7:010",
+       "q": "Pourquoi le marché concurrentiel est-il efficient ?",
+       "r": "Il attribue les biens aux acheteurs les plus disposés à payer et la production aux vendeurs aux coûts les plus faibles, maximisant le surplus total."
+      },
+      {
+       "id": "card:ecop:c7:011",
+       "q": "Quelles sont les deux grandes déficiences de marché ?",
+       "r": "Le pouvoir de marché et les externalités."
+      },
+      {
+       "id": "card:ecop:c7:012",
+       "q": "Qu'est-ce que la perte sèche d'une taxe ?",
+       "r": "La baisse du surplus total au-delà des recettes fiscales : la taxe réduit les quantités échangées et supprime des gains à l'échange."
+      },
+      {
+       "id": "card:ecop:c7:013",
+       "q": "Que se passe-t-il quand la taxe augmente ?",
+       "r": "La perte sèche augmente, et les recettes fiscales aussi (selon le cours)."
+      },
+      {
+       "id": "card:ecop:c7:014",
+       "q": "Externalité négative : quantité de marché vs optimum social ?",
+       "r": "La quantité d'équilibre du marché est supérieure à l'optimum social (ex. pollution)."
+      },
+      {
+       "id": "card:ecop:c7:015",
+       "q": "Externalité positive : quantité de marché vs optimum social ?",
+       "r": "La quantité d'équilibre est inférieure à l'optimum social (ex. retombées technologiques)."
+      },
+      {
+       "id": "card:ecop:c7:016",
+       "q": "Quels sont les trois instruments pour corriger les externalités ?",
+       "r": "Réglementation (contrainte juridique), taxe/subvention pigouvienne (incitation par les prix), marché des droits à polluer (incitation par les quantités)."
+      },
+      {
+       "id": "card:ecop:c7:017",
+       "q": "Qu'est-ce qu'une taxe pigouvienne ?",
+       "r": "Une taxe égale au coût de la pollution (pollueur-payeur), qui réduit l'activité polluante et finance la prise en charge de l'externalité."
+      },
+      {
+       "id": "card:ecop:c7:018",
+       "q": "Comment une entreprise réagit-elle sur un marché des droits à polluer ?",
+       "r": "Elle compare le prix du quota à son coût marginal de dépollution."
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:ecop:c7:001",
+       "q": "Le surplus du consommateur est l'aire :",
+       "choix": [
+        "entre la courbe d'offre et le prix",
+        "entre la courbe de demande et le prix",
+        "sous la courbe d'offre",
+        "entre les deux courbes à gauche de l'équilibre"
+       ],
+       "bonne": 1,
+       "explication": "Volonté de payer moins prix payé."
+      },
+      {
+       "id": "question:ecop:c7:002",
+       "q": "À 80 $, avec John (100 $), Paul (80 $), Georges (70 $), Ringo (50 $), le surplus du consommateur vaut :",
+       "choix": [
+        "10 $",
+        "20 $",
+        "40 $",
+        "100 $"
+       ],
+       "bonne": 1,
+       "explication": "John 20 $ + Paul 0 $."
+      },
+      {
+       "id": "question:ecop:c7:003",
+       "q": "Une allocation qui maximise le surplus total est :",
+       "choix": [
+        "équitable",
+        "efficiente",
+        "pertinente",
+        "normative"
+       ],
+       "bonne": 1,
+       "explication": "L'efficience ne garantit pas l'équité."
+      },
+      {
+       "id": "question:ecop:c7:004",
+       "q": "En présence de pollution, la quantité de marché est :",
+       "choix": [
+        "inférieure à l'optimum social",
+        "supérieure à l'optimum social",
+        "égale à l'optimum social",
+        "nulle"
+       ],
+       "bonne": 1,
+       "explication": "Externalité négative : on produit trop."
+      },
+      {
+       "id": "question:ecop:c7:005",
+       "q": "Le marché des droits à polluer agit par :",
+       "choix": [
+        "les prix",
+        "les quantités",
+        "l'interdiction",
+        "la subvention"
+       ],
+       "bonne": 1,
+       "explication": "Il fixe un plafond d'émissions sous forme de quotas négociables."
+      },
+      {
+       "id": "question:ecop:c7:006",
+       "q": "La perte sèche d'une taxe vient de :",
+       "choix": [
+        "la hausse des quantités échangées",
+        "la baisse des quantités échangées",
+        "la hausse des recettes",
+        "la baisse des coûts"
+       ],
+       "bonne": 1,
+       "explication": "Des échanges mutuellement avantageux n'ont plus lieu."
+      }
+     ],
+     "sources": [
+      {
+       "document": "ECOP1126 - EcoPol Chapitre 6 - Surplus.pdf",
+       "pages": "slides 1-42"
+      }
+     ]
+    },
+    {
+     "id": "c8",
+     "titre": "Chapitre 7 — Le comportement des entreprises et les structures de marché",
+     "duree": 40,
+     "resume": "## Les coûts de production\n\nL'objectif de l'entreprise est de **maximiser son profit** : ==**profit = chiffre d'affaires − coûts**== (le profit correspond au **surplus du producteur**).\n\n- **Coûts fixes** : indépendants du niveau de production ; **coûts variables** : évoluent avec la quantité produite.\n- **Coût moyen** = coût total / production totale.\n- **Coût marginal** = variation du coût total due à **une unité supplémentaire** produite.\n\n## Marchés et concurrence\n\n**Marché** : groupe d'acheteurs (la demande) et de vendeurs (l'offre) d'un bien. Il peut être **organisé** (lieu, heure, enchères) ou **non organisé** (chaque vendeur affiche son prix).\n\n**Marché concurrentiel (concurrence pure et parfaite)** :\n\n1. acheteurs et vendeurs **très nombreux** ;\n2. biens **quasiment identiques** ;\n3. (souvent ajouté) **libre entrée et sortie**.\n\nTous sont **preneurs de prix**. Chaque producteur offre la quantité pour laquelle ==**coût marginal = prix du marché**==.\n\n**Profit nul à long terme (en théorie)** : si les entreprises font du profit, d'autres entrent → l'offre monte, le prix et les profits baissent ; si elles perdent de l'argent, certaines sortent → le prix remonte. À **court terme**, une hausse de la demande fait monter prix et profits ; une baisse crée des pertes ; à long terme, le nombre d'entreprises s'ajuste.\n\n## Le monopole\n\n**Monopole** : **unique vendeur** du marché, né de **barrières à l'entrée** :\n\n1. une ressource essentielle (ex. **brevet** pharmaceutique) ;\n2. un **droit exclusif** accordé par l'État (ex. **Vivaqua**) ;\n3. un producteur unique plus efficace qu'une multitude (**monopole naturel** : fibre sur certains territoires, relais téléphoniques).\n\nLe monopole est **faiseur de prix** : en jouant sur la quantité, il fixe le prix, sous la contrainte de la courbe de demande (trop cher : personne n'achète).\n\n**Coût social** : l'euro de plus payé par le consommateur n'est qu'un **transfert** (le surplus total ne change pas). ==L'inefficience vient du fait que le monopole produit **moins** que la quantité qui maximise le surplus total== : tous n'ont pas accès au produit (ex. médicaments brevetés).\n\n**Réponses publiques** :\n\n1. **Lois antitrust** (« charte de liberté économique ») : s'opposer aux fusions, démanteler, interdire les pratiques anticoncurrentielles — mais il faut distinguer les fusions utiles (réduction des coûts) ;\n2. **Réglementer les prix** (surtout pour les **monopoles naturels**), en laissant un petit bénéfice ;\n3. **Transformer en entreprise publique** (Vivaqua, Infrabel, TEC, Bpost) — beaucoup d'économistes préfèrent la gestion privée (Telenet dans certaines zones), les actionnaires étant incités à réduire les coûts ;\n4. **Ne rien faire**, toutes les mesures étant imparfaites.\n\n## L'oligopole\n\n**Oligopole** : **quelques vendeurs** de produits proches, entre monopole et concurrence parfaite.\n\n- Une **entente** sur les prix et les quantités forme un **cartel**, qui agit comme un monopole — c'est **interdit** par les lois antitrust.\n- Sans accord formel, l'intérêt propre de chacun pousse à **augmenter sa production** pour gagner des parts de marché → la production monte, le **prix dégringole** : l'oligopole n'atteint pas le profit du monopole.\n\n## La concurrence monopolistique\n\nPlusieurs entreprises vendent des produits **similaires mais différenciés** ; trois caractéristiques : **plusieurs entreprises**, **produits différents**, **libre entrée**.\n\n- **Court terme** : chaque firme agit comme un petit **monopole** (elle fixe prix et quantité).\n- **Long terme** : les profits attirent de nouveaux entrants (et les pertes font sortir) jusqu'à un **profit économique nul** → ressemble à la **concurrence parfaite**.\n\n## Résumé des quatre structures\n\n| Combien d'entreprises ? | Produits | Structure |\n|---|---|---|\n| Une | — | **Monopole** |\n| Quelques-unes | — | **Oligopole** |\n| Beaucoup | similaires | **Concurrence parfaite** |\n| Beaucoup | différenciés | **Concurrence monopolistique** |\n\n*Référence : Mankiw et Taylor, Principes de l'économie, chapitres 13 à 17.*",
+     "pointsCles": [
+      "Profit = chiffre d'affaires − coûts ; l'entreprise cherche à le maximiser.",
+      "Coûts fixes vs variables ; coût moyen = coût total / quantité ; coût marginal = coût d'une unité de plus.",
+      "Concurrence parfaite : nombreux agents, biens identiques, libre entrée ; preneurs de prix ; prix = coût marginal ; profit nul à long terme.",
+      "Le monopole naît de barrières à l'entrée : ressource essentielle, droit exclusif, monopole naturel.",
+      "Le monopole est faiseur de prix et produit moins que la quantité qui maximise le surplus total.",
+      "Quatre réponses au monopole : antitrust, réglementation des prix, entreprise publique, ne rien faire.",
+      "Oligopole : le cartel est interdit ; sans accord, chacun produit plus et le prix chute.",
+      "Concurrence monopolistique : monopole à court terme, concurrence parfaite à long terme."
+     ],
+     "definitions": [
+      {
+       "terme": "Profit",
+       "def": "Chiffre d'affaires moins coûts de production ; correspond au surplus du producteur."
+      },
+      {
+       "terme": "Coûts fixes",
+       "def": "Coûts indépendants du niveau de production."
+      },
+      {
+       "terme": "Coûts variables",
+       "def": "Coûts qui évoluent avec la quantité produite."
+      },
+      {
+       "terme": "Coût moyen",
+       "def": "Totalité des coûts divisée par la production totale."
+      },
+      {
+       "terme": "Coût marginal",
+       "def": "Variation du coût total générée par la production d'une unité supplémentaire."
+      },
+      {
+       "terme": "Marché",
+       "def": "Groupe d'acheteurs et de vendeurs d'un bien ou d'un service particulier."
+      },
+      {
+       "terme": "Concurrence pure et parfaite",
+       "def": "Marché avec de très nombreux acheteurs et vendeurs, des biens identiques et (souvent) une libre entrée, où chacun est preneur de prix."
+      },
+      {
+       "terme": "Preneur de prix",
+       "def": "Agent trop petit pour influencer le prix du marché."
+      },
+      {
+       "terme": "Monopole",
+       "def": "Marché sur lequel il n'y a qu'un seul vendeur, faiseur de prix."
+      },
+      {
+       "terme": "Barrière à l'entrée",
+       "def": "Obstacle qui empêche de nouvelles entreprises d'entrer sur un marché (ressource essentielle, droit exclusif, coûts)."
+      },
+      {
+       "terme": "Monopole naturel",
+       "def": "Situation où un producteur unique est plus efficace qu'une multitude de producteurs."
+      },
+      {
+       "terme": "Lois antitrust",
+       "def": "Lois qui préservent la concurrence : opposition aux fusions, démantèlement, interdiction des pratiques anticoncurrentielles."
+      },
+      {
+       "terme": "Oligopole",
+       "def": "Marché avec quelques vendeurs proposant des produits proches."
+      },
+      {
+       "terme": "Cartel",
+       "def": "Groupe d'entreprises liées par une entente sur les prix et les quantités, qui se comporte comme un monopole."
+      },
+      {
+       "terme": "Concurrence monopolistique",
+       "def": "Marché avec plusieurs entreprises, des produits différenciés et une libre entrée."
+      }
+     ],
+     "fiches": [
+      {
+       "id": "card:ecop:c8:001",
+       "q": "Comment se calcule le profit ?",
+       "r": "Chiffre d'affaires − coûts de production."
+      },
+      {
+       "id": "card:ecop:c8:002",
+       "q": "Différence entre coûts fixes et variables ?",
+       "r": "Les coûts fixes ne dépendent pas de la production ; les coûts variables évoluent avec elle."
+      },
+      {
+       "id": "card:ecop:c8:003",
+       "q": "Différence entre coût moyen et coût marginal ?",
+       "r": "Coût moyen = coût total / quantité ; coût marginal = coût supplémentaire d'une unité de plus."
+      },
+      {
+       "id": "card:ecop:c8:004",
+       "q": "Quelles sont les caractéristiques de la concurrence parfaite ?",
+       "r": "Acheteurs et vendeurs très nombreux, biens quasi identiques, (souvent) libre entrée et sortie."
+      },
+      {
+       "id": "card:ecop:c8:005",
+       "q": "Quelle quantité offre une entreprise en concurrence parfaite ?",
+       "r": "Celle pour laquelle son coût marginal égale le prix du marché."
+      },
+      {
+       "id": "card:ecop:c8:006",
+       "q": "Pourquoi le profit tend-il vers zéro à long terme en concurrence parfaite ?",
+       "r": "Les profits attirent de nouvelles entreprises (offre ↑, prix ↓) et les pertes en font sortir, jusqu'à un profit nul."
+      },
+      {
+       "id": "card:ecop:c8:007",
+       "q": "Quelles sont les trois sources des barrières à l'entrée ?",
+       "r": "Une ressource essentielle (brevet), un droit exclusif accordé par l'État (Vivaqua), un monopole naturel (fibre, relais téléphoniques)."
+      },
+      {
+       "id": "card:ecop:c8:008",
+       "q": "Quelle différence essentielle entre un monopole et une entreprise concurrentielle ?",
+       "r": "Le monopole est faiseur de prix ; l'entreprise concurrentielle est preneuse de prix."
+      },
+      {
+       "id": "card:ecop:c8:009",
+       "q": "Où se situe l'inefficience du monopole ?",
+       "r": "Il produit moins que la quantité qui maximise le surplus total ; le prix plus élevé n'est en soi qu'un transfert."
+      },
+      {
+       "id": "card:ecop:c8:010",
+       "q": "Quelles sont les quatre réponses publiques au monopole ?",
+       "r": "Lois antitrust, réglementation des prix, transformation en entreprise publique, ne rien faire."
+      },
+      {
+       "id": "card:ecop:c8:011",
+       "q": "Quelle est la limite des lois antitrust ?",
+       "r": "Certaines fusions réduisent simplement les coûts : l'État doit distinguer les fusions utiles des autres."
+      },
+      {
+       "id": "card:ecop:c8:012",
+       "q": "Pourquoi beaucoup d'économistes préfèrent-ils un monopole naturel privé ?",
+       "r": "Les actionnaires privés sont incités à réduire les coûts ; une gestion publique défaillante est payée par les clients et les contribuables."
+      },
+      {
+       "id": "card:ecop:c8:013",
+       "q": "Qu'est-ce qu'un cartel ?",
+       "r": "Des entreprises liées par une entente sur prix et quantités qui se comportent comme un monopole ; interdit par les lois antitrust."
+      },
+      {
+       "id": "card:ecop:c8:014",
+       "q": "Pourquoi un oligopole sans accord n'atteint-il pas le profit du monopole ?",
+       "r": "Chacun est tenté d'accroître sa production pour gagner des parts de marché ; la production augmente et le prix chute."
+      },
+      {
+       "id": "card:ecop:c8:015",
+       "q": "Quelles sont les trois caractéristiques de la concurrence monopolistique ?",
+       "r": "Plusieurs entreprises, des produits différenciés, une libre entrée."
+      },
+      {
+       "id": "card:ecop:c8:016",
+       "q": "À quoi ressemble la concurrence monopolistique à court et à long terme ?",
+       "r": "Au monopole à court terme ; à la concurrence parfaite à long terme (profit nul)."
+      },
+      {
+       "id": "card:ecop:c8:017",
+       "q": "Quelles questions permettent d'identifier une structure de marché ?",
+       "r": "Combien d'entreprises (une, quelques-unes, beaucoup) ? Si beaucoup, produits similaires (concurrence parfaite) ou différenciés (concurrence monopolistique) ?"
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:ecop:c8:001",
+       "q": "Le coût marginal est :",
+       "choix": [
+        "le coût total divisé par la quantité",
+        "le coût d'une unité supplémentaire",
+        "le coût fixe",
+        "le prix de vente"
+       ],
+       "bonne": 1,
+       "explication": "Le coût moyen est le coût total / quantité."
+      },
+      {
+       "id": "question:ecop:c8:002",
+       "q": "En concurrence parfaite, l'entreprise produit là où :",
+       "choix": [
+        "prix = coût moyen",
+        "prix = coût marginal",
+        "coût fixe = coût variable",
+        "profit maximal du monopole"
+       ],
+       "bonne": 1,
+       "explication": "Pour chaque prix, elle offre la quantité où son coût marginal égale le prix."
+      },
+      {
+       "id": "question:ecop:c8:003",
+       "q": "Vivaqua est un exemple de monopole fondé sur :",
+       "choix": [
+        "un brevet",
+        "un droit exclusif accordé par l'État",
+        "un cartel",
+        "la concurrence monopolistique"
+       ],
+       "bonne": 1,
+       "explication": "Barrière à l'entrée institutionnelle."
+      },
+      {
+       "id": "question:ecop:c8:004",
+       "q": "Plusieurs entreprises, produits différenciés, libre entrée : c'est :",
+       "choix": [
+        "un oligopole",
+        "un monopole",
+        "la concurrence monopolistique",
+        "la concurrence parfaite"
+       ],
+       "bonne": 2,
+       "explication": "Ex. restaurants, marques de vêtements."
+      },
+      {
+       "id": "question:ecop:c8:005",
+       "q": "L'inefficience du monopole tient au fait qu'il :",
+       "choix": [
+        "produit trop",
+        "produit moins que l'optimum de surplus total",
+        "fait des pertes",
+        "est toujours public"
+       ],
+       "bonne": 1,
+       "explication": "Le surcoût payé n'est qu'un transfert."
+      },
+      {
+       "id": "question:ecop:c8:006",
+       "q": "À long terme, en concurrence monopolistique, le profit économique est :",
+       "choix": [
+        "maximal",
+        "nul",
+        "négatif",
+        "égal à celui du monopole"
+       ],
+       "bonne": 1,
+       "explication": "Les entrées de concurrents ramènent le profit à zéro."
+      }
+     ],
+     "sources": [
+      {
+       "document": "ECOP1126 - EcoPol Chapitre 7 - Comportement entreprises.pdf",
+       "pages": "slides 1-40"
+      }
+     ]
+    },
+    {
+     "id": "c9",
+     "titre": "Chapitre 8 — Le marché du travail et le chômage",
+     "duree": 40,
+     "resume": "## Introduction : le chômage en Belgique\n\n- Le pic de chômage lié au Covid a été bien mieux maîtrisé en Europe qu'aux États-Unis.\n- **Wallonie** : un chômage plus élevé n'est **pas** dû à la « mauvaise volonté » : les Wallons font de plus longs trajets et acceptent plus souvent des emplois sous-qualifiés. Causes : **rareté relative d'emplois**, secteurs industriels condamnés, manque de politiques pour développer de nouveaux secteurs.\n- **Bruxelles** : les qualifications d'une grande partie de la population ne correspondent pas à un marché du travail très qualifié (+ discriminations éventuelles à l'embauche) → **pas assez d'emplois peu qualifiés**.\n\n## Mesurer le chômage\n\n**Chômeur** : sans emploi (salarié ou indépendant), **disponible** pour travailler et **cherchant activement** un emploi. Les chômeurs font partie de la **population active**.\n\n- **Population en âge de travailler** : population totale sans les enfants et les plus de 64 ans (statistiques : 15-64 ans vivant en ménage privé ; exclus : service militaire, prisons, établissements psychiatriques).\n- Elle se divise en **population active** (employés + chômeurs) et **inactifs** (étudiants, (pré)retraités, parents au foyer, malades… qui ne travaillent pas et ne cherchent pas).\n\n| Indicateur | Calcul | Ce qu'il indique |\n|---|---|---|\n| **Taux de chômage** | chômeurs / population active | la **difficulté à trouver un emploi** |\n| **Taux d'activité** (participation) | population active / population en âge de travailler | la **volonté de travailler** |\n| **Taux d'emploi** | personnes en emploi / population en âge de travailler | la **disponibilité des emplois** et l'adéquation des compétences |\n\nDeux pays au même taux de chômage peuvent avoir des taux d'emploi différents si leurs taux d'activité diffèrent → il faut **plusieurs indicateurs**. Dans le temps, tenir compte de la démographie, de la politique militaire, des taux d'invalidité et d'incarcération, de l'**arrivée des femmes** sur le marché du travail (1950-1980), de la crise de l'emploi des années 1980.\n\n==Le taux de chômage **sous-estime** le besoin d'emploi== : il exclut les **travailleurs découragés** (qui ne cherchent plus), ceux qui ne sont pas immédiatement disponibles, les **temps partiels sous-employés** et la sous-utilisation des compétences.\n\n## Trois types de chômage (constructions théoriques, pas des statistiques officielles)\n\n| Type | Cause | Remarque |\n|---|---|---|\n| **Frictionnel** (de recherche) | transition entre deux emplois | pas un problème, voire souhaitable (meilleur appariement) |\n| **Structurel** | compétences, expérience, formation ou localisation inadaptées aux besoins des employeurs | changements structurels (ex. travailleurs âgés d'Europe de l'Est après la chute du communisme) ; explique les écarts de la Grèce et de l'Espagne |\n| **Cyclique** | baisse de la **demande globale**, souvent en récession | temporaire ; il fait monter le chômage global en récession et touche plus durement les **jeunes** et les moins instruits (Espagne : +30 points chez les moins de 25 ans après 2007) |\n\n**Faits** : relation **inverse** entre croissance et chômage ; la durée moyenne du chômage évolue comme le taux de chômage ; les fluctuations sont similaires entre groupes ethniques (États-Unis).\n\n## Les causes du chômage\n\n- **Classiques** : syndicats et réglementations (sécurité, avantages sociaux, restrictions de licenciement) **augmentent le coût du travail**.\n- **Salaire minimum** : sujet controversé ; les études empiriques montrent en général qu'une hausse ne s'accompagne **pas** d'une hausse du chômage. **Card et Krueger (1994)** : comparaison des fast-foods du **New Jersey** (salaire minimum passé de 4,25 $ à 5,05 $ en avril 1992) et de **Pennsylvanie** → « rien n'indique que l'augmentation du salaire minimum réduise l'emploi » (**expérience naturelle**).\n- **Keynes** : le chômage vient d'une **demande insuffisante** de biens et services, donc de travail ; il faut augmenter la demande globale ; ==baisser les salaires aggrave la situation== (moins de pouvoir d'achat → moins de ventes → nouveaux licenciements).\n\n## Pourquoi les salaires sont-ils rigides ?\n\n1. **Rigidité des salaires** : peur des grèves, salaires minimums, contrats longs ; une forme d'**assurance** (protection en crise, payée par des salaires plus bas en période faste).\n2. **Salaire d'efficience** : payer plus pour **motiver** ; les salaires « justes » sont supérieurs au salaire d'équilibre et évoluent lentement.\n3. **Modèle insider-outsider** : les salariés en place (**insiders**) forment les nouveaux (**outsiders**) ; baisser les salaires les démotive et rend la rotation coûteuse → les employeurs ne baissent pas les salaires.\n\n**Lecture** : les **Territoires zéro chômeur de longue durée (TZCLD)**.",
+     "pointsCles": [
+      "Le chômage wallon et bruxellois s'explique par la rareté d'emplois et l'inadéquation des qualifications, pas par la mauvaise volonté.",
+      "Chômeur : sans emploi, disponible, cherchant activement ; il fait partie de la population active.",
+      "Taux de chômage (difficulté à trouver), taux d'activité (volonté de travailler), taux d'emploi (disponibilité des emplois).",
+      "Le taux de chômage sous-estime le besoin d'emploi (découragés, temps partiels subis…).",
+      "Trois types : frictionnel, structurel, cyclique.",
+      "Croissance et chômage évoluent en sens inverse ; les jeunes subissent davantage le chômage cyclique.",
+      "Card et Krueger : la hausse du salaire minimum au New Jersey n'a pas réduit l'emploi.",
+      "Keynes : le chômage vient d'une demande insuffisante ; baisser les salaires aggrave la crise.",
+      "Rigidité des salaires : contrats et assurance, salaire d'efficience, insiders-outsiders."
+     ],
+     "definitions": [
+      {
+       "terme": "Chômeur",
+       "def": "Personne sans emploi salarié ou indépendant, disponible pour travailler et cherchant activement un emploi."
+      },
+      {
+       "terme": "Population active",
+       "def": "Personnes en emploi et chômeurs."
+      },
+      {
+       "terme": "Inactifs",
+       "def": "Personnes en âge de travailler ni en emploi ni à la recherche d'un emploi (étudiants, retraités, parents au foyer…)."
+      },
+      {
+       "terme": "Taux de chômage",
+       "def": "Proportion de la population active au chômage."
+      },
+      {
+       "terme": "Taux d'activité",
+       "def": "Proportion de la population en âge de travailler qui est active ; indique la volonté de travailler."
+      },
+      {
+       "terme": "Taux d'emploi",
+       "def": "Proportion de la population en âge de travailler effectivement employée ou indépendante."
+      },
+      {
+       "terme": "Travailleur découragé",
+       "def": "Personne qui veut un emploi mais a renoncé à en chercher ; comptée comme inactive."
+      },
+      {
+       "terme": "Chômage frictionnel",
+       "def": "Chômage de transition entre deux emplois."
+      },
+      {
+       "terme": "Chômage structurel",
+       "def": "Chômage dû à l'inadéquation des compétences, de la formation ou de la localisation aux besoins des employeurs."
+      },
+      {
+       "terme": "Chômage cyclique",
+       "def": "Chômage causé par une baisse de la demande globale, surtout en récession."
+      },
+      {
+       "terme": "Expérience naturelle",
+       "def": "Situation réelle comparable à une expérience contrôlée, utilisée par Card et Krueger pour étudier le salaire minimum."
+      },
+      {
+       "terme": "Salaire d'efficience",
+       "def": "Salaire supérieur à l'équilibre, versé pour motiver les travailleurs."
+      },
+      {
+       "terme": "Modèle insider-outsider",
+       "def": "Les salariés en place forment les nouveaux ; baisser leurs salaires nuit à la productivité, d'où des salaires rigides."
+      }
+     ],
+     "fiches": [
+      {
+       "id": "card:ecop:c9:001",
+       "q": "Pourquoi le chômage wallon n'est-il pas une question de mauvaise volonté ?",
+       "r": "Les Wallons font de plus longs trajets et acceptent des emplois sous-qualifiés : il y a une rareté relative d'emplois et des secteurs industriels condamnés."
+      },
+      {
+       "id": "card:ecop:c9:002",
+       "q": "Comment expliquer le chômage élevé à Bruxelles ?",
+       "r": "Une grande partie de la population n'a pas les qualifications exigées par un marché très qualifié (et subit des discriminations) : il manque d'emplois peu qualifiés."
+      },
+      {
+       "id": "card:ecop:c9:003",
+       "q": "Quelles sont les trois conditions pour être chômeur ?",
+       "r": "Ne pas avoir d'emploi, être disponible, chercher activement un emploi."
+      },
+      {
+       "id": "card:ecop:c9:004",
+       "q": "Comment se calcule le taux de chômage ?",
+       "r": "Chômeurs / population active."
+      },
+      {
+       "id": "card:ecop:c9:005",
+       "q": "Que mesure le taux d'activité ?",
+       "r": "La volonté de travailler : population active / population en âge de travailler."
+      },
+      {
+       "id": "card:ecop:c9:006",
+       "q": "Que mesure le taux d'emploi ?",
+       "r": "La disponibilité des emplois : personnes en emploi / population en âge de travailler."
+      },
+      {
+       "id": "card:ecop:c9:007",
+       "q": "Pourquoi deux pays au même taux de chômage peuvent-ils avoir des taux d'emploi différents ?",
+       "r": "Parce que leurs taux d'activité diffèrent."
+      },
+      {
+       "id": "card:ecop:c9:008",
+       "q": "Qui le taux de chômage oublie-t-il ?",
+       "r": "Les travailleurs découragés, ceux qui ne sont pas immédiatement disponibles, les temps partiels sous-employés et les compétences sous-utilisées."
+      },
+      {
+       "id": "card:ecop:c9:009",
+       "q": "Qu'est-ce que le chômage frictionnel et est-il un problème ?",
+       "r": "Le chômage de transition entre deux emplois ; peu problématique, voire souhaitable pour trouver un emploi adapté."
+      },
+      {
+       "id": "card:ecop:c9:010",
+       "q": "Qu'est-ce que le chômage structurel ?",
+       "r": "Celui qui vient d'une inadéquation entre compétences, formation ou localisation et besoins des employeurs."
+      },
+      {
+       "id": "card:ecop:c9:011",
+       "q": "Qu'est-ce que le chômage cyclique ?",
+       "r": "Celui causé par une baisse de la demande globale, surtout en récession ; il touche plus durement les jeunes et les moins instruits."
+      },
+      {
+       "id": "card:ecop:c9:012",
+       "q": "Quelle relation entre croissance et chômage ?",
+       "r": "Une relation inverse : le chômage monte en récession et baisse en reprise."
+      },
+      {
+       "id": "card:ecop:c9:013",
+       "q": "Que concluent Card et Krueger (1994) ?",
+       "r": "La hausse du salaire minimum au New Jersey (4,25 $ → 5,05 $) n'a pas réduit l'emploi dans les fast-foods par rapport à la Pennsylvanie."
+      },
+      {
+       "id": "card:ecop:c9:014",
+       "q": "Comment les classiques expliquent-ils le chômage ?",
+       "r": "Syndicats et réglementations augmentent le coût de la main-d'œuvre."
+      },
+      {
+       "id": "card:ecop:c9:015",
+       "q": "Comment Keynes explique-t-il le chômage ?",
+       "r": "Par une demande insuffisante de biens et services ; baisser les salaires réduit encore la demande et aggrave la crise."
+      },
+      {
+       "id": "card:ecop:c9:016",
+       "q": "Quelles sont les trois explications de la rigidité des salaires ?",
+       "r": "Rigidités contractuelles (une forme d'assurance), salaire d'efficience, modèle insider-outsider."
+      },
+      {
+       "id": "card:ecop:c9:017",
+       "q": "Explique le modèle insider-outsider.",
+       "r": "Les insiders forment les outsiders ; baisser leurs salaires les démotive et rend la rotation très coûteuse, donc les employeurs évitent de baisser les salaires."
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:ecop:c9:001",
+       "q": "Un étudiant qui ne cherche pas d'emploi est :",
+       "choix": [
+        "chômeur",
+        "inactif",
+        "actif occupé",
+        "travailleur découragé"
+       ],
+       "bonne": 1,
+       "explication": "Il ne fait pas partie de la population active."
+      },
+      {
+       "id": "question:ecop:c9:002",
+       "q": "Le taux de chômage se calcule sur :",
+       "choix": [
+        "la population totale",
+        "la population en âge de travailler",
+        "la population active",
+        "les inactifs"
+       ],
+       "bonne": 2,
+       "explication": "Chômeurs / population active."
+      },
+      {
+       "id": "question:ecop:c9:003",
+       "q": "En récession, le chômage qui augmente surtout est le chômage :",
+       "choix": [
+        "frictionnel",
+        "structurel",
+        "cyclique",
+        "volontaire"
+       ],
+       "bonne": 2,
+       "explication": "Lié à la baisse de la demande globale."
+      },
+      {
+       "id": "question:ecop:c9:004",
+       "q": "L'étude de Card et Krueger porte sur :",
+       "choix": [
+        "le chômage wallon",
+        "le salaire minimum",
+        "le chômage frictionnel",
+        "les insiders"
+       ],
+       "bonne": 1,
+       "explication": "New Jersey vs Pennsylvanie, 1992."
+      },
+      {
+       "id": "question:ecop:c9:005",
+       "q": "Pour Keynes, baisser les salaires en crise :",
+       "choix": [
+        "résout le chômage",
+        "aggrave la situation",
+        "n'a aucun effet",
+        "augmente l'investissement"
+       ],
+       "bonne": 1,
+       "explication": "Moins de pouvoir d'achat, moins de ventes, plus de licenciements."
+      },
+      {
+       "id": "question:ecop:c9:006",
+       "q": "Payer plus que l'équilibre pour motiver les salariés relève de la théorie :",
+       "choix": [
+        "du salaire d'efficience",
+        "des insiders-outsiders",
+        "classique",
+        "monétariste"
+       ],
+       "bonne": 0,
+       "explication": "Les salaires « justes » dépassent le salaire de marché."
+      }
+     ],
+     "sources": [
+      {
+       "document": "ECOP1126 - EcoPol Chapitre 8 - Marché du travail.pdf",
+       "pages": "slides 1-36"
+      }
+     ]
+    },
+    {
+     "id": "c10",
+     "titre": "Chapitre 9 — La monnaie et les politiques monétaires",
+     "duree": 45,
+     "resume": "## Qu'est-ce que la monnaie ?\n\nSans monnaie, il faudrait le **troc**, qui exige une « **double coïncidence des désirs** » et bute sur l'indivisibilité des biens (une vache contre des œufs). Attention : la monnaie n'a pas été « inventée » pour remplacer le troc ; les deux ont coexisté.\n\n**Trois fonctions** :\n\n1. **Moyen d'échange** (acceptée, divisible, transportable, durable) ;\n2. **Réserve de valeur** (l'actif le plus liquide, mais qui perd de la valeur avec l'inflation) ;\n3. **Unité de compte** (mesurer la valeur).\n\nNe sont **pas** de la monnaie au sens économique : le **revenu**, le **patrimoine** (actions, obligations), la **carte de crédit** (un prêt temporaire ; la transaction monétaire a lieu au remboursement).\n\n**Histoire** : monnaies-papier représentant des créances sur des marchandises ; dès la fin des années 1830, monnaies européennes **adossées à l'or** (taux de change fixés par rapport à l'or) ; système effondré avec la **Première Guerre mondiale**. Aux États-Unis, les *Silver Certificates* étaient adossés à l'argent jusqu'en 1958.\n\nAujourd'hui, ==la valeur de l'euro repose sur la **confiance**== : c'est une **monnaie fiduciaire** (pièces et billets) ayant cours légal parce que l'État la déclare telle.\n\n## La masse monétaire\n\n- **Masse monétaire** : quantité de monnaie en circulation — **fiduciaire** (pièces, billets) et **scripturale** (sommes inscrites sur les comptes).\n- **Base monétaire** : pièces et billets en circulation + avoirs des banques commerciales à la banque centrale (réserves).\n- **Agrégats** (liquidité décroissante) : **M1** = monnaie fiduciaire + dépôts à vue ; **M2** = M1 + dépôts sur livrets et à court terme ; **M3** = M2 + dépôts à plus long terme très liquides.\n\n## Le système bancaire\n\nLes banques gagnent de l'argent via les **obligations d'État** (sûres, liquides, taux limités) et surtout leur **portefeuille de prêts** (moins liquides, taux plus élevés).\n\n==**Les banques commerciales créent de la monnaie** : en accordant un prêt, elles créditent le compte de l'emprunteur → M1 augmente.==\n\n**Réserves obligatoires** : les banques doivent détenir une part de leurs dépôts en réserves à la banque centrale, empruntées à d'autres banques ou à la BCE (contre garantie et intérêt), dans un certain délai. Retirer des billets au distributeur n'augmente pas M1.\n\n**Multiplicateur monétaire** = offre monétaire / base monétaire. Avec 1 % de réserves, 1 € de réserves peut soutenir 100 € de dépôts ; en pratique, le rapport M1 / base monétaire est bien plus faible (une partie est retirée en espèces).\n\n## Monnaie et finance\n\n- **Bulle spéculative** : hausse rapide du prix d'un actif alimentée par l'**anticipation de nouvelles hausses**, pas par sa valeur fondamentale ; croissance instable et courte, puis crise (faillites, crédit ↓, chômage).\n- **Tulipomanie** (Pays-Bas, 1636-1637) : pic en mars 1637, certains bulbes valaient plusieurs années de revenu d'un artisan, puis effondrement.\n- **Grande Modération** (depuis les années 1980) : économies plus stables, mais hausse de la dette publique, des prix immobiliers et des inégalités ; la **dette privée** grimpe (inégalités + **déréglementation financière**) ; fort **effet de levier** des banques et notes trop élevées des **agences de notation** sur des actifs hypothécaires risqués.\n- Pourquoi on ne retient pas les leçons : raisons **psychologiques** (optimisme aveugle, comportement grégaire, « esprit animal ») et **économiques** (crédit facile, emprunts pour acheter actions et immobilier).\n\n## La BCE\n\nPrésidée par **Christine Lagarde** (depuis 2019), siège à **Francfort**. ==Mandat principal : **la stabilité des prix**== (inflation annuelle inférieure à, mais proche de **2 %** selon le cours) ; sans préjudice de cet objectif, soutenir les politiques économiques de l'Union (emploi, croissance).\n\n**Banques centrales nationales** : appliquent les décisions de la BCE, traitent avec les banques nationales, délivrent les espèces, informent la BCE, votent les décisions de taux. BCE + BCN = **Eurosystème**.\n\n## La politique monétaire\n\n**Instrument principal** : le **taux de refinancement principal**, taux auquel les banques empruntent à la BCE (prêts d'environ une semaine contre garanties).\n\n| Situation | Action de la BCE | Transmission |\n|---|---|---|\n| Inflation trop haute | **hausse** des taux | refinancement plus cher → crédit resserré, taux clients ↑ → moins de crédit |\n| Inflation trop faible | **baisse** des taux | prêts plus nombreux et moins chers → dépenses ↑ (mais la BCE ne peut **forcer** ni prêter ni emprunter) |\n\n**Corridor de taux** : **facilité de prêt marginal** (plafond, taux légèrement supérieur) et **facilité de dépôt** (plancher, rémunère les réserves excédentaires) ; le taux du marché monétaire reste proche du taux de refinancement, dans ce corridor.\n\n**Nouveaux instruments depuis la crise de l'euro** : prêts à très longue échéance ; achats d'obligations d'État et d'entreprises = **assouplissement quantitatif (QE)** (abaisser les taux longs, pousser au crédit et aux actifs plus risqués) ; taux de dépôt **négatif**.\n\n- **Politique expansionniste / accommodante** (risque de récession) : masse monétaire ↑, taux ↓.\n- **Politique restrictive** (risque de surchauffe inflationniste) : masse monétaire limitée, taux ↑.\n\n**Lecture** : les **monnaies complémentaires**.",
+     "pointsCles": [
+      "Trois fonctions de la monnaie : moyen d'échange, réserve de valeur, unité de compte.",
+      "Revenu, patrimoine et carte de crédit ne sont pas de la monnaie au sens économique.",
+      "L'étalon-or s'effondre avec la Première Guerre ; l'euro est une monnaie fiduciaire fondée sur la confiance.",
+      "M1 (fiduciaire + dépôts à vue) ⊂ M2 ⊂ M3, par liquidité décroissante.",
+      "Les banques commerciales créent de la monnaie en accordant des crédits.",
+      "Multiplicateur monétaire = offre monétaire / base monétaire.",
+      "Bulles spéculatives : tulipomanie, Grande Modération et déréglementation financière.",
+      "BCE : mandat de stabilité des prix (inflation proche de 2 %) ; Eurosystème = BCE + BCN.",
+      "Taux de refinancement principal ; corridor entre facilité de dépôt et facilité de prêt marginal ; QE.",
+      "Politique expansionniste (taux ↓) contre récession ; restrictive (taux ↑) contre l'inflation."
+     ],
+     "definitions": [
+      {
+       "terme": "Double coïncidence des désirs",
+       "def": "Condition du troc : trouver quelqu'un qui veut exactement l'échange inverse du sien."
+      },
+      {
+       "terme": "Monnaie fiduciaire",
+       "def": "Pièces et billets dont la valeur repose sur la confiance et le cours légal fixé par l'État."
+      },
+      {
+       "terme": "Monnaie scripturale",
+       "def": "Sommes inscrites sur les comptes bancaires par jeu d'écriture."
+      },
+      {
+       "terme": "Masse monétaire",
+       "def": "Quantité de monnaie en circulation dans une zone économique."
+      },
+      {
+       "terme": "Base monétaire",
+       "def": "Billets et pièces en circulation et avoirs des banques commerciales auprès de la banque centrale."
+      },
+      {
+       "terme": "M1",
+       "def": "Monnaie fiduciaire et dépôts à vue : actifs immédiatement utilisables pour payer."
+      },
+      {
+       "terme": "Réserves obligatoires",
+       "def": "Part des dépôts que les banques commerciales doivent détenir à la banque centrale."
+      },
+      {
+       "terme": "Multiplicateur monétaire",
+       "def": "Rapport entre l'offre monétaire et la base monétaire."
+      },
+      {
+       "terme": "Bulle spéculative",
+       "def": "Hausse rapide du prix d'un actif alimentée par l'anticipation de nouvelles hausses plutôt que par sa valeur fondamentale."
+      },
+      {
+       "terme": "Grande Modération",
+       "def": "Plus grande stabilité des économies occidentales depuis les années 1980, accompagnée d'une hausse des dettes et des inégalités."
+      },
+      {
+       "terme": "Eurosystème",
+       "def": "Ensemble formé par la BCE et les banques centrales nationales de la zone euro."
+      },
+      {
+       "terme": "Taux de refinancement principal",
+       "def": "Taux auquel les banques commerciales empruntent des liquidités à la BCE ; principal taux directeur."
+      },
+      {
+       "terme": "Facilité de prêt marginal",
+       "def": "Prêt de la BCE aux banques à un taux légèrement supérieur au refinancement : plafond du corridor."
+      },
+      {
+       "terme": "Facilité de dépôt",
+       "def": "Dépôt rémunéré des réserves excédentaires des banques à la BCE : plancher du corridor."
+      },
+      {
+       "terme": "Assouplissement quantitatif (QE)",
+       "def": "Achat d'actifs financiers par la BCE, qui crée des réserves et abaisse les taux à long terme."
+      },
+      {
+       "terme": "Politique monétaire expansionniste",
+       "def": "Augmenter la masse monétaire et baisser les taux pour stimuler l'activité."
+      },
+      {
+       "terme": "Politique monétaire restrictive",
+       "def": "Limiter la masse monétaire et augmenter les taux pour freiner l'activité et l'inflation."
+      }
+     ],
+     "fiches": [
+      {
+       "id": "card:ecop:c10:001",
+       "q": "Quels problèmes pose le troc ?",
+       "r": "La double coïncidence des désirs et l'indivisibilité de certains biens."
+      },
+      {
+       "id": "card:ecop:c10:002",
+       "q": "Quelles sont les trois fonctions de la monnaie ?",
+       "r": "Moyen d'échange, réserve de valeur, unité de compte."
+      },
+      {
+       "id": "card:ecop:c10:003",
+       "q": "Pourquoi payer par carte de crédit n'est-il pas utiliser de la monnaie ?",
+       "r": "C'est un prêt temporaire ; la transaction monétaire a lieu lors du remboursement depuis le compte courant."
+      },
+      {
+       "id": "card:ecop:c10:004",
+       "q": "Quand le système des monnaies adossées à l'or s'effondre-t-il ?",
+       "r": "Avec le début de la Première Guerre mondiale."
+      },
+      {
+       "id": "card:ecop:c10:005",
+       "q": "Sur quoi repose la valeur de l'euro ?",
+       "r": "Sur la confiance : la certitude qu'il sera accepté en échange (monnaie fiduciaire)."
+      },
+      {
+       "id": "card:ecop:c10:006",
+       "q": "Différence entre monnaie fiduciaire et scripturale ?",
+       "r": "Fiduciaire : pièces et billets ; scripturale : sommes inscrites sur les comptes."
+      },
+      {
+       "id": "card:ecop:c10:007",
+       "q": "Que contiennent M1, M2 et M3 ?",
+       "r": "M1 : fiduciaire + dépôts à vue ; M2 : M1 + livrets et dépôts courts ; M3 : M2 + dépôts plus longs très liquides."
+      },
+      {
+       "id": "card:ecop:c10:008",
+       "q": "Comment une banque commerciale crée-t-elle de la monnaie ?",
+       "r": "En accordant un prêt, elle crédite le compte de l'emprunteur : M1 augmente."
+      },
+      {
+       "id": "card:ecop:c10:009",
+       "q": "Qu'est-ce que l'obligation de réserve ?",
+       "r": "Les banques doivent détenir une part de leurs dépôts en réserves à la banque centrale, empruntées à d'autres banques ou à la BCE."
+      },
+      {
+       "id": "card:ecop:c10:010",
+       "q": "Avec 1 % de réserves obligatoires, combien de dépôts 1 € de réserves peut-il soutenir ?",
+       "r": "100 € en théorie ; en pratique, le rapport M1 / base monétaire est bien plus faible."
+      },
+      {
+       "id": "card:ecop:c10:011",
+       "q": "Qu'est-ce qu'une bulle spéculative ?",
+       "r": "Une hausse rapide du prix d'un actif, alimentée par l'anticipation de nouvelles hausses et non par sa valeur fondamentale."
+      },
+      {
+       "id": "card:ecop:c10:012",
+       "q": "Qu'est-ce que la tulipomanie ?",
+       "r": "Une bulle aux Pays-Bas (1636-1637), avec un pic en mars 1637, puis l'effondrement du marché et la ruine de nombreux spéculateurs."
+      },
+      {
+       "id": "card:ecop:c10:013",
+       "q": "Quels problèmes accompagnent la Grande Modération ?",
+       "r": "Hausse de la dette publique, des prix immobiliers, des inégalités et de la dette privée, favorisée par la déréglementation financière."
+      },
+      {
+       "id": "card:ecop:c10:014",
+       "q": "Pourquoi ne tire-t-on pas les leçons des bulles ?",
+       "r": "Raisons psychologiques (optimisme aveugle, comportement grégaire, esprit animal) et économiques (crédit facile, emprunts pour acheter des actifs)."
+      },
+      {
+       "id": "card:ecop:c10:015",
+       "q": "Quel est le mandat principal de la BCE ?",
+       "r": "La stabilité des prix (inflation proche de 2 %) ; ensuite seulement, soutenir les politiques économiques de l'Union."
+      },
+      {
+       "id": "card:ecop:c10:016",
+       "q": "Qu'est-ce que l'Eurosystème ?",
+       "r": "La BCE et les banques centrales nationales de la zone euro."
+      },
+      {
+       "id": "card:ecop:c10:017",
+       "q": "Que fait la BCE si l'inflation augmente ?",
+       "r": "Elle relève ses taux : le refinancement coûte plus cher, les banques resserrent le crédit et augmentent leurs taux."
+      },
+      {
+       "id": "card:ecop:c10:018",
+       "q": "Quelle est la limite d'une baisse des taux de la BCE ?",
+       "r": "Elle ne peut pas forcer les banques à prêter ni les ménages et entreprises à emprunter."
+      },
+      {
+       "id": "card:ecop:c10:019",
+       "q": "Qu'est-ce que le corridor des taux ?",
+       "r": "L'intervalle entre la facilité de dépôt (plancher) et la facilité de prêt marginal (plafond), dans lequel reste le taux du marché monétaire."
+      },
+      {
+       "id": "card:ecop:c10:020",
+       "q": "Quels nouveaux instruments la BCE utilise-t-elle depuis la crise de l'euro ?",
+       "r": "Prêts à très longue échéance, achats d'obligations (assouplissement quantitatif), taux de dépôt négatif."
+      },
+      {
+       "id": "card:ecop:c10:021",
+       "q": "Différence entre politique monétaire expansionniste et restrictive ?",
+       "r": "Expansionniste : masse monétaire ↑, taux ↓, contre la récession ; restrictive : masse monétaire limitée, taux ↑, contre la surchauffe inflationniste."
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:ecop:c10:001",
+       "q": "Laquelle N'est PAS une fonction de la monnaie ?",
+       "choix": [
+        "Moyen d'échange",
+        "Réserve de valeur",
+        "Unité de compte",
+        "Source de revenu"
+       ],
+       "bonne": 3,
+       "explication": "Le revenu n'est pas de la monnaie au sens économique."
+      },
+      {
+       "id": "question:ecop:c10:002",
+       "q": "Quand une banque accorde un prêt, M1 :",
+       "choix": [
+        "diminue",
+        "augmente",
+        "ne change pas",
+        "devient négatif"
+       ],
+       "bonne": 1,
+       "explication": "Le crédit crée de la monnaie scripturale."
+      },
+      {
+       "id": "question:ecop:c10:003",
+       "q": "Le principal taux directeur de la BCE est :",
+       "choix": [
+        "le taux de la facilité de dépôt",
+        "le taux de refinancement principal",
+        "le taux hypothécaire",
+        "le taux de change"
+       ],
+       "bonne": 1,
+       "explication": "Taux des opérations principales de refinancement."
+      },
+      {
+       "id": "question:ecop:c10:004",
+       "q": "Face à une inflation trop élevée, la BCE :",
+       "choix": [
+        "baisse ses taux",
+        "relève ses taux",
+        "imprime des billets",
+        "achète des obligations"
+       ],
+       "bonne": 1,
+       "explication": "Politique restrictive."
+      },
+      {
+       "id": "question:ecop:c10:005",
+       "q": "L'assouplissement quantitatif consiste à :",
+       "choix": [
+        "relever les taux",
+        "acheter des actifs financiers",
+        "augmenter les réserves obligatoires",
+        "vendre de l'or"
+       ],
+       "bonne": 1,
+       "explication": "Ce qui crée des réserves et baisse les taux longs."
+      },
+      {
+       "id": "question:ecop:c10:006",
+       "q": "Le système de monnaies adossées à l'or s'effondre :",
+       "choix": [
+        "en 1830",
+        "en 1914",
+        "en 1958",
+        "en 1999"
+       ],
+       "bonne": 1,
+       "explication": "Avec le début de la Première Guerre mondiale."
+      },
+      {
+       "id": "question:ecop:c10:007",
+       "q": "La présidente de la BCE depuis 2019 est :",
+       "choix": [
+        "Ursula von der Leyen",
+        "Christine Lagarde",
+        "Mario Draghi",
+        "Angela Merkel"
+       ],
+       "bonne": 1,
+       "explication": "Siège à Francfort."
+      }
+     ],
+     "sources": [
+      {
+       "document": "ECOP1126 - EcoPol Chapitre 9 - La monnaie.pdf",
+       "pages": "slides 1-42"
+      }
+     ]
+    },
+    {
+     "id": "c11",
+     "titre": "Lectures obligatoires (matière d'examen)",
+     "duree": 50,
+     "resume": "> ==Les lectures et les questions sur les lectures sont matière d'examen.==\n\n## 1. Ostrom : par-delà la tragédie des communs (Cardenas et Sethi)\n\n- **Elinor Ostrom** (1933-2012), politologue, **prix Nobel d'économie 2009** (avec Oliver Williamson) : première femme présidente de l'APSA, seule femme et seule politologue Nobel d'économie à l'époque.\n- **Coase vs Ostrom** (exemple de l'écrivain et des étudiants bruyants) : pour **Coase**, il suffit de définir clairement les droits de propriété ; si les coûts de transaction sont négligeables, la négociation mène à une allocation efficace, peu importe à qui va le droit (**théorème de Coase**). Pour **Ostrom**, les usagers peuvent s'organiser par des **normes sociales** et des **sanctions décentralisées** : l'**auto-gouvernance** ; une intervention extérieure peut même détruire ces règles locales.\n- **Hardin (1968), « tragédie des communs »** : chaque éleveur ajoute une bête tant que c'est dans son intérêt → pâturage détruit ; seules solutions : **privatiser** ou **réglementer** par l'État. ==Ostrom a montré que ce n'est pas une fatalité.==\n- Distinction clé : **propriété commune** (communauté définie d'usagers avec règles : pêcheries côtières, pâturages, forêts) vs **libre accès** (exclusion impossible sans l'État : océans, atmosphère).\n- Méthodes très variées : études de cas, statistiques, théorie des jeux, expériences de laboratoire, terrain (patrouilles de police à Chicago, réseau **IFRI** sur les forêts, irrigation au Népal où les systèmes gérés par les agriculteurs font mieux que ceux de l'État).\n- ***Governing the Commons* (1990)** — principes d'une gestion durable : **limites clairement définies**, **règles explicites**, **surveillance** efficace, **sanctions graduelles**, **mécanismes de résolution des conflits**, **large participation**, **autonomie** relative vis-à-vis des autorités ; gouvernance **polycentrique** (règles emboîtées à plusieurs niveaux).\n- Contre Hobbes (« les conventions sans l'épée ne sont que des mots ») : les conventions, même sans l'épée, rendent possible l'auto-gouvernance ; les gens acceptent de payer pour **punir** les tricheurs ; importance de la **communication**, de la **confiance** et de la **réciprocité**. Travaux récents : climat et **communs numériques** (savoirs).\n\n## 2. L'économie du Donut (Oxfam-Magasins du monde, 2020)\n\n- Concept de **Kate Raworth** (**2012**) : les balises sociales et environnementales de toute activité humaine.\n- **Anneau intérieur = plancher social** : l'essentiel pour une vie digne (alimentation, santé, éducation, logement, énergie, revenu, égalité des sexes, voix…).\n- **Anneau extérieur = plafond environnemental** : la pression maximale sur les systèmes vitaux (climat, biodiversité, azote, ozone…), inspiré des **9 limites planétaires**.\n- ==**Entre les deux : l'« espace sûr et juste pour l'humanité ».**==\n- Constat : au moins **3 des 9 limites** dépassées (climat, azote, biodiversité) ; près de 13 % de la population a faim ; ~10 % de la population cause près de la moitié des émissions de CO2 (« carbonistas ») : réduire les **inégalités** est la clé pour progresser aux deux limites. Aucun pays ne satisfait les besoins de base tout en restant dans des limites durables (université de Leeds).\n- **Contre la croissance** : « Dépasser cette obsession pour la croissance est une des transformations les plus difficiles et les plus nécessaires de notre siècle. »\n- **7 principes** de *Doughnut Economics* ; le premier : **modifier notre perception du progrès** (économie **circulaire** plutôt que linéaire, renouvelables détenues par des collectivités, entreprises détenues par leurs salariés).\n\n## 3. Oxfam : Résister au règne des plus riches (janvier 2026)\n\n- La fortune des milliardaires a augmenté en 2025 **trois fois plus vite** que la moyenne des cinq années précédentes ; plus de **3 000 milliardaires** ; les **12** plus riches possèdent plus que la moitié la plus pauvre de l'humanité.\n- Les pays les plus inégalitaires ont jusqu'à **7 fois plus de risques d'érosion démocratique** ; les milliardaires ont **4 000 fois** plus de chances d'occuper un poste politique.\n- **Oligarchie ou démocratie ?** (juge Brandeis : on peut avoir la démocratie ou une richesse concentrée, « mais pas les deux »).\n- **Capture politique** : financement électoral (2024 : 1 dollar sur 6 des campagnes américaines venait de 100 familles milliardaires), propriété des **médias** (plus de la moitié des grands groupes), des **réseaux sociaux** et de l'**IA**.\n- Les gouvernements choisissent la **répression plutôt que la redistribution** (Kenya 2024) et désignent des boucs émissaires (migrants).\n- **Limitarisme** (Ingrid Robeyns) : un « plafond d'extrême richesse » (10 millions de dollars).\n- **Recommandations** : (1) réduire radicalement les inégalités (plans nationaux, panel international sur les inégalités) ; (2) **limiter le pouvoir politique des ultra-riches** : taxer les ultra-riches, réguler le lobbying et le pantouflage, interdire leur financement des campagnes, indépendance des médias, transparence des algorithmes ; (3) **bâtir le pouvoir politique du plus grand nombre** (syndicats, société civile).\n\n## 4. Taxer les marchés publicitaires pour consommer autrement (Dupré et Fossard)\n\n- La publicité est mal régulée : **autorégulation** (ARPP en France, sans pouvoir de sanction) ; taxes faibles (~2,5 %).\n- Contre la théorie dominante (publicité = simple information, jeu à somme nulle entre marques) : ==la publicité **accroît la demande agrégée**==. En France (1992-2019) : consommation +5,3 %, taux d'épargne ↓, marges ↑, **heures travaillées +6,6 %** (on travaille plus pour consommer plus).\n- **Obsolescence marketing** : avant d'être technique, l'obsolescence est suscitée par la publicité (près de 9 téléphones sur 10 remplacés avant d'être défectueux).\n- **Sobriété** (GIEC) : agir sur la **demande** ; ne pas culpabiliser les consommateurs : il faut **organiser socialement la sobriété**.\n- Marché énorme (~34 milliards € en 2019) et **concentré** (moins de 500 annonceurs = deux tiers des dépenses ; SUV, fast-food, sodas).\n- Simulation : taxe générale (5 % ou 8 %) vs taxe ciblée (8 % sur « publicité et relations publiques »). ==La **taxe ciblée** est préférable== : la taxe générale frappe surtout le marketing promotionnel, qui aide parfois les plus démunis via les prix.\n- Mais ==la taxe ne suffit pas== : **autorité de régulation indépendante**, données publiques, **interdiction** de la publicité pour les produits les plus nocifs (énergies fossiles, voitures thermiques, avion, nutri-score D/E).\n\n## 5. Territoires zéro chômeur de longue durée (CSCE, 2019)\n\n- Expérimentation française depuis **2016** (10 territoires), portée par **ATD Quart Monde** ; projets pilotes envisagés en Wallonie et à Bruxelles.\n- **Trois credos** : personne n'est inemployable ; ce n'est pas le **travail** qui manque mais l'**emploi** ; ce n'est pas l'argent qui manque (le chômage de longue durée coûte cher à la collectivité).\n- Principes : **Entreprises à but d'emploi (EBE)**, CDI, temps choisi, participation volontaire, ancrage local, activités utiles non concurrentes.\n- **Critiques** : sélection de fait (allocataires, profils qualifiés, 30 % de rentabilité exigée), places limitées (« zéro chômeur » = poudre aux yeux), salaire au **SMIC**, CDI liés à une expérience de 5 ans, absentéisme élevé (15 %), management déficient ; risque de reproduire les dérives du **workfare**. Conditions minimales : salaires aux **barèmes sectoriels**, temps plein, priorité aux personnes sans allocation.\n\n*Annoncée au plan du cours mais absente du dossier Drive : la lecture sur les monnaies complémentaires.*",
+     "pointsCles": [
+      "Les lectures et les questions sur les lectures sont matière d'examen.",
+      "Ostrom (Nobel 2009) : les communautés peuvent gérer durablement les communs par l'auto-gouvernance, contre la « tragédie » de Hardin.",
+      "Coase : des droits de propriété clairs et des coûts de transaction faibles suffisent pour une allocation efficace.",
+      "Principes d'Ostrom : limites claires, règles explicites, surveillance, sanctions graduelles, résolution des conflits, participation, autonomie.",
+      "Donut (Raworth, 2012) : un espace sûr et juste entre plancher social et plafond environnemental.",
+      "Oxfam 2026 : la concentration de la richesse devient concentration du pouvoir politique et menace la démocratie.",
+      "La publicité accroît la demande agrégée et le temps de travail ; une taxe ciblée est préférable, mais il faut aussi réguler et interdire.",
+      "TZCLD : idée généreuse (le travail ne manque pas, l'emploi si) mais nombreuses limites (sélection, SMIC, places limitées)."
+     ],
+     "definitions": [
+      {
+       "terme": "Théorème de Coase",
+       "def": "Si les droits de propriété sont clairement définis et les coûts de transaction négligeables, la négociation aboutit à une allocation efficace, quel que soit le détenteur du droit."
+      },
+      {
+       "terme": "Tragédie des communs",
+       "def": "Thèse de Hardin (1968) : une ressource partagée est surexploitée car chacun maximise son intérêt personnel."
+      },
+      {
+       "terme": "Auto-gouvernance",
+       "def": "Gestion d'une ressource commune par ses usagers grâce à des règles et des normes qu'ils font respecter eux-mêmes (Ostrom)."
+      },
+      {
+       "terme": "Propriété commune / libre accès",
+       "def": "Propriété commune : communauté définie d'usagers avec des règles ; libre accès : ressource dont l'exclusion est impossible sans l'État."
+      },
+      {
+       "terme": "Gouvernance polycentrique",
+       "def": "Système de décisions à plusieurs niveaux emboîtés : règles de routine, décisions collectives, choix constitutionnels."
+      },
+      {
+       "terme": "Plancher social",
+       "def": "Anneau intérieur du Donut : ce qui est essentiel pour une vie digne (alimentation, santé, éducation…)."
+      },
+      {
+       "terme": "Plafond environnemental",
+       "def": "Anneau extérieur du Donut : la pression maximale que l'humanité peut exercer sur les systèmes vitaux de la Terre."
+      },
+      {
+       "terme": "Espace sûr et juste",
+       "def": "Zone entre plancher social et plafond environnemental où l'humanité devrait se situer."
+      },
+      {
+       "terme": "Limitarisme",
+       "def": "Idée d'Ingrid Robeyns : au-delà d'un plafond, la richesse privée est moralement injustifiable et politiquement dangereuse."
+      },
+      {
+       "terme": "Demande agrégée",
+       "def": "Volume total de consommation d'une économie ou d'un secteur, que la publicité fait augmenter."
+      },
+      {
+       "terme": "Obsolescence marketing",
+       "def": "Selon la lecture, obsolescence suscitée par la publicité et le marketing qui nous convainquent de remplacer des biens encore fonctionnels."
+      },
+      {
+       "terme": "Sobriété (GIEC)",
+       "def": "Mesures qui évitent l'utilisation d'énergie, de matériaux, de terres et d'eau tout en garantissant le bien-être de tous dans les limites planétaires."
+      },
+      {
+       "terme": "Entreprise à but d'emploi (EBE)",
+       "def": "Employeur créé dans les TZCLD pour engager en CDI les chômeurs de longue durée volontaires d'un territoire."
+      }
+     ],
+     "fiches": [
+      {
+       "id": "card:ecop:c11:001",
+       "q": "Pourquoi Ostrom a-t-elle reçu le Nobel d'économie en 2009 ?",
+       "r": "Pour son analyse de la gouvernance économique, en particulier des biens communs."
+      },
+      {
+       "id": "card:ecop:c11:002",
+       "q": "Différence entre les approches de Coase et d'Ostrom ?",
+       "r": "Coase : définir clairement les droits de propriété et laisser négocier ; Ostrom : les usagers s'auto-gouvernent par des normes et des sanctions décentralisées."
+      },
+      {
+       "id": "card:ecop:c11:003",
+       "q": "Que dit Hardin en 1968 ?",
+       "r": "Une ressource partagée est surexploitée (tragédie des communs) ; seules la privatisation ou la régulation étatique l'évitent."
+      },
+      {
+       "id": "card:ecop:c11:004",
+       "q": "Différence entre propriété commune et libre accès ?",
+       "r": "Propriété commune : communauté définie avec règles (pêcheries côtières, forêts) ; libre accès : exclusion impossible sans l'État (océans, atmosphère)."
+      },
+      {
+       "id": "card:ecop:c11:005",
+       "q": "Quels sont les principes d'Ostrom pour gérer durablement un commun ?",
+       "r": "Limites claires, règles explicites, surveillance efficace, sanctions graduelles, résolution des conflits, large participation, autonomie relative."
+      },
+      {
+       "id": "card:ecop:c11:006",
+       "q": "Pourquoi le modèle des jeux répétés ne satisfait-il pas Ostrom ?",
+       "r": "Presque tout résultat peut y être un équilibre ; et en pratique les gens paient pour punir les tricheurs, ce qui contredit l'intérêt purement personnel."
+      },
+      {
+       "id": "card:ecop:c11:007",
+       "q": "Que représente le Donut de Kate Raworth ?",
+       "r": "Un anneau intérieur (plancher social) et un anneau extérieur (plafond environnemental), avec entre les deux l'espace sûr et juste pour l'humanité."
+      },
+      {
+       "id": "card:ecop:c11:008",
+       "q": "Quelles limites planétaires sont déjà dépassées selon le dossier Donut ?",
+       "r": "Au moins trois : changement climatique, cycle de l'azote, perte de biodiversité."
+      },
+      {
+       "id": "card:ecop:c11:009",
+       "q": "En quoi le Donut s'oppose-t-il à la croissance ?",
+       "r": "Il demande de dépasser l'obsession de la croissance et de mesurer le progrès autrement (premier des 7 principes : changer notre perception du progrès)."
+      },
+      {
+       "id": "card:ecop:c11:010",
+       "q": "Quel lien entre le Donut et les inégalités ?",
+       "r": "Réduire les inégalités extrêmes d'accès aux ressources est la clé pour progresser aux deux limites (10 % de la population cause près de la moitié des émissions)."
+      },
+      {
+       "id": "card:ecop:c11:011",
+       "q": "Quelle est la thèse centrale du rapport Oxfam 2026 ?",
+       "r": "La concentration extrême de richesse se convertit en pouvoir politique (médias, campagnes, IA) et menace la démocratie : oligarchie ou démocratie."
+      },
+      {
+       "id": "card:ecop:c11:012",
+       "q": "Quels chiffres clés retenir du rapport Oxfam ?",
+       "r": "Fortune des milliardaires 3 fois plus rapide en 2025 ; 7 fois plus de risque d'érosion démocratique dans les pays très inégalitaires ; 4 000 fois plus de chances d'occuper un poste politique."
+      },
+      {
+       "id": "card:ecop:c11:013",
+       "q": "Quelles sont les trois recommandations d'Oxfam ?",
+       "r": "Réduire radicalement les inégalités ; limiter le pouvoir politique des ultra-riches (taxer, réguler lobbying, médias, campagnes) ; bâtir le pouvoir politique du plus grand nombre."
+      },
+      {
+       "id": "card:ecop:c11:014",
+       "q": "Qu'est-ce que le limitarisme ?",
+       "r": "L'idée d'Ingrid Robeyns d'un plafond d'extrême richesse (10 millions de dollars) au-delà duquel la fortune devient injustifiable."
+      },
+      {
+       "id": "card:ecop:c11:015",
+       "q": "Pourquoi la publicité est-elle un enjeu macroéconomique selon Dupré et Fossard ?",
+       "r": "Elle accroît la demande agrégée : en France, +5,3 % de consommation, moins d'épargne et +6,6 % d'heures travaillées."
+      },
+      {
+       "id": "card:ecop:c11:016",
+       "q": "Pourquoi une taxe ciblée sur la publicité est-elle préférable à une taxe générale ?",
+       "r": "La taxe générale frappe surtout le marketing promotionnel (qui joue sur les prix et aide parfois les plus démunis) ; la publicité construit l'imaginaire consumériste."
+      },
+      {
+       "id": "card:ecop:c11:017",
+       "q": "Pourquoi la taxe publicitaire ne suffit-elle pas ?",
+       "r": "Il faut aussi une autorité de régulation indépendante, des données publiques et l'interdiction de la publicité pour les produits les plus nocifs."
+      },
+      {
+       "id": "card:ecop:c11:018",
+       "q": "Quels sont les trois credos des TZCLD ?",
+       "r": "Personne n'est inemployable ; ce n'est pas le travail qui manque mais l'emploi ; ce n'est pas l'argent qui manque."
+      },
+      {
+       "id": "card:ecop:c11:019",
+       "q": "Quelles sont les principales critiques des TZCLD ?",
+       "r": "Sélection de fait, places limitées (« zéro » trompeur), salaire au SMIC, exigence de rentabilité, CDI liés à une expérience de 5 ans, risque de workfare."
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:ecop:c11:001",
+       "q": "La « tragédie des communs » est une thèse de :",
+       "choix": [
+        "Ostrom",
+        "Hardin",
+        "Coase",
+        "Raworth"
+       ],
+       "bonne": 1,
+       "explication": "Article de 1968 ; Ostrom l'a nuancée."
+      },
+      {
+       "id": "question:ecop:c11:002",
+       "q": "Lequel N'est PAS un principe d'Ostrom ?",
+       "choix": [
+        "Sanctions graduelles",
+        "Limites clairement définies",
+        "Privatisation obligatoire",
+        "Résolution des conflits"
+       ],
+       "bonne": 2,
+       "explication": "Ostrom défend l'auto-gouvernance communautaire."
+      },
+      {
+       "id": "question:ecop:c11:003",
+       "q": "Dans le Donut, l'anneau intérieur représente :",
+       "choix": [
+        "le plafond environnemental",
+        "le plancher social",
+        "la croissance",
+        "les limites planétaires"
+       ],
+       "bonne": 1,
+       "explication": "L'essentiel pour une vie digne."
+      },
+      {
+       "id": "question:ecop:c11:004",
+       "q": "Selon Oxfam, les pays très inégalitaires ont jusqu'à combien de fois plus de risques d'érosion démocratique ?",
+       "choix": [
+        "2 fois",
+        "4 fois",
+        "7 fois",
+        "10 fois"
+       ],
+       "bonne": 2,
+       "explication": "Étude de 23 épisodes dans 22 pays."
+      },
+      {
+       "id": "question:ecop:c11:005",
+       "q": "Selon Dupré et Fossard, la publicité :",
+       "choix": [
+        "ne fait que répartir les parts de marché",
+        "accroît la demande agrégée",
+        "réduit le temps de travail",
+        "augmente l'épargne"
+       ],
+       "bonne": 1,
+       "explication": "Elle augmente la consommation globale et les heures travaillées."
+      },
+      {
+       "id": "question:ecop:c11:006",
+       "q": "Les TZCLD ont été lancés en France en :",
+       "choix": [
+        "2008",
+        "2012",
+        "2016",
+        "2020"
+       ],
+       "bonne": 2,
+       "explication": "Dix territoires, portés par ATD Quart Monde."
+      }
+     ],
+     "sources": [
+      {
+       "document": "ECOP1126 - Lecture 1 Ostrom.pdf",
+       "pages": "lecture complète"
+      },
+      {
+       "document": "ECOP1126 - Dossier-l-eoconomie-du-donut-web-V02.pdf",
+       "pages": "édito et pp. 3-5"
+      },
+      {
+       "document": "ECOP1126 - Oxfam_resume-executif-rapport_Resister-au-regne-des-plus-riches_sous-embargo-19-janvier-2026_00h01.pdf",
+       "pages": "résumé"
+      },
+      {
+       "document": "ECOP1126 - taxer-les-marches-publicitaires-pour-consommer-autrement.pdf",
+       "pages": "pp. 39-47"
+      },
+      {
+       "document": "ECOP1126 - 2019zerochomeur.pdf",
+       "pages": "pp. 1-7"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

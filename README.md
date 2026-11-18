@@ -44,4 +44,4 @@ Détails dans [`docs/TESTING.md`](docs/TESTING.md).
 
 ## Confidentialité
 
-Le dépôt est privé. Aucun cours réel, document ou identifiant ne doit y être versionné : les données personnelles vivront dans Google Drive (voir l'étude Drive).
+Les cours réels sont intégrés au site (dossier `cours/`, choix de l'utilisatrice ou utilisateur : le site et le dépôt sont **publics**, tout le monde peut les lire). Aucun identifiant ni adresse e-mail ne doit y être versionné (un test le vérifie). La progression reste dans le navigateur ou le dossier Drive.

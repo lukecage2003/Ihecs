@@ -10,6 +10,7 @@ import { resolve } from "node:path";
 const URL_LABO = "https://labo.test/labo-drive.html";
 
 test.beforeEach(async ({ page }, info) => {
+  await page.addInitScript(() => { window.__IHECS_TEST_NO_BUILTIN__ = true; }); // parcours sans les cours intégrés
   info.errors = [];
   info.external = [];
   page.on("pageerror", (e) => info.errors.push(e.message));

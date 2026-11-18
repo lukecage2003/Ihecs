@@ -8,7 +8,7 @@ import { closeSearch, isSearchOpen, openSearch } from "./ui/components/spotlight
 import { $, $$ } from "./ui/dom.js";
 import { renderShell } from "./ui/shell.js";
 import { ic } from "./core/icons.js";
-import { activateCopy, activateDemo, activateReal, openLocal, activeWorkspacePref, storedRoot, switchToDemo } from "./ui/workspace.js";
+import { activateCopy, activateDemo, activateReal, hasBuiltin, openLocal, activeWorkspacePref, storedRoot, switchToDemo } from "./ui/workspace.js";
 import { chapterView, mockExamView } from "./ui/views/chapter.js";
 import { homeView } from "./ui/views/home.js";
 import { settingsView } from "./ui/views/settings.js";
@@ -121,7 +121,12 @@ async function startWorkspace() {
   activateDemo();
   bootStep = "lecture des préférences de ce navigateur";
   const pref = await activeWorkspacePref();
-  if (pref === "copy") { await activateCopy(); return; }
+  // Par défaut : tes cours (intégrés au site), ouverts directement, sans dossier.
+  if (pref === "local" || (pref === undefined && hasBuiltin())) {
+    bootStep = "ouverture de tes cours";
+    try { await openLocal(); } catch (e) { if (!(await activateCopy())) activateDemo(); app.startupError = "Mise à jour des cours impossible : " + e.message; }
+    return;
+  }
   if (pref !== "real") return;
   const root = await storedRoot();
   if (!root) return;

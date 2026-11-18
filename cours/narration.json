@@ -1,0 +1,2287 @@
+{
+ "format": "ihecs-study-os",
+ "kind": "course-pack",
+ "schemaVersion": 2,
+ "title": "NARA1129 — Narration",
+ "createdAt": "2026-11-16T02:18:21.049Z",
+ "source": {
+  "kind": "claude",
+  "note": "Généré à partir du syllabus de narration 2026 de Thomas Lavachery (13 chapitres et conclusion), du plan du cours et du support « Formes littéraires » déposés dans le dossier Drive IHECS STUDY OS. Les slides NARRATION 1 à 6 (plus de 10 Mo) n'ont pas été lues."
+ },
+ "subjects": [
+  {
+   "id": "nara",
+   "nom": "Narration",
+   "prof": "Thomas Lavachery",
+   "couleur": "#ff375f",
+   "icone": "pen",
+   "examen": {
+    "consignes": [
+     "Aucune information sur l'examen n'a été trouvée dans les documents : vérifie les modalités sur Learn ou auprès du professeur.",
+     "Le syllabus suit le plan du cours : introduction, chapitres I à XIII, conclusion.",
+     "Le support « Formes littéraires » (genres du récit, enjeu et identification) fait aussi partie du cours NARA1129.",
+     "Sessions 2026-2027 : janvier du 4 au 22 janvier 2027, juin du 31 mai au 17 juin 2027, seconde session du 16 au 27 août 2027. La date précise sera dans l'horaire de session de l'IHECS."
+    ]
+   },
+   "documents": [
+    {
+     "nom": "Syllabus narration 2026",
+     "chemin": "NARA1129 - Syllabus narration 2026.pdf"
+    },
+    {
+     "nom": "Narration, plan du cours (1)",
+     "chemin": "NARA1129 - Narration, plan du cours (1).pdf"
+    },
+    {
+     "nom": "IHECS-FORMLIT",
+     "chemin": "NARA1129 - IHECS-FORMLIT.pdf"
+    },
+    {
+     "nom": "NARRATION 1",
+     "chemin": "NARA1129 - NARRATION 1.pptx"
+    },
+    {
+     "nom": "NARRATION 2",
+     "chemin": "NARA1129 - NARRATION 2.pptx"
+    },
+    {
+     "nom": "NARRATION 3",
+     "chemin": "NARA1129 - NARRATION 3.pptx"
+    },
+    {
+     "nom": "NARRATION 4",
+     "chemin": "NARA1129 - NARRATION 4.pptx"
+    },
+    {
+     "nom": "NARRATION 5 et 6",
+     "chemin": "NARA1129 - NARRATION 5 et 6.pptx"
+    }
+   ],
+   "chapitres": [
+    {
+     "id": "c1",
+     "titre": "Introduction et chapitre I — L'idée de départ d'un roman",
+     "duree": 30,
+     "resume": "## Introduction\n\nThomas Lavachery parle en **artisan de l'écriture** (romancier, scénariste) : le cours porte surtout sur l'**art du roman**, mais la technique du romancier sert aussi au journaliste, au reporter, au biographe (ex. les outils de la **dramaturgie**).\n\n**Deux visions du métier** :\n\n- **Vision romantique** (Paul Auster) : écrire sous l'emprise de l'**inspiration**, en obéissant à une voix inconnue.\n- **Vision pragmatique** (William Boyd) : une entreprise **délibérée** ; l'inspiration n'est que le point de départ d'un processus conscient.\n\n==Pour la plupart des romanciers, la vérité est entre les deux== : l'inconscient compte, mais il faut garder le contrôle (logique, clarté, rythme, ton, originalité). L'auteur est **double** : l'écrivain inspiré et un regard froid et critique.\n\n**Écrire est un métier** : les cours d'écriture créative sont mal vus en France et en Belgique (peur du formatage), alors que John Irving et Philip Roth en ont suivi. Lavachery est **défavorable aux systèmes** mais pas aux **outils techniques**.\n\n## Chapitre I — L'idée de départ\n\n> « La bonne fiction part toujours d'une histoire et progresse vers son thème ; elle ne part presque jamais du thème pour arriver à l'histoire. » (Stephen King)\n\n### L'origine d'une histoire\n\n| Type d'idée de départ | Exemple |\n|---|---|\n| **Images** vagues, oniriques (lieux, scènes, personnages) | Conrad devant une feuille blanche ; Elena Ferrante (« des éclairs, des chocs ») |\n| **Vision précise**, presque un plan de cinéma | J. K. Rowling voit Harry dans le train Manchester-Londres |\n| **Intellectuelle / thématique** | Zola veut traiter « la question sociale » → *Germinal* ; Orwell veut combattre le totalitarisme |\n| **Formelle** | Paul Auster, *4 3 2 1* : « quatre vies, une seule personne » |\n\n**Trouver une idée** : on ne la trouve pas sur commande ; elle vient à l'improviste (« surprise d'esprit »). Mais être « branché écriture » met le **subconscient en alerte**. Les idées géniales sont **rares**.\n\n**Facteurs déclencheurs** : une lecture, un film, une rencontre, un lieu (une annonce de l'agence Cook → *Le Tour du monde en quatre-vingts jours* ; un zoo → *La Planète des singes* de Pierre Boulle). Souvent, ==**deux idées se fécondent**== : chez Stephen King, la télékinésie + une scène de cruauté entre écolières → *Carrie*.\n\n### Estimer la qualité d'une idée\n\nUne idée doit être **bonne pour nous**, adaptée à notre personnalité d'auteur. Méthode de Lavachery (*La Cuisine d'un auteur*), **en deux temps** :\n\n1. **Porter l'idée** en soi quelques jours ou semaines (personnages, scènes, bribes de dialogues), avec très peu de notes ; neuf fois sur dix, le projet tombe à l'eau.\n2. Si l'enthousiasme demeure : recherches, **synopsis**, puis l'**écriture** elle-même, seconde épreuve (on peut découvrir qu'il manque une dimension).\n\n*Exemple* : **Marguerite Yourcenar** ne trouve son *Hadrien* qu'après la guerre, en choisissant la **forme** (une lettre à Marc Aurèle) et en ajoutant la **dimension politique** (Hadrien homme d'État).\n\n### Idée de départ et thématique\n\nTrois cas :\n\n1. le thème est **connu d'avance** (Hugo, *Les Misérables* : l'injustice sociale ; Orwell, *La Ferme des animaux* : le stalinisme par une fable) ;\n2. le thème émerge de l'**inconscient** et n'est compris qu'**après coup** — la voie la plus fréquente (Vargas Llosa découvre le fanatisme dans *La Tante Julia et le scribouillard* ; Auster) ;\n3. le thème se **découvre en cours d'écriture**, puis on le renforce (Lavachery et le thème du **pouvoir** dans *Bjorn aux armées*).",
+     "pointsCles": [
+      "Vision romantique (Auster, inspiration) contre vision pragmatique (Boyd, entreprise délibérée) : la vérité est entre les deux.",
+      "L'auteur est double : l'écrivain inspiré et un regard critique et froid.",
+      "Lavachery est contre les systèmes, mais pour les outils techniques.",
+      "L'idée de départ peut être une image, une vision précise, une idée thématique ou une idée formelle.",
+      "Les idées viennent à l'improviste ; souvent deux idées se fécondent (Carrie).",
+      "Une idée doit être bonne pour soi ; l'évaluer en la portant en soi, puis par le synopsis et l'écriture.",
+      "Le thème peut être connu d'avance, émerger de l'inconscient après coup, ou se découvrir en cours d'écriture."
+     ],
+     "definitions": [
+      {
+       "terme": "Vision romantique",
+       "def": "Conception de l'écriture comme dictée par l'inspiration, sans contrôle (Paul Auster)."
+      },
+      {
+       "terme": "Vision pragmatique",
+       "def": "Conception de l'écriture comme entreprise délibérée et consciente, l'inspiration n'étant qu'un point de départ (William Boyd)."
+      },
+      {
+       "terme": "Idée de départ formelle",
+       "def": "Idée de roman qui part d'une contrainte de forme, comme les quatre vies d'un même personnage dans 4 3 2 1 d'Auster."
+      },
+      {
+       "terme": "Facteur déclencheur",
+       "def": "Lecture, film, rencontre ou lieu qui fait naître une idée d'histoire."
+      },
+      {
+       "terme": "Synopsis",
+       "def": "Résumé de quelques pages posant les grands jalons du récit avant l'écriture."
+      },
+      {
+       "terme": "Thème",
+       "def": "Sujet profond d'une œuvre, parfois connu d'avance, parfois découvert pendant ou après l'écriture."
+      }
+     ],
+     "fiches": [
+      {
+       "id": "card:nara:c1:001",
+       "q": "Quelles sont les deux visions du métier d'écrivain ?",
+       "r": "Romantique (Auster : écrire sous l'emprise de l'inspiration) et pragmatique (Boyd : entreprise délibérée et consciente)."
+      },
+      {
+       "id": "card:nara:c1:002",
+       "q": "Quelle position défend Lavachery entre ces deux visions ?",
+       "r": "La vérité est entre les deux : l'inconscient compte, mais il faut garder le contrôle (logique, clarté, rythme, ton, originalité)."
+      },
+      {
+       "id": "card:nara:c1:003",
+       "q": "Pourquoi l'auteur de fiction est-il « double » ?",
+       "r": "À côté de l'écrivain inspiré, il y a un autre soi qui porte un regard froid et critique sur le travail en cours."
+      },
+      {
+       "id": "card:nara:c1:004",
+       "q": "Que répond Lavachery aux ennemis des cours d'écriture ?",
+       "r": "Que de grands écrivains comme John Irving et Philip Roth en ont suivi sans perdre leur originalité ; il est contre les systèmes mais pour les outils techniques."
+      },
+      {
+       "id": "card:nara:c1:005",
+       "q": "Que dit Stephen King de l'histoire et du thème ?",
+       "r": "La bonne fiction part d'une histoire et progresse vers son thème, presque jamais l'inverse."
+      },
+      {
+       "id": "card:nara:c1:006",
+       "q": "Donne un exemple d'idée de départ en forme de vision précise.",
+       "r": "J. K. Rowling voit soudain Harry Potter dans le train entre Manchester et Londres."
+      },
+      {
+       "id": "card:nara:c1:007",
+       "q": "Donne un exemple d'idée de départ thématique.",
+       "r": "Zola veut traiter la question sociale (Germinal) ; Orwell veut combattre le totalitarisme."
+      },
+      {
+       "id": "card:nara:c1:008",
+       "q": "Donne un exemple d'idée de départ formelle.",
+       "r": "Paul Auster, 4 3 2 1 : quatre vies différentes pour une seule personne."
+      },
+      {
+       "id": "card:nara:c1:009",
+       "q": "Peut-on trouver une idée sur commande ?",
+       "r": "Non : elle vient à l'improviste, mais être « branché écriture » met le subconscient en alerte."
+      },
+      {
+       "id": "card:nara:c1:010",
+       "q": "Comment est née Carrie de Stephen King ?",
+       "r": "De la rencontre de deux idées : des adolescentes télékinésiques et une scène de cruauté entre écolières sous la douche."
+      },
+      {
+       "id": "card:nara:c1:011",
+       "q": "Quels facteurs déclencheurs ont inspiré Jules Verne et Pierre Boulle ?",
+       "r": "Une annonce de l'agence Cook (Le Tour du monde en quatre-vingts jours) ; une visite au zoo (La Planète des singes)."
+      },
+      {
+       "id": "card:nara:c1:012",
+       "q": "Comment Lavachery évalue-t-il une idée ?",
+       "r": "En deux temps : il la porte en lui quelques semaines (neuf fois sur dix elle meurt), puis recherches, synopsis et écriture comme seconde épreuve."
+      },
+      {
+       "id": "card:nara:c1:013",
+       "q": "Qu'est-ce qui a débloqué les Mémoires d'Hadrien de Yourcenar ?",
+       "r": "La forme (une lettre à Marc Aurèle) et la dimension politique du personnage, homme d'État."
+      },
+      {
+       "id": "card:nara:c1:014",
+       "q": "Quels sont les trois rapports possibles entre idée de départ et thème ?",
+       "r": "Thème connu d'avance (Hugo, Orwell) ; thème issu de l'inconscient, compris après coup (Vargas Llosa, Auster) ; thème découvert en cours d'écriture (Lavachery, le pouvoir dans Bjorn aux armées)."
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:nara:c1:001",
+       "q": "La vision pragmatique de l'écriture est associée à :",
+       "choix": [
+        "Paul Auster",
+        "William Boyd",
+        "Elena Ferrante",
+        "Joseph Conrad"
+       ],
+       "bonne": 1,
+       "explication": "Auster incarne la vision romantique."
+      },
+      {
+       "id": "question:nara:c1:002",
+       "q": "Le roman 4 3 2 1 d'Auster part d'une idée :",
+       "choix": [
+        "thématique",
+        "formelle",
+        "visuelle",
+        "historique"
+       ],
+       "bonne": 1,
+       "explication": "Quatre vies, une seule personne."
+      },
+      {
+       "id": "question:nara:c1:003",
+       "q": "Carrie naît de :",
+       "choix": [
+        "un rêve",
+        "la fusion de deux idées",
+        "une commande d'éditeur",
+        "un fait divers unique"
+       ],
+       "bonne": 1,
+       "explication": "Télékinésie + cruauté entre écolières."
+      },
+      {
+       "id": "question:nara:c1:004",
+       "q": "Selon Lavachery, la voie la plus empruntée pour le thème est :",
+       "choix": [
+        "le thème choisi d'avance",
+        "l'inconscient",
+        "la commande",
+        "le hasard des lectures"
+       ],
+       "bonne": 1,
+       "explication": "On comprend souvent le sens de son roman après coup."
+      }
+     ],
+     "sources": [
+      {
+       "document": "NARA1129 - Syllabus narration 2026.pdf",
+       "pages": "Introduction et chapitre I"
+      }
+     ]
+    },
+    {
+     "id": "c2",
+     "titre": "Chapitre II — La construction du récit",
+     "duree": 30,
+     "resume": "> « Notre prétention, comme romancier, étant surtout d'enchaîner les événements avec une logique presque fatale… » (Alexandre Dumas)\n\n## Le plan : trois écoles\n\n| École | Pratique | Exemples |\n|---|---|---|\n| **Improvisateurs** (écrivains « à processus ») | partir à l'aventure, « à la lampe de poche » | Aragon, François Place (*La Douane volante*) ; Franzen et Ferrante connaissent seulement la fin (le bout du tunnel) |\n| **Préparateurs** (écrivains « à programme ») | plans détaillés suivis à la lettre | Flaubert (mois de plans), Ken Follett (résumés de dizaines de pages), William Boyd (scénarios par chapitres et scènes) |\n| **Milieu du gué** | résumés courts, dont on déborde | Stendhal, **Lavachery** |\n\nTrop préparer tue l'**improvisation** (une des grandes joies du romancier) ; ne rien préparer peut mener à l'échec (le roman raté de Lavachery, impubliable, avec de graves défauts de construction).\n\n## Le synopsis\n\n==Résumé de l'histoire : présentation rapide des personnages et de l'univers, puis l'**intrigue** jusqu'au **dénouement**.==\n\n- Longueur conseillée pour un roman : **3 000 à 5 000 signes** (espaces compris) ; plus court pour une nouvelle.\n- Ce n'est **ni** une quatrième de couverture **ni** une « bible » de série (inutile de lister les manies des personnages).\n- C'est un texte **difficile**, à récrire plusieurs fois ; il laisse une grande place à l'improvisation (un synopsis de quelques pages peut donner 500 pages).\n- Astuce : **raconter l'histoire oralement** à quelqu'un, plusieurs fois → les incohérences apparaissent (*Bjorn le Morphir* est né d'une histoire racontée à son fils). Elena Ferrante, elle, trouve que le récit oral « consume tout ».\n\n## L'intrigue\n\n**Définition** (Petit Robert) : l'ensemble des événements qui forment le **nœud** d'une pièce, d'un roman, d'un film (on dit aussi la **trame**).\n\n==Critère : tout ce qu'on peut **ôter sans empêcher le déroulement de l'action** n'est pas de l'intrigue ; tout élément **indispensable** à l'action en fait partie.== L'intrigue est une **chaîne logique** (A → B → C) dont on ne peut retirer un maillon.\n\n*Exemple des Trois Mousquetaires* : Mousqueton qui vole du vin avec une corde n'est **pas** de l'intrigue ; les **ferrets** offerts par Anne d'Autriche à Buckingham le sont (Richelieu, le bal, le voyage à Londres, Milady…).\n\n**Quelle importance ?** Elle varie selon les auteurs : forte chez Dumas, Féval, Rowling ; secondaire chez **Proust**, **Tchekhov**, Vargas Llosa. Contre les manuels qui en font tout (Bob Meyer), Lavachery rappelle Tchekhov ; Peter Weir a dû combiner plusieurs tomes de Patrick O'Brian pour *Master and Commander*. ==L'importance de l'intrigue dépend du **tempérament créatif** de l'auteur== et du genre (un roman policier à énigme exige plus de trame).",
+     "pointsCles": [
+      "Trois écoles du plan : improvisateurs (à processus), préparateurs (à programme), milieu du gué.",
+      "Lavachery est au milieu du gué et utilise la méthode du synopsis.",
+      "Le synopsis : 3 000 à 5 000 signes pour un roman, centré sur l'intrigue jusqu'au dénouement.",
+      "Raconter son histoire oralement aide à corriger le synopsis.",
+      "Ce qu'on peut ôter sans gêner l'action n'est pas de l'intrigue ; l'intrigue est une chaîne logique d'événements.",
+      "La part d'intrigue varie selon le tempérament de l'auteur (Dumas vs Proust, Tchekhov)."
+     ],
+     "definitions": [
+      {
+       "terme": "Écrivain à processus",
+       "def": "Improvisateur qui écrit sans plan préalable."
+      },
+      {
+       "terme": "Écrivain à programme",
+       "def": "Auteur qui prépare des plans détaillés avant d'écrire (Flaubert)."
+      },
+      {
+       "terme": "Synopsis",
+       "def": "Résumé de 3 000 à 5 000 signes présentant brièvement personnages et univers, puis l'intrigue jusqu'au dénouement."
+      },
+      {
+       "terme": "Intrigue",
+       "def": "Ensemble des événements qui forment le nœud d'un récit : chaîne logique dont on ne peut ôter un maillon sans perturber l'action."
+      },
+      {
+       "terme": "Trame",
+       "def": "Autre nom de l'intrigue d'un roman ou d'une pièce."
+      },
+      {
+       "terme": "Dénouement",
+       "def": "Résolution finale de l'intrigue."
+      }
+     ],
+     "fiches": [
+      {
+       "id": "card:nara:c2:001",
+       "q": "Quelles sont les trois écoles face au plan ?",
+       "r": "Les improvisateurs (sans plan), les préparateurs (plans détaillés), le milieu du gué (résumés courts)."
+      },
+      {
+       "id": "card:nara:c2:002",
+       "q": "Comment travaillent Franzen et Ferrante ?",
+       "r": "Sans plan, mais en connaissant la fin (l'image du bout du tunnel)."
+      },
+      {
+       "id": "card:nara:c2:003",
+       "q": "Comment travaillait Flaubert ?",
+       "r": "Il consacrait des mois à des plans de plus en plus détaillés, auxquels il se tenait."
+      },
+      {
+       "id": "card:nara:c2:004",
+       "q": "Pourquoi Lavachery refuse-t-il de trop préparer ?",
+       "r": "Cela réduit la part d'improvisation, l'une des grandes joies du romancier."
+      },
+      {
+       "id": "card:nara:c2:005",
+       "q": "Que contient un synopsis ?",
+       "r": "Une rapide présentation des personnages et de l'univers, puis l'intrigue, c'est-à-dire l'enchaînement des épisodes principaux jusqu'au dénouement."
+      },
+      {
+       "id": "card:nara:c2:006",
+       "q": "Quelle longueur pour le synopsis d'un roman ?",
+       "r": "3 000 à 5 000 signes, espaces compris."
+      },
+      {
+       "id": "card:nara:c2:007",
+       "q": "Qu'est-ce qu'un synopsis n'est pas ?",
+       "r": "Ni une quatrième de couverture, ni une « bible » de série avec des listes de personnages."
+      },
+      {
+       "id": "card:nara:c2:008",
+       "q": "Quel moyen efficace pour éprouver une histoire ?",
+       "r": "La raconter oralement à quelqu'un, plusieurs fois, pour faire apparaître incohérences et approximations."
+      },
+      {
+       "id": "card:nara:c2:009",
+       "q": "Comment savoir si un élément fait partie de l'intrigue ?",
+       "r": "S'il peut être ôté sans empêcher le bon déroulement de l'action, il n'en fait pas partie."
+      },
+      {
+       "id": "card:nara:c2:010",
+       "q": "Dans Les Trois Mousquetaires, quel épisode est de l'intrigue : le vin de Mousqueton ou les ferrets ?",
+       "r": "Les ferrets offerts à Buckingham (ils déclenchent toute la suite) ; le vol de vin n'est pas de l'intrigue."
+      },
+      {
+       "id": "card:nara:c2:011",
+       "q": "De quoi dépend l'importance accordée à l'intrigue ?",
+       "r": "Du tempérament créatif de l'auteur (Dumas, Rowling vs Proust, Tchekhov) et du genre pratiqué."
+      },
+      {
+       "id": "card:nara:c2:012",
+       "q": "Que montre l'exemple de Master and Commander ?",
+       "r": "Les romans de Patrick O'Brian réussissent sans grosse intrigue : Peter Weir a dû combiner plusieurs tomes pour un seul film."
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:nara:c2:001",
+       "q": "Flaubert est un écrivain :",
+       "choix": [
+        "à processus",
+        "à programme",
+        "du milieu du gué",
+        "improvisateur"
+       ],
+       "bonne": 1,
+       "explication": "Il faisait des plans détaillés pendant des mois."
+      },
+      {
+       "id": "question:nara:c2:002",
+       "q": "Le synopsis d'un roman fait selon Lavachery :",
+       "choix": [
+        "300 à 500 signes",
+        "3 000 à 5 000 signes",
+        "30 000 signes",
+        "une page de titres"
+       ],
+       "bonne": 1,
+       "explication": "Espaces compris ; plus court pour une nouvelle."
+      },
+      {
+       "id": "question:nara:c2:003",
+       "q": "Un élément qu'on peut retirer sans gêner l'action :",
+       "choix": [
+        "fait partie de l'intrigue",
+        "ne fait pas partie de l'intrigue",
+        "est le dénouement",
+        "est le thème"
+       ],
+       "bonne": 1,
+       "explication": "Critère de l'intrigue."
+      },
+      {
+       "id": "question:nara:c2:004",
+       "q": "Chez quel auteur l'intrigue joue-t-elle un rôle secondaire ?",
+       "choix": [
+        "Dumas",
+        "Rowling",
+        "Tchekhov",
+        "Féval"
+       ],
+       "bonne": 2,
+       "explication": "Comme chez Proust ou Vargas Llosa."
+      }
+     ],
+     "sources": [
+      {
+       "document": "NARA1129 - Syllabus narration 2026.pdf",
+       "pages": "Chapitre II"
+      }
+     ]
+    },
+    {
+     "id": "c3",
+     "titre": "Chapitre III — Éléments de dramaturgie",
+     "duree": 35,
+     "resume": "> « Il n'y a pas d'œuvre d'art sans système. Si la dramaturgie est un langage, celui-ci est régi par une grammaire, donc des règles. » (Yves Lavandier)\n\n## La « bible » d'Yves Lavandier\n\n*La Dramaturgie, les mécanismes du récit* (1re éd. **1994**) d'**Yves Lavandier** (né en 1959, ingénieur puis études de cinéma à Columbia, marqué par Frank Daniel et *Dramatic Construction* d'Edward Mabley) est la **bible des scénaristes**. Pas de recette du chef-d'œuvre, mais des **moyens éprouvés** d'efficacité dramaturgique, utiles aussi aux romanciers (*Bjorn le Morphir* lui doit beaucoup).\n\n## Les concepts clés\n\n### Le conflit\n\n==**Conflit** : toute situation ou tout sentiment conflictuels (luttes, épreuves, dangers, échecs, malheurs…) qui produisent des sensations et sentiments désagréables, surtout **anxiété** et **frustration**.==\n\n- Une héroïne à qui tout réussit ennuie le lecteur.\n- John le Carré : « Le chat s'est assis dans son panier » n'est pas une histoire ; « le chat s'est assis dans le panier **du chien** » est le début d'une histoire.\n- Le conflit favorise l'**identification** (« se fondre partiellement dans l'autre ») : un lecteur qui s'identifie est **en votre pouvoir**.\n\n### Le protagoniste\n\n==Le **personnage qui vit le plus de conflit**== — à ne pas confondre avec le **héros** :\n\n- *Amadeus* : Mozart est le héros, **Salieri** le protagoniste (rongé par la jalousie) ;\n- *Les Bijoux de la Castafiore* : le protagoniste est le **capitaine Haddock**, pas Tintin.\n\nLe protagoniste peut être un **groupe** (*Les Sept Mercenaires*, *Deux ans de vacances*, *L'Île mystérieuse*) ou **multiple/successif** (*Psychose* : Marion Crane, tuée à la 45e minute, puis Norman Bates, puis la sœur et l'amant de Marion).\n\n### Les objectifs\n\nBut, désir ou volonté qu'un personnage cherche à atteindre. **L'objectif général** est la volonté du protagoniste qui rencontre le plus d'obstacles.\n\n| Type | Exemple dans *Le Fugitif* |\n|---|---|\n| **Objectif général** | Richard Kimble veut **prouver son innocence** |\n| **Objectif local** (lié au général) | accéder à l'ordinateur du service des prothèses pour retrouver l'homme au faux bras |\n| **Objectif secondaire** (indépendant) | aider le fils de sa logeuse à réussir un examen de maths |\n\nL'objectif général change rarement : *Shackleton* (expédition de l'*Endurance*, 1914) passe de « planter le drapeau au pôle Sud » à « **ramener tout le monde en vie** ».\n\n### Les obstacles\n\nTout élément (objet, personnage, hasard, sentiment…) qui s'oppose à un objectif et produit du conflit.\n\n- **Externe** : un rival séduisant au bureau.\n- **Interne** : timidité, maladresse ; ==les obstacles internes ont **plus d'impact**== (Scottie, acrophobe, gravit le clocher dans *Sueurs froides / Vertigo*).\n- **Externe d'origine interne** : le policier qui arrête John, autrefois harcelé par lui à l'école.\n\n## Le schéma narratif : protagoniste – objectif – obstacles\n\nAu **schéma classique** (incipit, élément déclencheur, péripéties, dénouement, situation finale ou explicit), outil d'analyse, la dramaturgie oppose un schéma plus simple et plus **productif** :\n\n==**Un protagoniste poursuit un objectif général fort et rencontre beaucoup d'obstacles** → conflit → identification.==\n\nAvantages : capter et garder l'attention ; **faciliter le travail de l'auteur** (Aaron Sorkin : « une intention et un obstacle… me voilà parti »). Conrad, sujet aux pannes, écrit *Au cœur des ténèbres* d'une traite (38 000 mots en moins de deux mois) : Marlowe veut retrouver **Kurtz** et accumule les obstacles — application **inconsciente** du schéma selon Lavachery.\n\n## *La Dramaturgie*, un dictionnaire médical\n\nAutres notions : les **trois actes**, le **crescendo**, le **climax**, l'**accroche**, la **fausse piste** (« hareng rouge »), le *diabolicus ex machina*. Mieux vaut **connaître** la technique, même pour la rejeter (comme la perspective pour un peintre). Trois raisons de lire Lavandier : un **vocabulaire professionnel** commun ; des **solutions** à des problèmes ponctuels (ex. la **préparation** pour rendre un élément crédible) ; le schéma de base n'empêche pas la **profondeur** (*Au cœur des ténèbres*).",
+     "pointsCles": [
+      "La Dramaturgie d'Yves Lavandier (1994) est la bible des scénaristes, utile aussi aux romanciers.",
+      "Le conflit (anxiété, frustration) est à la base des histoires et favorise l'identification.",
+      "Le protagoniste est le personnage qui vit le plus de conflit, pas forcément le héros (Salieri, Haddock).",
+      "Objectifs : général, locaux (liés au général), secondaires (indépendants).",
+      "Obstacles externes, internes (plus forts) et externes d'origine interne.",
+      "Schéma narratif : protagoniste – objectif – obstacles, plus productif que le schéma classique.",
+      "Conrad a écrit Au cœur des ténèbres d'une traite en appliquant inconsciemment ce schéma.",
+      "Connaître la technique est utile, même pour s'en écarter."
+     ],
+     "definitions": [
+      {
+       "terme": "Dramaturgie",
+       "def": "Ensemble des mécanismes et règles du récit, décrits notamment par Yves Lavandier."
+      },
+      {
+       "terme": "Conflit",
+       "def": "Toute situation ou tout sentiment conflictuels qui provoquent des sensations et sentiments désagréables, surtout l'anxiété et la frustration."
+      },
+      {
+       "terme": "Identification",
+       "def": "Le fait, pour le lecteur ou le spectateur, de se fondre partiellement dans un personnage."
+      },
+      {
+       "terme": "Protagoniste",
+       "def": "Personnage d'une œuvre dramatique qui vit le plus de conflit."
+      },
+      {
+       "terme": "Objectif général",
+       "def": "Volonté du protagoniste qui rencontre le plus d'obstacles ; objectif de l'œuvre."
+      },
+      {
+       "terme": "Objectif local",
+       "def": "Objectif ponctuel lié à l'objectif général (Kimble et l'ordinateur des prothèses)."
+      },
+      {
+       "terme": "Objectif secondaire",
+       "def": "Objectif indépendant de l'objectif général (Kimble aide un garçon en maths)."
+      },
+      {
+       "terme": "Obstacle",
+       "def": "Élément (objet, personnage, hasard, sentiment) qui s'oppose à un objectif et produit du conflit."
+      },
+      {
+       "terme": "Obstacle interne",
+       "def": "Obstacle qui vient du personnage lui-même (timidité, phobie) ; il a plus d'impact."
+      },
+      {
+       "terme": "Obstacle externe d'origine interne",
+       "def": "Obstacle extérieur dont le personnage est en partie responsable (le policier jadis harcelé)."
+      },
+      {
+       "terme": "Schéma narratif",
+       "def": "Protagoniste – objectif – obstacles : un protagoniste poursuit un objectif fort contre de nombreux obstacles."
+      },
+      {
+       "terme": "Schéma classique",
+       "def": "Incipit, élément déclencheur, péripéties, dénouement, situation finale : outil d'analyse."
+      },
+      {
+       "terme": "Hareng rouge",
+       "def": "Fausse piste destinée à égarer le lecteur ou le spectateur."
+      }
+     ],
+     "fiches": [
+      {
+       "id": "card:nara:c3:001",
+       "q": "Qui est Yves Lavandier et quel est son livre de référence ?",
+       "r": "Cinéaste et pédagogue, auteur de La Dramaturgie, les mécanismes du récit (1994), la bible des scénaristes."
+      },
+      {
+       "id": "card:nara:c3:002",
+       "q": "Définis le conflit selon Lavandier.",
+       "r": "Toute situation ou sentiment conflictuels (luttes, épreuves, dangers, échecs…) produisant des sensations et sentiments désagréables, surtout anxiété et frustration."
+      },
+      {
+       "id": "card:nara:c3:003",
+       "q": "Que dit John le Carré sur le chat et le panier ?",
+       "r": "« Le chat s'est assis dans son panier » n'est pas une histoire ; « dans le panier du chien » en est le début."
+      },
+      {
+       "id": "card:nara:c3:004",
+       "q": "Pourquoi le conflit est-il si puissant ?",
+       "r": "Il favorise l'identification : le lecteur se fond partiellement dans le personnage et est tenu en haleine."
+      },
+      {
+       "id": "card:nara:c3:005",
+       "q": "Définis le protagoniste.",
+       "r": "Le personnage qui vit le plus de conflit."
+      },
+      {
+       "id": "card:nara:c3:006",
+       "q": "Donne deux exemples où le protagoniste n'est pas le héros.",
+       "r": "Amadeus (Salieri, pas Mozart) ; Les Bijoux de la Castafiore (Haddock, pas Tintin)."
+      },
+      {
+       "id": "card:nara:c3:007",
+       "q": "Qu'est-ce qu'un protagoniste multiple ? Exemple ?",
+       "r": "Un protagoniste qui change en cours d'œuvre : Psychose (Marion Crane, puis Norman Bates, puis la sœur et l'amant de Marion)."
+      },
+      {
+       "id": "card:nara:c3:008",
+       "q": "Quels sont les trois types d'objectifs ? (exemple du Fugitif)",
+       "r": "Général (prouver son innocence), local (accéder à l'ordinateur des prothèses), secondaire (aider un garçon en maths)."
+      },
+      {
+       "id": "card:nara:c3:009",
+       "q": "Donne un exemple d'objectif général qui change.",
+       "r": "Shackleton : atteindre le pôle Sud devient ramener tout son équipage en vie."
+      },
+      {
+       "id": "card:nara:c3:010",
+       "q": "Quels sont les trois types d'obstacles ?",
+       "r": "Externe (un rival), interne (timidité, phobie), externe d'origine interne (le policier jadis harcelé)."
+      },
+      {
+       "id": "card:nara:c3:011",
+       "q": "Pourquoi la scène du clocher dans Sueurs froides est-elle si forte ?",
+       "r": "L'obstacle est interne (l'acrophobie de Scottie), plus intense qu'un obstacle externe."
+      },
+      {
+       "id": "card:nara:c3:012",
+       "q": "Quel est le schéma narratif proposé par la dramaturgie ?",
+       "r": "Protagoniste – objectif – obstacles : un protagoniste poursuit un objectif général fort et rencontre beaucoup d'obstacles."
+      },
+      {
+       "id": "card:nara:c3:013",
+       "q": "Quelles sont les étapes du schéma classique ?",
+       "r": "Incipit, élément déclencheur, péripéties, dénouement, situation finale (explicit)."
+      },
+      {
+       "id": "card:nara:c3:014",
+       "q": "Que montre l'écriture d'Au cœur des ténèbres ?",
+       "r": "Conrad, sujet aux pannes, l'a écrit d'une traite : Marlowe poursuit Kurtz à travers les obstacles, application inconsciente du schéma narratif."
+      },
+      {
+       "id": "card:nara:c3:015",
+       "q": "Quelles sont les trois raisons de lire La Dramaturgie selon Lavachery ?",
+       "r": "Un vocabulaire professionnel partagé ; des solutions à des problèmes ponctuels (un « dictionnaire médical ») ; le schéma de base n'empêche pas la profondeur."
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:nara:c3:001",
+       "q": "Dans Amadeus, le protagoniste est :",
+       "choix": [
+        "Mozart",
+        "Salieri",
+        "l'empereur",
+        "Constanze"
+       ],
+       "bonne": 1,
+       "explication": "C'est lui qui vit le plus de conflit."
+      },
+      {
+       "id": "question:nara:c3:002",
+       "q": "Dans Le Fugitif, aider le fils de la logeuse en maths est un objectif :",
+       "choix": [
+        "général",
+        "local",
+        "secondaire",
+        "interne"
+       ],
+       "bonne": 2,
+       "explication": "Il est indépendant de l'enquête."
+      },
+      {
+       "id": "question:nara:c3:003",
+       "q": "Le vertige de Scottie dans Sueurs froides est un obstacle :",
+       "choix": [
+        "externe",
+        "interne",
+        "externe d'origine interne",
+        "secondaire"
+       ],
+       "bonne": 1,
+       "explication": "Il vient du personnage."
+      },
+      {
+       "id": "question:nara:c3:004",
+       "q": "Le schéma narratif de la dramaturgie est :",
+       "choix": [
+        "incipit – péripéties – explicit",
+        "protagoniste – objectif – obstacles",
+        "thème – style – forme",
+        "héros – adjuvant – opposant"
+       ],
+       "bonne": 1,
+       "explication": "Plus productif que le schéma classique."
+      },
+      {
+       "id": "question:nara:c3:005",
+       "q": "Dans Les Bijoux de la Castafiore, le protagoniste est :",
+       "choix": [
+        "Tintin",
+        "Haddock",
+        "la Castafiore",
+        "Tournesol"
+       ],
+       "bonne": 1,
+       "explication": "C'est lui qui vit le plus de conflit."
+      }
+     ],
+     "sources": [
+      {
+       "document": "NARA1129 - Syllabus narration 2026.pdf",
+       "pages": "Chapitre III"
+      }
+     ]
+    },
+    {
+     "id": "c4",
+     "titre": "Chapitre IV — L'ironie dramatique",
+     "duree": 20,
+     "resume": "> John Irving : « J'aime cette situation où vous, lecteurs, en savez plus que le personnage. Et vous attendez le moment où il va découvrir ce que vous savez déjà. »\n\n## Définition\n\n==**Ironie dramatique** : procédé qui consiste à donner au lecteur (ou au spectateur) une information qu'**au moins un des personnages ignore**, donc à lui donner de l'**avance** sur ce personnage.== Elle comprend **trois phases** : **installation**, **exploitation**, **résolution** (Lavandier).\n\n**Exemples** :\n\n- *Amadeus* : on sait que Salieri complote ; Mozart l'ignore.\n- *Dr Jekyll et Mr Hyde* : le lecteur sait que Jekyll et Hyde sont une même personne.\n- *Titanic* : le spectateur sait d'avance ce que tous les personnages ignorent.\n- *Roméo et Juliette* : Roméo croit Juliette morte, nous savons qu'elle vit (la potion de frère Laurent).\n\n## Exemples chez Stendhal et Dumas\n\n- ***La Chartreuse de Parme*** : le prince fait attendre la **duchesse Sanseverina**, persuadé qu'elle vient s'humilier pour obtenir la grâce de **Fabrice** ; le lecteur sait qu'elle vient prendre congé. La déconfiture du prince (« Comment ! comment ! ») nous ravit.\n- ***Les Trois Mousquetaires*** (le bal) : Richelieu croit que la reine ne pourra montrer ses **ferrets** ; nous savons que d'Artagnan les a rapportés et que les deux ferrets volés par Milady ont été refaits. Déconfiture en deux temps.\n\n**Pourquoi ça marche ?** L'ironie dramatique attise la **curiosité** (attente de la résolution) et **valorise le lecteur**, qui se sent supérieur au personnage ignorant. ==Mais elle n'a d'intérêt que si l'auteur l'**exploite** narrativement== : qu'un personnage ignore quelque chose ne suffit pas.\n\n## Une ironie dramatique diffuse (Walter Scott)\n\nL'ironie dramatique peut être **implicite** : le lecteur **devine** une information sans que le narrateur la lui donne. Double attente : vérifier s'il a vu juste et découvrir la résolution.\n\n*Quentin Durward* : Quentin rencontre un vieux « marchand » à l'autorité suspecte — le lecteur devine **Louis XI** ; cent pages plus loin (chapitre VIII), Quentin découvre la vérité et le lecteur sourit, content de lui et de l'auteur.",
+     "pointsCles": [
+      "L'ironie dramatique donne au lecteur une information qu'au moins un personnage ignore.",
+      "Trois phases : installation, exploitation, résolution.",
+      "Elle attise la curiosité et valorise le lecteur, qui se sent supérieur au personnage.",
+      "Elle n'a d'intérêt que si elle est exploitée narrativement (Stendhal, Dumas).",
+      "Elle peut être diffuse : le lecteur devine sans qu'on le lui dise (Quentin Durward)."
+     ],
+     "definitions": [
+      {
+       "terme": "Ironie dramatique",
+       "def": "Procédé qui donne au lecteur ou au spectateur une information qu'au moins un personnage ignore, donc une avance sur lui."
+      },
+      {
+       "terme": "Installation, exploitation, résolution",
+       "def": "Les trois phases de l'ironie dramatique : on donne l'information, on en tire des scènes, puis le personnage découvre la vérité."
+      },
+      {
+       "terme": "Ironie dramatique diffuse",
+       "def": "Ironie dramatique implicite : le lecteur devine une information sans que le narrateur la lui ait donnée."
+      }
+     ],
+     "fiches": [
+      {
+       "id": "card:nara:c4:001",
+       "q": "Définis l'ironie dramatique.",
+       "r": "Donner au lecteur une information qu'au moins un personnage ignore, donc de l'avance sur ce personnage."
+      },
+      {
+       "id": "card:nara:c4:002",
+       "q": "Quelles sont les trois phases de l'ironie dramatique ?",
+       "r": "Installation, exploitation, résolution."
+      },
+      {
+       "id": "card:nara:c4:003",
+       "q": "Quelle ironie dramatique célèbre se trouve à la fin de Roméo et Juliette ?",
+       "r": "Roméo croit Juliette morte alors que le spectateur sait qu'elle a pris la potion de frère Laurent."
+      },
+      {
+       "id": "card:nara:c4:004",
+       "q": "Quelle est l'ironie dramatique de la scène de la Sanseverina dans La Chartreuse de Parme ?",
+       "r": "Le prince croit qu'elle vient s'humilier pour Fabrice ; le lecteur sait qu'elle vient prendre congé."
+      },
+      {
+       "id": "card:nara:c4:005",
+       "q": "Quelle est l'ironie dramatique du bal dans Les Trois Mousquetaires ?",
+       "r": "Richelieu croit que la reine n'aura pas ses ferrets ; le lecteur sait que d'Artagnan les a rapportés et que les deux manquants ont été refaits."
+      },
+      {
+       "id": "card:nara:c4:006",
+       "q": "Pourquoi l'ironie dramatique plaît-elle au lecteur ?",
+       "r": "Elle attise sa curiosité (attente de la résolution) et le valorise : il se sent supérieur au personnage ignorant."
+      },
+      {
+       "id": "card:nara:c4:007",
+       "q": "Quelle condition rend l'ironie dramatique intéressante ?",
+       "r": "Qu'elle soit exploitée narrativement : il ne suffit pas qu'un personnage ignore quelque chose."
+      },
+      {
+       "id": "card:nara:c4:008",
+       "q": "Qu'est-ce qu'une ironie dramatique diffuse ? Exemple ?",
+       "r": "Le lecteur devine sans être informé : dans Quentin Durward, le vieux marchand est en réalité Louis XI."
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:nara:c4:001",
+       "q": "L'ironie dramatique, c'est quand :",
+       "choix": [
+        "le personnage en sait plus que le lecteur",
+        "le lecteur en sait plus qu'au moins un personnage",
+        "le narrateur se moque du héros",
+        "la fin est surprenante"
+       ],
+       "bonne": 1,
+       "explication": "Le lecteur a de l'avance."
+      },
+      {
+       "id": "question:nara:c4:002",
+       "q": "Lequel N'est PAS une phase de l'ironie dramatique ?",
+       "choix": [
+        "Installation",
+        "Exploitation",
+        "Résolution",
+        "Accroche"
+       ],
+       "bonne": 3,
+       "explication": "Les trois phases : installation, exploitation, résolution."
+      },
+      {
+       "id": "question:nara:c4:003",
+       "q": "Dans Quentin Durward, le marchand est en réalité :",
+       "choix": [
+        "Charles le Téméraire",
+        "Louis XI",
+        "Richelieu",
+        "Henri IV"
+       ],
+       "bonne": 1,
+       "explication": "Exemple d'ironie dramatique diffuse."
+      }
+     ],
+     "sources": [
+      {
+       "document": "NARA1129 - Syllabus narration 2026.pdf",
+       "pages": "Chapitre IV"
+      }
+     ]
+    },
+    {
+     "id": "c5",
+     "titre": "Chapitre V — Crédibilité et logique dans le roman",
+     "duree": 30,
+     "resume": "## L'obsession de la crédibilité\n\n> « La crédibilité est l'une des qualités nécessaires au roman. » (André Maurois)\n\nÊtre crédible et logique doit être une **obsession** : éviter les **grosses coïncidences**, les **deus ex machina**, les intrigues mécaniques, les *happy ends* trop flagrants.\n\nMais ==la crédibilité n'est pas une religion== : l'essentiel est que l'**intelligence du lecteur ne soit pas alertée** (ou insultée). Un épisode invraisemblable mais **non ressenti comme tel**, et intéressant, passe : l'avion qui mitraille Cary Grant dans *La Mort aux trousses* (Hitchcock l'admettait) ; les **aigles géants** du *Seigneur des anneaux* (sinon, pas d'histoire).\n\n## Des procédés pour convaincre\n\n- **Profusion de détails matériels** (18e-19e siècles : Richardson, Diderot).\n- **Robinson Crusoé** : Defoe rend le cordage du navire **difficile à atteindre** et **pas vu tout de suite** → l'épisode paraît moins providentiel. Au 18e siècle, les lecteurs méprisaient la fiction : d'où la mode des **faux mémoires** (« Écrit par lui-même » ; *Jane Eyre*, « une autobiographie »).\n- **Le détail qui fait mouche** : l'ami mort aperçu **au pied du lit**, non dessus — la singularité rend la vision plus plausible. ==Crédibilité et originalité sont liées.==\n- **Les fausses limites du narrateur** : un narrateur qui **ignore** certaines choses inspire confiance (Marlow dans *Lord Jim* de Conrad ; « Ce point n'a pas été éclairci » dans *Les Misérables*, selon Vargas Llosa ; Walter Scott et ses « Mémoires imparfaits » dans *Quentin Durward*).\n- **Collectionner les anecdotes** authentiques (Truffaut ; Lavachery nourrit son tyran de détails sur Tamerlan, qui étonnait ses visiteurs en connaissant leur vie grâce à ses espions).\n\n## Nourrir l'imagination\n\n==L'**incuriosité** est un défaut tragique.== Tolkien, Pullman, Rowling s'appuient sur une immense culture ; pour le Costaguana de *Nostromo*, Conrad s'est longuement **documenté** (histoire, guerres civiles, coups d'État).\n\n## Un outil précieux : la préparation\n\n- On peut d'abord donner une **explication au cœur de la scène** : Milady, catholique, récite des prières puritaines apprises d'un vieux serviteur de son second mari (Dumas).\n- Mais la meilleure solution est la ==**préparation** : placer **en amont** un ou plusieurs éléments qui rendront un événement logique, vraisemblable ou prévisible.==\n  - *De la tendresse* (Robert Cormier) : les goûts du tueur (filles brunes, élancées, peau mate) rappelés une vingtaine de fois rendent crédible son amitié avec Lori, blonde.\n  - *Working Girl* : Tess a déjà **oublié son agenda** à la teinturerie → on accepte qu'elle l'oublie chez sa patronne.\n\n## Les explications a posteriori\n\nOn peut crédibiliser **après coup** : une gêne passagère, puis la satisfaction de l'explication. *Good Doctor* : Carly accepte très facilement de sortir avec Shaun, chirurgien autiste ; on apprend plus tard qu'elle a une **petite sœur autiste**.",
+     "pointsCles": [
+      "Crédibilité et logique sont des obsessions : éviter coïncidences, deus ex machina, happy ends flagrants.",
+      "Mais l'invraisemblable passe s'il n'alerte pas l'intelligence du lecteur (La Mort aux trousses, les aigles du Seigneur des anneaux).",
+      "Procédés : détails matériels, obstacles rendant un épisode moins providentiel (Robinson), détail singulier, narrateur aux connaissances limitées, anecdotes authentiques.",
+      "Crédibilité et originalité sont liées.",
+      "Il faut nourrir son imagination et se documenter, même pour un monde inventé.",
+      "La préparation place un élément en amont pour rendre un événement crédible (Working Girl, Cormier).",
+      "On peut aussi crédibiliser a posteriori (Good Doctor)."
+     ],
+     "definitions": [
+      {
+       "terme": "Crédibilité",
+       "def": "Qualité d'un récit qui n'alerte pas l'intelligence du lecteur et le fait croire à l'histoire."
+      },
+      {
+       "terme": "Deus ex machina",
+       "def": "Intervention providentielle et artificielle qui résout une situation."
+      },
+      {
+       "terme": "Faux mémoires",
+       "def": "Mode du 18e siècle consistant à présenter un roman comme un récit vrai écrit par son héros."
+      },
+      {
+       "terme": "Fausses limites du narrateur",
+       "def": "Procédé où le narrateur avoue ignorer certains faits, ce qui renforce la confiance du lecteur."
+      },
+      {
+       "terme": "Préparation",
+       "def": "Élément placé en amont dans l'histoire pour rendre logique, vraisemblable ou prévisible un événement ultérieur."
+      },
+      {
+       "terme": "Explication a posteriori",
+       "def": "Information donnée après coup qui rend crédible un événement qui avait d'abord gêné le lecteur."
+      }
+     ],
+     "fiches": [
+      {
+       "id": "card:nara:c5:001",
+       "q": "Que faut-il éviter pour rester crédible ?",
+       "r": "Les grosses coïncidences, les deus ex machina, les intrigues mécaniques, les happy ends trop flagrants."
+      },
+      {
+       "id": "card:nara:c5:002",
+       "q": "La crédibilité est-elle une religion ?",
+       "r": "Non : un épisode invraisemblable passe s'il n'est pas ressenti comme tel et s'il est intéressant (l'avion dans La Mort aux trousses)."
+      },
+      {
+       "id": "card:nara:c5:003",
+       "q": "Comment Defoe rend-il crédible l'abordage du navire dans Robinson Crusoé ?",
+       "r": "Le cordage est difficile à atteindre et Robinson ne le voit qu'au second tour : l'épisode paraît moins providentiel."
+      },
+      {
+       "id": "card:nara:c5:004",
+       "q": "Pourquoi les romans du 18e siècle se déguisaient-ils en mémoires ?",
+       "r": "Les lecteurs méprisaient la fiction : une histoire valable devait être vraie."
+      },
+      {
+       "id": "card:nara:c5:005",
+       "q": "Que montre l'anecdote de l'ami mort « au pied du lit » ?",
+       "r": "Un détail singulier et surprenant rend une histoire plus plausible : crédibilité et originalité sont liées."
+      },
+      {
+       "id": "card:nara:c5:006",
+       "q": "Qu'est-ce que le procédé des fausses limites du narrateur ?",
+       "r": "Le narrateur avoue ne pas tout savoir (Marlow dans Lord Jim, « Ce point n'a pas été éclairci » chez Hugo), ce qui renforce la confiance du lecteur."
+      },
+      {
+       "id": "card:nara:c5:007",
+       "q": "Pourquoi collectionner les anecdotes ?",
+       "r": "Des détails authentiques (Truffaut, Tamerlan) rendent un personnage plus singulier, donc plus vrai."
+      },
+      {
+       "id": "card:nara:c5:008",
+       "q": "Pourquoi l'incuriosité est-elle un défaut tragique ?",
+       "r": "Sans culture ni documentation, un univers imaginaire manque de richesse (Tolkien, Conrad et le Costaguana de Nostromo)."
+      },
+      {
+       "id": "card:nara:c5:009",
+       "q": "Qu'est-ce que la préparation ?",
+       "r": "Placer en amont un élément qui rendra logique, vraisemblable ou prévisible un événement ultérieur."
+      },
+      {
+       "id": "card:nara:c5:010",
+       "q": "Quelle préparation rend crédible l'oubli de l'agenda dans Working Girl ?",
+       "r": "Tess avait déjà oublié son agenda à la teinturerie dans une scène précédente."
+      },
+      {
+       "id": "card:nara:c5:011",
+       "q": "Comment Dumas rend-il crédibles les prières puritaines de Milady ?",
+       "r": "Par une explication dans la scène : elle les a apprises d'un vieux serviteur puritain de son second mari."
+      },
+      {
+       "id": "card:nara:c5:012",
+       "q": "Qu'est-ce qu'une explication a posteriori ? Exemple ?",
+       "r": "Une information donnée après coup qui rend un fait crédible : dans Good Doctor, Carly a une petite sœur autiste."
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:nara:c5:001",
+       "q": "Placer un élément en amont pour rendre crédible un événement s'appelle :",
+       "choix": [
+        "l'ironie dramatique",
+        "la préparation",
+        "le climax",
+        "l'explication a posteriori"
+       ],
+       "bonne": 1,
+       "explication": "Selon Lavachery, c'est la meilleure solution."
+      },
+      {
+       "id": "question:nara:c5:002",
+       "q": "Dans Lord Jim, Marlow ignore des pans de la vie du héros. C'est :",
+       "choix": [
+        "une faiblesse du roman",
+        "le procédé des fausses limites du narrateur",
+        "un deus ex machina",
+        "une ironie dramatique"
+       ],
+       "bonne": 1,
+       "explication": "Cela rend le héros plus crédible."
+      },
+      {
+       "id": "question:nara:c5:003",
+       "q": "Pour Lavachery, crédibilité et originalité sont :",
+       "choix": [
+        "opposées",
+        "liées",
+        "sans rapport",
+        "incompatibles"
+       ],
+       "bonne": 1,
+       "explication": "Le détail singulier rend le récit plus plausible."
+      }
+     ],
+     "sources": [
+      {
+       "document": "NARA1129 - Syllabus narration 2026.pdf",
+       "pages": "Chapitre V"
+      }
+     ]
+    },
+    {
+     "id": "c6",
+     "titre": "Chapitre VI — Le devoir d'originalité",
+     "duree": 25,
+     "resume": "> « Tout livre qu'un autre que son auteur aurait pu écrire est bon à mettre au panier. » (Paul Léautaud)\n\n## Le romancier est un metteur en scène\n\nPersonnages, décors, intrigues, scènes : tout a déjà été traité, et chaque situation (rupture, annonce d'un décès, bataille, évasion…) appelle des **réactions attendues**. Il faut sortir des sentiers battus.\n\n- ***Il faut sauver le soldat Ryan*** (Spielberg) : la mère, **vue de dos**, voit arriver la voiture militaire et s'effondre doucement ; **aucune parole**, on ne voit pas son visage → bien plus puissant qu'une succession de champs-contrechamps et un dialogue.\n- **Dumas** après le ballet de la Merlaison : d'Artagnan, dans un cabinet obscur, ne voit de la reine qu'une **main** passant à travers la tapisserie, qui lui laisse une bague. ==Priver le lecteur de certaines images attise son imagination.==\n\n## La chasse aux clichés\n\n- **Passages entre mondes** : porte secrète, terrier, miroir, armoire magique (C. S. Lewis) ; **Philip Pullman** invente le poignard qui incise la membrane entre les univers.\n- **Lieux-clichés** : le château fort, la prison, l'**auberge** (tradition picaresque : lieu du comique et de la rencontre inattendue, selon Jean-Yves Tadié) — à utiliser autrement.\n- **Objets** : le **Faucon Millenium** de *La Guerre des étoiles*, vaisseau **défectueux** et crasseux, rompt avec l'image du vaisseau rutilant.\n- **Batailles** : avant **Waterloo dans *La Chartreuse de Parme***, les batailles étaient des épopées ordonnées ; Stendhal montre le **chaos**, vécu par un Fabrice naïf (influence sur Tolstoï, *Guerre et Paix*).\n\n==Il ne s'agit pas d'être original pour l'être (risque de **maniérisme**) : **originalité et crédibilité sont liées** ; pour faire croire à son histoire, il faut aller où l'on ne vous attend pas.==\n\n**Les scènes bateau** : une scène d'amour ou une dispute père-fils ne sont pas convenues en soi ; tout dépend du traitement. Mais certaines scènes sont **éculées** : le héros poursuivi qui saute dans une rivière et est emporté par des rapides providentiels (*1917*, *The Revenant*). À s'interdire.\n\n## Se renouveler\n\nOn peut aussi se répéter **soi-même** (personnages, relations, épisodes), surtout dans les genres à scènes récurrentes (duels, batailles). Patrick O'Brian s'inspire de **combats historiques** pour varier ses batailles navales. Lavachery cherche une **idée maîtresse**, factuelle (une bataille nocturne, Bjorn perd une main) ou de **mise en scène** (une bataille vue de loin depuis une montagne : le placement de la « caméra »).",
+     "pointsCles": [
+      "L'originalité concerne personnages, décors, intrigues et scènes.",
+      "Le romancier est un metteur en scène : priver le lecteur de certaines images attise l'imagination (Spielberg, Dumas).",
+      "Chasser les clichés : passages entre mondes, lieux (auberge), objets (Faucon Millenium), batailles (Waterloo chez Stendhal).",
+      "Originalité et crédibilité sont liées ; l'originalité gratuite mène au maniérisme.",
+      "Éviter les scènes bateau (le plongeon dans la rivière providentielle).",
+      "Se renouveler soi-même grâce à une idée maîtresse factuelle ou de mise en scène."
+     ],
+     "definitions": [
+      {
+       "terme": "Cliché",
+       "def": "Élément (lieu, objet, scène, réaction) tellement utilisé qu'il est attendu par le lecteur."
+      },
+      {
+       "terme": "Scène bateau",
+       "def": "Scène éculée vue maintes fois, comme le héros sauvé en sautant dans une rivière."
+      },
+      {
+       "terme": "Maniérisme",
+       "def": "Recherche de l'originalité pour elle-même, au détriment du sens."
+      },
+      {
+       "terme": "Idée maîtresse",
+       "def": "Idée factuelle ou de mise en scène qui rend une scène récurrente nouvelle (bataille vue de loin)."
+      }
+     ],
+     "fiches": [
+      {
+       "id": "card:nara:c6:001",
+       "q": "Que dit Paul Léautaud sur l'originalité ?",
+       "r": "Tout livre qu'un autre que son auteur aurait pu écrire est bon à mettre au panier."
+      },
+      {
+       "id": "card:nara:c6:002",
+       "q": "Pourquoi la scène de l'annonce du décès dans Il faut sauver le soldat Ryan est-elle originale ?",
+       "r": "La mère est vue de dos, sans parole ni gros plan : l'épure est plus puissante qu'un champ-contrechamp avec dialogue."
+      },
+      {
+       "id": "card:nara:c6:003",
+       "q": "Comment Dumas met-il en scène la récompense de d'Artagnan par la reine ?",
+       "r": "Dans l'obscurité, seule une main passe à travers la tapisserie et lui laisse une bague : priver le lecteur d'images attise son imagination."
+      },
+      {
+       "id": "card:nara:c6:004",
+       "q": "Quelle solution originale Pullman trouve-t-il pour passer d'un monde à l'autre ?",
+       "r": "Un poignard qui incise une membrane invisible entre les univers (plutôt qu'une armoire, un miroir…)."
+      },
+      {
+       "id": "card:nara:c6:005",
+       "q": "Pourquoi le Faucon Millenium est-il une idée originale ?",
+       "r": "C'est un vaisseau défectueux et crasseux, à l'opposé du cliché du vaisseau rutilant ; il contribue à la vérité du film."
+      },
+      {
+       "id": "card:nara:c6:006",
+       "q": "Qu'apporte Stendhal avec Waterloo dans La Chartreuse de Parme ?",
+       "r": "La bataille devient chaotique et morcelée, vécue par un Fabrice naïf : une démythification qui influence Tolstoï."
+      },
+      {
+       "id": "card:nara:c6:007",
+       "q": "Pourquoi chercher l'originalité ?",
+       "r": "Pas pour se démarquer gratuitement (maniérisme), mais parce qu'originalité et crédibilité sont liées."
+      },
+      {
+       "id": "card:nara:c6:008",
+       "q": "Donne un exemple de scène bateau.",
+       "r": "Le héros poursuivi qui saute dans une rivière et est emporté par des rapides providentiels (1917, The Revenant)."
+      },
+      {
+       "id": "card:nara:c6:009",
+       "q": "Comment éviter de se répéter dans les scènes récurrentes ?",
+       "r": "Trouver une idée maîtresse, factuelle (bataille nocturne) ou de mise en scène (bataille vue de loin), ou s'inspirer de faits historiques (O'Brian)."
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:nara:c6:001",
+       "q": "Le Faucon Millenium est cité comme exemple :",
+       "choix": [
+        "de cliché",
+        "d'objet anti-cliché",
+        "de deus ex machina",
+        "d'ironie dramatique"
+       ],
+       "bonne": 1,
+       "explication": "Un vaisseau défectueux, inattendu à l'époque."
+      },
+      {
+       "id": "question:nara:c6:002",
+       "q": "Qui a démythifié la bataille de Waterloo ?",
+       "choix": [
+        "Hugo",
+        "Stendhal",
+        "Dumas",
+        "Tolstoï"
+       ],
+       "bonne": 1,
+       "explication": "Dans La Chartreuse de Parme."
+      },
+      {
+       "id": "question:nara:c6:003",
+       "q": "L'originalité pour elle-même risque de mener au :",
+       "choix": [
+        "réalisme",
+        "maniérisme",
+        "classicisme",
+        "cliché"
+       ],
+       "bonne": 1,
+       "explication": "L'originalité doit servir la crédibilité."
+      }
+     ],
+     "sources": [
+      {
+       "document": "NARA1129 - Syllabus narration 2026.pdf",
+       "pages": "Chapitre VI"
+      }
+     ]
+    },
+    {
+     "id": "c7",
+     "titre": "Chapitre VII — Les personnages",
+     "duree": 35,
+     "resume": "> « Les meilleurs romans finissent toujours par avoir les gens pour sujets, plutôt que les événements. » (Stephen King)\n\n## L'importance des personnages\n\nBalzac : seuls les personnages font la pérennité d'un roman (exagéré, mais révélateur). ==L'envie de relire doit plus à l'**attachement aux personnages** qu'à l'intrigue ou au style.== Stevenson trouvait d'Artagnan aussi réel et cher que ses amis (*Le Vicomte de Bragelonne*, lu cinq ou six fois).\n\n## Création des personnages\n\n**Sources d'inspiration** très diverses :\n\n- **Plusieurs modèles fondus** : M. de **Charlus** (Proust) ← Robert de Montesquiou et le prince de Sagan ;\n- **Personnage historique + auteur** : l'**Hadrien** de Yourcenar ;\n- **Un auteur dans plusieurs personnages** : Alain-Fournier dans les trois héros du *Grand Meaulnes* ;\n- **Source littéraire** : Angelo Pardi (*Le Hussard sur le toit*, Giono) descend de Fabrice del Dongo.\n\nPour Lavachery, ==l'**imagination pure n'existe pas**== : la source peut être inconsciente, mais elle est en nous.\n\n**Conseil** : ne pas se lancer sans une **idée claire** des personnages principaux (sinon ils paraissent fluctuants, comme des traits mal fixés en BD) ; les imaginer dans des situations hors de l'histoire.\n\n**Les fiches de personnages** ont trois fonctions :\n\n1. **fixer** l'essentiel avant d'écrire (âge, physique, origine, famille, caractère) — et éviter les **incohérences** (un cheval change de sexe chez George R. R. Martin) ; la fiche peut évoluer ;\n2. **faciliter les vérifications** sans casser l'élan (le romancier, comme un sportif, doit « rester chaud ») ;\n3. **noter les détails inventés** en cours de route (gestes, tics, expressions) pour les **rappeler** : « Saperlotte ! » de M. Homais, « épatant » de Bill Gorton chez Hemingway.\n\n## Psychologie des personnages\n\n- ==Les grands protagonistes sont **complexes et contrastés**== : d'Artagnan arriviste, « perfide » envers Ketty ; le **capitaine Nemo**, destructeur rongé de remords (Verne refuse de l'adoucir malgré son éditeur Hetzel) ; **Athos** alcoolique (« le demi-dieu évanoui, il restait à peine un homme »). Les **défauts** bien amenés rendent un héros plus attachant et crédible ; un héros parfait et monolithique (Michel Strogoff) touche moins.\n- **Évolution** : les séries françaises figent souvent leurs héros ; les anglo-saxonnes les font évoluer (Gaby dans *Desperate Housewives*, Jaime Lannister dans *Game of Thrones*). **Dumas** est un précurseur : d'Artagnan, plein de sève, devient **aigri** (« cœur racorni ») dans les suites — ce qui le rend plus vrai.\n- **Protagoniste et action** : un héros aux **objectifs clairs** et au **rôle moteur** ; les personnages **passifs** attirent rarement (exception : *Oblomov* de Gontcharov, dont l'apathie est le sujet ; l'« oblomovisme »). Le roman raté de Lavachery avait un héros qui subissait et sans objectif.\n- **Émancipation** : Auster laisse ses personnages prendre le pouvoir ; Boyd en fait ses esclaves ; Lavachery est entre les deux (Svartog Longs-Bras, prévu pour un duel, devient un quasi-frère de Bjorn). ==Une **émancipation surveillée**== : garder un œil critique (corriger un héros qui tire l'histoire vers le glauque).\n\n## Les personnages secondaires\n\nMoins travaillés, évoluant peu, souvent caricaturaux — ça fonctionne ; mais Tchekhov ou Fitzgerald leur donnent de l'épaisseur en quelques répliques.\n\n## Les méchants\n\nPas indispensables (*La Steppe*, *L'Île mystérieuse*), mais d'une **haute valeur dramaturgique** : ils créent du conflit (Henri Vernes : « le plus important, c'est d'avoir un bon, un terrible méchant »).\n\n- **Méchants absolus** (Voldemort, le comte Olaf, l'Ombre jaune, Milady, Mordaunt) : beaucoup de conflit mais souvent **peu de profondeur**.\n- **Méchants à facettes**, plus intéressants : **Richelieu** reconnaît la bravoure des mousquetaires ; **Hannibal Lecter** se prend de sympathie pour Clarisse (Lavachery n'y voit pas l'erreur que critique Lavandier) ; **Long John Silver** fascine plus que Voldemort.\n- Chez Greene, Conrad, Le Carré, les lignes sont floues (« des mi-anges luttent contre des demi-démons »). En littérature jeunesse, un héros doit rester un héros, mais zones d'ombre et zones claires enrichissent.",
+     "pointsCles": [
+      "L'attachement aux personnages fait relire un roman plus que l'intrigue ou le style.",
+      "Sources : modèles fondus, personnage historique + auteur, auteur diffracté, source littéraire ; l'imagination pure n'existe pas.",
+      "Avoir une idée claire des personnages principaux avant d'écrire.",
+      "Fiches : fixer l'essentiel, vérifier sans casser l'élan, noter les détails à rappeler.",
+      "Les grands héros sont contrastés (d'Artagnan, Nemo, Athos) et peuvent évoluer (d'Artagnan aigri).",
+      "Le protagoniste doit être moteur et avoir des objectifs clairs (anti-modèle : Oblomov).",
+      "Émancipation des personnages : oui, mais surveillée.",
+      "Méchants absolus vs méchants à facettes (Richelieu, Lecter, Long John Silver)."
+     ],
+     "definitions": [
+      {
+       "terme": "Fiche de personnage",
+       "def": "Document où l'auteur note biographie, physique, caractère et détails récurrents d'un personnage."
+      },
+      {
+       "terme": "Personnage contrasté",
+       "def": "Personnage capable de sentiments et d'actions opposés, avec des défauts qui le rendent humain et crédible."
+      },
+      {
+       "terme": "Oblomovisme",
+       "def": "Mot russe issu d'Oblomov (Gontcharov) désignant le refus du monde, l'apathie et l'horreur des décisions."
+      },
+      {
+       "terme": "Émancipation des personnages",
+       "def": "Le fait que des personnages prennent une direction imprévue en cours d'écriture ; à surveiller."
+      },
+      {
+       "terme": "Méchant absolu",
+       "def": "Antagoniste purement maléfique, source de conflit mais souvent sans profondeur (Voldemort)."
+      },
+      {
+       "terme": "Méchant à facettes",
+       "def": "Antagoniste qui fait le mal tout en ayant des qualités ou des gestes positifs (Richelieu, Long John Silver)."
+      }
+     ],
+     "fiches": [
+      {
+       "id": "card:nara:c7:001",
+       "q": "Qu'est-ce qui donne surtout envie de relire un roman selon Lavachery ?",
+       "r": "L'attachement aux personnages, plus que l'intrigue ou le style."
+      },
+      {
+       "id": "card:nara:c7:002",
+       "q": "Donne quatre types de sources d'inspiration de personnages.",
+       "r": "Plusieurs modèles fondus (Charlus) ; personnage historique + auteur (Hadrien) ; auteur diffracté en plusieurs héros (Le Grand Meaulnes) ; source littéraire (Angelo descend de Fabrice)."
+      },
+      {
+       "id": "card:nara:c7:003",
+       "q": "L'imagination pure existe-t-elle selon Lavachery ?",
+       "r": "Non : la source peut être inconsciente, mais elle est toujours en nous."
+      },
+      {
+       "id": "card:nara:c7:004",
+       "q": "Quel conseil pour un auteur débutant à propos des personnages ?",
+       "r": "Ne pas se lancer sans une idée claire des personnages principaux : les laisser se préciser en soi, les imaginer dans diverses situations."
+      },
+      {
+       "id": "card:nara:c7:005",
+       "q": "Quelles sont les trois fonctions des fiches de personnages ?",
+       "r": "Fixer l'essentiel et éviter les incohérences ; faciliter les vérifications sans casser l'élan ; noter les détails inventés pour les rappeler."
+      },
+      {
+       "id": "card:nara:c7:006",
+       "q": "Donne deux exemples de tics verbaux qui singularisent un personnage.",
+       "r": "« Saperlotte ! » de M. Homais (Madame Bovary) ; « épatant » de Bill Gorton (Le soleil se lève aussi)."
+      },
+      {
+       "id": "card:nara:c7:007",
+       "q": "Pourquoi d'Artagnan, Nemo et Athos sont-ils de grands personnages ?",
+       "r": "Ils sont contrastés, avec des défauts (arrivisme, remords, alcoolisme) qui les rendent humains et crédibles."
+      },
+      {
+       "id": "card:nara:c7:008",
+       "q": "Comment évolue d'Artagnan dans les suites des Mousquetaires ?",
+       "r": "De la vitalité heureuse à l'amertume (« cœur racorni »), ce qui le rend plus vrai."
+      },
+      {
+       "id": "card:nara:c7:009",
+       "q": "Pourquoi un protagoniste passif pose-t-il problème ?",
+       "r": "Les personnages qui subissent l'action sont rarement attrayants ; il faut un héros moteur aux objectifs clairs (sauf si la passivité est le sujet, comme Oblomov)."
+      },
+      {
+       "id": "card:nara:c7:010",
+       "q": "Quelle est la position de Lavachery sur l'émancipation des personnages ?",
+       "r": "Entre Auster (liberté totale) et Boyd (esclaves) : une émancipation surveillée, avec un œil critique."
+      },
+      {
+       "id": "card:nara:c7:011",
+       "q": "Les méchants sont-ils indispensables ?",
+       "r": "Non (La Steppe, L'Île mystérieuse), mais ils ont une haute valeur dramaturgique car ils créent du conflit."
+      },
+      {
+       "id": "card:nara:c7:012",
+       "q": "Différence entre méchant absolu et méchant à facettes ?",
+       "r": "L'absolu (Voldemort, Milady) crée du conflit mais manque de profondeur ; celui à facettes (Richelieu, Lecter, Long John Silver) a des qualités et fascine."
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:nara:c7:001",
+       "q": "M. de Charlus, chez Proust, est un personnage :",
+       "choix": [
+        "sans modèle",
+        "issu de plusieurs modèles fondus",
+        "historique",
+        "autobiographique"
+       ],
+       "bonne": 1,
+       "explication": "Robert de Montesquiou et le prince de Sagan."
+      },
+      {
+       "id": "question:nara:c7:002",
+       "q": "L'oblomovisme désigne :",
+       "choix": [
+        "l'hyperactivité",
+        "l'apathie, le refus du monde",
+        "le goût du mal",
+        "l'arrivisme"
+       ],
+       "bonne": 1,
+       "explication": "D'après le héros de Gontcharov."
+      },
+      {
+       "id": "question:nara:c7:003",
+       "q": "Lequel est un méchant à facettes ?",
+       "choix": [
+        "Voldemort",
+        "le comte Olaf",
+        "Long John Silver",
+        "Mordaunt"
+       ],
+       "bonne": 2,
+       "explication": "Il fascine autant qu'il effraie."
+      },
+      {
+       "id": "question:nara:c7:004",
+       "q": "Pour Lavachery, l'émancipation des personnages doit être :",
+       "choix": [
+        "totale",
+        "interdite",
+        "surveillée",
+        "réservée aux méchants"
+       ],
+       "bonne": 2,
+       "explication": "Garder un œil critique sur ce qu'on écrit."
+      }
+     ],
+     "sources": [
+      {
+       "document": "NARA1129 - Syllabus narration 2026.pdf",
+       "pages": "Chapitre VII"
+      }
+     ]
+    },
+    {
+     "id": "c8",
+     "titre": "Chapitre VIII — Les descriptions",
+     "duree": 35,
+     "resume": "> « Une description trop succincte laissera le lecteur désorienté et myope. Une description surabondante le noiera de détails. Le truc, c'est de trouver le juste milieu. » (Stephen King)\n\n## L'impatience du lecteur contemporain\n\nLes descriptions diminuent. Le lecteur d'aujourd'hui les tolère moins (les 22 pages sur le château de Sigognac dans *Le Capitaine Fracasse* de Gautier). Trois causes : l'habitude des **narrations rapides** et des ellipses télévisuelles ; une **concentration** diminuée ; une **culture visuelle** bien plus vaste (Franzen : le lecteur de l'Illinois a déjà vu une fête sur un yacht).\n\n## Décrire les personnages\n\n- **Ne pas décrire** est possible (Kafka : K. a seulement les yeux noirs ; Ondaatje s'intéresse à ce que ressent son héroïne, pas à ses cheveux).\n- Lavachery préfère décrire, pour aider le lecteur à former ses images, mais **en quelques traits bien choisis** qui ne ralentissent pas l'action ; on peut **distiller** les éléments au fil du récit.\n- ==Décrire le héros **tôt**== : trop tard, la description contredit l'image que le lecteur s'est déjà forgée.\n- **Le regard prédateur** : le romancier qui lit cherche les secrets de fabrication (Annie Ernaux) ; ==lire est la première école d'écriture.==\n\n**Exemples** :\n\n- **Rousseau**, Mme de Warens : un ange… puis « petite de stature, courte même » → l'art du **contraste** (aussi entre un personnage et son décor : la cuisinière au tablier à marguerites dans une cuisine de verre et d'acier, chez Cormier).\n- **Patrick O'Brian** : le banquier Capell vu par le médecin **Stephen Maturin** (« Constipation. Hémorroïdes. Pieds plats ») → le **point de vue subjectif** d'un personnage permet de forcer le trait. Règle : l'importance du portrait suit celle du personnage, sauf si la description est un plaisir en soi.\n- **Stendhal** (le marchesine Ascagne, « sa grosse figure blafarde ») : portrait **dans le mouvement** du récit, « caméra au poing », physique et moral mêlés.\n\n## Décrire les décors\n\nPlus difficiles à rendre attrayants que les personnages.\n\n- **Stevenson** suggère plus qu'il ne décrit : l'auberge de l'Amiral Benbow (*L'Île au trésor*) n'est pas décrite, quelques mots (auberge, falaise, baie, ressac) et les scènes suffisent. Nos images mentales sont **floues** : trop de précision « coupe les ailes » du lecteur.\n- **Le point de vue subjectif** : juger le décor (Stendhal et son « affreux ») ou passer par le regard d'un personnage ; la **froideur** de Gautier lasse.\n- **Le décor suggestif** : Chandler récrit une description du *Grand Sommeil* pour créer un **malaise** (le blanc rend l'ivoire sale, l'ivoire rend le blanc cadavérique).\n- **La gamme des sensations** : bruits, odeurs, textures, goût (Stevenson et le « tap-tap » du bâton de l'aveugle ; **Simenon**, maître des atmosphères).\n\n**Exemples** : *Le Rouge et le Noir* (Julien Sorel sur son rocher : description en mouvement, **symbolique** de son ambition — Stendhal, qui détestait décrire, en fait une force) ; *Voyage au centre de la terre* (Copenhague vue par Axel, narrateur : les descriptions de Verne sont plus vivantes quand un **personnage** raconte) ; *Cécile est morte* (Simenon : escaliers, odeurs, bruits).\n\n## Exercice : décrire un lieu de son passé\n\nUn lieu qu'on n'a plus vu depuis des années : la **mémoire** agit comme un **filtre**, un « crible esthétique » (Jean Prévost) qui ne garde que l'essentiel. Flaubert déconseillait de décrire juste après avoir vu. ==Stevenson : « il n'y a qu'un seul art : l'**art d'omettre** ! »== (contre la profusion de Balzac).",
+     "pointsCles": [
+      "Le lecteur contemporain est impatient : narrations rapides, concentration réduite, culture visuelle étendue.",
+      "On peut ne pas décrire ses personnages ; sinon, quelques traits bien choisis, distillés, et tôt dans le récit.",
+      "Lire avec un regard prédateur : la lecture est la première école d'écriture.",
+      "Procédés : le contraste (Rousseau), le point de vue subjectif d'un personnage (O'Brian), la description dans le mouvement (Stendhal).",
+      "Les décors sont plus difficiles : suggérer (Stevenson), juger, rendre le décor suggestif (Chandler), mobiliser tous les sens (Simenon).",
+      "Décrire de mémoire filtre l'essentiel ; « il n'y a qu'un seul art : l'art d'omettre »."
+     ],
+     "definitions": [
+      {
+       "terme": "Regard prédateur",
+       "def": "Lecture d'un romancier qui cherche, en lisant, les secrets de fabrication des autres auteurs."
+      },
+      {
+       "terme": "Art du contraste",
+       "def": "Introduire un élément discordant dans un portrait ou entre un personnage et son décor pour fixer l'attention."
+      },
+      {
+       "terme": "Description dans le mouvement",
+       "def": "Portrait ou décor donné pendant l'action, sans arrêter le récit (Stendhal)."
+      },
+      {
+       "terme": "Décor suggestif",
+       "def": "Décor décrit pour produire une impression ou un symbole (le malaise chez les Sternwood de Chandler)."
+      },
+      {
+       "terme": "Crible esthétique",
+       "def": "Rôle de la mémoire selon Jean Prévost : elle ne garde que les éléments marquants d'un lieu."
+      },
+      {
+       "terme": "Art d'omettre",
+       "def": "Selon Stevenson, l'art essentiel : savoir laisser des choses sous-entendues."
+      }
+     ],
+     "fiches": [
+      {
+       "id": "card:nara:c8:001",
+       "q": "Pourquoi le lecteur contemporain tolère-t-il moins les descriptions ?",
+       "r": "Habitude des narrations rapides, concentration diminuée, culture visuelle beaucoup plus étendue."
+      },
+      {
+       "id": "card:nara:c8:002",
+       "q": "Est-il obligatoire de décrire physiquement ses personnages ?",
+       "r": "Non (Kafka, Ondaatje) ; Lavachery préfère décrire, mais en quelques traits bien choisis."
+      },
+      {
+       "id": "card:nara:c8:003",
+       "q": "Pourquoi décrire le héros tôt dans le récit ?",
+       "r": "Trop tard, la description risque de contredire l'image que le lecteur s'est déjà forgée."
+      },
+      {
+       "id": "card:nara:c8:004",
+       "q": "Qu'est-ce que le « regard prédateur » ?",
+       "r": "Lire en cherchant les secrets de fabrication : la lecture est la première école d'écriture."
+      },
+      {
+       "id": "card:nara:c8:005",
+       "q": "Quel procédé illustre le portrait de Mme de Warens par Rousseau ?",
+       "r": "L'art du contraste : un portrait d'ange soudain nuancé (« petite de stature, courte même »)."
+      },
+      {
+       "id": "card:nara:c8:006",
+       "q": "Quel intérêt de décrire par le regard d'un personnage (O'Brian, Maturin) ?",
+       "r": "Le point de vue subjectif permet de forcer le trait, ce qu'un narrateur mesuré ne pourrait pas faire."
+      },
+      {
+       "id": "card:nara:c8:007",
+       "q": "Quelle est la force des portraits de Stendhal ?",
+       "r": "Ils sont faits dans le mouvement du récit, « caméra au poing », en mêlant traits physiques et moraux."
+      },
+      {
+       "id": "card:nara:c8:008",
+       "q": "Comment Stevenson rend-il les lieux présents ?",
+       "r": "En les décrivant à peine, par petites touches et par les scènes qui s'y passent (l'auberge de l'Amiral Benbow)."
+      },
+      {
+       "id": "card:nara:c8:009",
+       "q": "Qu'est-ce qu'un décor suggestif ? Exemple ?",
+       "r": "Un décor décrit pour créer une impression : chez Chandler, le blanc et l'ivoire de la maison Sternwood inspirent un malaise."
+      },
+      {
+       "id": "card:nara:c8:010",
+       "q": "Pourquoi mobiliser plusieurs sens dans une description ?",
+       "r": "Bruits, odeurs, textures et goûts font exister un décor (Stevenson, Simenon)."
+      },
+      {
+       "id": "card:nara:c8:011",
+       "q": "Que montre la description de Julien Sorel sur son rocher ?",
+       "r": "Une description rapide, en mouvement et symbolique (l'isolement en hauteur figure son ambition)."
+      },
+      {
+       "id": "card:nara:c8:012",
+       "q": "Pourquoi décrire un lieu de son passé dans l'exercice d'atelier ?",
+       "r": "La mémoire filtre et ne garde que l'essentiel (« crible esthétique ») ; Flaubert déconseillait d'écrire juste après avoir vu."
+      },
+      {
+       "id": "card:nara:c8:013",
+       "q": "Quelle est la leçon de Stevenson sur la description ?",
+       "r": "« Il n'y a qu'un seul art : l'art d'omettre ! », contre la profusion de Balzac."
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:nara:c8:001",
+       "q": "Le portrait de Mme de Warens par Rousseau illustre :",
+       "choix": [
+        "la description dans le mouvement",
+        "l'art du contraste",
+        "le décor suggestif",
+        "l'art d'omettre"
+       ],
+       "bonne": 1,
+       "explication": "Un ange… courtaude."
+      },
+      {
+       "id": "question:nara:c8:002",
+       "q": "Quel auteur est cité comme maître des sensations et des atmosphères ?",
+       "choix": [
+        "Gautier",
+        "Simenon",
+        "Kafka",
+        "Balzac"
+       ],
+       "bonne": 1,
+       "explication": "Avec Stevenson."
+      },
+      {
+       "id": "question:nara:c8:003",
+       "q": "« Il n'y a qu'un seul art : l'art d'omettre » est de :",
+       "choix": [
+        "Flaubert",
+        "Stendhal",
+        "Stevenson",
+        "Chandler"
+       ],
+       "bonne": 2,
+       "explication": "À propos de Balzac."
+      },
+      {
+       "id": "question:nara:c8:004",
+       "q": "Les descriptions de Verne sont plus vivantes quand :",
+       "choix": [
+        "elles sont longues",
+        "un personnage raconte",
+        "elles sont techniques",
+        "elles sont au présent"
+       ],
+       "bonne": 1,
+       "explication": "Copenhague vue par Axel dans Voyage au centre de la terre."
+      }
+     ],
+     "sources": [
+      {
+       "document": "NARA1129 - Syllabus narration 2026.pdf",
+       "pages": "Chapitre VIII"
+      }
+     ]
+    },
+    {
+     "id": "c9",
+     "titre": "Chapitre IX — Les dialogues",
+     "duree": 35,
+     "resume": "> « La bonne question n'est pas de savoir si les dialogues emploient une langue recherchée ou vulgaire ; elle est de savoir s'ils sonnent juste. » (Stephen King)\n\n## Quand passer aux dialogues ?\n\n**Balzac contre Flaubert** : *La Cousine Bette* compte **49 %** de dialogues ; les romans contemporains de Flaubert environ **20 %**. Pour **Flaubert**, seuls les **personnages principaux**, dans les **scènes principales**, ont droit à la parole (« les paroles de la bonne devraient être racontées et non dites ») : ==« reculer les choses secondaires » pour mettre l'essentiel en relief.==\n\nPourquoi ? ==Le dialogue est du **temps réel**== (temps de lecture ≈ temps de l'histoire), alors que la narration résume (un saut en parachute lu en 4 secondes) : il **ralentit** le récit et **donne de l'importance** à celui qui parle. Ce n'est pas une loi (Proust fait parler toute une société).\n\nLes débutants **abusent** des dialogues parce qu'ils viennent plus facilement (2,5 pages de dialogue ≈ 1 page de narration en temps d'écriture). ==Règle : un dialogue doit avoir une **fonction** (apprendre quelque chose de l'histoire, révéler un caractère…) et/ou un **attrait** (amuser, choquer, pittoresque, valeur documentaire) — sinon, couper sans pitié.==\n\n**Les répliques en trop** : supprimer les politesses inutiles (« Bonjour, tu vas bien ? — Très bien, et toi ? ») rend la scène bien plus **rythmée**.\n\n## Qu'est-ce qu'un bon dialogue ?\n\n- **Céline** : le langage parlé en littérature est comme les **colonnes grecques**, penchées pour avoir l'air droites. Une conversation reproduite mot pour mot est assommante et peu convaincante (Sorkin : « nous ne faisons pas de la photo, nous faisons de la peinture »). **Dostoïevski** note les hésitations, les phrases inachevées — avec dosage.\n- **Personnaliser** : chacun parle selon son âge et son milieu, sans forcer ; tics et jurons récurrents. **Proust** est le maître (Jean-François Revel : « tous les personnages de Balzac parlent Balzac » ; chez Proust, vingt phrases de Bloch ou de Norpois sembleraient d'auteurs différents).\n- **Accents, défauts de prononciation, argot** : avec prudence, car ils **alourdissent** (le troll Dizir qui zézaie oblige Lavachery au style indirect) et l'argot **vieillit vite** (« c'est bath », « morlingue » ; *Touchez pas au grisbi*).\n- **Les faux dialogues** : ==des répliques qui donnent au lecteur une information que l'**interlocuteur connaît déjà**== (les soldats de *Monte-Cristo* se racontent un événement vécu ensemble). Solution : passer par la **narration**. Au cinéma, on peut les désamorcer (*Soleil vert* : « Je sais, Sol, tu m'en as déjà parlé » transforme le rabâchage en moment drôle ; Hermione : « On avait remarqué »).\n- **Conseil pratique** (Bob Meyer) : surligner toutes les répliques d'un personnage et les lire à la suite pour vérifier qu'il a **sa propre voix**.\n\n## Exemples remarquables\n\n- **Harry Potter**, le centaure Ronan (« On voit bien Mars, ce soir ») : des répliques **non utilitaires**, poétiques, qui rendent le personnage plus présent ; Jean Prévost raille les personnages qui ne disent que des phrases utiles à l'action.\n- **Rosa Candida** (Olafsdottir) : « Tâche de les donner, alors » **ne répond pas** à la question — comme dans la vie, on élude ; une phrase peut avoir un **sens caché** (« Passe-moi le sel »).\n- **Crime et Châtiment** : hésitations et phrases interrompues de Raskolnikoff.\n\n## Conclusion\n\nTavernier sur David Rayfield : des dialogues à plusieurs sens, « en oblique » ; « les gens disent une chose et parlent d'une autre ». ==S'en tenir aux répliques utilitaires est un « crime artistique ».== Avec le dialogue, le **filtre du narrateur disparaît** et les personnages gagnent en réalité.",
+     "pointsCles": [
+      "Flaubert (20 % de dialogues) réserve la parole aux personnages et scènes principaux ; Balzac en met 49 %.",
+      "Le dialogue est du temps réel : il ralentit le récit et donne de l'importance à celui qui parle.",
+      "Chaque dialogue doit avoir une fonction et/ou un attrait ; couper les répliques en trop.",
+      "Un bon dialogue n'imite pas la réalité mot pour mot (colonnes grecques de Céline).",
+      "Personnaliser chaque voix (Proust) ; prudence avec accents, défauts de prononciation et argot.",
+      "Éviter les faux dialogues : l'interlocuteur sait déjà ce qu'on lui dit.",
+      "Répliques non utilitaires, questions éludées et sens cachés rendent les dialogues vivants."
+     ],
+     "definitions": [
+      {
+       "terme": "Dialogue direct",
+       "def": "Paroles des personnages rapportées telles quelles, en temps quasi réel."
+      },
+      {
+       "terme": "Fonction d'un dialogue",
+       "def": "Ce qu'il apporte : information sur l'histoire, état d'esprit ou caractère d'un personnage."
+      },
+      {
+       "terme": "Attrait d'un dialogue",
+       "def": "Son intérêt propre : amuser, choquer, valeur pittoresque ou documentaire."
+      },
+      {
+       "terme": "Faux dialogue",
+       "def": "Réplique qui transmet au lecteur une information que l'interlocuteur connaît déjà."
+      },
+      {
+       "terme": "Personnalisation des dialogues",
+       "def": "Faire parler chaque personnage selon son âge, son milieu et ses tics."
+      },
+      {
+       "terme": "Style indirect",
+       "def": "Rapporter les paroles par la narration plutôt qu'en dialogue direct."
+      }
+     ],
+     "fiches": [
+      {
+       "id": "card:nara:c9:001",
+       "q": "Quelle part de dialogues chez Balzac et chez Flaubert ?",
+       "r": "49 % dans La Cousine Bette ; environ 20 % dans les romans contemporains de Flaubert."
+      },
+      {
+       "id": "card:nara:c9:002",
+       "q": "Quelle était la règle de Flaubert pour les dialogues ?",
+       "r": "Seuls les personnages principaux, dans les scènes principales, parlent ; le secondaire est raconté, pour mettre l'essentiel en relief."
+      },
+      {
+       "id": "card:nara:c9:003",
+       "q": "Pourquoi dit-on que le dialogue est du temps réel ?",
+       "r": "Le temps de lecture est presque égal au temps de l'histoire, contrairement à la narration qui résume."
+      },
+      {
+       "id": "card:nara:c9:004",
+       "q": "Quelles sont les deux conditions pour garder un dialogue ?",
+       "r": "Une fonction (information, caractère) et/ou un attrait (amuser, choquer, pittoresque, documentaire)."
+      },
+      {
+       "id": "card:nara:c9:005",
+       "q": "Pourquoi les débutants abusent-ils des dialogues ?",
+       "r": "Parce qu'ils viennent plus facilement que la narration."
+      },
+      {
+       "id": "card:nara:c9:006",
+       "q": "Que veut dire Céline avec l'image des colonnes grecques ?",
+       "r": "Le langage parlé en littérature doit être retravaillé pour paraître naturel : copier la réalité mot pour mot ne marche pas."
+      },
+      {
+       "id": "card:nara:c9:007",
+       "q": "Quel auteur a le mieux personnalisé les voix selon Revel ?",
+       "r": "Proust : chaque personnage a sa manière de parler, de penser et d'être (alors que tous les personnages de Balzac « parlent Balzac »)."
+      },
+      {
+       "id": "card:nara:c9:008",
+       "q": "Pourquoi être prudent avec l'argot ?",
+       "r": "Il vieillit vite et devient illisible (« c'est bath », Touchez pas au grisbi)."
+      },
+      {
+       "id": "card:nara:c9:009",
+       "q": "Qu'est-ce qu'un faux dialogue ?",
+       "r": "Une réplique qui sert à informer le lecteur alors que l'interlocuteur sait déjà la chose (les soldats de Monte-Cristo)."
+      },
+      {
+       "id": "card:nara:c9:010",
+       "q": "Comment corriger un faux dialogue ?",
+       "r": "Passer l'information par la narration, ou la désamorcer (« Je sais, tu m'en as déjà parlé » dans Soleil vert ; « On avait remarqué » chez Rowling)."
+      },
+      {
+       "id": "card:nara:c9:011",
+       "q": "Quel conseil pratique pour vérifier la justesse des dialogues ?",
+       "r": "Surligner les répliques d'un personnage et les lire à la suite pour voir s'il a une voix cohérente et personnelle."
+      },
+      {
+       "id": "card:nara:c9:012",
+       "q": "Qu'apportent les répliques de Ronan sur Mars dans Harry Potter ?",
+       "r": "Elles sont non utilitaires et poétiques, et rendent le personnage plus présent et attrayant."
+      },
+      {
+       "id": "card:nara:c9:013",
+       "q": "Quelle technique réaliste illustre Rosa Candida ?",
+       "r": "Une réplique qui ne répond pas à la question : dans la vie, on élude ; les phrases ont souvent un sens caché."
+      },
+      {
+       "id": "card:nara:c9:014",
+       "q": "Que se passe-t-il pour le lecteur quand les personnages dialoguent ?",
+       "r": "Le filtre du narrateur disparaît : les personnages gagnent en réalité."
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:nara:c9:001",
+       "q": "Selon Flaubert, les paroles d'une bonne (personnage secondaire) doivent être :",
+       "choix": [
+        "dites",
+        "racontées",
+        "supprimées",
+        "en argot"
+       ],
+       "bonne": 1,
+       "explication": "Reculer le secondaire pour mettre l'essentiel en relief."
+      },
+      {
+       "id": "question:nara:c9:002",
+       "q": "Un faux dialogue, c'est :",
+       "choix": [
+        "un dialogue mensonger",
+        "une réplique qui informe un interlocuteur déjà au courant",
+        "un dialogue au style indirect",
+        "un monologue"
+       ],
+       "bonne": 1,
+       "explication": "Il sert le lecteur au détriment de la logique."
+      },
+      {
+       "id": "question:nara:c9:003",
+       "q": "Le dialogue, par rapport à la narration :",
+       "choix": [
+        "accélère le récit",
+        "ralentit le récit",
+        "n'a aucun effet sur le rythme",
+        "remplace la description"
+       ],
+       "bonne": 1,
+       "explication": "C'est du temps quasi réel."
+      },
+      {
+       "id": "question:nara:c9:004",
+       "q": "L'image des colonnes grecques est de :",
+       "choix": [
+        "Flaubert",
+        "Céline",
+        "Proust",
+        "Dostoïevski"
+       ],
+       "bonne": 1,
+       "explication": "Elles sont penchées pour avoir l'air droites."
+      }
+     ],
+     "sources": [
+      {
+       "document": "NARA1129 - Syllabus narration 2026.pdf",
+       "pages": "Chapitre IX"
+      }
+     ]
+    },
+    {
+     "id": "c10",
+     "titre": "Chapitre X — L'espace et le temps",
+     "duree": 20,
+     "resume": "## Cartes et plans\n\nAvant chaque roman, Lavachery dessine une **carte** : situer les personnages, rendre les déplacements **réalistes en durée**, savoir où est le soleil ; c'est un moment fondateur où l'on rêve le roman. En cours d'écriture : plans de châteaux, de maisons. Exemples : les cartes fonctionnelles de **Tolkien** ; *L'Île au trésor* est née d'une **carte** dessinée par Stevenson pour son beau-fils. Tadié : dans la carte, le récit trouve « son sol », des parcours, parfois toute l'intrigue.\n\n## Le tableau chronologique\n\nToujours une **chronologie** en tableau : colonne des **dates**, colonne de l'**intrigue principale**, colonne de l'**intrigue secondaire** et d'autres éléments. Avec la carte, c'est le document le plus consulté. Quand on interrompt l'écriture, on **perd le sentiment des durées** : la chronologie aide à le retrouver.\n\n## Gestion et indication des durées\n\n- Le temps **se dilate et se contracte** : un geste d'une seconde peut valoir un paragraphe, un mariage ou une bataille une simple mention. ==Savoir employer l'**ellipse** est un talent précieux== (Dumas) ; on supprime souvent des épisodes inutiles à la relecture.\n- Les débutants indiquent sans cesse **l'heure et la date** ; l'écrivain de métier fait sentir le temps par des moyens subtils (la nature change, un personnage se dégarnit, le village a l'eau courante).\n- Penser aux **scènes de nuit**, qui agissent sur l'inconscient (Truffaut : un film sans scène de nuit a quelque chose de gênant).\n- Tadié : « Tout l'art consiste à susciter des impressions temporelles, toute l'élégance à en effacer les marques », mais la chronologie sous-jacente est précise.\n\n## Le rythme\n\nCertains romans ont un rythme uniforme (*Mémoires d'Hadrien*, « fleuve majestueux ») ; le **roman d'aventures** vit d'**alternances**. ==Une tension constante est contre-productive== (« l'angoisse se nourrit d'intervalles sereins », Tadié). Ces **intervalles sereins** : descriptions (Verne après chaque scène d'action), conversations, activités tranquilles (pêche, jeu) — moments de liberté artistique où les personnages se révèlent.\n\n## L'art du survol\n\nPour compresser le temps : l'**ellipse**, ou le **survol** d'une longue période en quelques paragraphes (García Márquez, Yourcenar). La fin de ***La Chartreuse de Parme***, compressée à la demande de l'éditeur, devient un **final galopant** où la mort de Fabrice et de la duchesse n'est même pas nommée. Le survol permet de changer de rythme et de placer des « pépites » auxquelles le lecteur peut rêver.",
+     "pointsCles": [
+      "Dessiner une carte avant d'écrire : situer les personnages, rendre les trajets réalistes (Tolkien, Stevenson).",
+      "Tenir un tableau chronologique (dates, intrigue principale, intrigue secondaire).",
+      "Le temps se dilate et se contracte ; l'ellipse est un talent précieux.",
+      "Faire sentir le temps par des indices subtils plutôt que des dates ; penser aux scènes de nuit.",
+      "Alterner tension et intervalles sereins ; une tension constante est contre-productive.",
+      "Le survol résume une longue période et peut atteindre la poésie (fin de La Chartreuse de Parme)."
+     ],
+     "definitions": [
+      {
+       "terme": "Tableau chronologique",
+       "def": "Document en colonnes (dates, intrigue principale, intrigue secondaire) pour suivre l'écoulement du temps du récit."
+      },
+      {
+       "terme": "Ellipse",
+       "def": "Omission d'une période ou d'un épisode dans le récit pour compresser le temps."
+      },
+      {
+       "terme": "Survol",
+       "def": "Récit d'une longue période (mois, années) en quelques paragraphes."
+      },
+      {
+       "terme": "Intervalle serein",
+       "def": "Moment de calme entre deux scènes de tension (description, conversation, activité tranquille)."
+      },
+      {
+       "terme": "Rythme",
+       "def": "Alternance de moments rapides et lents, de tension et de repos, dans un récit."
+      }
+     ],
+     "fiches": [
+      {
+       "id": "card:nara:c10:001",
+       "q": "À quoi sert une carte pour le romancier ?",
+       "r": "Situer les personnages, rendre les déplacements réalistes en durée, savoir où est le soleil ; c'est aussi un moment où l'on rêve le roman."
+      },
+      {
+       "id": "card:nara:c10:002",
+       "q": "Quel roman est né d'une carte ?",
+       "r": "L'Île au trésor : Stevenson avait dessiné une carte pour son beau-fils Lloyd Osborne."
+      },
+      {
+       "id": "card:nara:c10:003",
+       "q": "Comment est organisé le tableau chronologique de Lavachery ?",
+       "r": "Une colonne pour les dates, une pour l'intrigue principale, une pour l'intrigue secondaire et autres éléments utiles."
+      },
+      {
+       "id": "card:nara:c10:004",
+       "q": "Pourquoi la chronologie est-elle utile après une interruption ?",
+       "r": "Quand on s'interrompt, on perd le sentiment des durées du récit ; la chronologie permet de le retrouver."
+      },
+      {
+       "id": "card:nara:c10:005",
+       "q": "Comment l'écrivain de métier fait-il sentir le temps qui passe ?",
+       "r": "Par des indices subtils (nature qui change, personnage qui se dégarnit, village qui a l'eau courante) plutôt qu'en donnant sans cesse l'heure et la date."
+      },
+      {
+       "id": "card:nara:c10:006",
+       "q": "Pourquoi penser aux scènes de nuit ?",
+       "r": "Elles agissent sur l'inconscient du lecteur et aident à ressentir la durée (Truffaut)."
+      },
+      {
+       "id": "card:nara:c10:007",
+       "q": "Pourquoi une tension constante est-elle contre-productive ?",
+       "r": "« L'horreur continue devient indifférente ; l'angoisse se nourrit d'intervalles sereins » (Tadié)."
+      },
+      {
+       "id": "card:nara:c10:008",
+       "q": "Que peut-on mettre dans les intervalles sereins ?",
+       "r": "Des descriptions (Verne), des conversations, des activités tranquilles ; les personnages s'y révèlent."
+      },
+      {
+       "id": "card:nara:c10:009",
+       "q": "Qu'est-ce que l'art du survol ? Exemple ?",
+       "r": "Raconter une longue période en peu de paragraphes : la fin galopante de La Chartreuse de Parme."
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:nara:c10:001",
+       "q": "Omettre un épisode pour compresser le temps s'appelle :",
+       "choix": [
+        "une analepse",
+        "une ellipse",
+        "un survol",
+        "un intervalle serein"
+       ],
+       "bonne": 1,
+       "explication": "Talent dans lequel Dumas excellait."
+      },
+      {
+       "id": "question:nara:c10:002",
+       "q": "Selon Truffaut, un film sans scène de nuit :",
+       "choix": [
+        "est plus rapide",
+        "a quelque chose de gênant",
+        "est plus réaliste",
+        "est plus court"
+       ],
+       "bonne": 1,
+       "explication": "Le spectateur ressent mal la durée."
+      },
+      {
+       "id": "question:nara:c10:003",
+       "q": "Dans le roman d'aventures, le rythme est fait :",
+       "choix": [
+        "d'une tension constante",
+        "d'alternances entre tension et intervalles sereins",
+        "uniquement de dialogues",
+        "de descriptions"
+       ],
+       "bonne": 1,
+       "explication": "L'angoisse se nourrit d'intervalles sereins."
+      }
+     ],
+     "sources": [
+      {
+       "document": "NARA1129 - Syllabus narration 2026.pdf",
+       "pages": "Chapitre X"
+      }
+     ]
+    },
+    {
+     "id": "c11",
+     "titre": "Chapitre XI — Le roman historique et toute histoire située dans le passé",
+     "duree": 30,
+     "resume": "> « Quand l'histoire et la fiction s'entrelacent, le lecteur aime parfois savoir jusqu'à quel point les faits authentiques ont souffert de cette étreinte. » (Patrick O'Brian)\n\n## Walter Scott contre Stevenson\n\nDans le **roman historique** (Scott, *Waverley*), l'Histoire est le **sujet** même (l'Écosse déchirée entre archaïsme et modernité) ; dans le **roman d'aventures** (Stevenson, *Kidnapped*), elle est un **décor** fidèle à l'arrière-plan. Ici, « roman historique » = toute histoire située dans un passé éloigné.\n\n## Anachronismes et entorses à l'Histoire\n\n**Anachronismes de fait** : pas de **tabac** au Moyen Âge (venu d'Amérique, comme la pomme de terre, la tomate, le cacao) ; Dumas donne une adresse numérotée (rue des Fossoyeurs) alors que le numérotage parisien date de **1775** ; O'Brian cite des tablettes de l'île de Pâques pas encore découvertes. Certaines entorses sont **volontaires** : O'Brian déplace des batailles et le dit dans ses préfaces ; **Dumas** rapproche des événements pour **densifier** le drame.\n\n**La liberté du romancier** : Dumas oriente et colore (Buckingham peint avec indulgence) — « Qu'importe de violer l'Histoire, pourvu qu'on lui fasse de beaux enfants ! » Aujourd'hui, les meilleurs auteurs sont plus scrupuleux : **Yourcenar** indique ses sources et distingue l'historique de l'inventé ; O'Brian signale ses déplacements. ***Amadeus*** (Shaffer, Forman) a exagéré la grossièreté de Mozart et fait de **Salieri** une nullité : Lavachery rejoint Michel Onfray pour y voir une trahison.\n\n==**Niveaux de trahison** : déplacer un événement (surtout si on le dit) est peu grave ; **remplir les vides** de l'Histoire est le privilège du romancier ; **modifier** les événements au point d'écorner des figures réelles est plus ennuyeux.== Chacun fixe ses limites (un auteur de fiction n'a pas tous les droits, selon Lavachery).\n\n**Anachronismes d'esprit** : des personnages qui pensent et agissent comme aujourd'hui. Mme de Staël : l'anachronisme dans les **sentiments et les pensées** est plus grave que dans les dates. **Henry James** juge l'entreprise presque impossible (restituer une « conscience ancienne ») ; Lavachery vise plutôt une **illusion crédible** (réussites : *Mémoires d'Hadrien*, les *Aventures de Jack Aubrey*, fruit d'une longue imprégnation dans les sources).\n\n## Les dialogues dans le roman historique\n\nNi vieux français ni langage trop contemporain (une adaptation BD de *Bjorn* où les Vikings parlent comme Titeuf) : un **vocabulaire neutre**, saupoudré de quelques mots anciens (« cornedieu ! », « oui-da »). Flaubert peine à faire parler Carthage (*Salammbô* : 10 % de dialogues ; « quelle foirade ! ») ; Yourcenar n'écrit **aucun** dialogue dans *Hadrien*, faute de sources, mais en écrit de magnifiques dans *L'Œuvre au noir* (Renaissance).\n\n## Le style\n\nUn narrateur-personnage doit éviter le trop contemporain comme le trop archaïque ; la plupart choisissent un style **intemporel** (Walter Scott). Mais **Jean Teulé** assume le contraste (« rave party » en 1518) : affaire de goût.\n\n## Les explications nécessaires\n\n- **Narrateur omniscient** : les explications passent facilement.\n- **Personnage narrateur** (ou point de vue interne) : ==il n'a pas de raison d'expliquer ce qui est évident pour lui== (un homme du Moyen Âge et sa fibule) → vigilance ; Bjorn s'adresse explicitement à un **lecteur étranger** pour justifier ses explications.\n- **Le procédé du personnage ignorant** : un néophyte à qui l'on explique (Tintin et Haddock dans *Objectif Lune* ; **Stephen Maturin**, à qui l'on réexplique la navigation ; Tolkien) — précieux en roman historique, SF et fantasy.",
+     "pointsCles": [
+      "Chez Scott, l'Histoire est le sujet ; chez Stevenson, un décor.",
+      "Éviter les anachronismes de fait ; certaines entorses sont volontaires (Dumas, O'Brian) et mieux vaut les signaler.",
+      "Niveaux de trahison : déplacer, remplir les vides, modifier ; Amadeus a trahi Mozart et Salieri.",
+      "Les anachronismes d'esprit (pensées, sentiments modernes) sont les plus graves.",
+      "Viser une illusion crédible du passé grâce à une longue imprégnation (O'Brian, Yourcenar).",
+      "Dialogues et style : un vocabulaire neutre, intemporel, avec quelques mots anciens.",
+      "Un personnage narrateur n'explique pas l'évident ; le personnage ignorant permet de transmettre l'information."
+     ],
+     "definitions": [
+      {
+       "terme": "Roman historique",
+       "def": "Roman où l'Histoire est le sujet même du livre (Walter Scott) ; ici, toute histoire située dans un passé éloigné."
+      },
+      {
+       "terme": "Anachronisme de fait",
+       "def": "Élément matériel ou événement placé à une époque où il n'existait pas (le tabac au Moyen Âge)."
+      },
+      {
+       "terme": "Anachronisme d'esprit",
+       "def": "Personnage qui pense, parle ou agit comme quelqu'un d'aujourd'hui dans un récit situé dans le passé."
+      },
+      {
+       "terme": "Narrateur omniscient",
+       "def": "Narrateur qui sait tout et peut fournir librement les explications nécessaires."
+      },
+      {
+       "terme": "Personnage narrateur",
+       "def": "Personnage qui raconte l'histoire ; il ne devrait expliquer que ce qui est logique pour lui."
+      },
+      {
+       "terme": "Personnage ignorant",
+       "def": "Personnage néophyte à qui l'on explique des choses, ce qui informe le lecteur en même temps."
+      }
+     ],
+     "fiches": [
+      {
+       "id": "card:nara:c11:001",
+       "q": "Quelle différence entre Scott et Stevenson dans leur usage de l'Histoire ?",
+       "r": "Chez Scott (roman historique), l'Histoire est le sujet ; chez Stevenson (roman d'aventures), c'est un décor à l'arrière-plan."
+      },
+      {
+       "id": "card:nara:c11:002",
+       "q": "Donne deux exemples d'anachronismes de fait.",
+       "r": "Le tabac au Moyen Âge ; l'adresse numérotée de Bonacieux chez Dumas (numérotage parisien en 1775)."
+      },
+      {
+       "id": "card:nara:c11:003",
+       "q": "Pourquoi Dumas faussait-il les dates ?",
+       "r": "Pour concentrer et densifier le drame, à la manière de la tragédie classique."
+      },
+      {
+       "id": "card:nara:c11:004",
+       "q": "Quelle est la célèbre formule de Dumas sur l'Histoire ?",
+       "r": "« Qu'importe de violer l'Histoire, pourvu qu'on lui fasse de beaux enfants ! »"
+      },
+      {
+       "id": "card:nara:c11:005",
+       "q": "Quels exemples de scrupule historique donne Lavachery ?",
+       "r": "Yourcenar indique ses sources et distingue l'historique de l'inventé ; O'Brian signale les batailles déplacées."
+      },
+      {
+       "id": "card:nara:c11:006",
+       "q": "Pourquoi Amadeus est-il critiqué ?",
+       "r": "Il exagère la grossièreté de Mozart et fait de Salieri une nullité pour l'efficacité dramatique : une trahison de figures réelles."
+      },
+      {
+       "id": "card:nara:c11:007",
+       "q": "Quels sont les niveaux de trahison historique ?",
+       "r": "Déplacer un événement (peu grave, surtout si on le dit) ; remplir les vides (privilège du romancier) ; modifier les événements (plus ennuyeux)."
+      },
+      {
+       "id": "card:nara:c11:008",
+       "q": "Qu'est-ce qu'un anachronisme d'esprit et pourquoi est-il grave ?",
+       "r": "Des personnages qui pensent comme aujourd'hui ; Mme de Staël le jugeait plus grave qu'une erreur de date."
+      },
+      {
+       "id": "card:nara:c11:009",
+       "q": "Comment faire parler des personnages du passé ?",
+       "r": "Ni vieux français ni langage contemporain : un vocabulaire neutre, avec quelques mots anciens (« oui-da »)."
+      },
+      {
+       "id": "card:nara:c11:010",
+       "q": "Pourquoi Yourcenar n'écrit-elle aucun dialogue dans Mémoires d'Hadrien ?",
+       "r": "Elle estimait ne pas avoir assez d'éléments pour faire parler les anciens Romains."
+      },
+      {
+       "id": "card:nara:c11:011",
+       "q": "Quelle difficulté pose un personnage narrateur dans un roman historique ?",
+       "r": "Il n'a pas de raison d'expliquer ce qui lui est familier (une fibule) ; il faut justifier les explications (Bjorn s'adresse à un lecteur étranger)."
+      },
+      {
+       "id": "card:nara:c11:012",
+       "q": "Qu'est-ce que le procédé du personnage ignorant ? Exemples ?",
+       "r": "Un néophyte à qui l'on explique les choses : Tintin et Haddock dans Objectif Lune, Stephen Maturin et la navigation."
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:nara:c11:001",
+       "q": "Selon Mme de Staël, est plus grave un anachronisme :",
+       "choix": [
+        "de date",
+        "dans les sentiments et les pensées",
+        "de vêtement",
+        "de lieu"
+       ],
+       "bonne": 1,
+       "explication": "L'anachronisme d'esprit."
+      },
+      {
+       "id": "question:nara:c11:002",
+       "q": "Stephen Maturin, à qui l'on explique la navigation, illustre :",
+       "choix": [
+        "le narrateur omniscient",
+        "le personnage ignorant",
+        "l'anachronisme",
+        "le faux dialogue"
+       ],
+       "bonne": 1,
+       "explication": "Le lecteur apprend avec lui."
+      },
+      {
+       "id": "question:nara:c11:003",
+       "q": "Quel auteur assume un vocabulaire contemporain (« rave party ») dans un récit de 1518 ?",
+       "choix": [
+        "Walter Scott",
+        "Jean Teulé",
+        "Yourcenar",
+        "Flaubert"
+       ],
+       "bonne": 1,
+       "explication": "Dans Entrez dans la danse ; affaire de goût."
+      }
+     ],
+     "sources": [
+      {
+       "document": "NARA1129 - Syllabus narration 2026.pdf",
+       "pages": "Chapitre XI"
+      }
+     ]
+    },
+    {
+     "id": "c12",
+     "titre": "Chapitre XII — Le style",
+     "duree": 30,
+     "resume": "> « Le style est comme les ongles : il est plus facile de l'avoir brillant que propre. » (Eugenio d'Ors) — « Le meilleur style est celui qui se fait oublier. » (Stendhal)\n\n## Le devoir de clarté\n\n« La première qualité du style, c'est la **clarté** » (Aristote) : phrases bien construites, vocabulaire juste, ponctuation maîtrisée. ==On peut être **profond et simple**== : le style de **Kafka** est limpide.\n\n## Le danger du maniérisme\n\n**Maniérisme** : vouloir se faire remarquer (mots rares, tournures recherchées, métaphores à foison) — « voyez comme j'écris bien ! », comme l'acteur qui joue la performance (Malkovich) plutôt que l'incarnation (Gary Cooper). Le plus important est l'**immersion** du lecteur : un style trop voyant fait **écran**. ==Orwell : « La bonne prose est comme une **vitre transparente**. »==\n\n## Le beau style\n\nUne troisième voie : un style ample et chatoyant qui n'empêche pas l'immersion — **Yourcenar** (*Mémoires d'Hadrien*, *L'Œuvre au noir*), « une vitre teintée qui sublime les images du monde ».\n\n## L'obsession formelle\n\nFlaubert passait une journée sur quelques lignes ; Hemingway une matinée sur un paragraphe. Mais l'obsession formelle peut empêcher l'**immersion de l'auteur** lui-même, condition de la création. Elena Ferrante : quand chaque ligne doit être parfaite, « la page est belle, mais la narration est fausse ».\n\n## La possibilité du journal\n\nÉcrire **régulièrement** (Stendhal : deux heures par jour ; Zola : *Nulla dies sine linea* ; Françoise Giroud : comme les exercices à la barre pour la danse). Un **journal** (quinze minutes par jour) permet de garder la plume souple et de tenter des expériences.\n\n## Quelques défauts courants\n\n| Défaut | Conseil |\n|---|---|\n| **Vocabulaire** approximatif | consulter le dictionnaire au moindre doute |\n| **Superlatifs** (merveilleux, extraordinaire, étrange…) | faire ressentir plutôt qu'affirmer ; Stendhal : effacer cinquante superlatifs par chapitre, ne pas nommer la « passion brûlante » |\n| **Métaphores et comparaisons** en excès | éviter l'accumulation (« Au soir de sa vie, les orages s'accumulaient… ») |\n| **Points de suspension** impulsifs | en supprimer à la relecture (les phylactères d'Hergé) |\n| **Points d'exclamation** | en être avare : trop utilisés, ils perdent leur valeur |\n| **Adverbes en -ment** | leur faire la chasse (Stephen King) |\n| **Voix passive** | préférer la voix active (King : « Mon histoire d'amour avec Shayna commença avec notre premier baiser ») |\n| **Style haché** (phrases sans verbe) | lecture heurtée « comme sur des dos-d'âne », et maniérisme |\n\n## Conseils de Françoise Giroud et Paul Valéry\n\n- ==**Pas plus d'un « que » ou d'un « qui » par phrase**== (Giroud).\n- ==**De deux mots, choisir le moindre**== (Valéry) : « Les yeux de Jeanne luisaient comme des braises » plutôt que « Jeanne avait les yeux luisants comme de la braise ».\n\n## Conclusion : James Salter\n\nPrivilégier la **facilité du lecteur** sur la richesse du style ; être « transparent comme le carreau d'une fenêtre » ; une odeur, une couleur, une ambiance valent mieux qu'une métaphore qui alourdit.",
+     "pointsCles": [
+      "La clarté est la première qualité du style ; on peut être profond et simple (Kafka).",
+      "Le maniérisme fait écran à l'histoire ; la bonne prose est une vitre transparente (Orwell).",
+      "Le beau style est possible s'il n'empêche pas l'immersion (Yourcenar).",
+      "L'obsession formelle peut tuer l'élan narratif (Ferrante).",
+      "Écrire tous les jours ; le journal entretient la plume.",
+      "Défauts : superlatifs, métaphores en excès, points de suspension et d'exclamation, adverbes en -ment, voix passive, style haché.",
+      "Un seul « que »/« qui » par phrase ; de deux mots, choisir le moindre."
+     ],
+     "definitions": [
+      {
+       "terme": "Maniérisme",
+       "def": "Style qui cherche à se faire remarquer (mots rares, tournures recherchées, métaphores) au détriment de l'histoire."
+      },
+      {
+       "terme": "Immersion",
+       "def": "État du lecteur (et de l'auteur) qui oublie où il est et se projette dans l'ailleurs du récit."
+      },
+      {
+       "terme": "Métaphore",
+       "def": "Modification de sens par substitution analogique (terme concret dans un contexte abstrait)."
+      },
+      {
+       "terme": "Voix passive",
+       "def": "Construction où le sujet subit l'action au lieu de la faire."
+      },
+      {
+       "terme": "Style haché",
+       "def": "Mode d'écriture en phrases très courtes, souvent sans verbe, qui rend la lecture heurtée."
+      },
+      {
+       "terme": "Nulla dies sine linea",
+       "def": "« Pas un jour sans une ligne » : devise de Zola sur la régularité de l'écriture."
+      }
+     ],
+     "fiches": [
+      {
+       "id": "card:nara:c12:001",
+       "q": "Quelle est la première qualité du style selon Aristote ?",
+       "r": "La clarté."
+      },
+      {
+       "id": "card:nara:c12:002",
+       "q": "Peut-on être profond et clair ?",
+       "r": "Oui : le style de Kafka est limpide, et son œuvre est l'une des plus importantes de la littérature."
+      },
+      {
+       "id": "card:nara:c12:003",
+       "q": "Qu'est-ce que le maniérisme ?",
+       "r": "Vouloir se faire remarquer par des mots rares et des tournures recherchées : le style fait écran à l'histoire."
+      },
+      {
+       "id": "card:nara:c12:004",
+       "q": "Quelle image Orwell donne-t-il de la bonne prose ?",
+       "r": "Une vitre transparente."
+      },
+      {
+       "id": "card:nara:c12:005",
+       "q": "Comment Lavachery qualifie-t-il le style de Yourcenar ?",
+       "r": "Ample et chatoyant mais immersif : « une vitre teintée qui sublime les images du monde »."
+      },
+      {
+       "id": "card:nara:c12:006",
+       "q": "Quel est le danger de l'obsession formelle ?",
+       "r": "Elle entrave l'immersion de l'auteur : « la page est belle, mais la narration est fausse » (Ferrante)."
+      },
+      {
+       "id": "card:nara:c12:007",
+       "q": "Pourquoi tenir un journal ?",
+       "r": "Pour écrire chaque jour, garder sa fluidité (comme les gammes d'un musicien) et tenter des expériences."
+      },
+      {
+       "id": "card:nara:c12:008",
+       "q": "Que conseillait Stendhal sur les superlatifs ?",
+       "r": "En effacer au moins cinquante par chapitre ; faire croire à la passion brûlante sans jamais la nommer."
+      },
+      {
+       "id": "card:nara:c12:009",
+       "q": "Pourquoi éviter la voix passive selon Stephen King ?",
+       "r": "Elle produit des textes faiblards, tortueux, alambiqués ; la voix active est plus directe."
+      },
+      {
+       "id": "card:nara:c12:010",
+       "q": "Quel est le problème du style haché ?",
+       "r": "Une lecture heurtée et ralentie (comme des dos-d'âne) et un procédé trop visible (maniérisme)."
+      },
+      {
+       "id": "card:nara:c12:011",
+       "q": "Quel est le conseil de Françoise Giroud sur les pronoms relatifs ?",
+       "r": "Pas plus d'un « que » ou d'un « qui » par phrase."
+      },
+      {
+       "id": "card:nara:c12:012",
+       "q": "Que signifie « de deux mots, choisir le moindre » (Valéry) ?",
+       "r": "Préférer la tournure directe et le mot le plus court : « Les yeux de Jeanne luisaient comme des braises »."
+      },
+      {
+       "id": "card:nara:c12:013",
+       "q": "Que conclut James Salter sur le style ?",
+       "r": "Privilégier la facilité du lecteur, être transparent comme une fenêtre ; une odeur ou une couleur valent mieux qu'une métaphore lourde."
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:nara:c12:001",
+       "q": "« La bonne prose est comme une vitre transparente » est de :",
+       "choix": [
+        "Stendhal",
+        "Orwell",
+        "Flaubert",
+        "King"
+       ],
+       "bonne": 1,
+       "explication": "Reprise par James Salter."
+      },
+      {
+       "id": "question:nara:c12:002",
+       "q": "Combien de « que » ou « qui » par phrase selon Françoise Giroud ?",
+       "choix": [
+        "Aucun",
+        "Un au maximum",
+        "Deux",
+        "Autant qu'on veut"
+       ],
+       "bonne": 1,
+       "explication": "Pour gagner en fluidité."
+      },
+      {
+       "id": "question:nara:c12:003",
+       "q": "Lequel N'est PAS présenté comme un défaut courant ?",
+       "choix": [
+        "Les adverbes en -ment",
+        "La voix passive",
+        "La clarté",
+        "Les superlatifs"
+       ],
+       "bonne": 2,
+       "explication": "La clarté est la première qualité du style."
+      },
+      {
+       "id": "question:nara:c12:004",
+       "q": "« Nulla dies sine linea » était la devise de :",
+       "choix": [
+        "Stendhal",
+        "Zola",
+        "Giroud",
+        "Hemingway"
+       ],
+       "bonne": 1,
+       "explication": "Pas un jour sans une ligne."
+      }
+     ],
+     "sources": [
+      {
+       "document": "NARA1129 - Syllabus narration 2026.pdf",
+       "pages": "Chapitre XII"
+      }
+     ]
+    },
+    {
+     "id": "c13",
+     "titre": "Chapitre XIII — Mise en page et mise en forme, et conclusion",
+     "duree": 20,
+     "resume": "## Mise en page d'un texte de fiction\n\nLa mise en forme est souvent anarchique chez les débutants ; il faut connaître les **codes**, surtout pour convaincre un éditeur. Astuce : garder un **roman-modèle** sous la main (Lavachery utilisait Simenon, *Les Clients d'Avrenos*).\n\n- **Chapitres** : numéro centré (chiffres romains ou arabes, arabes en jeunesse), titre centré dessous ; quatre possibilités (titre + numéro, titre seul, numéro seul, rien).\n- **Paragraphes** : texte **justifié** ; le premier paragraphe d'un chapitre avec ou sans alinéa (mais **cohérent** partout) ; **tous les autres** commencent par un **alinéa**. ==L'espace entre paragraphes est le **même** qu'entre les lignes== (supprimer l'espace automatique de Word) ; le double interligne peut marquer un saut dans le temps.\n- **Numérotage des pages** : **obligatoire**, en bas (centre ou droite).\n- **Dialogues et pensées** : le plus simple en français, ==**tiret cadratin** (long) pour les dialogues et **guillemets** pour les pensées== (méthode de Simenon) ; éviter les combinaisons compliquées. Un **alinéa** avant chaque réplique. L'**incise** (« dit-il ») se place tôt, après une virgule ou directement après « ! » ou « ? » (**pas de virgule** après ces signes) ; varier les incises sans excès (« dit-il » vaut mieux que « réitéra-t-il »).\n- **Format A4 pour un éditeur** : corps **13 ou 14**, interligne **1,15 ou 1,5**, belles marges, **33-34 lignes** par page, police classique (Times New Roman, Garamond, Verdana). Se distinguer par la **qualité du texte**, pas par la présentation. Les envois en PDF suivent les mêmes règles.\n- **Conventions d'éditeurs** : un éditeur peut demander d'harmoniser (ex. guillemets pour les dialogues) — ces changements ne devraient jamais être imposés.\n\n**Exercice des 7 erreurs** (page 1 de *Bjorn le Morphir*) : alinéa manquant ; tiret court au lieu du cadratin ; paragraphe non justifié ; espace superflu avant un paragraphe ; réplique sans alinéa ; virgule après un point d'exclamation ; numéro de page absent.\n\n## Conclusion du cours\n\n1. **Trouver sa voie** : Jacques Rivière, incapable d'inventer, découvre qu'il est de la race de Proust (transposer sa vie) et écrit *Aimée*. Bien s'observer pour ne pas se tromper sur la nature de son talent (Simon Leys : distinguer dans son talent la part féconde de la part stérile).\n2. **La question de la méthode** : chacun la sienne, et elle peut changer ; une **erreur de méthode** peut bloquer (Lavachery consultait trop sa source pour sa robinsonnade, puis l'a rangée pour laisser parler l'imagination).\n3. **Le bonheur d'écrire** : malgré les difficultés, le plus grand plaisir est de **se quitter soi-même** et de s'offrir d'autres vies, comme le lecteur passionné.\n4. **La technique est un jeu** : lire les ouvrages sur le métier (Lavandier), puis se sentir libre. ==Kundera : « Plus vous maîtrisez la technique, plus vous êtes libre. Il faut transformer la technique en jeu. »==",
+     "pointsCles": [
+      "Garder un roman-modèle pour la mise en forme (Simenon).",
+      "Texte justifié, alinéas, pas d'espace supplémentaire entre paragraphes, pages numérotées.",
+      "Tiret cadratin pour les dialogues, guillemets pour les pensées ; pas de virgule après « ! » ou « ? » avant l'incise.",
+      "Manuscrit A4 : corps 13-14, interligne 1,15-1,5, 33-34 lignes, police classique.",
+      "Trouver sa voie et sa méthode ; une erreur de méthode peut bloquer la création.",
+      "« Plus vous maîtrisez la technique, plus vous êtes libre » (Kundera)."
+     ],
+     "definitions": [
+      {
+       "terme": "Alinéa",
+       "def": "Retrait au début d'un paragraphe ou d'une réplique."
+      },
+      {
+       "terme": "Texte justifié",
+       "def": "Texte aligné à la fois sur la marge de gauche et sur celle de droite."
+      },
+      {
+       "terme": "Tiret cadratin",
+       "def": "Tiret long (—) utilisé pour introduire les répliques de dialogue."
+      },
+      {
+       "terme": "Incise",
+       "def": "Courte proposition qui indique qui parle (« dit-il », « s'exclama-t-elle »)."
+      },
+      {
+       "terme": "Tapuscrit",
+       "def": "Manuscrit dactylographié envoyé à un éditeur."
+      }
+     ],
+     "fiches": [
+      {
+       "id": "card:nara:c13:001",
+       "q": "Quel truc pour bien mettre en forme un texte de fiction ?",
+       "r": "Avoir un roman-modèle à la présentation simple sous la main (Simenon pour Lavachery)."
+      },
+      {
+       "id": "card:nara:c13:002",
+       "q": "Quelles sont les règles des paragraphes ?",
+       "r": "Texte justifié ; alinéa pour tous les paragraphes (le premier du chapitre au choix, mais de façon cohérente) ; même espace entre paragraphes qu'entre lignes."
+      },
+      {
+       "id": "card:nara:c13:003",
+       "q": "Le numérotage des pages est-il obligatoire ?",
+       "r": "Oui, en bas de page, au centre ou à droite."
+      },
+      {
+       "id": "card:nara:c13:004",
+       "q": "Quelle convention simple pour dialogues et pensées ?",
+       "r": "Tiret cadratin pour les dialogues, guillemets pour les pensées (méthode de Simenon)."
+      },
+      {
+       "id": "card:nara:c13:005",
+       "q": "Où placer l'incise et quelle ponctuation ?",
+       "r": "Tôt, après une virgule ou directement après « ! » ou « ? », sans virgule après ces signes."
+      },
+      {
+       "id": "card:nara:c13:006",
+       "q": "Quelle présentation pour un manuscrit envoyé à un éditeur ?",
+       "r": "A4, corps 13 ou 14, interligne 1,15 ou 1,5, belles marges, 33-34 lignes par page, police classique."
+      },
+      {
+       "id": "card:nara:c13:007",
+       "q": "Cite quatre des sept erreurs de l'exercice Bjorn le Morphir.",
+       "r": "Alinéa manquant, tiret court au lieu du cadratin, paragraphe non justifié, virgule après un point d'exclamation (aussi : espace superflu, réplique sans alinéa, numéro de page absent)."
+      },
+      {
+       "id": "card:nara:c13:008",
+       "q": "Que montre l'exemple de Jacques Rivière ?",
+       "r": "Il faut trouver sa voie : incapable d'inventer, il transpose sa vie comme Proust et écrit Aimée."
+      },
+      {
+       "id": "card:nara:c13:009",
+       "q": "Quelle erreur de méthode Lavachery a-t-il faite pour sa robinsonnade ?",
+       "r": "Il consultait trop sa source ; en la rangeant, il a libéré son imagination."
+      },
+      {
+       "id": "card:nara:c13:010",
+       "q": "Quel est pour Lavachery le plus grand plaisir d'écrire ?",
+       "r": "Se quitter soi-même et s'offrir d'autres vies, comme un lecteur passionné."
+      },
+      {
+       "id": "card:nara:c13:011",
+       "q": "Quelle citation de Kundera conclut le cours ?",
+       "r": "« Plus vous maîtrisez la technique, plus vous êtes libre. Il faut transformer la technique en jeu. »"
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:nara:c13:001",
+       "q": "Pour introduire une réplique, on utilise de préférence :",
+       "choix": [
+        "un tiret court",
+        "un tiret cadratin",
+        "des guillemets et un tiret",
+        "l'italique"
+       ],
+       "bonne": 1,
+       "explication": "Les guillemets sont réservés aux pensées."
+      },
+      {
+       "id": "question:nara:c13:002",
+       "q": "Après « Viens ! » suivi d'une incise, on met :",
+       "choix": [
+        "une virgule",
+        "rien",
+        "un point-virgule",
+        "deux points"
+       ],
+       "bonne": 1,
+       "explication": "Pas de virgule après ! ou ?."
+      },
+      {
+       "id": "question:nara:c13:003",
+       "q": "Combien de lignes par page pour un manuscrit A4 ?",
+       "choix": [
+        "20-22",
+        "33-34",
+        "45-50",
+        "60"
+       ],
+       "bonne": 1,
+       "explication": "Pages aérées mais pas trop."
+      },
+      {
+       "id": "question:nara:c13:004",
+       "q": "« Il faut transformer la technique en jeu » est de :",
+       "choix": [
+        "Kundera",
+        "Lavandier",
+        "King",
+        "Simenon"
+       ],
+       "bonne": 0,
+       "explication": "Conclusion du cours."
+      }
+     ],
+     "sources": [
+      {
+       "document": "NARA1129 - Syllabus narration 2026.pdf",
+       "pages": "Chapitre XIII et conclusion"
+      }
+     ]
+    },
+    {
+     "id": "c14",
+     "titre": "Formes littéraires (IHECS-FORMLIT)",
+     "duree": 35,
+     "resume": "*Support « Formes littéraires » (NARA1129), signé G.D., volontairement sans images : il traite de la façon dont les mots agissent sur notre perception.*\n\n## Définition et bases\n\n- ==Formes littéraires = **fiction**. But : **émouvoir, tenir en haleine, intéresser** ; pas démontrer.==\n- **Magie de la fiction** : on sait que c'est inventé, mais on veut savoir ce qui va se passer (le « spoil »).\n- La fiction n'est **pas une évasion** mais une **autre manière de voir le réel** ; elle est **vitale** au psychisme (« comme l'oxygène aux poumons » ; le théâtre en temps de guerre).\n- Contrairement aux autres divertissements, elle permet d'**entrer dans la pensée et les émotions d'un autre** : **identification** (neurones miroirs).\n- La **dramaturgie** vient des **rites religieux** (prêtres = comédiens), puis devient profane ; le « faire semblant » des enfants (« on disait que »).\n\n## Thèmes, catégories, genres\n\n- **Thèmes** : l'amour, la mort, la dureté de la vie, les dilemmes, le temps qui passe, la nostalgie, l'expérience.\n- **Catégories** : histoires d'amour, épouvante, westerns, guerre, drames historiques, aventures, science-fiction.\n- **Genres** : poésie, roman, cinéma, théâtre.\n\n### Genres du récit\n\n| Genre | Définition |\n|---|---|\n| **Anecdote** | petit récit qui vaut par son intérêt piquant ; souvent péjoratif (« anecdotique ») mais révélateur : elle **miniaturise** un problème social ou moral (Giotto et Cimabue, Hokusai et les coqs, Niels Bohr et le fer à cheval, Dirac et les moutons ; « qu'ils mangent de la brioche » déjà attribué à d'autres) |\n| **Apologue** | récit **bref, symbolique**, à **leçon morale** implicite ; double lecture (divertir et instruire) : contes, fables, paraboles, utopies ; Bettelheim, *Psychanalyse des contes de fées* (risque de **surinterprétation** : le Petit Chaperon rouge) |\n| **Autobiographie** | *autos* (soi), *bios* (vie), *graphein* (écrire) ; témoignage, plaidoyer ; limites : oublis, point de vue, inventions, choix subjectifs (Anne Frank, Zweig, Rousseau, Gary, Chateaubriand, Sartre, Camus, Violette Leduc) |\n| **Biographie** | récit d'une vie à sauver de l'oubli : **savante**, **romancée**, **hagiographie** (vies de saints, puis biographies de commande) ; méprisée par l'**école des Annales** (Marc Bloch, histoire des sociétés et des mentalités), aujourd'hui de retour |\n| **Chronique** | faits classés par **ordre chronologique** ; au Moyen Âge, mémoire des lignées, des donations et datation des événements |\n| **Conte** | né de l'oubli du caractère religieux d'un récit ; univers enchanté, dénouement presque toujours heureux ; morales : les apparences sont trompeuses, tel est pris qui croyait prendre (Petit Poucet, Blanche-Neige) |\n| **Épopée** | long poème d'envergure nationale, exploits d'un héros ou d'un peuple ; personnages-**types** sans psychologie (le roi, le preux, le traître…) ; survit au cinéma |\n| **Fiction** | récit de faits non réels — mais la frontière vrai/faux est floue (Carlo Ginzburg, *Le fil et les traces*) ; la **langue d'Ésope** : la meilleure et la pire des choses |\n| **Journal** | récit au jour le jour (frères Goncourt) |\n| **Légende** | récit **vraisemblable** mêlant vrai et faux, merveilleux fondé sur une tradition ; aujourd'hui les **légendes urbaines** |\n| **Mythe** | histoire sacrée des origines, personnages surhumains, **explication du monde** ; expressions héritées : taquiner la muse, toucher le pactole, narcissique, sosie, talon d'Achille, épée de Damoclès |\n| **Nouvelle / roman** | récit court / long en prose |\n\n**Genres poétiques** : chanson, fable. **Genres théâtraux** : comédie, drame, farce, mélodrame, tragédie (terreur et pitié). **Littérature d'idées** : aphorisme, discours, essai, pamphlet, utopie. **Aphorisme** : sentence très courte qui résume une idée (La Rochefoucauld, La Bruyère, Valéry : « La guerre, un massacre de gens qui ne se connaissent pas, au profit de gens qui se connaissent mais ne se massacrent pas »).\n\n## Constantes\n\n==L'intérêt n'est pas **ce qu'on raconte** mais **comment on le raconte**. Deux clés : l'**enjeu** et l'**identification**.== Sans enjeu, pas d'histoire ; sans identification, pas d'intérêt. Il faut savoir **qui est qui, quel est le problème, comment le résoudre**.\n\n| Œuvre | Enjeu |\n|---|---|\n| *Autant en emporte le vent* (Mitchell, 1936) | comment Scarlett va-t-elle s'en sortir ? |\n| *Tristan et Iseut* (12e s.) | comment leur amour fou va-t-il vivre malgré tout ? |\n| *Les Souffrances du jeune Werther* (Goethe, 1774) | le héros oubliera-t-il sa belle ? |\n| *La Mort à Venise* (Thomas Mann, 1912) | la vie sera-t-elle plus forte que l'amour ? |\n| *Anna Karénine* (Tolstoï, 1877) | l'amour passionnel rend-il plus heureux que la réflexion ? |",
+     "pointsCles": [
+      "La fiction veut émouvoir, tenir en haleine, intéresser — pas démontrer.",
+      "La fiction n'est pas une évasion mais une autre manière de voir le réel ; elle est vitale.",
+      "Elle permet d'entrer dans la pensée d'autrui : identification (neurones miroirs).",
+      "Distinguer thèmes, catégories et genres.",
+      "Connaître les genres du récit : anecdote, apologue, autobiographie, biographie, chronique, conte, épopée, journal, légende, mythe, nouvelle, roman.",
+      "Constantes : l'intérêt tient à la manière de raconter ; enjeu et identification sont indispensables."
+     ],
+     "definitions": [
+      {
+       "terme": "Anecdote",
+       "def": "Petit récit qui vaut par l'intérêt piquant qu'il procure et miniaturise un problème social ou moral."
+      },
+      {
+       "terme": "Apologue",
+       "def": "Récit bref et symbolique qui illustre une leçon morale implicite (fable, conte, parabole, utopie)."
+      },
+      {
+       "terme": "Autobiographie",
+       "def": "Récit de la vie d'un auteur écrit par lui-même (autos, bios, graphein)."
+      },
+      {
+       "terme": "Hagiographie",
+       "def": "À l'origine biographie de saints ; aujourd'hui biographie de commande, complaisante."
+      },
+      {
+       "terme": "Chronique",
+       "def": "Récit historique des faits classés par ordre chronologique."
+      },
+      {
+       "terme": "Conte",
+       "def": "Récit assez court d'événements imaginaires présentés comme tels, souvent avec une morale et une fin heureuse."
+      },
+      {
+       "terme": "Épopée",
+       "def": "Long poème narratif d'envergure nationale chantant les exploits de héros-types sans psychologie."
+      },
+      {
+       "terme": "Légende",
+       "def": "Récit vraisemblable mêlant le vrai et le faux, fondé sur une tradition transformée."
+      },
+      {
+       "terme": "Mythe",
+       "def": "Récit sacré des origines, avec des êtres surhumains, qui donne une explication du monde."
+      },
+      {
+       "terme": "Aphorisme",
+       "def": "Sentence très courte qui résume une idée ou une vérité."
+      },
+      {
+       "terme": "Enjeu",
+       "def": "Ce qui est en jeu dans l'histoire ; sans enjeu, il n'y a pas d'histoire."
+      },
+      {
+       "terme": "École des Annales",
+       "def": "École historique des années 1930 (Marc Bloch) tournée vers l'histoire des sociétés et des mentalités, méprisant la biographie."
+      }
+     ],
+     "fiches": [
+      {
+       "id": "card:nara:c14:001",
+       "q": "Quel est le but des formes littéraires (la fiction) ?",
+       "r": "Émouvoir, tenir en haleine, intéresser — et non démontrer."
+      },
+      {
+       "id": "card:nara:c14:002",
+       "q": "La fiction est-elle une évasion ?",
+       "r": "Non : c'est une autre manière de voir le réel, et un besoin vital du psychisme."
+      },
+      {
+       "id": "card:nara:c14:003",
+       "q": "Qu'est-ce que la fiction permet que les autres divertissements ne permettent pas ?",
+       "r": "Entrer dans la pensée et les émotions d'un autre (identification, neurones miroirs)."
+      },
+      {
+       "id": "card:nara:c14:004",
+       "q": "D'où vient la dramaturgie ?",
+       "r": "Des rites religieux (les prêtres étaient les comédiens), avant de devenir profane."
+      },
+      {
+       "id": "card:nara:c14:005",
+       "q": "Différence entre thèmes, catégories et genres ?",
+       "r": "Thèmes : amour, mort… ; catégories : western, épouvante, SF… ; genres : poésie, roman, cinéma, théâtre."
+      },
+      {
+       "id": "card:nara:c14:006",
+       "q": "Pourquoi l'anecdote est-elle intéressante malgré son sens péjoratif ?",
+       "r": "Elle miniaturise et illustre un problème social ou une question morale, et frappe l'esprit."
+      },
+      {
+       "id": "card:nara:c14:007",
+       "q": "Quelles sont les caractéristiques de l'apologue ?",
+       "r": "Un récit bref, symbolique, contenant un enseignement moral, avec une double lecture (divertir et instruire)."
+      },
+      {
+       "id": "card:nara:c14:008",
+       "q": "Quelles sont les limites de l'autobiographie ?",
+       "r": "Oublis ou omissions, point de vue sur les autres, inventions possibles, choix subjectifs."
+      },
+      {
+       "id": "card:nara:c14:009",
+       "q": "Quels sont les trois types de biographie ?",
+       "r": "Savante (faits rigoureux), romancée (enjolivée), hagiographie (vies de saints puis biographies de commande)."
+      },
+      {
+       "id": "card:nara:c14:010",
+       "q": "Pourquoi l'école des Annales méprisait-elle la biographie ?",
+       "r": "Elle voulait une histoire des sociétés et des mentalités (Marc Bloch) et jugeait la biographie anecdotique."
+      },
+      {
+       "id": "card:nara:c14:011",
+       "q": "Différence entre conte et légende ?",
+       "r": "Le conte se déroule dans l'imaginaire ; la légende est vraisemblable et mêle le vrai au faux."
+      },
+      {
+       "id": "card:nara:c14:012",
+       "q": "Qu'est-ce qu'un mythe ?",
+       "r": "Une histoire sacrée des origines, avec des êtres surhumains, qui explique le monde."
+      },
+      {
+       "id": "card:nara:c14:013",
+       "q": "D'où vient l'expression « toucher le pactole » ?",
+       "r": "Du mythe de Midas : il se lave les mains dans le fleuve Pactole, qui charrie ensuite de l'or."
+      },
+      {
+       "id": "card:nara:c14:014",
+       "q": "D'où vient le mot « sosie » ?",
+       "r": "Du valet d'Amphitryon, nommé Sosie, dont Hermès prit l'apparence pendant que Jupiter séduisait Alcmène."
+      },
+      {
+       "id": "card:nara:c14:015",
+       "q": "Que raconte la langue d'Ésope ?",
+       "r": "Ésope sert des langues comme meilleure puis comme pire des choses : la parole lie et instruit, mais engendre aussi procès, guerres et mensonges."
+      },
+      {
+       "id": "card:nara:c14:016",
+       "q": "Quelles sont les deux constantes d'une bonne histoire ?",
+       "r": "L'enjeu (sans enjeu, pas d'histoire) et l'identification (sans identification, pas d'intérêt)."
+      },
+      {
+       "id": "card:nara:c14:017",
+       "q": "Quel est l'enjeu des Souffrances du jeune Werther ?",
+       "r": "Le héros oubliera-t-il Charlotte ? (amour impossible, il se suicide)."
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:nara:c14:001",
+       "q": "Un récit bref et symbolique à visée morale est :",
+       "choix": [
+        "une chronique",
+        "un apologue",
+        "un journal",
+        "une épopée"
+       ],
+       "bonne": 1,
+       "explication": "Fables, contes, paraboles, utopies."
+      },
+      {
+       "id": "question:nara:c14:002",
+       "q": "Le genre qui classe les faits par ordre chronologique est :",
+       "choix": [
+        "la chronique",
+        "la légende",
+        "le mythe",
+        "l'anecdote"
+       ],
+       "bonne": 0,
+       "explication": "Ex. les chroniques médiévales."
+      },
+      {
+       "id": "question:nara:c14:003",
+       "q": "Dans l'épopée, les personnages sont :",
+       "choix": [
+        "très psychologiques",
+        "des types sans psychologie",
+        "des anonymes",
+        "toujours féminins"
+       ],
+       "bonne": 1,
+       "explication": "Le roi, le preux, le traître…"
+      },
+      {
+       "id": "question:nara:c14:004",
+       "q": "Selon le cours, l'intérêt d'un récit tient surtout à :",
+       "choix": [
+        "ce qu'on raconte",
+        "comment on le raconte",
+        "sa longueur",
+        "sa véracité"
+       ],
+       "bonne": 1,
+       "explication": "Avec l'enjeu et l'identification."
+      },
+      {
+       "id": "question:nara:c14:005",
+       "q": "L'école des Annales est associée à :",
+       "choix": [
+        "Marc Bloch",
+        "Bettelheim",
+        "Ginzburg",
+        "Ésope"
+       ],
+       "bonne": 0,
+       "explication": "Histoire des mentalités."
+      }
+     ],
+     "sources": [
+      {
+       "document": "NARA1129 - IHECS-FORMLIT.pdf",
+       "pages": "document complet"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

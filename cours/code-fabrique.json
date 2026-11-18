@@ -1,0 +1,426 @@
+{
+ "format": "ihecs-study-os",
+ "kind": "course-pack",
+ "schemaVersion": 2,
+ "title": "CODE1101 — Code & langages médiatiques (dont La Fabrique d'images)",
+ "createdAt": "2026-11-16T16:19:20.440Z",
+ "source": {
+  "kind": "claude",
+  "note": "Généré à partir du descriptif de l'UE, de la présentation de l'UE du 15/09 et du texte des pages Learn (La Fabrique, Code image et son, ILM). Les consignes des exercices 1 et 3 de La Fabrique et les syllabus de contenu ne sont pas encore transcrits."
+ },
+ "subjects": [
+  {
+   "id": "code",
+   "nom": "Code & langages médiatiques (La Fabrique)",
+   "prof": "Natacha Brixy (référente), M. Bries, S. Schmitz, D. Leynen, L. Vuylsteke",
+   "couleur": "#ffd60a",
+   "icone": "camera",
+   "examen": {
+    "type": "Remise La Fabrique (ex. 2a, 2b, 2c) — puis écrit Code, image & son en janvier",
+    "consignes": [
+     "La Fabrique : exercices 2a, 2b et 2c à déposer sur Learn avant le mercredi 16 décembre 2026 à 12 h. Aucun envoi par mail n'est pris en compte. Non remédiable : aucun rendu = PP = UE perdue.",
+     "Code, image & son (7/15) : examen écrit en janvier (session du 4 au 22 janvier 2027).",
+     "Introduction aux langages médiatiques (6/15) : examen écrit en juin.",
+     "UE validée avec 50 % de moyenne pondérée : (Code /15 × 7) + (ILM /15 × 6) + (Fabrique /15 × 2).",
+     "Pour garder la cote de janvier de Code, image & son, ne pas venir signer l'examen en juin."
+    ],
+    "date": "2026-12-16T12:00",
+    "lieu": "Dépôt sur Learn (pas de mail)",
+    "poids": "Code, image & son 7/15 · Langages médiatiques 6/15 · La Fabrique 2/15"
+   },
+   "documents": [
+    {
+     "nom": "CODE1101-3_Fabrique - Code  langages médiatiques",
+     "chemin": "CODE1101-3_Fabrique - Code  langages médiatiques.pdf"
+    },
+    {
+     "nom": "CODE1101-3_Fabrique - Médias - codes INTRO",
+     "chemin": "CODE1101-3_Fabrique - Médias - codes INTRO.pdf"
+    },
+    {
+     "nom": "CODE1101-3_Fabrique - LA FABRIQUE 2026-27 3 exercices",
+     "chemin": "CODE1101-3_Fabrique - LA FABRIQUE 2026-27 3 exercices.pdf"
+    }
+   ],
+   "chapitres": [
+    {
+     "id": "c1",
+     "titre": "L'UE Code & langages médiatiques : organisation, évaluation, réussite",
+     "duree": 15,
+     "resume": "## L'unité d'enseignement\n\n- **15 ECTS** sur les 60 du bloc 1, soit ==**¼ des crédits de l'année**== ; 1 ECTS ≈ 25 à 30 h de travail (auditoire + travail personnel).\n- Référente : **Natacha Brixy** (adresse e-mail sur Learn, bureau A407, 4e étage). Questions de cours → l'enseignant concerné ; questions administratives (PAE, dispense) → services administratifs ; connexion → helpdesk.\n- Avant d'écrire à un enseignant : question bien formulée et contextualisée ? réponse absente des supports (syllabus, slides, briefings, forum, règlements) ? bonne personne ?\n- Sources fiables : **Hyperplanning, Learn**, les cours en auditoire et l'équipe enseignante.\n\n## Trois activités d'apprentissage (AA)\n\n| AA | Quand | Enseignants | Poids | Évaluation |\n|---|---|---|---|---|\n| **Code, image & son** | Q1 | M. Bries (11 séances), S. Schmitz (4), D. Leynen (11) | **7/15** | **examen écrit** (Essence & sens de l'image et du son + Code) ; 1re session : janvier (+ juin pour le bloc 1) ; 2e session : septembre |\n| **Introduction aux langages médiatiques (ILM)** | Q2 | photo T. Maroit, design graphique N. Brixy, son S. Schmitz, vidéo E. Doniol-Valcroze, IA D. Leynen (6 séances chacun) | **6/15** | **examen écrit** ; 1re session : juin ; 2e session : septembre |\n| **La Fabrique d'images** | Q1 et Q2 | P. Bouteiller, M. Bries, T. Maroit, L. Poma, L. Vuylsteke | **2/15** | 3 exercices d'images personnelles — ==**NON REMÉDIABLE**== |\n\nL'évaluation porte sur ==**tout ce qui est vu en cours ET sur les documents publiés sur Learn**== (syllabi, slides, notes).\n\n## Conditions de réussite\n\n- UE validée si la **moyenne pondérée ≥ 50 % (10/20)**. Pas de cote minimale par AA.\n- **Calcul** : (Code /15 × 7) + (ILM /15 × 6) + (Fabrique /15 × 2), chaque note étant sur 20.\n- **Aucun travail de La Fabrique remis = PP** → l'UE n'est pas validée cette année, même avec 50 % ailleurs ; elle ne pourra être validée que l'année suivante.\n- Moyenne < 50 % en juin : repasser en septembre **toutes les AA en échec, sauf La Fabrique** ; on ne peut pas repasser une AA réussie ; un échec, même léger, n'est jamais reporté ; absent en septembre = PP.\n- ==**Cote de janvier en Code, image & son** : pour la garder, ne rien faire en juin et **ne surtout pas venir signer l'examen** (la signature efface la cote de janvier). Rejouer en juin efface définitivement la cote de janvier.==\n- **Cote de présence** : jamais par mail ; il faut se présenter au début de l'examen et signer, sinon PP.\n- CODE1101 est un **prérequis** de l'UE médias du bloc 2.\n\n## Le contrat et l'apprentissage\n\nSe tenir informé (Hyperplanning, Learn, séances), respecter le cadre (délais, consignes, les mêmes pour tous), être acteur de son apprentissage. Ce qui marche le mieux : apprendre par la pratique, discuter en groupe et **enseigner aux autres**. En auditoire : pas de bruit, pas d'entrée/sortie pendant le cours, pas de casque, pas de nourriture.",
+     "pointsCles": [
+      "15 ECTS, soit un quart du bloc 1.",
+      "Code, image & son 7/15 (écrit, janvier), ILM 6/15 (écrit, juin), La Fabrique 2/15 (travaux, non remédiable).",
+      "UE validée avec 50 % de moyenne pondérée, sans minimum par AA.",
+      "Aucun travail de La Fabrique = PP = UE perdue pour l'année.",
+      "Pour garder la cote de janvier de Code, image & son : ne pas signer l'examen en juin.",
+      "La matière comprend les cours et tous les documents publiés sur Learn."
+     ],
+     "definitions": [
+      {
+       "terme": "AA",
+       "def": "Activité d'apprentissage : une des trois parties de l'UE (Code, image & son ; ILM ; La Fabrique d'images)."
+      },
+      {
+       "terme": "Moyenne pondérée de l'UE",
+       "def": "(Code /15 × 7) + (ILM /15 × 6) + (Fabrique /15 × 2), chaque note sur 20 ; il faut au moins 10/20."
+      },
+      {
+       "terme": "PP",
+       "def": "« Pas présenté » : mention donnée quand on ne présente pas une épreuve ou qu'on ne remet aucun travail."
+      },
+      {
+       "terme": "Non remédiable",
+       "def": "Qui ne peut pas être repassé en seconde session (La Fabrique d'images)."
+      }
+     ],
+     "fiches": [
+      {
+       "id": "card:code:c1:001",
+       "q": "Combien de crédits vaut l'UE Code & langages médiatiques ?",
+       "r": "15 ECTS, soit un quart des 60 crédits du bloc 1."
+      },
+      {
+       "id": "card:code:c1:002",
+       "q": "Quelles sont les trois AA et leur poids ?",
+       "r": "Code, image & son (7/15), Introduction aux langages médiatiques (6/15), La Fabrique d'images (2/15)."
+      },
+      {
+       "id": "card:code:c1:003",
+       "q": "Comment est évaluée Code, image & son et quand ?",
+       "r": "Examen écrit (Essence & sens de l'image et du son + Code), en janvier (et juin pour le bloc 1) ; seconde session en septembre."
+      },
+      {
+       "id": "card:code:c1:004",
+       "q": "Comment est évaluée l'ILM et quand ?",
+       "r": "Examen écrit (design graphique, photo, son, vidéo, IA), en juin ; seconde session en septembre."
+      },
+      {
+       "id": "card:code:c1:005",
+       "q": "Comment calcule-t-on la moyenne de l'UE ?",
+       "r": "(Code /15 × 7) + (ILM /15 × 6) + (Fabrique /15 × 2), chaque note sur 20 ; il faut au moins 10/20."
+      },
+      {
+       "id": "card:code:c1:006",
+       "q": "Que se passe-t-il si on ne remet aucun travail de La Fabrique ?",
+       "r": "PP à La Fabrique, et l'UE n'est pas validée cette année, même avec 50 % dans les deux autres AA."
+      },
+      {
+       "id": "card:code:c1:007",
+       "q": "Comment garder sa cote de janvier en Code, image & son ?",
+       "r": "Ne rien faire en juin et surtout ne pas venir signer l'examen : la signature efface la cote de janvier."
+      },
+      {
+       "id": "card:code:c1:008",
+       "q": "Que doit-on repasser en septembre si la moyenne de l'UE est sous 50 % ?",
+       "r": "Toutes les AA en échec, sauf La Fabrique (non remédiable) ; jamais une AA réussie."
+      },
+      {
+       "id": "card:code:c1:009",
+       "q": "Sur quoi porte l'évaluation de l'UE ?",
+       "r": "Sur tout ce qui est vu en cours et sur tous les documents publiés sur Learn."
+      },
+      {
+       "id": "card:code:c1:010",
+       "q": "Qui est la référente de l'UE ?",
+       "r": "Natacha Brixy (bureau A407)."
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:code:c1:001",
+       "q": "Quel est le poids de La Fabrique d'images dans l'UE ?",
+       "choix": [
+        "2/15",
+        "6/15",
+        "7/15",
+        "15/15"
+       ],
+       "bonne": 0,
+       "explication": "Petit poids, mais obligatoire et non remédiable."
+      },
+      {
+       "id": "question:code:c1:002",
+       "q": "Tu as réussi Code, image & son en janvier. En juin, tu dois :",
+       "choix": [
+        "venir signer l'examen",
+        "ne rien faire",
+        "repasser l'examen",
+        "envoyer un mail"
+       ],
+       "bonne": 1,
+       "explication": "Signer effacerait la cote de janvier."
+      },
+      {
+       "id": "question:code:c1:003",
+       "q": "Quelle moyenne pondérée faut-il pour valider l'UE ?",
+       "choix": [
+        "40 %",
+        "50 %",
+        "60 %",
+        "50 % dans chaque AA"
+       ],
+       "bonne": 1,
+       "explication": "Pas de cote minimale par AA."
+      },
+      {
+       "id": "question:code:c1:004",
+       "q": "En septembre, peut-on repasser La Fabrique ?",
+       "choix": [
+        "oui",
+        "non",
+        "seulement l'exercice 3",
+        "seulement avec dispense"
+       ],
+       "bonne": 1,
+       "explication": "Elle est non remédiable."
+      }
+     ],
+     "sources": [
+      {
+       "document": "CODE1101-3_Fabrique - Médias - codes INTRO.pdf",
+       "pages": "présentation de l'UE (15/09)"
+      },
+      {
+       "document": "CODE1101-3_Fabrique - Code  langages médiatiques.pdf",
+       "pages": "descriptif de l'UE"
+      }
+     ]
+    },
+    {
+     "id": "c2",
+     "titre": "La Fabrique d'images : exercices, consignes et échéances",
+     "duree": 20,
+     "resume": "> ==**Remise ULTIME des exercices 2a, 2b et 2c : mercredi 16 décembre 2026 avant 12 h 00, sur Learn.**== Seuls les travaux déposés sur Learn dans les délais sont évalués : **aucun envoi par mail n'est pris en compte**. Éviter la dernière minute (Learn sature).\n\n## Organisation\n\n- AA sur les deux quadrimestres : séances en auditoire (P4) les **24/09, 08/10, 22/10, 19/11 et 10/12** + coaching.\n- Enseignants : P. Bouteiller, M. Bries, T. Maroit, L. Poma, L. Vuylsteke.\n- **Coaching** de 15 min par groupe de 4 avec Luc Vuylsteke, sur réservation : mardis 17 nov., 24 nov. et 8 déc. 2026, P2 (10 h 45-12 h 45), local A104. Arriver 10 min avant, images, lettres et questions déjà ouvertes à l'écran.\n- Lire **toutes** les slides du PDF « LA FABRIQUE 2026-27 3 exercices » (les dernières n'ont pas été projetées).\n\n| Exercice | Points | Statut des consignes |\n|---|---|---|\n| 1 — « Moi en une image » (autoportrait) | 10 | dans le PDF des 3 exercices + autoportrait #02 (aperçu historique) et #03 (conseils et analyse) |\n| 2 — « Moi en deux mots » (a, b, c) | 15 | complètes ci-dessous |\n| 3 — « Moi et une communauté » | 25 | rien de publié sur Learn pour l'instant |\n\n## Exercice 2 — « Moi en deux mots »\n\n**Principe** : photographier des formes du réel qui **évoquent des lettres sans en être** (réalité non typographique, parfois en macro). Le cadrage révèle la lettre.\n\n- Choisir **deux mots qui vous qualifient**, en français, de **6 lettres minimum** chacun.\n- Cadrer chaque photo en **format carré** ; des images **différentes même pour des lettres identiques**.\n- Suivre impérativement le **« Pas à pas Canva »**.\n\n### 2a — les lettres (.jpg)\n\n- **15 à 20 fichiers** .jpg (20, c'est mieux), une lettre par fichier, déposés **séparément**.\n- Fichier de **13 × 13 cm**, fond **noir ou blanc** ; image **centrée de 10 × 10 cm**.\n\n### 2b — les 2 mots (.jpg)\n\n- Mot 1 en lecture horizontale sur **fond blanc** ; mot 2 avec **d'autres** images-lettres sur **fond noir**.\n- Images de **10 × 10 cm**, document de **13 cm de haut**, **1,5 cm** entre les lettres ; le mot doit être lisible.\n- Noms : **NOM_Prénom_MOT.jpg** et **NOM_Prénom_MOT_n.jpg** (fond noir). Utiliser ses propres mots.\n\n### 2c — l'abécédaire (.pdf)\n\n- Crayonner d'abord sur les « grilles pour crayonner » imprimées.\n- **Dupliquer** le gabarit Canva fourni ; dupliquer des pages, garder une page vierge en réserve.\n- Au moins **20 images-lettres différentes** par page, **classées alphabétiquement** (alphabet complet non exigé) ; images pivotables, en miroir.\n- **Fond blanc obligatoire**, format **A4**, marges et gouttières conservées ; remplacer NOM et Prénom dans la zone de texte.\n- Plusieurs propositions possibles dans un seul PDF, la favorite en page 1.\n- Nom : **NOM_Prénom_Abécédaire.pdf**.",
+     "pointsCles": [
+      "Exercices 2a, 2b, 2c à déposer sur Learn avant le 16 décembre 2026 à 12 h.",
+      "Aucun envoi par mail n'est pris en compte.",
+      "Ex. 1 = 10 pts, ex. 2 = 15 pts, ex. 3 = 25 pts.",
+      "2a : 15-20 lettres en .jpg, 13 × 13 cm, image 10 × 10 cm centrée.",
+      "2b : 2 mots de 6 lettres min., l'un sur fond blanc, l'autre sur fond noir, NOM_Prénom_MOT.jpg.",
+      "2c : abécédaire A4 sur fond blanc, 20 lettres min., NOM_Prénom_Abécédaire.pdf.",
+      "Coaching avec L. Vuylsteke : 17 et 24 nov., 8 déc., P2, A104."
+     ],
+     "definitions": [
+      {
+       "terme": "Réalité non typographique",
+       "def": "Le monde réel hors des lettres imprimées : formes, objets, ombres qui évoquent une lettre sans en être une."
+      },
+      {
+       "terme": "Abécédaire",
+       "def": "Composition de lettres classées dans l'ordre alphabétique (exercice 2c)."
+      },
+      {
+       "terme": "Crayonné",
+       "def": "Esquisse au crayon d'une mise en page, faite avant la réalisation sur Canva."
+      }
+     ],
+     "fiches": [
+      {
+       "id": "card:code:c2:001",
+       "q": "Quelle est la date limite des exercices 2a, 2b et 2c ?",
+       "r": "Le mercredi 16 décembre 2026 avant 12 h 00, sur Learn."
+      },
+      {
+       "id": "card:code:c2:002",
+       "q": "Peut-on envoyer un travail de La Fabrique par mail ?",
+       "r": "Non : seuls les travaux déposés sur Learn dans les délais sont évalués."
+      },
+      {
+       "id": "card:code:c2:003",
+       "q": "Combien de points vaut chaque exercice ?",
+       "r": "Ex. 1 « Moi en une image » 10 ; ex. 2 « Moi en deux mots » 15 ; ex. 3 « Moi et une communauté » 25."
+      },
+      {
+       "id": "card:code:c2:004",
+       "q": "Quel est le principe de l'exercice 2 ?",
+       "r": "Photographier des formes du réel qui évoquent des lettres sans en être, en format carré, pour composer deux mots qui vous qualifient."
+      },
+      {
+       "id": "card:code:c2:005",
+       "q": "Quelles sont les consignes de l'exercice 2a ?",
+       "r": "15 à 20 lettres en .jpg, chacune dans un fichier de 13 × 13 cm sur fond noir ou blanc, avec l'image centrée de 10 × 10 cm."
+      },
+      {
+       "id": "card:code:c2:006",
+       "q": "Quelles sont les consignes de l'exercice 2b ?",
+       "r": "Deux mots de 6 lettres min. : l'un sur fond blanc, l'autre sur fond noir avec d'autres images ; 13 cm de haut, 1,5 cm entre les lettres ; NOM_Prénom_MOT.jpg et NOM_Prénom_MOT_n.jpg."
+      },
+      {
+       "id": "card:code:c2:007",
+       "q": "Quelles sont les consignes de l'exercice 2c ?",
+       "r": "Abécédaire A4 sur fond blanc dans le gabarit Canva dupliqué, au moins 20 lettres classées alphabétiquement, favorite en page 1, NOM_Prénom_Abécédaire.pdf."
+      },
+      {
+       "id": "card:code:c2:008",
+       "q": "Quand ont lieu les coachings de La Fabrique ?",
+       "r": "Mardis 17 nov., 24 nov. et 8 déc. 2026, P2 (10 h 45-12 h 45), A104, avec Luc Vuylsteke, sur réservation."
+      },
+      {
+       "id": "card:code:c2:009",
+       "q": "Quelles sont les séances en auditoire de La Fabrique au Q1 ?",
+       "r": "24/09, 08/10, 22/10, 19/11 et 10/12, en P4."
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:code:c2:001",
+       "q": "Combien de lettres faut-il déposer pour l'exercice 2a ?",
+       "choix": [
+        "5 à 10",
+        "15 à 20",
+        "26",
+        "au moins 30"
+       ],
+       "bonne": 1,
+       "explication": "20, c'est mieux."
+      },
+      {
+       "id": "question:code:c2:002",
+       "q": "Sur quel fond doit être l'abécédaire (2c) ?",
+       "choix": [
+        "noir",
+        "blanc",
+        "au choix",
+        "transparent"
+       ],
+       "bonne": 1,
+       "explication": "Fond blanc obligatoire."
+      },
+      {
+       "id": "question:code:c2:003",
+       "q": "Quel est le nom correct pour le mot sur fond noir ?",
+       "choix": [
+        "NOM_Prénom_MOT.jpg",
+        "NOM_Prénom_MOT_n.jpg",
+        "MOT_noir.jpg",
+        "Prénom_NOM.pdf"
+       ],
+       "bonne": 1,
+       "explication": "Le suffixe _n désigne la version sur fond noir."
+      },
+      {
+       "id": "question:code:c2:004",
+       "q": "Combien de lettres minimum par mot (2b) ?",
+       "choix": [
+        "4",
+        "5",
+        "6",
+        "8"
+       ],
+       "bonne": 2,
+       "explication": "Deux mots de 6 lettres minimum chacun."
+      }
+     ],
+     "sources": [
+      {
+       "document": "CODE1101-3_Fabrique - Médias - codes INTRO.pdf",
+       "pages": "La Fabrique d'images"
+      },
+      {
+       "document": "CODE1101-3_Fabrique - LA FABRIQUE 2026-27 3 exercices.pdf",
+       "pages": "consignes publiées sur Learn"
+      }
+     ]
+    },
+    {
+     "id": "c3",
+     "titre": "Code, image et son (Q1) et Introduction aux langages médiatiques (Q2) : plan et matière",
+     "duree": 15,
+     "resume": "## Code, image & son — examen écrit en janvier (7/15)\n\n### Essence & sens de l'image — Michel Bries (11 séances)\n\nComment **parler** des images et comment **faire parler** les images, fixes ou animées : sémiologie visuelle et **variables visuelles**, codes et **figures de représentation**, **figures de rhétorique**, **théorie de la Gestalt**, outils d'analyse.\n\n| Séance | Thème (support sur Learn) |\n|---|---|\n| 15/09 | Introduction (COP30, conférencière invitée Nina Silva) |\n| 22/09 | Essence et sens de l'image |\n| 29/09 | #03 La disparition du référent ; exercice « Image culte » |\n| Exercice 04 | Analyse sémiologique d'un support de communication (espaces fumeurs / non-fumeurs) : les signes de l'image et leurs fonctions dans le « discours visuel » — avec correctif |\n| 06 + 13/10 | #05 Iconicité et schématisation |\n| 13/10 (fin le 20/10) | #06 Bauhaus |\n| 03/11 | #07 Gestalt |\n| 10/11 | #08 Composition |\n\nSupport principal : syllabus « Essence et sens de l'image », 7e édition 2026-27 (volume 1, 1/2).\n\n### Essence & sens du son — Sébastien Schmitz (4 séances)\n\n**Phénoménologie de l'écoute** et du son (aspects physiologiques et cognitifs), outils d'analyse du son. Matière : le syllabus (volume 1, 2/2) **et ses liens vers les illustrations vues au cours**, ainsi que les **3 épisodes de podcast** (l'épisode 2 pour le cours du 04/11). Émission conseillée : France Culture avec la chercheuse **Juliette Volcler** sur le design sonore.\n\n### Code — Dorian Leynen (11 séances)\n\nBases et logique de la programmation avec un langage orienté **image, animation et interactivité** ; « pensée algorithmique ». Slides Code #0 à #6 (versions corrigées de #0, #1 et #4) et solutions des pistes d'expérimentation (balayage, métronome, enclos ; respiration, écran de veille, jauge).\n\n## Introduction aux langages médiatiques — Q2, examen écrit en juin (6/15)\n\nCinq volumes de syllabus, 6 séances chacun : **photographie** (T. Maroit), **design graphique** (N. Brixy), **son/radio** (S. Schmitz), **vidéo** (E. Doniol-Valcroze), **IA générative** (D. Leynen). Grammaire, genres et langages de chaque champ médiatique, et mise en forme du message selon le média.\n\n> Les syllabus et slides de ces cours ne sont pas encore dans ton dossier Drive : dépose-les pour obtenir des fiches de contenu.",
+     "pointsCles": [
+      "Code, image & son : examen écrit intégré en janvier sur l'image, le son et le code.",
+      "Image (Bries) : sémiologie, variables visuelles, rhétorique, iconicité, Bauhaus, Gestalt, composition.",
+      "Son (Schmitz) : phénoménologie de l'écoute ; les podcasts et les liens du syllabus font partie de la matière.",
+      "Code (Leynen) : programmation orientée image et interactivité, pensée algorithmique.",
+      "ILM au Q2 : photo, design graphique, son, vidéo, IA ; examen écrit en juin."
+     ],
+     "definitions": [
+      {
+       "terme": "Sémiologie visuelle",
+       "def": "Étude des signes contenus dans une image et de leur fonction dans le « discours visuel »."
+      },
+      {
+       "terme": "Gestalt",
+       "def": "Théorie de la perception étudiée au cours d'Essence et sens de l'image (séance du 03/11)."
+      },
+      {
+       "terme": "Pensée algorithmique",
+       "def": "Logique inhérente au code : décomposer un problème en étapes et règles exécutables."
+      }
+     ],
+     "fiches": [
+      {
+       "id": "card:code:c3:001",
+       "q": "Quelles sont les deux séquences de Code, image & son ?",
+       "r": "Essence & sens de l'image et du son (Bries, Schmitz) et Code (Leynen)."
+      },
+      {
+       "id": "card:code:c3:002",
+       "q": "Quelles notions couvre Essence & sens de l'image ?",
+       "r": "Sémiologie visuelle et variables visuelles, codes et figures de représentation, figures de rhétorique, iconicité, Bauhaus, Gestalt, composition."
+      },
+      {
+       "id": "card:code:c3:003",
+       "q": "Sur quoi porte l'exercice 04 d'Essence et sens de l'image ?",
+       "r": "L'analyse sémiologique d'un support de communication (espaces fumeurs et non-fumeurs) : les signes de l'image et leurs fonctions."
+      },
+      {
+       "id": "card:code:c3:004",
+       "q": "Qu'est-ce qui fait partie de la matière d'Essence & sens du son ?",
+       "r": "Le syllabus, ses liens vers les illustrations vues au cours et les 3 épisodes de podcast."
+      },
+      {
+       "id": "card:code:c3:005",
+       "q": "Que vise la séquence Code ?",
+       "r": "Les bases et la logique de la programmation, avec un langage orienté image, animation et interactivité."
+      },
+      {
+       "id": "card:code:c3:006",
+       "q": "Quels sont les cinq champs de l'ILM au Q2 ?",
+       "r": "Photographie, design graphique, son, vidéo, IA générative."
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:code:c3:001",
+       "q": "La théorie de la Gestalt est vue dans :",
+       "choix": [
+        "Code",
+        "Essence & sens de l'image",
+        "La Fabrique",
+        "ILM vidéo"
+       ],
+       "bonne": 1,
+       "explication": "Séance du 03/11 avec Michel Bries."
+      },
+      {
+       "id": "question:code:c3:002",
+       "q": "Quand a lieu l'examen d'ILM ?",
+       "choix": [
+        "décembre",
+        "janvier",
+        "juin",
+        "il n'y en a pas"
+       ],
+       "bonne": 2,
+       "explication": "Le cours est donné au second quadrimestre."
+      }
+     ],
+     "sources": [
+      {
+       "document": "CODE1101-3_Fabrique - Code  langages médiatiques.pdf",
+       "pages": "descriptif de l'UE"
+      },
+      {
+       "document": "CODE1101-3_Fabrique - Médias - codes INTRO.pdf",
+       "pages": "structure de l'UE"
+      }
+     ]
+    }
+   ],
+   "credits": 15,
+   "quadrimestre": "Q1 et Q2"
+  }
+ ]
+}

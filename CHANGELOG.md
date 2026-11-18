@@ -1,5 +1,14 @@
 # Journal des modifications
 
+## 0.11.0 — Tes cours intégrés au site
+
+### Ajouté
+- Les 7 matières (dossier `cours/`) sont **intégrées au site** : à l'ouverture, tes cours s'affichent directement, sans import, sans dossier, sans Drive. Le site et ces cours sont publics (choix explicite).
+- Quand les cours intégrés changent, seules les matières modifiées sont mises à jour au prochain chargement ; tes modifications (dates, crédits, consignes) et tes propres imports sont conservés.
+- La démonstration ou le dossier Drive restent disponibles dans les Réglages ; ton choix est retenu au démarrage.
+- Adresses e-mail retirées des cours publiés (test automatique).
+- Tests : 2 unitaires et 2 parcours (× 2 appareils).
+
 ## 0.10.0 — Mes cours dans ce navigateur
 
 ### Ajouté

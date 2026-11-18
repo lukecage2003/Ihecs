@@ -1,0 +1,3416 @@
+{
+ "format": "ihecs-study-os",
+ "kind": "course-pack",
+ "schemaVersion": 2,
+ "title": "ENGL1102-E — Anglais (UE1 Langues)",
+ "createdAt": "2026-11-16T02:22:29.115Z",
+ "source": {
+  "kind": "claude",
+  "note": "Généré à partir du contrat didactique 2026-2027, des consignes de l'oral Q1, des notes de cours (Topics AI-generated art et Loneliness economy, Speaking Guide), des unités de grammaire 1-6 et du syllabus de vocabulaire du semestre 1 déposés dans le dossier Drive IHECS STUDY OS. Les unités de grammaire 7 à 120 ne sont pas dans le dossier."
+ },
+ "subjects": [
+  {
+   "id": "engl",
+   "nom": "Anglais",
+   "prof": "Équipe d'anglais IHECS",
+   "couleur": "#0a84ff",
+   "icone": "mic",
+   "examen": {
+    "type": "Oral (round table) + écrit (vocabulaire et grammaire)",
+    "consignes": [
+     "Oral round table : semaines 11-12 (30 novembre - 11 décembre 2026). Écrit : semaine 13 (14-18 décembre 2026). Le jour précis est fixé par le professeur.",
+     "Semaines 11-12 : oral Round Table Discussion (15 points) — groupes de 3-4, 20 min de préparation, 20 min de discussion sur un thème du semestre.",
+     "Semaine 13 : test écrit, vocabulaire Q1 (units 1-18) + grammaire du 1er semestre (10 points).",
+     "Grammaire Murphy au programme du Q1 : units 1-25, 69-81, 85-88 et révision 113, 115, 119, 120.",
+     "Il faut participer à toutes les évaluations ; aucun report de note entre sessions.",
+     "Construire une informed opinion : arguments du cours + reformulation + position personnelle nuancée."
+    ],
+    "poids": "Q1 : oral 15 + écrit 10 · Q2 : oral 15 + écrit 20 (total 60)"
+   },
+   "documents": [
+    {
+     "nom": "ENGL1102-Hub - BA1 ANGLAIS - CONTRAT DIDACTIQUE 26-27",
+     "chemin": "ENGL1102-Hub - BA1 ANGLAIS - CONTRAT DIDACTIQUE 26-27.pdf"
+    },
+    {
+     "nom": "Test oral Q1 - CONSIGNES (2)",
+     "chemin": "ENGL1102-E - Test oral Q1 - CONSIGNES (2).pdf"
+    },
+    {
+     "nom": "CourseNotes_AT",
+     "chemin": "ENGL1102-E - CourseNotes_AT.pdf"
+    },
+    {
+     "nom": "UE1 ENGLISH VOCABULARY - Semester 1 (1)",
+     "chemin": "ENGL1102-E - UE1 ENGLISH VOCABULARY - Semester 1 (1).pdf"
+    },
+    {
+     "nom": "English Grammar in Use Units 1-6-2",
+     "chemin": "ENGL1102-E - English Grammar in Use Units 1-6-2.pdf"
+    },
+    {
+     "nom": "ENGL1102-Hub - Oral test Speaking Guide  How to develop and maintain a discussion (6)",
+     "chemin": "ENGL1102-Hub - Oral test Speaking Guide  How to develop and maintain a discussion (6).pdf"
+    },
+    {
+     "nom": "ENGL1102-Hub - Topic - AI-generated art - Student",
+     "chemin": "ENGL1102-Hub - Topic - AI-generated art - Student.pdf"
+    },
+    {
+     "nom": "ENGL1102-Hub - Topic - Loneliness Economy - Student",
+     "chemin": "ENGL1102-Hub - Topic - Loneliness Economy - Student.pdf"
+    },
+    {
+     "nom": "ENGL1102-Hub - Topic - Online Radicalisation - Student",
+     "chemin": "ENGL1102-Hub - Topic - Online Radicalisation - Student.pdf"
+    },
+    {
+     "nom": "AI_Artists_Student",
+     "chemin": "ENGL1102-E - AI_Artists_Student.pdf"
+    },
+    {
+     "nom": "self-studyplanning",
+     "chemin": "ENGL1102-E - self-studyplanning.pdf"
+    }
+   ],
+   "chapitres": [
+    {
+     "id": "c1",
+     "titre": "Organisation du cours, évaluation et Speaking Guide",
+     "duree": 25,
+     "resume": "## Le cours (contrat didactique 2026-2027)\n\n- **60 heures/an**, 2 h par semaine ; plusieurs professeurs selon les groupes.\n- ==Pas un cours pour débutants : niveau **B1** fortement conseillé au départ ; objectif **B2 (upper-intermediate)**.== Le **test de positionnement** est obligatoire (première semaine), sinon pas d'accès aux dispositifs d'accompagnement.\n- **Préparations à domicile indispensables et obligatoires** ; présence active ; **pas d'ordinateur, tablette ni smartphone** en classe.\n- Objectifs : lexique et grammaire B2, compréhension orale et écrite, expression orale sur les médias et la société, argumentation écrite.\n- Supports sur **Learn** (seule source fiable) ; *Murphy's English Grammar in Use* (4e ou 5e éd.) à se procurer ; syllabus *UE1 English Vocabulary*.\n\n## Évaluation (60 points)\n\n| Quand | Épreuve | Points |\n|---|---|---|\n| Semaines 11-12 | **Oral : Round Table Discussion** | 15 |\n| Semaine 13 | **Écrit : vocabulaire Q1 + grammaire du 1er semestre** | 10 |\n| 2e semestre | Oral : présentations (**Press Review**) | 15 |\n| Semaine 26 | Écrit : vocabulaire Q2 + grammaire de l'année + contenu Q2 | 20 |\n\n- Il faut avoir **participé à toutes les évaluations**. Seconde session : toute la matière de l'année, toutes les épreuves ; **aucun report de note** entre sessions.\n- Absence : envoyer le justificatif **au professeur** au plus vite, sous peine d'ajournement.\n- Critères : **intelligibilité** et **respect des consignes** ; pertinence, cohérence, rigueur et richesse grammaticales et lexicales ; à l'oral, **fluidité** et attitude communicationnelle verbale et non verbale.\n\n## Planning d'autoformation (semestre 1) — matière d'examen\n\n| Semaine | En classe | Vocabulaire | Grammaire (Murphy) |\n|---|---|---|---|\n| 1-2 (15-25 sept.) | Introduction, Topic 1 | — | — |\n| 3 | Topic 1 | Units 1-3 | Units 1-6 |\n| 4 | Topic 1 | Units 4-5 | Units 7-12 |\n| 5 | Topic 1 | Units 6-7 | Units 13-18 |\n| 6 | Topic 2 | Units 8-10 | Units 19-25 |\n| 7 | Topic 2 | Units 11-13 | Units 69-72 |\n| 8 | Topic 2 | Units 14-15 | Units 73-79 |\n| 9 | Topic 2 | Units 16-18 | Units 80-81 + 85-88 |\n| 10 | Révision, entraînement round table | — | Revision 113, 115, 119, 120 |\n| 11-12 | Oral : round table | | |\n| 13 | Test écrit | | |\n\n*Seules les unités de grammaire 1 à 6 sont dans le dossier Drive : étudie les autres dans ton Murphy.*\n\n## L'oral : Round Table Discussion\n\n- Groupes de **3 ou 4** ; un énoncé ou une question liée à un des **thèmes du semestre** (AI-generated art, the loneliness economy).\n- **20 minutes de préparation individuelle**, puis **20 minutes de discussion**.\n- Le but n'est pas de « gagner » mais de **contribuer** : construire une **informed opinion**, comprendre plusieurs perspectives (*Critics argue that… / Supporters highlight that…*), prendre une position claire et nuancée (*However, I personally think that…*), réagir aux autres.\n- ==**Informed opinion** : montrer qu'on connaît les principaux arguments (articles, vidéos, cours), les reformuler, puis ajouter sa perspective avec exemples ou raisonnement.== « AI is cool, I like it » → pas informé.\n- S'inscrire sur la liste publiée par le professeur avant la date limite, sinon pas d'accès au test.\n\n## Speaking Guide : développer une discussion\n\n1. **Introduire le sujet général** ;\n2. **Expliquer les enjeux** (pourquoi c'est pertinent ou controversé) ;\n3. **Définir les termes clés** ;\n4. **Donner des exemples concrets** (matière du cours, statistiques, expériences) — points 1-4 = **contextualisation** ;\n5. **Présenter différents points de vue** (pour/contre) ;\n6. **Se poser des questions** (*Can you explain what you mean by that? / Do you have an example?*) ;\n7. **Réagir aux autres** (*I see your point, but I think…*) ;\n8. **Nuancer** (pas de noir et blanc) ;\n9. **Conclure ensemble** (résumer, accords et désaccords).\n\n**Expressions utiles** : demander un avis (*Do you think we should…? Would you rather…? What do you think of…? Wouldn't you agree that…?*) ; présenter des arguments (*The main thing is… / First of all… / Moreover…*) ; donner son opinion (*In my view… / I strongly believe… / If you ask me…*) ; certitude (*Clearly… / There's no doubt that…*) ; accord (*Exactly! / I couldn't agree with you more*) ; accord partiel (*I agree up to a point, however… / You have a point there, but…*).",
+     "pointsCles": [
+      "Niveau B1 conseillé au départ, objectif B2 ; préparations à domicile obligatoires ; pas d'appareils numériques en classe.",
+      "Q1 : oral round table (15 pts, semaines 11-12) et écrit vocabulaire + grammaire (10 pts, semaine 13).",
+      "Il faut passer toutes les évaluations ; pas de report de note entre sessions.",
+      "Round table : groupes de 3-4, 20 min de préparation, 20 min de discussion.",
+      "Construire une informed opinion : arguments connus + reformulation + position personnelle nuancée.",
+      "Speaking Guide en 9 étapes : contextualiser, confronter les points de vue, questionner, réagir, nuancer, conclure."
+     ],
+     "definitions": [
+      {
+       "terme": "Informed opinion",
+       "def": "Opinion qui montre qu'on connaît les principaux arguments, les reformule et y ajoute sa propre perspective argumentée."
+      },
+      {
+       "terme": "Round Table Discussion",
+       "def": "Oral du Q1 : discussion de 20 minutes en groupe de 3-4 sur un énoncé lié aux thèmes du semestre."
+      },
+      {
+       "terme": "Contextualisation",
+       "def": "Étapes 1 à 4 du Speaking Guide : introduire le sujet, ses enjeux, définir les termes, donner des exemples."
+      },
+      {
+       "terme": "Press Review",
+       "def": "Présentations orales évaluées au second semestre (15 points)."
+      }
+     ],
+     "fiches": [
+      {
+       "id": "card:engl:c1:001",
+       "q": "Quel niveau est conseillé pour suivre le cours et quel niveau vise-t-il ?",
+       "r": "B1 fortement conseillé au départ ; objectif B2 (upper-intermediate)."
+      },
+      {
+       "id": "card:engl:c1:002",
+       "q": "Quelles sont les épreuves du premier quadrimestre ?",
+       "r": "Oral round table discussion (15 pts, semaines 11-12) et test écrit vocabulaire Q1 + grammaire du 1er semestre (10 pts, semaine 13)."
+      },
+      {
+       "id": "card:engl:c1:003",
+       "q": "Quelles sont les épreuves du second quadrimestre ?",
+       "r": "Oral Press Review (15 pts) et écrit vocabulaire Q2 + grammaire de l'année + contenu Q2 (20 pts, semaine 26)."
+      },
+      {
+       "id": "card:engl:c1:004",
+       "q": "Que faut-il pour valider l'activité d'apprentissage ?",
+       "r": "Avoir participé à toutes les évaluations ; aucun report de note entre sessions."
+      },
+      {
+       "id": "card:engl:c1:005",
+       "q": "Que faire en cas d'absence justifiée à une épreuve ?",
+       "r": "Envoyer le justificatif officiel au plus vite à l'enseignant (pas seulement au secrétariat), sous peine d'ajournement."
+      },
+      {
+       "id": "card:engl:c1:006",
+       "q": "Comment se déroule la round table discussion ?",
+       "r": "Groupes de 3-4, un énoncé lié aux thèmes du semestre, 20 minutes de préparation individuelle puis 20 minutes de discussion."
+      },
+      {
+       "id": "card:engl:c1:007",
+       "q": "Qu'est-ce qu'une informed opinion ?",
+       "r": "Connaître les arguments principaux, les reformuler (Critics argue… / Supporters highlight…), puis ajouter sa perspective argumentée (However, I personally think…)."
+      },
+      {
+       "id": "card:engl:c1:008",
+       "q": "Quelles sont les 9 étapes du Speaking Guide ?",
+       "r": "Sujet général, enjeux, termes clés, exemples, points de vue, questions, réactions, nuance, conclusion commune."
+      },
+      {
+       "id": "card:engl:c1:009",
+       "q": "Quels critères sont évalués à l'oral ?",
+       "r": "Intelligibilité, respect des consignes, pertinence, cohérence, richesse grammaticale et lexicale, fluidité, attitude verbale et non verbale."
+      },
+      {
+       "id": "card:engl:c1:010",
+       "q": "Quelles unités de grammaire Murphy sont au programme du Q1 ?",
+       "r": "1-6, 7-12, 13-18, 19-25, 69-72, 73-79, 80-81, 85-88 et révision 113, 115, 119, 120."
+      },
+      {
+       "id": "card:engl:c1:011",
+       "q": "Donne trois expressions pour exprimer un accord partiel.",
+       "r": "I agree up to a point, however… / You have a point there, but… / Yes, in a way, however…"
+      },
+      {
+       "id": "card:engl:c1:012",
+       "q": "Donne trois façons de demander l'avis de quelqu'un.",
+       "r": "What do you think of…? / Do you think we should…? / Wouldn't you agree that…?"
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:engl:c1:001",
+       "q": "Combien de points vaut l'oral round table ?",
+       "choix": [
+        "10",
+        "15",
+        "20",
+        "60"
+       ],
+       "bonne": 1,
+       "explication": "Le test écrit de la semaine 13 vaut 10 points."
+      },
+      {
+       "id": "question:engl:c1:002",
+       "q": "« AI is cool, I like it » est :",
+       "choix": [
+        "une informed opinion",
+        "une opinion non informée",
+        "un contre-argument",
+        "une conclusion"
+       ],
+       "bonne": 1,
+       "explication": "Il manque les arguments et la nuance."
+      },
+      {
+       "id": "question:engl:c1:003",
+       "q": "Combien de temps dure la discussion de la round table ?",
+       "choix": [
+        "5 minutes",
+        "10 minutes",
+        "20 minutes",
+        "1 heure"
+       ],
+       "bonne": 2,
+       "explication": "Après 20 minutes de préparation."
+      },
+      {
+       "id": "question:engl:c1:004",
+       "q": "Les étapes 1 à 4 du Speaking Guide forment :",
+       "choix": [
+        "la conclusion",
+        "la contextualisation",
+        "la nuance",
+        "le débat"
+       ],
+       "bonne": 1,
+       "explication": "Sujet, enjeux, définitions, exemples."
+      }
+     ],
+     "sources": [
+      {
+       "document": "ENGL1102-Hub - BA1 ANGLAIS - CONTRAT DIDACTIQUE 26-27.pdf",
+       "pages": "pp. 1-4"
+      },
+      {
+       "document": "ENGL1102-E - Test oral Q1 - CONSIGNES (2).pdf",
+       "pages": "document complet"
+      },
+      {
+       "document": "ENGL1102-E - CourseNotes_AT.pdf",
+       "pages": "Self-Study Planning, Speaking Guide, expressions"
+      }
+     ]
+    },
+    {
+     "id": "c2",
+     "titre": "Topic 1 — AI-generated art",
+     "duree": 30,
+     "resume": "## Key concepts to define\n\nThe course notes ask you to define, in one sentence each:\n\n- **Core**: artificial intelligence, **generative AI**, AI art, **creativity**;\n- **Technology**: **machine learning**, **algorithm**, **training data**;\n- **Art**: artist, **authorship**, **originality**;\n- **Ethics and law**: **copyright**, **intellectual property**, ethical issues;\n- **Economy**: **automation**, **creative industries**.\n\nCore question: **\"What is art?\"** (quotes by Merton, Seneca, Tanning, Emerson, Nietzsche…). Works compared in class: Glenn Brown (*In my time of dying*), Refik Anadol (*ISS Dreams*)…\n\n**Useful vocabulary**: *prompt, creative medium, groundbreaking, to revolutionize, artistic style, AI enthusiast* (opportunities) vs *copyright, compensation* (debates).\n\n## Reading: Eric Reinhart — \"The trouble with AI art isn't just lack of originality\"\n\nEric Reinhart is a political anthropologist and social psychiatrist. His thesis: ==when artwork is invented by a machine, it **loses its most important power: to help people connect**.==\n\n- Art's value lies not in the object but in what it carries: traces of the artist's **interiority**, an act of **transmission**; the viewer finds in it a reflection of their own fears and desires.\n- Art also connects **audiences with each other** (watching films with lovers, painting murals with neighbours).\n- This connectedness underpins a **democratic ethos**: we share fundamental aspects of being *because of* our differences. Without it, ties **fray** and are replaced by tribalism, authoritarianism, exclusion.\n- The machine does not desire, has no body, no interiority: AI work is \"**uninhabited**\".\n\nVocabulary: *alienation, connection, vulnerability, community, thingification, empathy, isolation, exploitation; ineffable, interiority, to commune, to foster, endeavor, simulacrum, to probe, ubiquitous, to diminish, to nurture, to erode*.\n\n## Four perspectives\n\n| Perspective | Idea |\n|---|---|\n| **1. AI as a positive tool** | a new creative medium (like photography once), new possibilities, more accessible art |\n| **2. AI threatens human artists** | automation of creative jobs, works used without consent, reduced value of human skills |\n| **3. AI cannot truly create art** | no emotions, no lived experience, no interiority (Reinhart) |\n| **4. AI challenges traditional definitions of art** | questions about authorship, originality and what counts as art |\n\n**Causes → consequences** (class exercise): AI trained on artworks → debate about copyright / authorship; more people use AI tools → new artistic possibilities; artists fear automation → employment concerns; AI creates images in seconds → faster creative processes; companies collect large datasets → ethical concerns.\n\n## Round-table questions to prepare\n\n1. Is art generated by AI really art?\n2. Can AI revolutionize the art world by enabling new forms of creativity?\n3. Should AI works be exhibited in museums alongside traditional art?\n4. If AI is trained on artworks without consent, is AI art plagiarism?\n5. Does art require human emotions?\n6. Should artists be compensated when their work trains AI models?\n7. Is prompting an AI a form of artistic skill?\n8. Should museums support human artists over AI works?\n9. Can AI democratize art?\n10. Are the risks of AI art greater than its benefits?\n\n> Model sentence: *Critics argue that AI art threatens artists' jobs. Supporters highlight that it makes creation more accessible. However, I personally think that…*",
+     "pointsCles": [
+      "Define the key concepts: generative AI, training data, authorship, originality, copyright, automation, creative industries.",
+      "Reinhart: AI art loses art's main power, helping people connect; machine-made work is \"uninhabited\".",
+      "Art connects artist and viewer, and viewers with each other; this underpins democracy.",
+      "Four perspectives: positive tool, threat to artists, not true art, challenge to definitions of art.",
+      "Prepare arguments and counterarguments for the ten round-table questions."
+     ],
+     "definitions": [
+      {
+       "terme": "Generative AI",
+       "def": "AI that produces new content (images, text, music) from prompts, after being trained on existing data."
+      },
+      {
+       "terme": "Training data",
+       "def": "The large set of existing works or data used to train an AI model."
+      },
+      {
+       "terme": "Authorship",
+       "def": "The question of who is the author of a work (here: the user, the AI, the company?)."
+      },
+      {
+       "terme": "Copyright",
+       "def": "The legal right of an author over the use and reproduction of their work."
+      },
+      {
+       "terme": "Prompt",
+       "def": "The instruction given to a generative AI to produce a result."
+      },
+      {
+       "terme": "Interiority",
+       "def": "An artist's inner life and feelings, which, for Reinhart, an AI work does not carry."
+      },
+      {
+       "terme": "Simulacrum",
+       "def": "An imitation or copy that lacks the substance of the original; how some critics describe AI art."
+      }
+     ],
+     "fiches": [
+      {
+       "id": "card:engl:c2:001",
+       "q": "What is Eric Reinhart's main thesis about AI art?",
+       "r": "When art is made by a machine, it loses its most important power: helping people connect."
+      },
+      {
+       "id": "card:engl:c2:002",
+       "q": "According to Reinhart, where does art's value lie?",
+       "r": "Not in the object but in what it transmits: traces of the artist's interiority, which viewers connect to."
+      },
+      {
+       "id": "card:engl:c2:003",
+       "q": "Why does Reinhart link art to democracy?",
+       "r": "Shared aesthetic experience affirms our differences while connecting us; without it, social ties fray and are replaced by tribalism and authoritarianism."
+      },
+      {
+       "id": "card:engl:c2:004",
+       "q": "Why does Reinhart call AI work \"uninhabited\"?",
+       "r": "The machine does not desire, has no body and no interiority: there is no self behind the work."
+      },
+      {
+       "id": "card:engl:c2:005",
+       "q": "What are the four perspectives on AI art studied in class?",
+       "r": "AI as a positive tool; AI threatens human artists; AI cannot truly create art; AI challenges traditional definitions of art."
+      },
+      {
+       "id": "card:engl:c2:006",
+       "q": "Give two arguments for AI as an opportunity.",
+       "r": "It opens new creative possibilities (a new medium, like photography) and makes artistic creation more accessible."
+      },
+      {
+       "id": "card:engl:c2:007",
+       "q": "Give two arguments for AI as a threat.",
+       "r": "It may replace creative jobs and exploit existing artworks used as training data without consent."
+      },
+      {
+       "id": "card:engl:c2:008",
+       "q": "Which legal and ethical concepts are central to the AI-art debate?",
+       "r": "Copyright, intellectual property, authorship, consent and compensation of artists."
+      },
+      {
+       "id": "card:engl:c2:009",
+       "q": "What is the consequence of AI being trained on artworks?",
+       "r": "Debates about copyright and authorship."
+      },
+      {
+       "id": "card:engl:c2:010",
+       "q": "Complete the word family: create / ___ / creative.",
+       "r": "creation (also: connect – connection, imagine – imagination, innovate – innovation, express – expression, participate – participation)."
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:engl:c2:001",
+       "q": "For Reinhart, the biggest problem with AI art is:",
+       "choix": [
+        "its lack of originality only",
+        "the loss of art's power to connect people",
+        "its price",
+        "its technical quality"
+       ],
+       "bonne": 1,
+       "explication": "The title says it's \"something far bigger\" than originality."
+      },
+      {
+       "id": "question:engl:c2:002",
+       "q": "\"AI is simply another artistic tool\" represents:",
+       "choix": [
+        "AI as an opportunity",
+        "AI as a threat",
+        "AI cannot create art",
+        "a neutral fact"
+       ],
+       "bonne": 0,
+       "explication": "Perspective 1."
+      },
+      {
+       "id": "question:engl:c2:003",
+       "q": "\"AI lacks emotions and lived experience\" supports the view that:",
+       "choix": [
+        "AI is a positive tool",
+        "AI cannot truly create art",
+        "AI democratizes art",
+        "AI is faster"
+       ],
+       "bonne": 1,
+       "explication": "Perspective 3."
+      },
+      {
+       "id": "question:engl:c2:004",
+       "q": "Which word has a negative connotation?",
+       "choix": [
+        "empathy",
+        "cooperation",
+        "alienation",
+        "community"
+       ],
+       "bonne": 2,
+       "explication": "Like isolation, exploitation, thingification."
+      }
+     ],
+     "sources": [
+      {
+       "document": "ENGL1102-E - CourseNotes_AT.pdf",
+       "pages": "Topic 1, pp. 16-61"
+      }
+     ]
+    },
+    {
+     "id": "c3",
+     "titre": "Topic 2 — The loneliness economy",
+     "duree": 25,
+     "resume": "## Warm-up\n\nWould you pay for it? A therapist, a dating app, a coworking space, a solo-dining restaurant, a solo travel group, someone to have dinner with you, a fake friend at an event, an **AI companion**, an **AI romantic partner**, a **robot companion** for an elderly person… All these services belong to the **loneliness economy**. Film discussed: ***Her*** (2013) — Theodore falls for an AI, Samantha (\"You always wanted to have a wife without the challenges of actually dealing with anything real\").\n\n## Reading: \"Welcome to the Loneliness Economy\" (Sam Goldstein, *Psychology Today*, October 2025)\n\n==In an age of digital overload, **loneliness has become profitable**: companionship can now be bought, streamed or rented.==\n\n| Place | What happened | What it tells us |\n|---|---|---|\n| **Japan (2025)** | approval of **robot companions** for an ageing population; *kodokushi* (\"lonely deaths\") | a technological answer to a human crisis |\n| **United Kingdom (2018)** | **Tracey Crouch**, world's first **Minister for Loneliness** | isolation recognized as a public issue |\n| **United States (2023)** | the Surgeon General's report calls loneliness an \"**epidemic**\", as harmful as smoking **15 cigarettes a day**; many Gen Zers' closest confidants are apps | a public-health crisis |\n| **Seoul / Tokyo** | **solo dining booths**; renting an *ossan* (older man) to talk or walk | new services built on isolation |\n| **Online** | **Replika** (AI chatbot \"soulmate\"), therapy apps, wellness retreats, pet rentals | a market feeding an emotional hunger |\n\n**Four reasons** for the loneliness economy: traditional places of community (churches, neighbourhood centres, offices) have **faded**; **remote work** keeps people apart; a culture that **glorifies independence** makes asking for company feel like weakness; above all, **technology** — Sherry Turkle's \"**alone together**\": surrounded by screens yet starving for something real; **outsourced intimacy** with influencers and fictional characters.\n\n**A global shift**: in **collectivist** cultures isolation carries shame; in **individualistic** ones it's brushed off as \"just being an adult\".\n\n**Hope or harm?** ==A **lifeline** for people with anxiety, disabilities or in rural areas, and it normalizes seeking support — but many systems are designed for **engagement, not healing**== (\"they keep us clicking, but not connecting\"). Julianne Holt-Lunstad: chronic loneliness → heart disease, depression.\n\n**Reimagining togetherness**: the loneliness economy is a **mirror** of our disconnection. Solution: more **public spaces** where people meet (\"parks instead of parking lots, town halls instead of timelines\") — \"it'll take us showing up for each other\".\n\n**Vocabulary from the text**: *prevalence, utterly, void, to capitalize on, to stroll, weary, craving, untethered, to outsource, surrogate, to brush off, to ache, curated, to splinter*.",
+     "pointsCles": [
+      "The loneliness economy: companionship that can be bought, streamed or rented (AI companions, solo dining, rented friends).",
+      "Key facts: Japan's robot companions (2025), UK Minister for Loneliness (2018), US Surgeon General's \"epidemic\" (2023, = 15 cigarettes a day).",
+      "Causes: decline of community places, remote work, culture of independence, technology (\"alone together\").",
+      "Hope: a lifeline for some; harm: designed for engagement, not healing.",
+      "Solution proposed: real public spaces and people showing up for each other."
+     ],
+     "definitions": [
+      {
+       "terme": "Loneliness economy",
+       "def": "The market of products and services sold to people who feel lonely (AI companions, solo dining, rented company…)."
+      },
+      {
+       "terme": "Kodokushi",
+       "def": "Japanese term for \"lonely deaths\": people dying alone and unnoticed."
+      },
+      {
+       "terme": "Alone together",
+       "def": "Sherry Turkle's phrase: constantly connected through screens, yet lacking real connection."
+      },
+      {
+       "terme": "Untethered",
+       "def": "Having nothing solid to hold on to; disconnected."
+      },
+      {
+       "terme": "Surrogate",
+       "def": "A replacement or substitute (here: digital substitutes for human relationships)."
+      },
+      {
+       "terme": "Engagement",
+       "def": "The time and attention users spend on an app, which many services are designed to maximize."
+      }
+     ],
+     "fiches": [
+      {
+       "id": "card:engl:c3:001",
+       "q": "What is the loneliness economy?",
+       "r": "A market where companionship, digital or otherwise, can be bought, streamed or rented."
+      },
+      {
+       "id": "card:engl:c3:002",
+       "q": "Who was the world's first Minister for Loneliness, and when?",
+       "r": "Tracey Crouch, in the United Kingdom, in 2018."
+      },
+      {
+       "id": "card:engl:c3:003",
+       "q": "How did the US Surgeon General describe loneliness in 2023?",
+       "r": "As an \"epidemic\", with health risks comparable to smoking 15 cigarettes a day."
+      },
+      {
+       "id": "card:engl:c3:004",
+       "q": "What did Japan approve in 2025, and why?",
+       "r": "Robot companions for its ageing population, in response to kodokushi (\"lonely deaths\")."
+      },
+      {
+       "id": "card:engl:c3:005",
+       "q": "Give three examples of loneliness-economy services.",
+       "r": "Replika (AI chatbot), solo dining booths in Seoul and Tokyo, renting an ossan to talk or walk (also therapy apps, pet rentals)."
+      },
+      {
+       "id": "card:engl:c3:006",
+       "q": "What are the four reasons for the rise of the loneliness economy?",
+       "r": "The decline of community places, remote work, a culture glorifying independence, and technology (\"alone together\")."
+      },
+      {
+       "id": "card:engl:c3:007",
+       "q": "What does Sherry Turkle mean by \"alone together\"?",
+       "r": "We are always surrounded by screens and messages, yet starving for real connection."
+      },
+      {
+       "id": "card:engl:c3:008",
+       "q": "For whom can these services be a \"lifeline\"?",
+       "r": "People with anxiety, disabilities, or those living in rural areas."
+      },
+      {
+       "id": "card:engl:c3:009",
+       "q": "What is the main criticism of these services?",
+       "r": "They are designed for engagement, not healing: they keep us clicking, not connecting."
+      },
+      {
+       "id": "card:engl:c3:010",
+       "q": "What solution does Goldstein propose?",
+       "r": "More public spaces where people actually meet (parks, town halls) and people showing up for each other."
+      },
+      {
+       "id": "card:engl:c3:011",
+       "q": "What is the difference between constant interaction and genuine connection?",
+       "r": "Interaction is frequent digital contact; genuine connection involves empathy, touch and shared experience with real people."
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:engl:c3:001",
+       "q": "Which country appointed the first Minister for Loneliness?",
+       "choix": [
+        "Japan",
+        "The United States",
+        "The United Kingdom",
+        "South Korea"
+       ],
+       "bonne": 2,
+       "explication": "Tracey Crouch, 2018."
+      },
+      {
+       "id": "question:engl:c3:002",
+       "q": "\"Kodokushi\" means:",
+       "choix": [
+        "robot companions",
+        "lonely deaths",
+        "solo dining",
+        "rented friends"
+       ],
+       "bonne": 1,
+       "explication": "A Japanese term."
+      },
+      {
+       "id": "question:engl:c3:003",
+       "q": "Replika is:",
+       "choix": [
+        "a dating app",
+        "an AI chatbot companion",
+        "a therapy clinic",
+        "a robot"
+       ],
+       "bonne": 1,
+       "explication": "Some users call it their \"soulmate\"."
+      },
+      {
+       "id": "question:engl:c3:004",
+       "q": "\"Alone together\" is a phrase by:",
+       "choix": [
+        "Sam Goldstein",
+        "Sherry Turkle",
+        "Julianne Holt-Lunstad",
+        "Tracey Crouch"
+       ],
+       "bonne": 1,
+       "explication": "MIT sociologist, 2011."
+      }
+     ],
+     "sources": [
+      {
+       "document": "ENGL1102-E - CourseNotes_AT.pdf",
+       "pages": "Topic 2, pp. 62-70"
+      }
+     ]
+    },
+    {
+     "id": "c4",
+     "titre": "Grammar — Units 1-6 (present and past tenses)",
+     "duree": 30,
+     "resume": "*Résumé des unités 1 à 6 de Murphy, English Grammar in Use (les autres unités au programme sont dans ton livre).*\n\n## Unit 1 — Present continuous (I am doing)\n\n**am/is/are + -ing**. Utilisations :\n\n- une action **en cours au moment où l'on parle**, pas terminée (*I'm trying to work. It isn't raining any more.*) ;\n- une action **commencée et pas finie**, même si on ne la fait pas à l'instant (*I'm reading a really good book. Kate is learning Italian.*) ;\n- avec **today / this week / this year** (périodes autour de maintenant) ;\n- un **changement en cours** (*getting, becoming, changing, improving, increasing, rising…* : *The population of the world is increasing very fast.*).\n\n## Unit 2 — Present simple (I do)\n\n- **Vérités générales**, actions **répétées** (*The earth goes round the sun. The cafe opens at 7.30.*) ; **fréquence** (*How often do you…?*).\n- 3e personne : **-s / -es** (*he works, she teaches, he has*).\n- Questions et négations avec **do/does** : *What does this word mean?* (pas *What means…*) ; *Rice doesn't grow in cold climates.*\n- **Verbes performatifs** : *I promise / I apologise / I advise / I insist / I agree / I refuse / I suggest* (pas *I'm promising*).\n\n## Unit 3 — Present continuous vs present simple (1)\n\n| Continuous | Simple |\n|---|---|\n| en cours, autour de maintenant (*The water is boiling.*) | général, répété (*Water boils at 100 °C.*) |\n| **temporaire** (*I'm living with friends until I find a place.*) | **permanent** (*My parents live in London.*) |\n\n==**I always do** = à chaque fois ; **I'm always doing** = trop souvent, avec agacement== (*I'm always losing my keys. He's always complaining.*).\n\n## Unit 4 — Present continuous vs present simple (2)\n\n- **Verbes d'état** normalement **pas au continu** : *like, want, need, prefer, know, realise, understand, recognise, believe, suppose, remember, mean, belong, fit, contain, consist, seem* (*I want something to eat*, pas *I'm wanting*).\n- **think** : = *croire, avoir une opinion* → simple (*I think Mary is Canadian*) ; = *considérer, réfléchir* → continu possible (*I'm thinking of giving up my job*).\n- **see, hear, smell, taste** → normalement **simple** (*Do you see that man? This soup doesn't taste good.*) ; **look / feel** (état actuel) → simple ou continu (*You look well / You're looking well*), mais *I usually feel tired* (simple).\n- **am/is/are being** + adjectif = **comportement** actuel contrôlable (*He's being so selfish* — d'habitude il ne l'est pas) ; impossible pour *ill, tired*.\n\n## Unit 5 — Past simple (I did)\n\n- Réguliers en **-ed** (*worked, stopped, studied*) ; nombreux **irréguliers** (*write → wrote, see → saw, go → went, shut → shut*).\n- Questions et négations : **did/didn't + infinitif** (*Did you enjoy it? I didn't buy anything.*) ; *What did you do?* (pas *What did you?*).\n- **be** → *was/were* (*I wasn't hungry. Were you too tired?*).\n\n## Unit 6 — Past continuous (I was doing)\n\n- **was/were + -ing** : être **au milieu** d'une action à un moment passé (*At 10.30 they were playing tennis.*).\n- ==Action longue (continu) **interrompue** par une action courte (simple)== : *Matt phoned while we were having dinner. It was raining when I got up.*\n- Actions **successives** → past simple : *When Karen arrived, we had dinner* (elle arrive, puis on mange) ≠ *we were having dinner* (déjà commencé).\n- Les **verbes d'état** restent au simple (*We knew each other well*, pas *were knowing*).",
+     "pointsCles": [
+      "Present continuous (am/is/are + -ing) : action en cours, temporaire, changement en cours.",
+      "Present simple : vérités générales, habitudes, fréquence ; do/does pour questions et négations.",
+      "I'm always doing = trop souvent (agacement) ; I always do = à chaque fois.",
+      "Les verbes d'état (know, want, like, believe, belong, seem…) ne se mettent pas au continu.",
+      "think : opinion → simple ; réflexion → continu possible.",
+      "Past simple : -ed ou irrégulier ; did/didn't + infinitif.",
+      "Past continuous : action en cours dans le passé, souvent interrompue par un past simple."
+     ],
+     "definitions": [
+      {
+       "terme": "Present continuous",
+       "def": "am/is/are + -ing : action en cours ou temporaire autour du moment présent."
+      },
+      {
+       "terme": "Present simple",
+       "def": "Forme de base (+ -s à la 3e personne) : vérités générales, habitudes, situations permanentes."
+      },
+      {
+       "terme": "Verbes d'état",
+       "def": "Verbes non utilisés au continu : like, want, need, know, understand, believe, belong, seem…"
+      },
+      {
+       "terme": "Past simple",
+       "def": "Verbe en -ed ou forme irrégulière : action terminée dans le passé."
+      },
+      {
+       "terme": "Past continuous",
+       "def": "was/were + -ing : action en cours à un moment du passé."
+      }
+     ],
+     "fiches": [
+      {
+       "id": "card:engl:c4:001",
+       "q": "Comment forme-t-on le present continuous ?",
+       "r": "am/is/are + verbe en -ing."
+      },
+      {
+       "id": "card:engl:c4:002",
+       "q": "Peut-on dire « I'm reading a book » si on ne lit pas à l'instant ?",
+       "r": "Oui : on a commencé le livre et on ne l'a pas fini (action en cours au sens large)."
+      },
+      {
+       "id": "card:engl:c4:003",
+       "q": "Quel temps pour un changement en cours (population, niveau d'anglais) ?",
+       "r": "Le present continuous : The population is increasing. Is your English getting better?"
+      },
+      {
+       "id": "card:engl:c4:004",
+       "q": "Corrige : « What means this word? »",
+       "r": "What does this word mean?"
+      },
+      {
+       "id": "card:engl:c4:005",
+       "q": "Pourquoi dit-on « I promise I won't be late » et pas « I'm promising » ?",
+       "r": "Avec les verbes performatifs (promise, apologise, suggest, insist, agree, refuse…), on utilise le present simple."
+      },
+      {
+       "id": "card:engl:c4:006",
+       "q": "Différence entre « I'm living with friends » et « My parents live in London » ?",
+       "r": "Continu = situation temporaire ; simple = situation permanente."
+      },
+      {
+       "id": "card:engl:c4:007",
+       "q": "Que signifie « He's always complaining » ?",
+       "r": "Il se plaint trop souvent (always + continu = agacement)."
+      },
+      {
+       "id": "card:engl:c4:008",
+       "q": "Cite six verbes d'état qu'on ne met pas au continu.",
+       "r": "like, want, need, know, understand, believe (aussi remember, mean, belong, fit, contain, consist, seem…)."
+      },
+      {
+       "id": "card:engl:c4:009",
+       "q": "« I think » ou « I'm thinking » ?",
+       "r": "I think = opinion (I think Mary is Canadian) ; I'm thinking = réflexion (I'm thinking of selling my car)."
+      },
+      {
+       "id": "card:engl:c4:010",
+       "q": "Quand utilise-t-on « he's being + adjectif » ?",
+       "r": "Pour un comportement actuel et contrôlable (He's being so selfish today) ; pas pour ill ou tired."
+      },
+      {
+       "id": "card:engl:c4:011",
+       "q": "Comment forme-t-on les questions et négations au past simple ?",
+       "r": "did/didn't + infinitif : Did you enjoy it? I didn't buy anything."
+      },
+      {
+       "id": "card:engl:c4:012",
+       "q": "Donne le past simple de write, see, go, shut.",
+       "r": "wrote, saw, went, shut."
+      },
+      {
+       "id": "card:engl:c4:013",
+       "q": "Comment forme-t-on le past continuous et quand l'utilise-t-on ?",
+       "r": "was/were + -ing : action en cours à un moment passé (At 10.30 they were playing tennis)."
+      },
+      {
+       "id": "card:engl:c4:014",
+       "q": "Différence : « When Karen arrived, we had dinner » / « we were having dinner » ?",
+       "r": "had = on a mangé après son arrivée ; were having = on avait déjà commencé quand elle est arrivée."
+      },
+      {
+       "id": "card:engl:c4:015",
+       "q": "Complète : Matt phoned while we ___ (have) dinner.",
+       "r": "were having (action longue au continu, interrompue par le past simple)."
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:engl:c4:001",
+       "q": "Water ___ at 100 degrees Celsius.",
+       "choix": [
+        "is boiling",
+        "boils",
+        "boil",
+        "boiled"
+       ],
+       "bonne": 1,
+       "explication": "Vérité générale → present simple."
+      },
+      {
+       "id": "question:engl:c4:002",
+       "q": "Please be quiet. I ___ to work.",
+       "choix": [
+        "try",
+        "am trying",
+        "tried",
+        "was trying"
+       ],
+       "bonne": 1,
+       "explication": "Action en cours → present continuous."
+      },
+      {
+       "id": "question:engl:c4:003",
+       "q": "Lequel est correct ?",
+       "choix": [
+        "I'm wanting a coffee.",
+        "I want a coffee.",
+        "I am want a coffee.",
+        "I wanting a coffee."
+       ],
+       "bonne": 1,
+       "explication": "want est un verbe d'état."
+      },
+      {
+       "id": "question:engl:c4:004",
+       "q": "I ___ my keys again! I'm always losing them.",
+       "choix": [
+        "lose",
+        "'ve lost",
+        "am lose",
+        "losing"
+       ],
+       "bonne": 1,
+       "explication": "Exemple de Murphy : I've lost my keys again. I'm always losing them."
+      },
+      {
+       "id": "question:engl:c4:005",
+       "q": "It ___ when I got up.",
+       "choix": [
+        "rained",
+        "was raining",
+        "is raining",
+        "rains"
+       ],
+       "bonne": 1,
+       "explication": "Action en cours (continu) quand une autre se produit (simple)."
+      },
+      {
+       "id": "question:engl:c4:006",
+       "q": "What ___ at the weekend?",
+       "choix": [
+        "did you",
+        "did you do",
+        "you did",
+        "do you did"
+       ],
+       "bonne": 1,
+       "explication": "do est ici le verbe principal."
+      },
+      {
+       "id": "question:engl:c4:007",
+       "q": "This soup ___ very good.",
+       "choix": [
+        "isn't tasting",
+        "doesn't taste",
+        "not tastes",
+        "isn't taste"
+       ],
+       "bonne": 1,
+       "explication": "taste (sens) → present simple."
+      }
+     ],
+     "sources": [
+      {
+       "document": "ENGL1102-E - English Grammar in Use Units 1-6-2.pdf",
+       "pages": "Units 1-6"
+      }
+     ]
+    },
+    {
+     "id": "c5",
+     "titre": "Vocabulaire — Section 1 — Languages",
+     "duree": 44,
+     "resume": "## Vocabulary — Section 1 — Languages\n\nListe de vocabulaire du syllabus *UE1 English Vocabulary – Semester 1* (d'après Gairns & Redman, *Oxford Word Skills Upper-Intermediate*). ==Le vocabulaire est matière d'examen (test écrit de la semaine 13).==\n\n### Unit 1: Link words and phrases\n\n| Word | Traduction | Remarques |\n|---|---|---|\n| **while** | alors que (aussi : pendant que) | syn. whereas |\n| **furthermore** | de plus | syn. moreover |\n| **otherwise** | sinon |  |\n| **besides** | en plus de |  |\n| **in view of sth** | vu, étant donné | syn. considering sth |\n| **regarding** | concernant |  |\n| **since** | puisque |  |\n| **in conclusion** | en conclusion |  |\n\n### Unit 2: Academic English\n\n| Word | Traduction | Remarques |\n|---|---|---|\n| **argument** | argument |  |\n| **to evaluate** | évaluer | syn. to assess |\n| **evaluation** | évaluation, estimation | syn. assessment |\n| **to summarize** | résumer |  |\n| **summary** | résumé |  |\n| **criterion** | critère | ! pluriel : criteria |\n| **coherent** | cohérent(e) | pron. /kəʊˈhɪə.rənt/ |\n| **formal register** | registre formel | ant. informal register |\n| **to present** | présenter |  |\n| **to outline** | exposer les grandes lignes |  |\n| **outline** | plan, les grandes lignes |  |\n| **to illustrate** | illustrer |  |\n| **illustration** | illustration |  |\n| **stance (on sth)** | position, point de vue sur | syn. position |\n| **to draw/reach/come to a conclusion** | tirer une conclusion |  |\n| **to assert** | affirmer, déclarer |  |\n| **to justify** | justifier |  |\n\n### Unit 3: Everyday language\n\n| Word | Traduction | Remarques |\n|---|---|---|\n| **to be (running) short of sth** | être à court de, manquer de |  |\n| **at any minute** | à tout instant, à tout moment |  |\n| **to give sb a lift** | conduire, amener qqn quelque part | give – gave – given |\n| **up to** | jusqu'à |  |\n| **I bet (that)** | je parie que |  |\n| **it's not like you/her/him** | ça ne te/lui ressemble pas, ce n'est pas ton/son genre |  |\n| **no doubt** | aucun doute |  |\n| **it's up to you** | c'est comme tu veux, c'est à toi de voir |  |\n| **I mean** | je veux dire |  |\n| **whether or not** | si oui ou non |  |\n| **disaster** | désastre |  |\n| **mess** | désordre, bazar | to make a mess of sth |\n| **you never know** | on ne sait jamais |  |\n\n### Unit 4: Adjectives\n\n| Word | Traduction | Remarques |\n|---|---|---|\n| **exceptional** | exceptionnel(le), extraordinaire | syn. outstanding |\n| **bizarre** | bizarre | syn. weird |\n| **willing** | disposé(e) | ant. unwilling |\n| **wicked** | méchant(e), malfaisant(e) | pron. /ˈwɪkɪd/ ; syn. evil |\n| **disturbing** | troublant(e), inquiétant(e), perturbant(e) | syn. upsetting |\n| **comprehensible** | compréhensible | ≠ comprehensive |\n| **comprehensive** | complet/complète, exhaustif/ve | ≠ comprehensible |\n| **childish** | enfantin(e), puéril(e), gamin(e) |  |\n\n### Unit 5: Adverbs\n\n| Word | Traduction | Remarques |\n|---|---|---|\n| **apparently** | apparemment | pron. /əˈpærəntli/ |\n| **presumably** | on suppose que, probablement, vraisemblablement |  |\n| **ultimately** | en fin de compte, en définitive |  |\n| **fair enough** | pas de problème (d'accord) |  |\n| **frankly** | franchement |  |\n| **entirely** | entièrement, totalement |  |\n| **basically** | en gros, simplement |  |\n| **practically** | quasiment, presque, pratiquement | syn. virtually |\n| **strangely (enough)** | étrangement, bizarrement | syn. oddly / curiously (enough) |",
+     "pointsCles": [
+      "Unit 1: Link words and phrases : 8 mots/expressions.",
+      "Unit 2: Academic English : 17 mots/expressions.",
+      "Unit 3: Everyday language : 13 mots/expressions.",
+      "Unit 4: Adjectives : 8 mots/expressions.",
+      "Unit 5: Adverbs : 9 mots/expressions.",
+      "Retenir aussi les synonymes, antonymes, prononciations et formes irrégulières indiqués."
+     ],
+     "definitions": [],
+     "fiches": [
+      {
+       "id": "card:engl:c5:001",
+       "q": "Traduis en français : « while »",
+       "r": "alors que (aussi : pendant que) (syn. whereas)"
+      },
+      {
+       "id": "card:engl:c5:002",
+       "q": "Traduis en français : « furthermore »",
+       "r": "de plus (syn. moreover)"
+      },
+      {
+       "id": "card:engl:c5:003",
+       "q": "Traduis en français : « otherwise »",
+       "r": "sinon"
+      },
+      {
+       "id": "card:engl:c5:004",
+       "q": "Traduis en français : « besides »",
+       "r": "en plus de"
+      },
+      {
+       "id": "card:engl:c5:005",
+       "q": "Traduis en français : « in view of sth »",
+       "r": "vu, étant donné (syn. considering sth)"
+      },
+      {
+       "id": "card:engl:c5:006",
+       "q": "Traduis en français : « regarding »",
+       "r": "concernant"
+      },
+      {
+       "id": "card:engl:c5:007",
+       "q": "Traduis en français : « since »",
+       "r": "puisque"
+      },
+      {
+       "id": "card:engl:c5:008",
+       "q": "Traduis en français : « in conclusion »",
+       "r": "en conclusion"
+      },
+      {
+       "id": "card:engl:c5:009",
+       "q": "Traduis en français : « argument »",
+       "r": "argument"
+      },
+      {
+       "id": "card:engl:c5:010",
+       "q": "Traduis en français : « to evaluate »",
+       "r": "évaluer (syn. to assess)"
+      },
+      {
+       "id": "card:engl:c5:011",
+       "q": "Traduis en français : « evaluation »",
+       "r": "évaluation, estimation (syn. assessment)"
+      },
+      {
+       "id": "card:engl:c5:012",
+       "q": "Traduis en français : « to summarize »",
+       "r": "résumer"
+      },
+      {
+       "id": "card:engl:c5:013",
+       "q": "Traduis en français : « summary »",
+       "r": "résumé"
+      },
+      {
+       "id": "card:engl:c5:014",
+       "q": "Traduis en français : « criterion »",
+       "r": "critère (! pluriel : criteria)"
+      },
+      {
+       "id": "card:engl:c5:015",
+       "q": "Traduis en français : « coherent »",
+       "r": "cohérent(e) (pron. /kəʊˈhɪə.rənt/)"
+      },
+      {
+       "id": "card:engl:c5:016",
+       "q": "Traduis en français : « formal register »",
+       "r": "registre formel (ant. informal register)"
+      },
+      {
+       "id": "card:engl:c5:017",
+       "q": "Traduis en français : « to present »",
+       "r": "présenter"
+      },
+      {
+       "id": "card:engl:c5:018",
+       "q": "Traduis en français : « to outline »",
+       "r": "exposer les grandes lignes"
+      },
+      {
+       "id": "card:engl:c5:019",
+       "q": "Traduis en français : « outline »",
+       "r": "plan, les grandes lignes"
+      },
+      {
+       "id": "card:engl:c5:020",
+       "q": "Traduis en français : « to illustrate »",
+       "r": "illustrer"
+      },
+      {
+       "id": "card:engl:c5:021",
+       "q": "Traduis en français : « illustration »",
+       "r": "illustration"
+      },
+      {
+       "id": "card:engl:c5:022",
+       "q": "Traduis en français : « stance (on sth) »",
+       "r": "position, point de vue sur (syn. position)"
+      },
+      {
+       "id": "card:engl:c5:023",
+       "q": "Traduis en français : « to draw/reach/come to a conclusion »",
+       "r": "tirer une conclusion"
+      },
+      {
+       "id": "card:engl:c5:024",
+       "q": "Traduis en français : « to assert »",
+       "r": "affirmer, déclarer"
+      },
+      {
+       "id": "card:engl:c5:025",
+       "q": "Traduis en français : « to justify »",
+       "r": "justifier"
+      },
+      {
+       "id": "card:engl:c5:026",
+       "q": "Traduis en français : « to be (running) short of sth »",
+       "r": "être à court de, manquer de"
+      },
+      {
+       "id": "card:engl:c5:027",
+       "q": "Traduis en français : « at any minute »",
+       "r": "à tout instant, à tout moment"
+      },
+      {
+       "id": "card:engl:c5:028",
+       "q": "Traduis en français : « to give sb a lift »",
+       "r": "conduire, amener qqn quelque part (give – gave – given)"
+      },
+      {
+       "id": "card:engl:c5:029",
+       "q": "Traduis en français : « up to »",
+       "r": "jusqu'à"
+      },
+      {
+       "id": "card:engl:c5:030",
+       "q": "Traduis en français : « I bet (that) »",
+       "r": "je parie que"
+      },
+      {
+       "id": "card:engl:c5:031",
+       "q": "Traduis en français : « it's not like you/her/him »",
+       "r": "ça ne te/lui ressemble pas, ce n'est pas ton/son genre"
+      },
+      {
+       "id": "card:engl:c5:032",
+       "q": "Traduis en français : « no doubt »",
+       "r": "aucun doute"
+      },
+      {
+       "id": "card:engl:c5:033",
+       "q": "Traduis en français : « it's up to you »",
+       "r": "c'est comme tu veux, c'est à toi de voir"
+      },
+      {
+       "id": "card:engl:c5:034",
+       "q": "Traduis en français : « I mean »",
+       "r": "je veux dire"
+      },
+      {
+       "id": "card:engl:c5:035",
+       "q": "Traduis en français : « whether or not »",
+       "r": "si oui ou non"
+      },
+      {
+       "id": "card:engl:c5:036",
+       "q": "Traduis en français : « disaster »",
+       "r": "désastre"
+      },
+      {
+       "id": "card:engl:c5:037",
+       "q": "Traduis en français : « mess »",
+       "r": "désordre, bazar (to make a mess of sth)"
+      },
+      {
+       "id": "card:engl:c5:038",
+       "q": "Traduis en français : « you never know »",
+       "r": "on ne sait jamais"
+      },
+      {
+       "id": "card:engl:c5:039",
+       "q": "Traduis en français : « exceptional »",
+       "r": "exceptionnel(le), extraordinaire (syn. outstanding)"
+      },
+      {
+       "id": "card:engl:c5:040",
+       "q": "Traduis en français : « bizarre »",
+       "r": "bizarre (syn. weird)"
+      },
+      {
+       "id": "card:engl:c5:041",
+       "q": "Traduis en français : « willing »",
+       "r": "disposé(e) (ant. unwilling)"
+      },
+      {
+       "id": "card:engl:c5:042",
+       "q": "Traduis en français : « wicked »",
+       "r": "méchant(e), malfaisant(e) (pron. /ˈwɪkɪd/ ; syn. evil)"
+      },
+      {
+       "id": "card:engl:c5:043",
+       "q": "Traduis en français : « disturbing »",
+       "r": "troublant(e), inquiétant(e), perturbant(e) (syn. upsetting)"
+      },
+      {
+       "id": "card:engl:c5:044",
+       "q": "Traduis en français : « comprehensible »",
+       "r": "compréhensible (≠ comprehensive)"
+      },
+      {
+       "id": "card:engl:c5:045",
+       "q": "Traduis en français : « comprehensive »",
+       "r": "complet/complète, exhaustif/ve (≠ comprehensible)"
+      },
+      {
+       "id": "card:engl:c5:046",
+       "q": "Traduis en français : « childish »",
+       "r": "enfantin(e), puéril(e), gamin(e)"
+      },
+      {
+       "id": "card:engl:c5:047",
+       "q": "Traduis en français : « apparently »",
+       "r": "apparemment (pron. /əˈpærəntli/)"
+      },
+      {
+       "id": "card:engl:c5:048",
+       "q": "Traduis en français : « presumably »",
+       "r": "on suppose que, probablement, vraisemblablement"
+      },
+      {
+       "id": "card:engl:c5:049",
+       "q": "Traduis en français : « ultimately »",
+       "r": "en fin de compte, en définitive"
+      },
+      {
+       "id": "card:engl:c5:050",
+       "q": "Traduis en français : « fair enough »",
+       "r": "pas de problème (d'accord)"
+      },
+      {
+       "id": "card:engl:c5:051",
+       "q": "Traduis en français : « frankly »",
+       "r": "franchement"
+      },
+      {
+       "id": "card:engl:c5:052",
+       "q": "Traduis en français : « entirely »",
+       "r": "entièrement, totalement"
+      },
+      {
+       "id": "card:engl:c5:053",
+       "q": "Traduis en français : « basically »",
+       "r": "en gros, simplement"
+      },
+      {
+       "id": "card:engl:c5:054",
+       "q": "Traduis en français : « practically »",
+       "r": "quasiment, presque, pratiquement (syn. virtually)"
+      },
+      {
+       "id": "card:engl:c5:055",
+       "q": "Traduis en français : « strangely (enough) »",
+       "r": "étrangement, bizarrement (syn. oddly / curiously (enough))"
+      },
+      {
+       "id": "card:engl:c5:056",
+       "q": "Comment dit-on en anglais : « alors que (aussi : pendant que) » ?",
+       "r": "while (syn. whereas)"
+      },
+      {
+       "id": "card:engl:c5:057",
+       "q": "Comment dit-on en anglais : « en plus de » ?",
+       "r": "besides"
+      },
+      {
+       "id": "card:engl:c5:058",
+       "q": "Comment dit-on en anglais : « puisque » ?",
+       "r": "since"
+      },
+      {
+       "id": "card:engl:c5:059",
+       "q": "Comment dit-on en anglais : « évaluer » ?",
+       "r": "to evaluate (syn. to assess)"
+      },
+      {
+       "id": "card:engl:c5:060",
+       "q": "Comment dit-on en anglais : « résumé » ?",
+       "r": "summary"
+      },
+      {
+       "id": "card:engl:c5:061",
+       "q": "Comment dit-on en anglais : « registre formel » ?",
+       "r": "formal register (ant. informal register)"
+      },
+      {
+       "id": "card:engl:c5:062",
+       "q": "Comment dit-on en anglais : « plan, les grandes lignes » ?",
+       "r": "outline"
+      },
+      {
+       "id": "card:engl:c5:063",
+       "q": "Comment dit-on en anglais : « position, point de vue sur » ?",
+       "r": "stance (on sth) (syn. position)"
+      },
+      {
+       "id": "card:engl:c5:064",
+       "q": "Comment dit-on en anglais : « justifier » ?",
+       "r": "to justify"
+      },
+      {
+       "id": "card:engl:c5:065",
+       "q": "Comment dit-on en anglais : « conduire, amener qqn quelque part » ?",
+       "r": "to give sb a lift (give – gave – given)"
+      },
+      {
+       "id": "card:engl:c5:066",
+       "q": "Comment dit-on en anglais : « ça ne te/lui ressemble pas, ce n'est pas ton/son genre » ?",
+       "r": "it's not like you/her/him"
+      },
+      {
+       "id": "card:engl:c5:067",
+       "q": "Comment dit-on en anglais : « je veux dire » ?",
+       "r": "I mean"
+      },
+      {
+       "id": "card:engl:c5:068",
+       "q": "Comment dit-on en anglais : « désordre, bazar » ?",
+       "r": "mess (to make a mess of sth)"
+      },
+      {
+       "id": "card:engl:c5:069",
+       "q": "Comment dit-on en anglais : « bizarre » ?",
+       "r": "bizarre (syn. weird)"
+      },
+      {
+       "id": "card:engl:c5:070",
+       "q": "Comment dit-on en anglais : « troublant(e), inquiétant(e), perturbant(e) » ?",
+       "r": "disturbing (syn. upsetting)"
+      },
+      {
+       "id": "card:engl:c5:071",
+       "q": "Comment dit-on en anglais : « enfantin(e), puéril(e), gamin(e) » ?",
+       "r": "childish"
+      },
+      {
+       "id": "card:engl:c5:072",
+       "q": "Comment dit-on en anglais : « en fin de compte, en définitive » ?",
+       "r": "ultimately"
+      },
+      {
+       "id": "card:engl:c5:073",
+       "q": "Comment dit-on en anglais : « entièrement, totalement » ?",
+       "r": "entirely"
+      },
+      {
+       "id": "card:engl:c5:074",
+       "q": "Comment dit-on en anglais : « étrangement, bizarrement » ?",
+       "r": "strangely (enough) (syn. oddly / curiously (enough))"
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:engl:c5:001",
+       "q": "« it's up to you » signifie :",
+       "choix": [
+        "présenter",
+        "je parie que",
+        "c'est comme tu veux, c'est à toi de voir",
+        "étrangement, bizarrement"
+       ],
+       "bonne": 2,
+       "explication": "it's up to you = c'est comme tu veux, c'est à toi de voir — Unit 3: Everyday language."
+      },
+      {
+       "id": "question:engl:c5:002",
+       "q": "« up to » signifie :",
+       "choix": [
+        "on suppose que, probablement, vraisemblablement",
+        "franchement",
+        "vu, étant donné",
+        "jusqu'à"
+       ],
+       "bonne": 3,
+       "explication": "up to = jusqu'à — Unit 3: Everyday language."
+      },
+      {
+       "id": "question:engl:c5:003",
+       "q": "« to summarize » signifie :",
+       "choix": [
+        "évaluation, estimation",
+        "résumer",
+        "étrangement, bizarrement",
+        "en plus de"
+       ],
+       "bonne": 1,
+       "explication": "to summarize = résumer — Unit 2: Academic English."
+      },
+      {
+       "id": "question:engl:c5:004",
+       "q": "« furthermore » signifie :",
+       "choix": [
+        "vu, étant donné",
+        "on ne sait jamais",
+        "franchement",
+        "de plus"
+       ],
+       "bonne": 3,
+       "explication": "furthermore = de plus (syn. moreover) — Unit 1: Link words and phrases."
+      },
+      {
+       "id": "question:engl:c5:005",
+       "q": "« wicked » signifie :",
+       "choix": [
+        "méchant(e), malfaisant(e)",
+        "en plus de",
+        "je veux dire",
+        "à tout instant, à tout moment"
+       ],
+       "bonne": 0,
+       "explication": "wicked = méchant(e), malfaisant(e) (pron. /ˈwɪkɪd/ ; syn. evil) — Unit 4: Adjectives."
+      },
+      {
+       "id": "question:engl:c5:006",
+       "q": "« fair enough » signifie :",
+       "choix": [
+        "pas de problème (d'accord)",
+        "en plus de",
+        "compréhensible",
+        "en conclusion"
+       ],
+       "bonne": 0,
+       "explication": "fair enough = pas de problème (d'accord) — Unit 5: Adverbs."
+      },
+      {
+       "id": "question:engl:c5:007",
+       "q": "« bizarre » signifie :",
+       "choix": [
+        "disposé(e)",
+        "on suppose que, probablement, vraisemblablement",
+        "enfantin(e), puéril(e), gamin(e)",
+        "bizarre"
+       ],
+       "bonne": 3,
+       "explication": "bizarre = bizarre (syn. weird) — Unit 4: Adjectives."
+      },
+      {
+       "id": "question:engl:c5:008",
+       "q": "« willing » signifie :",
+       "choix": [
+        "de plus",
+        "plan, les grandes lignes",
+        "disposé(e)",
+        "argument"
+       ],
+       "bonne": 2,
+       "explication": "willing = disposé(e) (ant. unwilling) — Unit 4: Adjectives."
+      },
+      {
+       "id": "question:engl:c5:009",
+       "q": "« illustration » signifie :",
+       "choix": [
+        "présenter",
+        "compréhensible",
+        "illustration",
+        "en fin de compte, en définitive"
+       ],
+       "bonne": 2,
+       "explication": "illustration = illustration — Unit 2: Academic English."
+      },
+      {
+       "id": "question:engl:c5:010",
+       "q": "« evaluation » signifie :",
+       "choix": [
+        "être à court de, manquer de",
+        "évaluation, estimation",
+        "aucun doute",
+        "affirmer, déclarer"
+       ],
+       "bonne": 1,
+       "explication": "evaluation = évaluation, estimation (syn. assessment) — Unit 2: Academic English."
+      }
+     ],
+     "sources": [
+      {
+       "document": "ENGL1102-E - UE1 ENGLISH VOCABULARY - Semester 1 (1).pdf",
+       "pages": "Unit 1, Unit 2, Unit 3, Unit 4, Unit 5"
+      }
+     ]
+    },
+    {
+     "id": "c6",
+     "titre": "Vocabulaire — Section 2 — Politics, law and order",
+     "duree": 16,
+     "resume": "## Vocabulary — Section 2 — Politics, law and order\n\nListe de vocabulaire du syllabus *UE1 English Vocabulary – Semester 1* (d'après Gairns & Redman, *Oxford Word Skills Upper-Intermediate*). ==Le vocabulaire est matière d'examen (test écrit de la semaine 13).==\n\n### Unit 6: Politics\n\n| Word | Traduction | Remarques |\n|---|---|---|\n| **to be in favour of sth/sb** | être en faveur de, pour qqch/qqn | ant. to be opposed to sth/sb |\n| **status quo** | statu quo | pron. /ˌsteɪtəs ˈkwəʊ/ ; to maintain the status quo ; ant. radical change |\n| **liberalism** | libéralisme | related: liberal |\n| **to some extent** | dans une certaine mesure, en partie | syn. partly |\n| **wealth** | richesse | related: wealthy |\n| **left-wing** | de gauche | syn. on the left |\n| **right-wing** | de droite | syn. on the right |\n| **in the centre** | au centre | a centre party |\n| **extremist** | extrémiste | related: extreme ; ant. moderate |\n\n### Unit 7: Protest movements\n\n| Word | Traduction | Remarques |\n|---|---|---|\n| **rebellion** | rébellion, révolte |  |\n| **protest** | manifestation, protestation | syn. demonstration ; to protest, a protester ; to demonstrate, a demonstrator |\n| **to stage** | organiser (un évènement public) | to stage a protest |\n| **barrier** | barrière | pron. /ˈbærɪə/ |\n| **to uphold** | maintenir, défendre | uphold – upheld – upheld ; syn. to maintain |\n| **to tolerate** | tolérer | syn. to put up with sth |\n| **disruption** | perturbation(s) | indénombrable |\n| **disobedience** | désobéissance | pron. /ˌdɪsəˈbiːdɪəns/ |\n| **to call on sb to do sth** | demander à qqn de faire qqch |  |\n| **movement** | mouvement | pron. /ˈmuːvm(ə)nt/ |\n| **to occupy** | occuper (prendre le contrôle d'un territoire) |  |",
+     "pointsCles": [
+      "Unit 6: Politics : 9 mots/expressions.",
+      "Unit 7: Protest movements : 11 mots/expressions.",
+      "Retenir aussi les synonymes, antonymes, prononciations et formes irrégulières indiqués."
+     ],
+     "definitions": [],
+     "fiches": [
+      {
+       "id": "card:engl:c6:001",
+       "q": "Traduis en français : « to be in favour of sth/sb »",
+       "r": "être en faveur de, pour qqch/qqn (ant. to be opposed to sth/sb)"
+      },
+      {
+       "id": "card:engl:c6:002",
+       "q": "Traduis en français : « status quo »",
+       "r": "statu quo (pron. /ˌsteɪtəs ˈkwəʊ/ ; to maintain the status quo ; ant. radical change)"
+      },
+      {
+       "id": "card:engl:c6:003",
+       "q": "Traduis en français : « liberalism »",
+       "r": "libéralisme (related: liberal)"
+      },
+      {
+       "id": "card:engl:c6:004",
+       "q": "Traduis en français : « to some extent »",
+       "r": "dans une certaine mesure, en partie (syn. partly)"
+      },
+      {
+       "id": "card:engl:c6:005",
+       "q": "Traduis en français : « wealth »",
+       "r": "richesse (related: wealthy)"
+      },
+      {
+       "id": "card:engl:c6:006",
+       "q": "Traduis en français : « left-wing »",
+       "r": "de gauche (syn. on the left)"
+      },
+      {
+       "id": "card:engl:c6:007",
+       "q": "Traduis en français : « right-wing »",
+       "r": "de droite (syn. on the right)"
+      },
+      {
+       "id": "card:engl:c6:008",
+       "q": "Traduis en français : « in the centre »",
+       "r": "au centre (a centre party)"
+      },
+      {
+       "id": "card:engl:c6:009",
+       "q": "Traduis en français : « extremist »",
+       "r": "extrémiste (related: extreme ; ant. moderate)"
+      },
+      {
+       "id": "card:engl:c6:010",
+       "q": "Traduis en français : « rebellion »",
+       "r": "rébellion, révolte"
+      },
+      {
+       "id": "card:engl:c6:011",
+       "q": "Traduis en français : « protest »",
+       "r": "manifestation, protestation (syn. demonstration ; to protest, a protester ; to demonstrate, a demonstrator)"
+      },
+      {
+       "id": "card:engl:c6:012",
+       "q": "Traduis en français : « to stage »",
+       "r": "organiser (un évènement public) (to stage a protest)"
+      },
+      {
+       "id": "card:engl:c6:013",
+       "q": "Traduis en français : « barrier »",
+       "r": "barrière (pron. /ˈbærɪə/)"
+      },
+      {
+       "id": "card:engl:c6:014",
+       "q": "Traduis en français : « to uphold »",
+       "r": "maintenir, défendre (uphold – upheld – upheld ; syn. to maintain)"
+      },
+      {
+       "id": "card:engl:c6:015",
+       "q": "Traduis en français : « to tolerate »",
+       "r": "tolérer (syn. to put up with sth)"
+      },
+      {
+       "id": "card:engl:c6:016",
+       "q": "Traduis en français : « disruption »",
+       "r": "perturbation(s) (indénombrable)"
+      },
+      {
+       "id": "card:engl:c6:017",
+       "q": "Traduis en français : « disobedience »",
+       "r": "désobéissance (pron. /ˌdɪsəˈbiːdɪəns/)"
+      },
+      {
+       "id": "card:engl:c6:018",
+       "q": "Traduis en français : « to call on sb to do sth »",
+       "r": "demander à qqn de faire qqch"
+      },
+      {
+       "id": "card:engl:c6:019",
+       "q": "Traduis en français : « movement »",
+       "r": "mouvement (pron. /ˈmuːvm(ə)nt/)"
+      },
+      {
+       "id": "card:engl:c6:020",
+       "q": "Traduis en français : « to occupy »",
+       "r": "occuper (prendre le contrôle d'un territoire)"
+      },
+      {
+       "id": "card:engl:c6:021",
+       "q": "Comment dit-on en anglais : « être en faveur de, pour qqch/qqn » ?",
+       "r": "to be in favour of sth/sb (ant. to be opposed to sth/sb)"
+      },
+      {
+       "id": "card:engl:c6:022",
+       "q": "Comment dit-on en anglais : « dans une certaine mesure, en partie » ?",
+       "r": "to some extent (syn. partly)"
+      },
+      {
+       "id": "card:engl:c6:023",
+       "q": "Comment dit-on en anglais : « de droite » ?",
+       "r": "right-wing (syn. on the right)"
+      },
+      {
+       "id": "card:engl:c6:024",
+       "q": "Comment dit-on en anglais : « rébellion, révolte » ?",
+       "r": "rebellion"
+      },
+      {
+       "id": "card:engl:c6:025",
+       "q": "Comment dit-on en anglais : « barrière » ?",
+       "r": "barrier (pron. /ˈbærɪə/)"
+      },
+      {
+       "id": "card:engl:c6:026",
+       "q": "Comment dit-on en anglais : « perturbation(s) » ?",
+       "r": "disruption (indénombrable)"
+      },
+      {
+       "id": "card:engl:c6:027",
+       "q": "Comment dit-on en anglais : « mouvement » ?",
+       "r": "movement (pron. /ˈmuːvm(ə)nt/)"
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:engl:c6:001",
+       "q": "« disobedience » signifie :",
+       "choix": [
+        "organiser (un évènement public)",
+        "de droite",
+        "désobéissance",
+        "maintenir, défendre"
+       ],
+       "bonne": 2,
+       "explication": "disobedience = désobéissance (pron. /ˌdɪsəˈbiːdɪəns/) — Unit 7: Protest movements."
+      },
+      {
+       "id": "question:engl:c6:002",
+       "q": "« in the centre » signifie :",
+       "choix": [
+        "organiser (un évènement public)",
+        "richesse",
+        "au centre",
+        "statu quo"
+       ],
+       "bonne": 2,
+       "explication": "in the centre = au centre (a centre party) — Unit 6: Politics."
+      },
+      {
+       "id": "question:engl:c6:003",
+       "q": "« protest » signifie :",
+       "choix": [
+        "extrémiste",
+        "de gauche",
+        "statu quo",
+        "manifestation, protestation"
+       ],
+       "bonne": 3,
+       "explication": "protest = manifestation, protestation (syn. demonstration ; to protest, a protester ; to demonstrate, a demonstrator) — Unit 7: Protest movements."
+      },
+      {
+       "id": "question:engl:c6:004",
+       "q": "« to some extent » signifie :",
+       "choix": [
+        "libéralisme",
+        "demander à qqn de faire qqch",
+        "dans une certaine mesure, en partie",
+        "barrière"
+       ],
+       "bonne": 2,
+       "explication": "to some extent = dans une certaine mesure, en partie (syn. partly) — Unit 6: Politics."
+      },
+      {
+       "id": "question:engl:c6:005",
+       "q": "« movement » signifie :",
+       "choix": [
+        "richesse",
+        "rébellion, révolte",
+        "mouvement",
+        "au centre"
+       ],
+       "bonne": 2,
+       "explication": "movement = mouvement (pron. /ˈmuːvm(ə)nt/) — Unit 7: Protest movements."
+      },
+      {
+       "id": "question:engl:c6:006",
+       "q": "« to uphold » signifie :",
+       "choix": [
+        "maintenir, défendre",
+        "richesse",
+        "dans une certaine mesure, en partie",
+        "organiser (un évènement public)"
+       ],
+       "bonne": 0,
+       "explication": "to uphold = maintenir, défendre (uphold – upheld – upheld ; syn. to maintain) — Unit 7: Protest movements."
+      },
+      {
+       "id": "question:engl:c6:007",
+       "q": "« wealth » signifie :",
+       "choix": [
+        "perturbation(s)",
+        "rébellion, révolte",
+        "richesse",
+        "au centre"
+       ],
+       "bonne": 2,
+       "explication": "wealth = richesse (related: wealthy) — Unit 6: Politics."
+      },
+      {
+       "id": "question:engl:c6:008",
+       "q": "« left-wing » signifie :",
+       "choix": [
+        "de gauche",
+        "de droite",
+        "demander à qqn de faire qqch",
+        "barrière"
+       ],
+       "bonne": 0,
+       "explication": "left-wing = de gauche (syn. on the left) — Unit 6: Politics."
+      },
+      {
+       "id": "question:engl:c6:009",
+       "q": "« to call on sb to do sth » signifie :",
+       "choix": [
+        "maintenir, défendre",
+        "extrémiste",
+        "dans une certaine mesure, en partie",
+        "demander à qqn de faire qqch"
+       ],
+       "bonne": 3,
+       "explication": "to call on sb to do sth = demander à qqn de faire qqch — Unit 7: Protest movements."
+      },
+      {
+       "id": "question:engl:c6:010",
+       "q": "« right-wing » signifie :",
+       "choix": [
+        "richesse",
+        "de droite",
+        "rébellion, révolte",
+        "perturbation(s)"
+       ],
+       "bonne": 1,
+       "explication": "right-wing = de droite (syn. on the right) — Unit 6: Politics."
+      }
+     ],
+     "sources": [
+      {
+       "document": "ENGL1102-E - UE1 ENGLISH VOCABULARY - Semester 1 (1).pdf",
+       "pages": "Unit 6, Unit 7"
+      }
+     ]
+    },
+    {
+     "id": "c7",
+     "titre": "Vocabulaire — Section 3 — Environment",
+     "duree": 50,
+     "resume": "## Vocabulary — Section 3 — Environment\n\nListe de vocabulaire du syllabus *UE1 English Vocabulary – Semester 1* (d'après Gairns & Redman, *Oxford Word Skills Upper-Intermediate*). ==Le vocabulaire est matière d'examen (test écrit de la semaine 13).==\n\n### Unit 8: Urban living\n\n| Word | Traduction | Remarques |\n|---|---|---|\n| **inner** | intérieur(e) | syn. interior, internal ; ant. outer |\n| **filthy** | sale, dégoûtant(e), immonde | syn. dirty, grimy ; ant. clean |\n| **to litter** | jeter des déchets sur la voie publique | syn. to pollute |\n| **litter** | détritus | syn. rubbish, garbage, trash |\n| **youth** | la jeunesse, les jeunes | syn. teenagers, young people |\n| **to hang around/about** | traîner | syn. to loiter, to linger |\n| **concerned about/for sth** | préoccupé(e) par/pour qqch | syn. worried about ; ant. indifferent |\n| **homeless** | sans-abri | syn. unhoused |\n| **damp** | humide | syn. moist, wet |\n| **depressing** | déprimant(e) | syn. gloomy, sad |\n| **surrounded by** | entouré(e) de | syn. encircled by |\n| **desirable** | désirable, attractif/ve | syn. appealing, sought-after ; ant. undesirable |\n| **suburb** | banlieue, quartier résidentiel | syn. residential area |\n| **suburban** | de banlieue |  |\n| **handy** | pratique | syn. convenient, useful ; ant. inconvenient |\n| **drawback** | inconvénient | syn. disadvantage, downside ; ant. advantage |\n| **nearby** | à proximité | syn. close, adjacent ; ant. distant |\n| **lively** | animé(e) | syn. animated, vibrant ; ant. dull, quiet |\n| **decent** | convenable | syn. respectable, adequate ; ant. inadequate |\n| **built-up** | urbanisé(e), développé(e) | syn. developed, urban ; ant. rural |\n| **shame / pity** | dommage | It's a shame/pity that… |\n| **to go on** | continuer ; se passer ; (temps) passer, s'écouler | syn. to continue / to happen / to pass |\n\n### Unit 9: Wildlife under threat\n\n| Word | Traduction | Remarques |\n|---|---|---|\n| **to clear (up/away)** | dégager | syn. to remove, to empty ; ant. to clutter |\n| **habitat** | habitat | pron. /ˈhæbɪtæt/ |\n| **to decline** | décliner (déclin) | syn. to decrease, to diminish ; ant. to increase |\n| **region** | région | syn. area, district |\n| **regional** | régional(e) | syn. local ; ant. national, global |\n| **to point sth out** | signaler qqch | syn. to indicate, to highlight ; ant. to overlook |\n| **to die out** | s'éteindre | syn. to become extinct ; ant. to thrive |\n| **instance** | exemple, cas | syn. example, case |\n| **to consider sb/sth to be sth** | considérer qqn/qqch comme qqch | syn. to regard / to view as |\n| **endangered** | en danger, en voie d'extinction | syn. at risk, vulnerable ; ant. safe, common |\n| **species** | espèce | toujours avec -s (singulier et pluriel) |\n| **threat** | menace | threatened, to pose a threat, to threaten |\n| **sought after** | recherché(e) | syn. desirable, coveted |\n| **poaching** | braconnage | to poach, poacher |\n| **likelihood** | probabilité | syn. probability, chance ; likely to / unlikely to |\n| **to end up (doing sth)** | finir par (faire qqch) | syn. to wind up |\n| **to wipe sth out** | anéantir, éliminer, éradiquer | syn. to eradicate ; ant. to preserve |\n| **territory** | territoire |  |\n| **to breed** | (se) reproduire | syn. to reproduce ; a breed = une race |\n\n### Unit 10: Disasters\n\n| Word | Traduction | Remarques |\n|---|---|---|\n| **to strike** | frapper | strike – struck – struck ; syn. to hit |\n| **to collapse** | s'effondrer | syn. to fall down |\n| **to evacuate** | évacuer | syn. to vacate ; ant. to remain, to stay |\n| **to trap** | piéger |  |\n| **death toll** | bilan des décès | syn. fatalities, casualties ; ant. survivors |\n| **significant** | important(e), significatif/ve | ant. insignificant ; significantly |\n| **scale** | ampleur | syn. size, magnitude |\n| **considerable** | considérable, important(e) | syn. substantial ; ant. minor |\n| **numerous** | nombreux/se | syn. countless, many |\n| **to rescue** | secourir | syn. to save ; ant. to abandon |\n| **to maintain** | maintenir, conserver | syn. to sustain, to keep |\n| **to devastate** | dévaster | syn. to destroy, to ruin ; ant. to spare |\n| **to tackle** | s'attaquer à, aborder | syn. to battle, to deal with |\n| **blaze** | incendie | syn. fire, inferno |\n| **casualty** | victime | ! pluriel : casualties ; ant. survivor |\n| **precaution** | précaution | syn. safety measure |\n| **suspicious** | suspect (adj.) | syn. questionable ; ant. trustworthy |\n| **deliberate** | délibéré(e) | deliberately |\n| **intense** | intense |  |\n| **to assess** | évaluer | syn. to evaluate |\n| **to praise** | féliciter | syn. to commend, to applaud ; ant. to criticize |\n| **courage** | courage | syn. bravery ; ant. cowardice ; courageous |",
+     "pointsCles": [
+      "Unit 8: Urban living : 22 mots/expressions.",
+      "Unit 9: Wildlife under threat : 19 mots/expressions.",
+      "Unit 10: Disasters : 22 mots/expressions.",
+      "Retenir aussi les synonymes, antonymes, prononciations et formes irrégulières indiqués."
+     ],
+     "definitions": [],
+     "fiches": [
+      {
+       "id": "card:engl:c7:001",
+       "q": "Traduis en français : « inner »",
+       "r": "intérieur(e) (syn. interior, internal ; ant. outer)"
+      },
+      {
+       "id": "card:engl:c7:002",
+       "q": "Traduis en français : « filthy »",
+       "r": "sale, dégoûtant(e), immonde (syn. dirty, grimy ; ant. clean)"
+      },
+      {
+       "id": "card:engl:c7:003",
+       "q": "Traduis en français : « to litter »",
+       "r": "jeter des déchets sur la voie publique (syn. to pollute)"
+      },
+      {
+       "id": "card:engl:c7:004",
+       "q": "Traduis en français : « litter »",
+       "r": "détritus (syn. rubbish, garbage, trash)"
+      },
+      {
+       "id": "card:engl:c7:005",
+       "q": "Traduis en français : « youth »",
+       "r": "la jeunesse, les jeunes (syn. teenagers, young people)"
+      },
+      {
+       "id": "card:engl:c7:006",
+       "q": "Traduis en français : « to hang around/about »",
+       "r": "traîner (syn. to loiter, to linger)"
+      },
+      {
+       "id": "card:engl:c7:007",
+       "q": "Traduis en français : « concerned about/for sth »",
+       "r": "préoccupé(e) par/pour qqch (syn. worried about ; ant. indifferent)"
+      },
+      {
+       "id": "card:engl:c7:008",
+       "q": "Traduis en français : « homeless »",
+       "r": "sans-abri (syn. unhoused)"
+      },
+      {
+       "id": "card:engl:c7:009",
+       "q": "Traduis en français : « damp »",
+       "r": "humide (syn. moist, wet)"
+      },
+      {
+       "id": "card:engl:c7:010",
+       "q": "Traduis en français : « depressing »",
+       "r": "déprimant(e) (syn. gloomy, sad)"
+      },
+      {
+       "id": "card:engl:c7:011",
+       "q": "Traduis en français : « surrounded by »",
+       "r": "entouré(e) de (syn. encircled by)"
+      },
+      {
+       "id": "card:engl:c7:012",
+       "q": "Traduis en français : « desirable »",
+       "r": "désirable, attractif/ve (syn. appealing, sought-after ; ant. undesirable)"
+      },
+      {
+       "id": "card:engl:c7:013",
+       "q": "Traduis en français : « suburb »",
+       "r": "banlieue, quartier résidentiel (syn. residential area)"
+      },
+      {
+       "id": "card:engl:c7:014",
+       "q": "Traduis en français : « suburban »",
+       "r": "de banlieue"
+      },
+      {
+       "id": "card:engl:c7:015",
+       "q": "Traduis en français : « handy »",
+       "r": "pratique (syn. convenient, useful ; ant. inconvenient)"
+      },
+      {
+       "id": "card:engl:c7:016",
+       "q": "Traduis en français : « drawback »",
+       "r": "inconvénient (syn. disadvantage, downside ; ant. advantage)"
+      },
+      {
+       "id": "card:engl:c7:017",
+       "q": "Traduis en français : « nearby »",
+       "r": "à proximité (syn. close, adjacent ; ant. distant)"
+      },
+      {
+       "id": "card:engl:c7:018",
+       "q": "Traduis en français : « lively »",
+       "r": "animé(e) (syn. animated, vibrant ; ant. dull, quiet)"
+      },
+      {
+       "id": "card:engl:c7:019",
+       "q": "Traduis en français : « decent »",
+       "r": "convenable (syn. respectable, adequate ; ant. inadequate)"
+      },
+      {
+       "id": "card:engl:c7:020",
+       "q": "Traduis en français : « built-up »",
+       "r": "urbanisé(e), développé(e) (syn. developed, urban ; ant. rural)"
+      },
+      {
+       "id": "card:engl:c7:021",
+       "q": "Traduis en français : « shame / pity »",
+       "r": "dommage (It's a shame/pity that…)"
+      },
+      {
+       "id": "card:engl:c7:022",
+       "q": "Traduis en français : « to go on »",
+       "r": "continuer ; se passer ; (temps) passer, s'écouler (syn. to continue / to happen / to pass)"
+      },
+      {
+       "id": "card:engl:c7:023",
+       "q": "Traduis en français : « to clear (up/away) »",
+       "r": "dégager (syn. to remove, to empty ; ant. to clutter)"
+      },
+      {
+       "id": "card:engl:c7:024",
+       "q": "Traduis en français : « habitat »",
+       "r": "habitat (pron. /ˈhæbɪtæt/)"
+      },
+      {
+       "id": "card:engl:c7:025",
+       "q": "Traduis en français : « to decline »",
+       "r": "décliner (déclin) (syn. to decrease, to diminish ; ant. to increase)"
+      },
+      {
+       "id": "card:engl:c7:026",
+       "q": "Traduis en français : « region »",
+       "r": "région (syn. area, district)"
+      },
+      {
+       "id": "card:engl:c7:027",
+       "q": "Traduis en français : « regional »",
+       "r": "régional(e) (syn. local ; ant. national, global)"
+      },
+      {
+       "id": "card:engl:c7:028",
+       "q": "Traduis en français : « to point sth out »",
+       "r": "signaler qqch (syn. to indicate, to highlight ; ant. to overlook)"
+      },
+      {
+       "id": "card:engl:c7:029",
+       "q": "Traduis en français : « to die out »",
+       "r": "s'éteindre (syn. to become extinct ; ant. to thrive)"
+      },
+      {
+       "id": "card:engl:c7:030",
+       "q": "Traduis en français : « instance »",
+       "r": "exemple, cas (syn. example, case)"
+      },
+      {
+       "id": "card:engl:c7:031",
+       "q": "Traduis en français : « to consider sb/sth to be sth »",
+       "r": "considérer qqn/qqch comme qqch (syn. to regard / to view as)"
+      },
+      {
+       "id": "card:engl:c7:032",
+       "q": "Traduis en français : « endangered »",
+       "r": "en danger, en voie d'extinction (syn. at risk, vulnerable ; ant. safe, common)"
+      },
+      {
+       "id": "card:engl:c7:033",
+       "q": "Traduis en français : « species »",
+       "r": "espèce (toujours avec -s (singulier et pluriel))"
+      },
+      {
+       "id": "card:engl:c7:034",
+       "q": "Traduis en français : « threat »",
+       "r": "menace (threatened, to pose a threat, to threaten)"
+      },
+      {
+       "id": "card:engl:c7:035",
+       "q": "Traduis en français : « sought after »",
+       "r": "recherché(e) (syn. desirable, coveted)"
+      },
+      {
+       "id": "card:engl:c7:036",
+       "q": "Traduis en français : « poaching »",
+       "r": "braconnage (to poach, poacher)"
+      },
+      {
+       "id": "card:engl:c7:037",
+       "q": "Traduis en français : « likelihood »",
+       "r": "probabilité (syn. probability, chance ; likely to / unlikely to)"
+      },
+      {
+       "id": "card:engl:c7:038",
+       "q": "Traduis en français : « to end up (doing sth) »",
+       "r": "finir par (faire qqch) (syn. to wind up)"
+      },
+      {
+       "id": "card:engl:c7:039",
+       "q": "Traduis en français : « to wipe sth out »",
+       "r": "anéantir, éliminer, éradiquer (syn. to eradicate ; ant. to preserve)"
+      },
+      {
+       "id": "card:engl:c7:040",
+       "q": "Traduis en français : « territory »",
+       "r": "territoire"
+      },
+      {
+       "id": "card:engl:c7:041",
+       "q": "Traduis en français : « to breed »",
+       "r": "(se) reproduire (syn. to reproduce ; a breed = une race)"
+      },
+      {
+       "id": "card:engl:c7:042",
+       "q": "Traduis en français : « to strike »",
+       "r": "frapper (strike – struck – struck ; syn. to hit)"
+      },
+      {
+       "id": "card:engl:c7:043",
+       "q": "Traduis en français : « to collapse »",
+       "r": "s'effondrer (syn. to fall down)"
+      },
+      {
+       "id": "card:engl:c7:044",
+       "q": "Traduis en français : « to evacuate »",
+       "r": "évacuer (syn. to vacate ; ant. to remain, to stay)"
+      },
+      {
+       "id": "card:engl:c7:045",
+       "q": "Traduis en français : « to trap »",
+       "r": "piéger"
+      },
+      {
+       "id": "card:engl:c7:046",
+       "q": "Traduis en français : « death toll »",
+       "r": "bilan des décès (syn. fatalities, casualties ; ant. survivors)"
+      },
+      {
+       "id": "card:engl:c7:047",
+       "q": "Traduis en français : « significant »",
+       "r": "important(e), significatif/ve (ant. insignificant ; significantly)"
+      },
+      {
+       "id": "card:engl:c7:048",
+       "q": "Traduis en français : « scale »",
+       "r": "ampleur (syn. size, magnitude)"
+      },
+      {
+       "id": "card:engl:c7:049",
+       "q": "Traduis en français : « considerable »",
+       "r": "considérable, important(e) (syn. substantial ; ant. minor)"
+      },
+      {
+       "id": "card:engl:c7:050",
+       "q": "Traduis en français : « numerous »",
+       "r": "nombreux/se (syn. countless, many)"
+      },
+      {
+       "id": "card:engl:c7:051",
+       "q": "Traduis en français : « to rescue »",
+       "r": "secourir (syn. to save ; ant. to abandon)"
+      },
+      {
+       "id": "card:engl:c7:052",
+       "q": "Traduis en français : « to maintain »",
+       "r": "maintenir, conserver (syn. to sustain, to keep)"
+      },
+      {
+       "id": "card:engl:c7:053",
+       "q": "Traduis en français : « to devastate »",
+       "r": "dévaster (syn. to destroy, to ruin ; ant. to spare)"
+      },
+      {
+       "id": "card:engl:c7:054",
+       "q": "Traduis en français : « to tackle »",
+       "r": "s'attaquer à, aborder (syn. to battle, to deal with)"
+      },
+      {
+       "id": "card:engl:c7:055",
+       "q": "Traduis en français : « blaze »",
+       "r": "incendie (syn. fire, inferno)"
+      },
+      {
+       "id": "card:engl:c7:056",
+       "q": "Traduis en français : « casualty »",
+       "r": "victime (! pluriel : casualties ; ant. survivor)"
+      },
+      {
+       "id": "card:engl:c7:057",
+       "q": "Traduis en français : « precaution »",
+       "r": "précaution (syn. safety measure)"
+      },
+      {
+       "id": "card:engl:c7:058",
+       "q": "Traduis en français : « suspicious »",
+       "r": "suspect (adj.) (syn. questionable ; ant. trustworthy)"
+      },
+      {
+       "id": "card:engl:c7:059",
+       "q": "Traduis en français : « deliberate »",
+       "r": "délibéré(e) (deliberately)"
+      },
+      {
+       "id": "card:engl:c7:060",
+       "q": "Traduis en français : « intense »",
+       "r": "intense"
+      },
+      {
+       "id": "card:engl:c7:061",
+       "q": "Traduis en français : « to assess »",
+       "r": "évaluer (syn. to evaluate)"
+      },
+      {
+       "id": "card:engl:c7:062",
+       "q": "Traduis en français : « to praise »",
+       "r": "féliciter (syn. to commend, to applaud ; ant. to criticize)"
+      },
+      {
+       "id": "card:engl:c7:063",
+       "q": "Traduis en français : « courage »",
+       "r": "courage (syn. bravery ; ant. cowardice ; courageous)"
+      },
+      {
+       "id": "card:engl:c7:064",
+       "q": "Comment dit-on en anglais : « intérieur(e) » ?",
+       "r": "inner (syn. interior, internal ; ant. outer)"
+      },
+      {
+       "id": "card:engl:c7:065",
+       "q": "Comment dit-on en anglais : « détritus » ?",
+       "r": "litter (syn. rubbish, garbage, trash)"
+      },
+      {
+       "id": "card:engl:c7:066",
+       "q": "Comment dit-on en anglais : « préoccupé(e) par/pour qqch » ?",
+       "r": "concerned about/for sth (syn. worried about ; ant. indifferent)"
+      },
+      {
+       "id": "card:engl:c7:067",
+       "q": "Comment dit-on en anglais : « déprimant(e) » ?",
+       "r": "depressing (syn. gloomy, sad)"
+      },
+      {
+       "id": "card:engl:c7:068",
+       "q": "Comment dit-on en anglais : « banlieue, quartier résidentiel » ?",
+       "r": "suburb (syn. residential area)"
+      },
+      {
+       "id": "card:engl:c7:069",
+       "q": "Comment dit-on en anglais : « inconvénient » ?",
+       "r": "drawback (syn. disadvantage, downside ; ant. advantage)"
+      },
+      {
+       "id": "card:engl:c7:070",
+       "q": "Comment dit-on en anglais : « convenable » ?",
+       "r": "decent (syn. respectable, adequate ; ant. inadequate)"
+      },
+      {
+       "id": "card:engl:c7:071",
+       "q": "Comment dit-on en anglais : « continuer ; se passer ; (temps) passer, s'écouler » ?",
+       "r": "to go on (syn. to continue / to happen / to pass)"
+      },
+      {
+       "id": "card:engl:c7:072",
+       "q": "Comment dit-on en anglais : « décliner (déclin) » ?",
+       "r": "to decline (syn. to decrease, to diminish ; ant. to increase)"
+      },
+      {
+       "id": "card:engl:c7:073",
+       "q": "Comment dit-on en anglais : « signaler qqch » ?",
+       "r": "to point sth out (syn. to indicate, to highlight ; ant. to overlook)"
+      },
+      {
+       "id": "card:engl:c7:074",
+       "q": "Comment dit-on en anglais : « considérer qqn/qqch comme qqch » ?",
+       "r": "to consider sb/sth to be sth (syn. to regard / to view as)"
+      },
+      {
+       "id": "card:engl:c7:075",
+       "q": "Comment dit-on en anglais : « menace » ?",
+       "r": "threat (threatened, to pose a threat, to threaten)"
+      },
+      {
+       "id": "card:engl:c7:076",
+       "q": "Comment dit-on en anglais : « probabilité » ?",
+       "r": "likelihood (syn. probability, chance ; likely to / unlikely to)"
+      },
+      {
+       "id": "card:engl:c7:077",
+       "q": "Comment dit-on en anglais : « territoire » ?",
+       "r": "territory"
+      },
+      {
+       "id": "card:engl:c7:078",
+       "q": "Comment dit-on en anglais : « s'effondrer » ?",
+       "r": "to collapse (syn. to fall down)"
+      },
+      {
+       "id": "card:engl:c7:079",
+       "q": "Comment dit-on en anglais : « bilan des décès » ?",
+       "r": "death toll (syn. fatalities, casualties ; ant. survivors)"
+      },
+      {
+       "id": "card:engl:c7:080",
+       "q": "Comment dit-on en anglais : « considérable, important(e) » ?",
+       "r": "considerable (syn. substantial ; ant. minor)"
+      },
+      {
+       "id": "card:engl:c7:081",
+       "q": "Comment dit-on en anglais : « maintenir, conserver » ?",
+       "r": "to maintain (syn. to sustain, to keep)"
+      },
+      {
+       "id": "card:engl:c7:082",
+       "q": "Comment dit-on en anglais : « incendie » ?",
+       "r": "blaze (syn. fire, inferno)"
+      },
+      {
+       "id": "card:engl:c7:083",
+       "q": "Comment dit-on en anglais : « suspect (adj.) » ?",
+       "r": "suspicious (syn. questionable ; ant. trustworthy)"
+      },
+      {
+       "id": "card:engl:c7:084",
+       "q": "Comment dit-on en anglais : « évaluer » ?",
+       "r": "to assess (syn. to evaluate)"
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:engl:c7:001",
+       "q": "« inner » signifie :",
+       "choix": [
+        "signaler qqch",
+        "intérieur(e)",
+        "sans-abri",
+        "courage"
+       ],
+       "bonne": 1,
+       "explication": "inner = intérieur(e) (syn. interior, internal ; ant. outer) — Unit 8: Urban living."
+      },
+      {
+       "id": "question:engl:c7:002",
+       "q": "« likelihood » signifie :",
+       "choix": [
+        "finir par (faire qqch)",
+        "précaution",
+        "bilan des décès",
+        "probabilité"
+       ],
+       "bonne": 3,
+       "explication": "likelihood = probabilité (syn. probability, chance ; likely to / unlikely to) — Unit 9: Wildlife under threat."
+      },
+      {
+       "id": "question:engl:c7:003",
+       "q": "« nearby » signifie :",
+       "choix": [
+        "pratique",
+        "en danger, en voie d'extinction",
+        "région",
+        "à proximité"
+       ],
+       "bonne": 3,
+       "explication": "nearby = à proximité (syn. close, adjacent ; ant. distant) — Unit 8: Urban living."
+      },
+      {
+       "id": "question:engl:c7:004",
+       "q": "« species » signifie :",
+       "choix": [
+        "intense",
+        "nombreux/se",
+        "en danger, en voie d'extinction",
+        "espèce"
+       ],
+       "bonne": 3,
+       "explication": "species = espèce (toujours avec -s (singulier et pluriel)) — Unit 9: Wildlife under threat."
+      },
+      {
+       "id": "question:engl:c7:005",
+       "q": "« to decline » signifie :",
+       "choix": [
+        "finir par (faire qqch)",
+        "décliner (déclin)",
+        "précaution",
+        "exemple, cas"
+       ],
+       "bonne": 1,
+       "explication": "to decline = décliner (déclin) (syn. to decrease, to diminish ; ant. to increase) — Unit 9: Wildlife under threat."
+      },
+      {
+       "id": "question:engl:c7:006",
+       "q": "« considerable » signifie :",
+       "choix": [
+        "considérable, important(e)",
+        "précaution",
+        "victime",
+        "désirable, attractif/ve"
+       ],
+       "bonne": 0,
+       "explication": "considerable = considérable, important(e) (syn. substantial ; ant. minor) — Unit 10: Disasters."
+      },
+      {
+       "id": "question:engl:c7:007",
+       "q": "« to go on » signifie :",
+       "choix": [
+        "détritus",
+        "humide",
+        "s'effondrer",
+        "continuer ; se passer ; (temps) passer, s'écouler"
+       ],
+       "bonne": 3,
+       "explication": "to go on = continuer ; se passer ; (temps) passer, s'écouler (syn. to continue / to happen / to pass) — Unit 8: Urban living."
+      },
+      {
+       "id": "question:engl:c7:008",
+       "q": "« handy » signifie :",
+       "choix": [
+        "braconnage",
+        "convenable",
+        "pratique",
+        "désirable, attractif/ve"
+       ],
+       "bonne": 2,
+       "explication": "handy = pratique (syn. convenient, useful ; ant. inconvenient) — Unit 8: Urban living."
+      },
+      {
+       "id": "question:engl:c7:009",
+       "q": "« to collapse » signifie :",
+       "choix": [
+        "s'effondrer",
+        "suspect (adj.)",
+        "inconvénient",
+        "évacuer"
+       ],
+       "bonne": 0,
+       "explication": "to collapse = s'effondrer (syn. to fall down) — Unit 10: Disasters."
+      },
+      {
+       "id": "question:engl:c7:010",
+       "q": "« to tackle » signifie :",
+       "choix": [
+        "s'attaquer à, aborder",
+        "dommage",
+        "urbanisé(e), développé(e)",
+        "s'effondrer"
+       ],
+       "bonne": 0,
+       "explication": "to tackle = s'attaquer à, aborder (syn. to battle, to deal with) — Unit 10: Disasters."
+      }
+     ],
+     "sources": [
+      {
+       "document": "ENGL1102-E - UE1 ENGLISH VOCABULARY - Semester 1 (1).pdf",
+       "pages": "Unit 8, Unit 9, Unit 10"
+      }
+     ]
+    },
+    {
+     "id": "c8",
+     "titre": "Vocabulaire — Section 4 — Food and home supply",
+     "duree": 56,
+     "resume": "## Vocabulary — Section 4 — Food and home supply\n\nListe de vocabulaire du syllabus *UE1 English Vocabulary – Semester 1* (d'après Gairns & Redman, *Oxford Word Skills Upper-Intermediate*). ==Le vocabulaire est matière d'examen (test écrit de la semaine 13).==\n\n### Unit 11: Food\n\n| Word | Traduction | Remarques |\n|---|---|---|\n| **avocado** | avocat |  |\n| **mango** | mangue |  |\n| **watermelon** | pastèque |  |\n| **grapefruit** | pamplemousse |  |\n| **apricot** | abricot |  |\n| **raspberries** | framboises | pron. /ˈrɑːzbəri/ |\n| **raisins** | raisins secs | pron. /ˈreɪzən/ |\n| **aubergine** | aubergine | syn. eggplant |\n| **celery** | céleri | pron. /ˈsɛləri/ |\n| **asparagus** | asperge |  |\n| **courgette** | courgette | syn. zucchini |\n| **spinach** | épinards | pron. /ˈspɪnɪdʒ/ |\n| **broccoli** | brocoli | pron. /ˈbrɒkəli/ |\n| **basil** | basilic | pron. /ˈbæzəl/ |\n| **lentils** | lentilles |  |\n| **ginger** | gingembre |  |\n| **pulse** | légume sec |  |\n| **stone** | pierre ; ici : noyau |  |\n| **cooked** | cuit(e) |  |\n| **raw** | cru(e) | pron. /ˈrɔː/ |\n| **casserole** | ragoût ; plat à four (casserole dish) |  |\n| **food processor** | robot ménager |  |\n| **whisk / to whisk** | un fouet / fouetter |  |\n| **colander** | passoire |  |\n| **grater** | râpe |  |\n| **peeler** | éplucheur |  |\n| **corkscrew** | tire-bouchon |  |\n| **kitchen scales** | balance | ! toujours au pluriel |\n| **carving knife** | couteau à découper |  |\n| **frying pan** | poêle à frire |  |\n\n### Unit 12: Opinions about food\n\n| Word | Traduction | Remarques |\n|---|---|---|\n| **appetizing** | appétissant(e) | syn. savoury |\n| **stale** | rassis (pain), plus frais (œufs, viande), desséché (fromage) |  |\n| **salty** | salé(e) | ≠ sweet |\n| **ripe** | mûr(e) |  |\n| **spicy** | épicé(e) |  |\n| **bland** | fade | syn. tasteless ; ant. savoury |\n| **rare** | bleu (cuisson du steak) |  |\n| **medium** | à point (cuisson) |  |\n| **lean** | maigre (viande) |  |\n| **juicy** | moelleux/se (viande) |  |\n| **well done** | bien cuit(e) |  |\n| **tough** | dur(e), coriace | pron. /tʌf/ |\n| **rich** | riche (sauces, desserts) |  |\n| **bitter** | amer/amère |  |\n| **mug** | grande tasse |  |\n| **instant (coffee)** | instantané(e) |  |\n| **cereal** | des céréales | indénombrable ; pron. /ˈsɪəriəl/ |\n| **packed lunch** | panier-repas |  |\n| **canteen** | cantine |  |\n| **to heat sth up** | réchauffer qqch |  |\n| **to treat oneself to sth** | se faire plaisir avec qqch |  |\n| **takeaway** | un repas à emporter |  |\n| **to take away** | emporter | take – took – taken |\n| **tin opener** | ouvre-boîte | syn. a can opener |\n\n### Unit 13: At home\n\n| Word | Traduction | Remarques |\n|---|---|---|\n| **socket** | une prise de courant |  |\n| **plug** | une fiche électrique |  |\n| **stool** | tabouret |  |\n| **(door)mat** | paillasson |  |\n| **hoover / to hoover** | aspirateur / aspirer | syn. vacuum cleaner / to vacuum |\n| **ironing board** | planche à repasser |  |\n| **to iron** | repasser | pron. /ˈaɪərn/ |\n| **dustbin** | poubelle |  |\n| **smoke alarm** | alarme incendie |  |\n| **radiator** | radiateur |  |\n| **broom** | balai |  |\n| **drawer** | tiroir |  |\n| **doorbell** | sonnette |  |\n| **bunk beds** | lits superposés |  |\n| **bookcase** | bibliothèque (meuble) |  |\n| **letterbox** | boîte aux lettres |  |",
+     "pointsCles": [
+      "Unit 11: Food : 30 mots/expressions.",
+      "Unit 12: Opinions about food : 24 mots/expressions.",
+      "Unit 13: At home : 16 mots/expressions.",
+      "Retenir aussi les synonymes, antonymes, prononciations et formes irrégulières indiqués."
+     ],
+     "definitions": [],
+     "fiches": [
+      {
+       "id": "card:engl:c8:001",
+       "q": "Traduis en français : « avocado »",
+       "r": "avocat"
+      },
+      {
+       "id": "card:engl:c8:002",
+       "q": "Traduis en français : « mango »",
+       "r": "mangue"
+      },
+      {
+       "id": "card:engl:c8:003",
+       "q": "Traduis en français : « watermelon »",
+       "r": "pastèque"
+      },
+      {
+       "id": "card:engl:c8:004",
+       "q": "Traduis en français : « grapefruit »",
+       "r": "pamplemousse"
+      },
+      {
+       "id": "card:engl:c8:005",
+       "q": "Traduis en français : « apricot »",
+       "r": "abricot"
+      },
+      {
+       "id": "card:engl:c8:006",
+       "q": "Traduis en français : « raspberries »",
+       "r": "framboises (pron. /ˈrɑːzbəri/)"
+      },
+      {
+       "id": "card:engl:c8:007",
+       "q": "Traduis en français : « raisins »",
+       "r": "raisins secs (pron. /ˈreɪzən/)"
+      },
+      {
+       "id": "card:engl:c8:008",
+       "q": "Traduis en français : « aubergine »",
+       "r": "aubergine (syn. eggplant)"
+      },
+      {
+       "id": "card:engl:c8:009",
+       "q": "Traduis en français : « celery »",
+       "r": "céleri (pron. /ˈsɛləri/)"
+      },
+      {
+       "id": "card:engl:c8:010",
+       "q": "Traduis en français : « asparagus »",
+       "r": "asperge"
+      },
+      {
+       "id": "card:engl:c8:011",
+       "q": "Traduis en français : « courgette »",
+       "r": "courgette (syn. zucchini)"
+      },
+      {
+       "id": "card:engl:c8:012",
+       "q": "Traduis en français : « spinach »",
+       "r": "épinards (pron. /ˈspɪnɪdʒ/)"
+      },
+      {
+       "id": "card:engl:c8:013",
+       "q": "Traduis en français : « broccoli »",
+       "r": "brocoli (pron. /ˈbrɒkəli/)"
+      },
+      {
+       "id": "card:engl:c8:014",
+       "q": "Traduis en français : « basil »",
+       "r": "basilic (pron. /ˈbæzəl/)"
+      },
+      {
+       "id": "card:engl:c8:015",
+       "q": "Traduis en français : « lentils »",
+       "r": "lentilles"
+      },
+      {
+       "id": "card:engl:c8:016",
+       "q": "Traduis en français : « ginger »",
+       "r": "gingembre"
+      },
+      {
+       "id": "card:engl:c8:017",
+       "q": "Traduis en français : « pulse »",
+       "r": "légume sec"
+      },
+      {
+       "id": "card:engl:c8:018",
+       "q": "Traduis en français : « stone »",
+       "r": "pierre ; ici : noyau"
+      },
+      {
+       "id": "card:engl:c8:019",
+       "q": "Traduis en français : « cooked »",
+       "r": "cuit(e)"
+      },
+      {
+       "id": "card:engl:c8:020",
+       "q": "Traduis en français : « raw »",
+       "r": "cru(e) (pron. /ˈrɔː/)"
+      },
+      {
+       "id": "card:engl:c8:021",
+       "q": "Traduis en français : « casserole »",
+       "r": "ragoût ; plat à four (casserole dish)"
+      },
+      {
+       "id": "card:engl:c8:022",
+       "q": "Traduis en français : « food processor »",
+       "r": "robot ménager"
+      },
+      {
+       "id": "card:engl:c8:023",
+       "q": "Traduis en français : « whisk / to whisk »",
+       "r": "un fouet / fouetter"
+      },
+      {
+       "id": "card:engl:c8:024",
+       "q": "Traduis en français : « colander »",
+       "r": "passoire"
+      },
+      {
+       "id": "card:engl:c8:025",
+       "q": "Traduis en français : « grater »",
+       "r": "râpe"
+      },
+      {
+       "id": "card:engl:c8:026",
+       "q": "Traduis en français : « peeler »",
+       "r": "éplucheur"
+      },
+      {
+       "id": "card:engl:c8:027",
+       "q": "Traduis en français : « corkscrew »",
+       "r": "tire-bouchon"
+      },
+      {
+       "id": "card:engl:c8:028",
+       "q": "Traduis en français : « kitchen scales »",
+       "r": "balance (! toujours au pluriel)"
+      },
+      {
+       "id": "card:engl:c8:029",
+       "q": "Traduis en français : « carving knife »",
+       "r": "couteau à découper"
+      },
+      {
+       "id": "card:engl:c8:030",
+       "q": "Traduis en français : « frying pan »",
+       "r": "poêle à frire"
+      },
+      {
+       "id": "card:engl:c8:031",
+       "q": "Traduis en français : « appetizing »",
+       "r": "appétissant(e) (syn. savoury)"
+      },
+      {
+       "id": "card:engl:c8:032",
+       "q": "Traduis en français : « stale »",
+       "r": "rassis (pain), plus frais (œufs, viande), desséché (fromage)"
+      },
+      {
+       "id": "card:engl:c8:033",
+       "q": "Traduis en français : « salty »",
+       "r": "salé(e) (≠ sweet)"
+      },
+      {
+       "id": "card:engl:c8:034",
+       "q": "Traduis en français : « ripe »",
+       "r": "mûr(e)"
+      },
+      {
+       "id": "card:engl:c8:035",
+       "q": "Traduis en français : « spicy »",
+       "r": "épicé(e)"
+      },
+      {
+       "id": "card:engl:c8:036",
+       "q": "Traduis en français : « bland »",
+       "r": "fade (syn. tasteless ; ant. savoury)"
+      },
+      {
+       "id": "card:engl:c8:037",
+       "q": "Traduis en français : « rare »",
+       "r": "bleu (cuisson du steak)"
+      },
+      {
+       "id": "card:engl:c8:038",
+       "q": "Traduis en français : « medium »",
+       "r": "à point (cuisson)"
+      },
+      {
+       "id": "card:engl:c8:039",
+       "q": "Traduis en français : « lean »",
+       "r": "maigre (viande)"
+      },
+      {
+       "id": "card:engl:c8:040",
+       "q": "Traduis en français : « juicy »",
+       "r": "moelleux/se (viande)"
+      },
+      {
+       "id": "card:engl:c8:041",
+       "q": "Traduis en français : « well done »",
+       "r": "bien cuit(e)"
+      },
+      {
+       "id": "card:engl:c8:042",
+       "q": "Traduis en français : « tough »",
+       "r": "dur(e), coriace (pron. /tʌf/)"
+      },
+      {
+       "id": "card:engl:c8:043",
+       "q": "Traduis en français : « rich »",
+       "r": "riche (sauces, desserts)"
+      },
+      {
+       "id": "card:engl:c8:044",
+       "q": "Traduis en français : « bitter »",
+       "r": "amer/amère"
+      },
+      {
+       "id": "card:engl:c8:045",
+       "q": "Traduis en français : « mug »",
+       "r": "grande tasse"
+      },
+      {
+       "id": "card:engl:c8:046",
+       "q": "Traduis en français : « instant (coffee) »",
+       "r": "instantané(e)"
+      },
+      {
+       "id": "card:engl:c8:047",
+       "q": "Traduis en français : « cereal »",
+       "r": "des céréales (indénombrable ; pron. /ˈsɪəriəl/)"
+      },
+      {
+       "id": "card:engl:c8:048",
+       "q": "Traduis en français : « packed lunch »",
+       "r": "panier-repas"
+      },
+      {
+       "id": "card:engl:c8:049",
+       "q": "Traduis en français : « canteen »",
+       "r": "cantine"
+      },
+      {
+       "id": "card:engl:c8:050",
+       "q": "Traduis en français : « to heat sth up »",
+       "r": "réchauffer qqch"
+      },
+      {
+       "id": "card:engl:c8:051",
+       "q": "Traduis en français : « to treat oneself to sth »",
+       "r": "se faire plaisir avec qqch"
+      },
+      {
+       "id": "card:engl:c8:052",
+       "q": "Traduis en français : « takeaway »",
+       "r": "un repas à emporter"
+      },
+      {
+       "id": "card:engl:c8:053",
+       "q": "Traduis en français : « to take away »",
+       "r": "emporter (take – took – taken)"
+      },
+      {
+       "id": "card:engl:c8:054",
+       "q": "Traduis en français : « tin opener »",
+       "r": "ouvre-boîte (syn. a can opener)"
+      },
+      {
+       "id": "card:engl:c8:055",
+       "q": "Traduis en français : « socket »",
+       "r": "une prise de courant"
+      },
+      {
+       "id": "card:engl:c8:056",
+       "q": "Traduis en français : « plug »",
+       "r": "une fiche électrique"
+      },
+      {
+       "id": "card:engl:c8:057",
+       "q": "Traduis en français : « stool »",
+       "r": "tabouret"
+      },
+      {
+       "id": "card:engl:c8:058",
+       "q": "Traduis en français : « (door)mat »",
+       "r": "paillasson"
+      },
+      {
+       "id": "card:engl:c8:059",
+       "q": "Traduis en français : « hoover / to hoover »",
+       "r": "aspirateur / aspirer (syn. vacuum cleaner / to vacuum)"
+      },
+      {
+       "id": "card:engl:c8:060",
+       "q": "Traduis en français : « ironing board »",
+       "r": "planche à repasser"
+      },
+      {
+       "id": "card:engl:c8:061",
+       "q": "Traduis en français : « to iron »",
+       "r": "repasser (pron. /ˈaɪərn/)"
+      },
+      {
+       "id": "card:engl:c8:062",
+       "q": "Traduis en français : « dustbin »",
+       "r": "poubelle"
+      },
+      {
+       "id": "card:engl:c8:063",
+       "q": "Traduis en français : « smoke alarm »",
+       "r": "alarme incendie"
+      },
+      {
+       "id": "card:engl:c8:064",
+       "q": "Traduis en français : « radiator »",
+       "r": "radiateur"
+      },
+      {
+       "id": "card:engl:c8:065",
+       "q": "Traduis en français : « broom »",
+       "r": "balai"
+      },
+      {
+       "id": "card:engl:c8:066",
+       "q": "Traduis en français : « drawer »",
+       "r": "tiroir"
+      },
+      {
+       "id": "card:engl:c8:067",
+       "q": "Traduis en français : « doorbell »",
+       "r": "sonnette"
+      },
+      {
+       "id": "card:engl:c8:068",
+       "q": "Traduis en français : « bunk beds »",
+       "r": "lits superposés"
+      },
+      {
+       "id": "card:engl:c8:069",
+       "q": "Traduis en français : « bookcase »",
+       "r": "bibliothèque (meuble)"
+      },
+      {
+       "id": "card:engl:c8:070",
+       "q": "Traduis en français : « letterbox »",
+       "r": "boîte aux lettres"
+      },
+      {
+       "id": "card:engl:c8:071",
+       "q": "Comment dit-on en anglais : « avocat » ?",
+       "r": "avocado"
+      },
+      {
+       "id": "card:engl:c8:072",
+       "q": "Comment dit-on en anglais : « pamplemousse » ?",
+       "r": "grapefruit"
+      },
+      {
+       "id": "card:engl:c8:073",
+       "q": "Comment dit-on en anglais : « raisins secs » ?",
+       "r": "raisins (pron. /ˈreɪzən/)"
+      },
+      {
+       "id": "card:engl:c8:074",
+       "q": "Comment dit-on en anglais : « asperge » ?",
+       "r": "asparagus"
+      },
+      {
+       "id": "card:engl:c8:075",
+       "q": "Comment dit-on en anglais : « brocoli » ?",
+       "r": "broccoli (pron. /ˈbrɒkəli/)"
+      },
+      {
+       "id": "card:engl:c8:076",
+       "q": "Comment dit-on en anglais : « gingembre » ?",
+       "r": "ginger"
+      },
+      {
+       "id": "card:engl:c8:077",
+       "q": "Comment dit-on en anglais : « cuit(e) » ?",
+       "r": "cooked"
+      },
+      {
+       "id": "card:engl:c8:078",
+       "q": "Comment dit-on en anglais : « robot ménager » ?",
+       "r": "food processor"
+      },
+      {
+       "id": "card:engl:c8:079",
+       "q": "Comment dit-on en anglais : « râpe » ?",
+       "r": "grater"
+      },
+      {
+       "id": "card:engl:c8:080",
+       "q": "Comment dit-on en anglais : « balance » ?",
+       "r": "kitchen scales (! toujours au pluriel)"
+      },
+      {
+       "id": "card:engl:c8:081",
+       "q": "Comment dit-on en anglais : « appétissant(e) » ?",
+       "r": "appetizing (syn. savoury)"
+      },
+      {
+       "id": "card:engl:c8:082",
+       "q": "Comment dit-on en anglais : « mûr(e) » ?",
+       "r": "ripe"
+      },
+      {
+       "id": "card:engl:c8:083",
+       "q": "Comment dit-on en anglais : « bleu (cuisson du steak) » ?",
+       "r": "rare"
+      },
+      {
+       "id": "card:engl:c8:084",
+       "q": "Comment dit-on en anglais : « moelleux/se (viande) » ?",
+       "r": "juicy"
+      },
+      {
+       "id": "card:engl:c8:085",
+       "q": "Comment dit-on en anglais : « riche (sauces, desserts) » ?",
+       "r": "rich"
+      },
+      {
+       "id": "card:engl:c8:086",
+       "q": "Comment dit-on en anglais : « instantané(e) » ?",
+       "r": "instant (coffee)"
+      },
+      {
+       "id": "card:engl:c8:087",
+       "q": "Comment dit-on en anglais : « cantine » ?",
+       "r": "canteen"
+      },
+      {
+       "id": "card:engl:c8:088",
+       "q": "Comment dit-on en anglais : « un repas à emporter » ?",
+       "r": "takeaway"
+      },
+      {
+       "id": "card:engl:c8:089",
+       "q": "Comment dit-on en anglais : « une prise de courant » ?",
+       "r": "socket"
+      },
+      {
+       "id": "card:engl:c8:090",
+       "q": "Comment dit-on en anglais : « paillasson » ?",
+       "r": "(door)mat"
+      },
+      {
+       "id": "card:engl:c8:091",
+       "q": "Comment dit-on en anglais : « repasser » ?",
+       "r": "to iron (pron. /ˈaɪərn/)"
+      },
+      {
+       "id": "card:engl:c8:092",
+       "q": "Comment dit-on en anglais : « radiateur » ?",
+       "r": "radiator"
+      },
+      {
+       "id": "card:engl:c8:093",
+       "q": "Comment dit-on en anglais : « sonnette » ?",
+       "r": "doorbell"
+      },
+      {
+       "id": "card:engl:c8:094",
+       "q": "Comment dit-on en anglais : « boîte aux lettres » ?",
+       "r": "letterbox"
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:engl:c8:001",
+       "q": "« ironing board » signifie :",
+       "choix": [
+        "râpe",
+        "planche à repasser",
+        "cru(e)",
+        "riche (sauces, desserts)"
+       ],
+       "bonne": 1,
+       "explication": "ironing board = planche à repasser — Unit 13: At home."
+      },
+      {
+       "id": "question:engl:c8:002",
+       "q": "« lean » signifie :",
+       "choix": [
+        "maigre (viande)",
+        "tiroir",
+        "rassis (pain), plus frais (œufs, viande), desséché (fromage)",
+        "bibliothèque (meuble)"
+       ],
+       "bonne": 0,
+       "explication": "lean = maigre (viande) — Unit 12: Opinions about food."
+      },
+      {
+       "id": "question:engl:c8:003",
+       "q": "« well done » signifie :",
+       "choix": [
+        "instantané(e)",
+        "épinards",
+        "riche (sauces, desserts)",
+        "bien cuit(e)"
+       ],
+       "bonne": 3,
+       "explication": "well done = bien cuit(e) — Unit 12: Opinions about food."
+      },
+      {
+       "id": "question:engl:c8:004",
+       "q": "« tough » signifie :",
+       "choix": [
+        "pamplemousse",
+        "dur(e), coriace",
+        "alarme incendie",
+        "salé(e)"
+       ],
+       "bonne": 1,
+       "explication": "tough = dur(e), coriace (pron. /tʌf/) — Unit 12: Opinions about food."
+      },
+      {
+       "id": "question:engl:c8:005",
+       "q": "« (door)mat » signifie :",
+       "choix": [
+        "emporter",
+        "paillasson",
+        "courgette",
+        "radiateur"
+       ],
+       "bonne": 1,
+       "explication": "(door)mat = paillasson — Unit 13: At home."
+      },
+      {
+       "id": "question:engl:c8:006",
+       "q": "« raisins » signifie :",
+       "choix": [
+        "légume sec",
+        "abricot",
+        "ouvre-boîte",
+        "raisins secs"
+       ],
+       "bonne": 3,
+       "explication": "raisins = raisins secs (pron. /ˈreɪzən/) — Unit 11: Food."
+      },
+      {
+       "id": "question:engl:c8:007",
+       "q": "« juicy » signifie :",
+       "choix": [
+        "avocat",
+        "moelleux/se (viande)",
+        "couteau à découper",
+        "paillasson"
+       ],
+       "bonne": 1,
+       "explication": "juicy = moelleux/se (viande) — Unit 12: Opinions about food."
+      },
+      {
+       "id": "question:engl:c8:008",
+       "q": "« broccoli » signifie :",
+       "choix": [
+        "légume sec",
+        "épinards",
+        "brocoli",
+        "riche (sauces, desserts)"
+       ],
+       "bonne": 2,
+       "explication": "broccoli = brocoli (pron. /ˈbrɒkəli/) — Unit 11: Food."
+      },
+      {
+       "id": "question:engl:c8:009",
+       "q": "« food processor » signifie :",
+       "choix": [
+        "robot ménager",
+        "des céréales",
+        "céleri",
+        "planche à repasser"
+       ],
+       "bonne": 0,
+       "explication": "food processor = robot ménager — Unit 11: Food."
+      },
+      {
+       "id": "question:engl:c8:010",
+       "q": "« letterbox » signifie :",
+       "choix": [
+        "asperge",
+        "pierre ; ici : noyau",
+        "boîte aux lettres",
+        "raisins secs"
+       ],
+       "bonne": 2,
+       "explication": "letterbox = boîte aux lettres — Unit 13: At home."
+      }
+     ],
+     "sources": [
+      {
+       "document": "ENGL1102-E - UE1 ENGLISH VOCABULARY - Semester 1 (1).pdf",
+       "pages": "Unit 11, Unit 12, Unit 13"
+      }
+     ]
+    },
+    {
+     "id": "c9",
+     "titre": "Vocabulaire — Section 5 — Technology and energy",
+     "duree": 24,
+     "resume": "## Vocabulary — Section 5 — Technology and energy\n\nListe de vocabulaire du syllabus *UE1 English Vocabulary – Semester 1* (d'après Gairns & Redman, *Oxford Word Skills Upper-Intermediate*). ==Le vocabulaire est matière d'examen (test écrit de la semaine 13).==\n\n### Unit 14: Personal technology\n\n| Word | Traduction | Remarques |\n|---|---|---|\n| **to launch** | lancer | syn. to start ; ant. to halt |\n| **to scroll up/down** | faire défiler | syn. to navigate |\n| **to install** | installer | syn. to set up ; ant. to uninstall |\n| **to type in** | saisir, entrer des données | syn. to key in, to input ; ant. to delete |\n| **storage** | stockage | syn. capacity, space |\n| **setting** | réglage |  |\n| **device** | appareil | related: appliance |\n| **update** | mise à jour | syn. upgrade ; ant. downgrade |\n| **(to) backup** | sauvegarde(r) |  |\n| **internal** | interne | syn. inner ; ant. external |\n| **component** | composant | syn. part ; ant. whole |\n| **to browse** | naviguer | syn. to surf ; browser |\n| **wireless** | sans fil | syn. cordless ; ant. cable |\n\n### Unit 15: Energy conservation\n\n| Word | Traduction | Remarques |\n|---|---|---|\n| **to switch to sth** | passer à qqch | syn. to change to ; ant. to stick with |\n| **…-saving** | économique, qui permet une économie de… | energy-saving, labour-saving, time-saving |\n| **eco-…** | en rapport à l'écologie | eco-disaster, eco-friendly |\n| **consumption** | consommation | to consume, to use |\n| **to save** | économiser | syn. to conserve ; ant. to waste ; savings |\n| **appliance** | appareil électroménager | syn. device, machine |\n| **on standby** | en veille | syn. in sleep mode |\n| **tumble dryer** | sèche-linge |  |\n| **to dispose of sth** | se débarrasser de qqch | syn. to get rid of, to discard ; ant. to hoard |\n| **landfill (site)** | décharge | syn. dump |\n| **toxic** | toxique | syn. poisonous ; ant. safe |\n| **batteries** | piles, batteries |  |\n| **charger** | chargeur | to charge sth (up) |\n| **to monitor** | surveiller | syn. to observe |\n| **solar panels** | panneaux solaires |  |\n| **in the short/medium/long term** | à court/moyen/long terme | syn. in the long/short run |\n| **to generate** | générer, produire | syn. to produce |",
+     "pointsCles": [
+      "Unit 14: Personal technology : 13 mots/expressions.",
+      "Unit 15: Energy conservation : 17 mots/expressions.",
+      "Retenir aussi les synonymes, antonymes, prononciations et formes irrégulières indiqués."
+     ],
+     "definitions": [],
+     "fiches": [
+      {
+       "id": "card:engl:c9:001",
+       "q": "Traduis en français : « to launch »",
+       "r": "lancer (syn. to start ; ant. to halt)"
+      },
+      {
+       "id": "card:engl:c9:002",
+       "q": "Traduis en français : « to scroll up/down »",
+       "r": "faire défiler (syn. to navigate)"
+      },
+      {
+       "id": "card:engl:c9:003",
+       "q": "Traduis en français : « to install »",
+       "r": "installer (syn. to set up ; ant. to uninstall)"
+      },
+      {
+       "id": "card:engl:c9:004",
+       "q": "Traduis en français : « to type in »",
+       "r": "saisir, entrer des données (syn. to key in, to input ; ant. to delete)"
+      },
+      {
+       "id": "card:engl:c9:005",
+       "q": "Traduis en français : « storage »",
+       "r": "stockage (syn. capacity, space)"
+      },
+      {
+       "id": "card:engl:c9:006",
+       "q": "Traduis en français : « setting »",
+       "r": "réglage"
+      },
+      {
+       "id": "card:engl:c9:007",
+       "q": "Traduis en français : « device »",
+       "r": "appareil (related: appliance)"
+      },
+      {
+       "id": "card:engl:c9:008",
+       "q": "Traduis en français : « update »",
+       "r": "mise à jour (syn. upgrade ; ant. downgrade)"
+      },
+      {
+       "id": "card:engl:c9:009",
+       "q": "Traduis en français : « (to) backup »",
+       "r": "sauvegarde(r)"
+      },
+      {
+       "id": "card:engl:c9:010",
+       "q": "Traduis en français : « internal »",
+       "r": "interne (syn. inner ; ant. external)"
+      },
+      {
+       "id": "card:engl:c9:011",
+       "q": "Traduis en français : « component »",
+       "r": "composant (syn. part ; ant. whole)"
+      },
+      {
+       "id": "card:engl:c9:012",
+       "q": "Traduis en français : « to browse »",
+       "r": "naviguer (syn. to surf ; browser)"
+      },
+      {
+       "id": "card:engl:c9:013",
+       "q": "Traduis en français : « wireless »",
+       "r": "sans fil (syn. cordless ; ant. cable)"
+      },
+      {
+       "id": "card:engl:c9:014",
+       "q": "Traduis en français : « to switch to sth »",
+       "r": "passer à qqch (syn. to change to ; ant. to stick with)"
+      },
+      {
+       "id": "card:engl:c9:015",
+       "q": "Traduis en français : « …-saving »",
+       "r": "économique, qui permet une économie de… (energy-saving, labour-saving, time-saving)"
+      },
+      {
+       "id": "card:engl:c9:016",
+       "q": "Traduis en français : « eco-… »",
+       "r": "en rapport à l'écologie (eco-disaster, eco-friendly)"
+      },
+      {
+       "id": "card:engl:c9:017",
+       "q": "Traduis en français : « consumption »",
+       "r": "consommation (to consume, to use)"
+      },
+      {
+       "id": "card:engl:c9:018",
+       "q": "Traduis en français : « to save »",
+       "r": "économiser (syn. to conserve ; ant. to waste ; savings)"
+      },
+      {
+       "id": "card:engl:c9:019",
+       "q": "Traduis en français : « appliance »",
+       "r": "appareil électroménager (syn. device, machine)"
+      },
+      {
+       "id": "card:engl:c9:020",
+       "q": "Traduis en français : « on standby »",
+       "r": "en veille (syn. in sleep mode)"
+      },
+      {
+       "id": "card:engl:c9:021",
+       "q": "Traduis en français : « tumble dryer »",
+       "r": "sèche-linge"
+      },
+      {
+       "id": "card:engl:c9:022",
+       "q": "Traduis en français : « to dispose of sth »",
+       "r": "se débarrasser de qqch (syn. to get rid of, to discard ; ant. to hoard)"
+      },
+      {
+       "id": "card:engl:c9:023",
+       "q": "Traduis en français : « landfill (site) »",
+       "r": "décharge (syn. dump)"
+      },
+      {
+       "id": "card:engl:c9:024",
+       "q": "Traduis en français : « toxic »",
+       "r": "toxique (syn. poisonous ; ant. safe)"
+      },
+      {
+       "id": "card:engl:c9:025",
+       "q": "Traduis en français : « batteries »",
+       "r": "piles, batteries"
+      },
+      {
+       "id": "card:engl:c9:026",
+       "q": "Traduis en français : « charger »",
+       "r": "chargeur (to charge sth (up))"
+      },
+      {
+       "id": "card:engl:c9:027",
+       "q": "Traduis en français : « to monitor »",
+       "r": "surveiller (syn. to observe)"
+      },
+      {
+       "id": "card:engl:c9:028",
+       "q": "Traduis en français : « solar panels »",
+       "r": "panneaux solaires"
+      },
+      {
+       "id": "card:engl:c9:029",
+       "q": "Traduis en français : « in the short/medium/long term »",
+       "r": "à court/moyen/long terme (syn. in the long/short run)"
+      },
+      {
+       "id": "card:engl:c9:030",
+       "q": "Traduis en français : « to generate »",
+       "r": "générer, produire (syn. to produce)"
+      },
+      {
+       "id": "card:engl:c9:031",
+       "q": "Comment dit-on en anglais : « lancer » ?",
+       "r": "to launch (syn. to start ; ant. to halt)"
+      },
+      {
+       "id": "card:engl:c9:032",
+       "q": "Comment dit-on en anglais : « saisir, entrer des données » ?",
+       "r": "to type in (syn. to key in, to input ; ant. to delete)"
+      },
+      {
+       "id": "card:engl:c9:033",
+       "q": "Comment dit-on en anglais : « appareil » ?",
+       "r": "device (related: appliance)"
+      },
+      {
+       "id": "card:engl:c9:034",
+       "q": "Comment dit-on en anglais : « interne » ?",
+       "r": "internal (syn. inner ; ant. external)"
+      },
+      {
+       "id": "card:engl:c9:035",
+       "q": "Comment dit-on en anglais : « sans fil » ?",
+       "r": "wireless (syn. cordless ; ant. cable)"
+      },
+      {
+       "id": "card:engl:c9:036",
+       "q": "Comment dit-on en anglais : « en rapport à l'écologie » ?",
+       "r": "eco-… (eco-disaster, eco-friendly)"
+      },
+      {
+       "id": "card:engl:c9:037",
+       "q": "Comment dit-on en anglais : « appareil électroménager » ?",
+       "r": "appliance (syn. device, machine)"
+      },
+      {
+       "id": "card:engl:c9:038",
+       "q": "Comment dit-on en anglais : « se débarrasser de qqch » ?",
+       "r": "to dispose of sth (syn. to get rid of, to discard ; ant. to hoard)"
+      },
+      {
+       "id": "card:engl:c9:039",
+       "q": "Comment dit-on en anglais : « piles, batteries » ?",
+       "r": "batteries"
+      },
+      {
+       "id": "card:engl:c9:040",
+       "q": "Comment dit-on en anglais : « panneaux solaires » ?",
+       "r": "solar panels"
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:engl:c9:001",
+       "q": "« to switch to sth » signifie :",
+       "choix": [
+        "passer à qqch",
+        "sèche-linge",
+        "lancer",
+        "faire défiler"
+       ],
+       "bonne": 0,
+       "explication": "to switch to sth = passer à qqch (syn. to change to ; ant. to stick with) — Unit 15: Energy conservation."
+      },
+      {
+       "id": "question:engl:c9:002",
+       "q": "« to type in » signifie :",
+       "choix": [
+        "en rapport à l'écologie",
+        "saisir, entrer des données",
+        "faire défiler",
+        "générer, produire"
+       ],
+       "bonne": 1,
+       "explication": "to type in = saisir, entrer des données (syn. to key in, to input ; ant. to delete) — Unit 14: Personal technology."
+      },
+      {
+       "id": "question:engl:c9:003",
+       "q": "« setting » signifie :",
+       "choix": [
+        "mise à jour",
+        "composant",
+        "réglage",
+        "économique, qui permet une économie de…"
+       ],
+       "bonne": 2,
+       "explication": "setting = réglage — Unit 14: Personal technology."
+      },
+      {
+       "id": "question:engl:c9:004",
+       "q": "« to generate » signifie :",
+       "choix": [
+        "sèche-linge",
+        "générer, produire",
+        "économiser",
+        "stockage"
+       ],
+       "bonne": 1,
+       "explication": "to generate = générer, produire (syn. to produce) — Unit 15: Energy conservation."
+      },
+      {
+       "id": "question:engl:c9:005",
+       "q": "« toxic » signifie :",
+       "choix": [
+        "se débarrasser de qqch",
+        "économique, qui permet une économie de…",
+        "toxique",
+        "installer"
+       ],
+       "bonne": 2,
+       "explication": "toxic = toxique (syn. poisonous ; ant. safe) — Unit 15: Energy conservation."
+      },
+      {
+       "id": "question:engl:c9:006",
+       "q": "« to dispose of sth » signifie :",
+       "choix": [
+        "se débarrasser de qqch",
+        "faire défiler",
+        "saisir, entrer des données",
+        "interne"
+       ],
+       "bonne": 0,
+       "explication": "to dispose of sth = se débarrasser de qqch (syn. to get rid of, to discard ; ant. to hoard) — Unit 15: Energy conservation."
+      },
+      {
+       "id": "question:engl:c9:007",
+       "q": "« (to) backup » signifie :",
+       "choix": [
+        "en veille",
+        "économiser",
+        "sauvegarde(r)",
+        "chargeur"
+       ],
+       "bonne": 2,
+       "explication": "(to) backup = sauvegarde(r) — Unit 14: Personal technology."
+      },
+      {
+       "id": "question:engl:c9:008",
+       "q": "« charger » signifie :",
+       "choix": [
+        "économique, qui permet une économie de…",
+        "saisir, entrer des données",
+        "chargeur",
+        "appareil électroménager"
+       ],
+       "bonne": 2,
+       "explication": "charger = chargeur (to charge sth (up)) — Unit 15: Energy conservation."
+      },
+      {
+       "id": "question:engl:c9:009",
+       "q": "« eco-… » signifie :",
+       "choix": [
+        "toxique",
+        "générer, produire",
+        "en rapport à l'écologie",
+        "appareil électroménager"
+       ],
+       "bonne": 2,
+       "explication": "eco-… = en rapport à l'écologie (eco-disaster, eco-friendly) — Unit 15: Energy conservation."
+      },
+      {
+       "id": "question:engl:c9:010",
+       "q": "« to monitor » signifie :",
+       "choix": [
+        "interne",
+        "panneaux solaires",
+        "économique, qui permet une économie de…",
+        "surveiller"
+       ],
+       "bonne": 3,
+       "explication": "to monitor = surveiller (syn. to observe) — Unit 15: Energy conservation."
+      }
+     ],
+     "sources": [
+      {
+       "document": "ENGL1102-E - UE1 ENGLISH VOCABULARY - Semester 1 (1).pdf",
+       "pages": "Unit 14, Unit 15"
+      }
+     ]
+    },
+    {
+     "id": "c10",
+     "titre": "Vocabulaire — Section 6 — Work",
+     "duree": 26,
+     "resume": "## Vocabulary — Section 6 — Work\n\nListe de vocabulaire du syllabus *UE1 English Vocabulary – Semester 1* (d'après Gairns & Redman, *Oxford Word Skills Upper-Intermediate*). ==Le vocabulaire est matière d'examen (test écrit de la semaine 13).==\n\n### Unit 16: Jobs\n\n| Word | Traduction | Remarques |\n|---|---|---|\n| **executive** | cadre | syn. manager ; ant. subordinate |\n| **apprentice** | apprenti | syn. trainee ; apprenticeship |\n| **butcher** | boucher |  |\n| **bodyguard** | garde du corps |  |\n| **civil servant** | fonctionnaire | syn. government employee |\n| **jeweller** | bijoutier/ère |  |\n| **librarian** | bibliothécaire |  |\n| **self-employed** | indépendant(e) | syn. freelancer ; ant. employed |\n| **senior** | sénior(e) | ant. junior |\n| **vacant** | vacant(e) | ant. occupied ; vacancy |\n| **accountant** | comptable | syn. bookkeeper |\n| **status** | statut | syn. position |\n\n### Unit 17: Careers\n\n| Word | Traduction | Remarques |\n|---|---|---|\n| **sector** | secteur | syn. industry |\n| **qualifications** | qualifications | syn. skills |\n| **retail** | vente au détail | syn. sales |\n| **administration** | administration |  |\n| **manufacturing** | fabrication | syn. production |\n| **market research** | étude de marché |  |\n| **human resources** | ressources humaines |  |\n| **finance** | finance |  |\n| **recruitment** | recrutement | syn. hiring ; ant. dismissal |\n| **insurance** | assurance |  |\n| **redundant** | licencié(e) | to be made redundant |\n\n### Unit 18: Ways of working\n\n| Word | Traduction | Remarques |\n|---|---|---|\n| **freelance** | indépendant(e) | syn. self-employed |\n| **accountable** | responsable | syn. responsible, liable ; ant. irresponsible |\n| **insight into sth** | perception, compréhension de qqch | syn. understanding |\n| **guarantee** | garantie | syn. warranty |\n| **additional** | supplémentaire | syn. extra |\n| **to encounter** | rencontrer | syn. to meet |\n| **to get in the way** | constituer un obstacle | get – got – got ; syn. to hinder |\n| **to foster** | encourager | syn. to promote |\n| **team spirit** | esprit d'équipe |  |",
+     "pointsCles": [
+      "Unit 16: Jobs : 12 mots/expressions.",
+      "Unit 17: Careers : 11 mots/expressions.",
+      "Unit 18: Ways of working : 9 mots/expressions.",
+      "Retenir aussi les synonymes, antonymes, prononciations et formes irrégulières indiqués."
+     ],
+     "definitions": [],
+     "fiches": [
+      {
+       "id": "card:engl:c10:001",
+       "q": "Traduis en français : « executive »",
+       "r": "cadre (syn. manager ; ant. subordinate)"
+      },
+      {
+       "id": "card:engl:c10:002",
+       "q": "Traduis en français : « apprentice »",
+       "r": "apprenti (syn. trainee ; apprenticeship)"
+      },
+      {
+       "id": "card:engl:c10:003",
+       "q": "Traduis en français : « butcher »",
+       "r": "boucher"
+      },
+      {
+       "id": "card:engl:c10:004",
+       "q": "Traduis en français : « bodyguard »",
+       "r": "garde du corps"
+      },
+      {
+       "id": "card:engl:c10:005",
+       "q": "Traduis en français : « civil servant »",
+       "r": "fonctionnaire (syn. government employee)"
+      },
+      {
+       "id": "card:engl:c10:006",
+       "q": "Traduis en français : « jeweller »",
+       "r": "bijoutier/ère"
+      },
+      {
+       "id": "card:engl:c10:007",
+       "q": "Traduis en français : « librarian »",
+       "r": "bibliothécaire"
+      },
+      {
+       "id": "card:engl:c10:008",
+       "q": "Traduis en français : « self-employed »",
+       "r": "indépendant(e) (syn. freelancer ; ant. employed)"
+      },
+      {
+       "id": "card:engl:c10:009",
+       "q": "Traduis en français : « senior »",
+       "r": "sénior(e) (ant. junior)"
+      },
+      {
+       "id": "card:engl:c10:010",
+       "q": "Traduis en français : « vacant »",
+       "r": "vacant(e) (ant. occupied ; vacancy)"
+      },
+      {
+       "id": "card:engl:c10:011",
+       "q": "Traduis en français : « accountant »",
+       "r": "comptable (syn. bookkeeper)"
+      },
+      {
+       "id": "card:engl:c10:012",
+       "q": "Traduis en français : « status »",
+       "r": "statut (syn. position)"
+      },
+      {
+       "id": "card:engl:c10:013",
+       "q": "Traduis en français : « sector »",
+       "r": "secteur (syn. industry)"
+      },
+      {
+       "id": "card:engl:c10:014",
+       "q": "Traduis en français : « qualifications »",
+       "r": "qualifications (syn. skills)"
+      },
+      {
+       "id": "card:engl:c10:015",
+       "q": "Traduis en français : « retail »",
+       "r": "vente au détail (syn. sales)"
+      },
+      {
+       "id": "card:engl:c10:016",
+       "q": "Traduis en français : « administration »",
+       "r": "administration"
+      },
+      {
+       "id": "card:engl:c10:017",
+       "q": "Traduis en français : « manufacturing »",
+       "r": "fabrication (syn. production)"
+      },
+      {
+       "id": "card:engl:c10:018",
+       "q": "Traduis en français : « market research »",
+       "r": "étude de marché"
+      },
+      {
+       "id": "card:engl:c10:019",
+       "q": "Traduis en français : « human resources »",
+       "r": "ressources humaines"
+      },
+      {
+       "id": "card:engl:c10:020",
+       "q": "Traduis en français : « finance »",
+       "r": "finance"
+      },
+      {
+       "id": "card:engl:c10:021",
+       "q": "Traduis en français : « recruitment »",
+       "r": "recrutement (syn. hiring ; ant. dismissal)"
+      },
+      {
+       "id": "card:engl:c10:022",
+       "q": "Traduis en français : « insurance »",
+       "r": "assurance"
+      },
+      {
+       "id": "card:engl:c10:023",
+       "q": "Traduis en français : « redundant »",
+       "r": "licencié(e) (to be made redundant)"
+      },
+      {
+       "id": "card:engl:c10:024",
+       "q": "Traduis en français : « freelance »",
+       "r": "indépendant(e) (syn. self-employed)"
+      },
+      {
+       "id": "card:engl:c10:025",
+       "q": "Traduis en français : « accountable »",
+       "r": "responsable (syn. responsible, liable ; ant. irresponsible)"
+      },
+      {
+       "id": "card:engl:c10:026",
+       "q": "Traduis en français : « insight into sth »",
+       "r": "perception, compréhension de qqch (syn. understanding)"
+      },
+      {
+       "id": "card:engl:c10:027",
+       "q": "Traduis en français : « guarantee »",
+       "r": "garantie (syn. warranty)"
+      },
+      {
+       "id": "card:engl:c10:028",
+       "q": "Traduis en français : « additional »",
+       "r": "supplémentaire (syn. extra)"
+      },
+      {
+       "id": "card:engl:c10:029",
+       "q": "Traduis en français : « to encounter »",
+       "r": "rencontrer (syn. to meet)"
+      },
+      {
+       "id": "card:engl:c10:030",
+       "q": "Traduis en français : « to get in the way »",
+       "r": "constituer un obstacle (get – got – got ; syn. to hinder)"
+      },
+      {
+       "id": "card:engl:c10:031",
+       "q": "Traduis en français : « to foster »",
+       "r": "encourager (syn. to promote)"
+      },
+      {
+       "id": "card:engl:c10:032",
+       "q": "Traduis en français : « team spirit »",
+       "r": "esprit d'équipe"
+      },
+      {
+       "id": "card:engl:c10:033",
+       "q": "Comment dit-on en anglais : « cadre » ?",
+       "r": "executive (syn. manager ; ant. subordinate)"
+      },
+      {
+       "id": "card:engl:c10:034",
+       "q": "Comment dit-on en anglais : « garde du corps » ?",
+       "r": "bodyguard"
+      },
+      {
+       "id": "card:engl:c10:035",
+       "q": "Comment dit-on en anglais : « bibliothécaire » ?",
+       "r": "librarian"
+      },
+      {
+       "id": "card:engl:c10:036",
+       "q": "Comment dit-on en anglais : « vacant(e) » ?",
+       "r": "vacant (ant. occupied ; vacancy)"
+      },
+      {
+       "id": "card:engl:c10:037",
+       "q": "Comment dit-on en anglais : « secteur » ?",
+       "r": "sector (syn. industry)"
+      },
+      {
+       "id": "card:engl:c10:038",
+       "q": "Comment dit-on en anglais : « administration » ?",
+       "r": "administration"
+      },
+      {
+       "id": "card:engl:c10:039",
+       "q": "Comment dit-on en anglais : « ressources humaines » ?",
+       "r": "human resources"
+      },
+      {
+       "id": "card:engl:c10:040",
+       "q": "Comment dit-on en anglais : « assurance » ?",
+       "r": "insurance"
+      },
+      {
+       "id": "card:engl:c10:041",
+       "q": "Comment dit-on en anglais : « responsable » ?",
+       "r": "accountable (syn. responsible, liable ; ant. irresponsible)"
+      },
+      {
+       "id": "card:engl:c10:042",
+       "q": "Comment dit-on en anglais : « supplémentaire » ?",
+       "r": "additional (syn. extra)"
+      },
+      {
+       "id": "card:engl:c10:043",
+       "q": "Comment dit-on en anglais : « encourager » ?",
+       "r": "to foster (syn. to promote)"
+      }
+     ],
+     "quiz": [
+      {
+       "id": "question:engl:c10:001",
+       "q": "« to foster » signifie :",
+       "choix": [
+        "encourager",
+        "rencontrer",
+        "garantie",
+        "fabrication"
+       ],
+       "bonne": 0,
+       "explication": "to foster = encourager (syn. to promote) — Unit 18: Ways of working."
+      },
+      {
+       "id": "question:engl:c10:002",
+       "q": "« insurance » signifie :",
+       "choix": [
+        "boucher",
+        "ressources humaines",
+        "apprenti",
+        "assurance"
+       ],
+       "bonne": 3,
+       "explication": "insurance = assurance — Unit 17: Careers."
+      },
+      {
+       "id": "question:engl:c10:003",
+       "q": "« executive » signifie :",
+       "choix": [
+        "cadre",
+        "supplémentaire",
+        "boucher",
+        "vente au détail"
+       ],
+       "bonne": 0,
+       "explication": "executive = cadre (syn. manager ; ant. subordinate) — Unit 16: Jobs."
+      },
+      {
+       "id": "question:engl:c10:004",
+       "q": "« administration » signifie :",
+       "choix": [
+        "apprenti",
+        "administration",
+        "comptable",
+        "bibliothécaire"
+       ],
+       "bonne": 1,
+       "explication": "administration = administration — Unit 17: Careers."
+      },
+      {
+       "id": "question:engl:c10:005",
+       "q": "« accountable » signifie :",
+       "choix": [
+        "perception, compréhension de qqch",
+        "constituer un obstacle",
+        "statut",
+        "responsable"
+       ],
+       "bonne": 3,
+       "explication": "accountable = responsable (syn. responsible, liable ; ant. irresponsible) — Unit 18: Ways of working."
+      },
+      {
+       "id": "question:engl:c10:006",
+       "q": "« manufacturing » signifie :",
+       "choix": [
+        "administration",
+        "garde du corps",
+        "fabrication",
+        "ressources humaines"
+       ],
+       "bonne": 2,
+       "explication": "manufacturing = fabrication (syn. production) — Unit 17: Careers."
+      },
+      {
+       "id": "question:engl:c10:007",
+       "q": "« bodyguard » signifie :",
+       "choix": [
+        "vacant(e)",
+        "garde du corps",
+        "cadre",
+        "bibliothécaire"
+       ],
+       "bonne": 1,
+       "explication": "bodyguard = garde du corps — Unit 16: Jobs."
+      },
+      {
+       "id": "question:engl:c10:008",
+       "q": "« vacant » signifie :",
+       "choix": [
+        "étude de marché",
+        "esprit d'équipe",
+        "ressources humaines",
+        "vacant(e)"
+       ],
+       "bonne": 3,
+       "explication": "vacant = vacant(e) (ant. occupied ; vacancy) — Unit 16: Jobs."
+      },
+      {
+       "id": "question:engl:c10:009",
+       "q": "« to get in the way » signifie :",
+       "choix": [
+        "constituer un obstacle",
+        "rencontrer",
+        "étude de marché",
+        "indépendant(e)"
+       ],
+       "bonne": 0,
+       "explication": "to get in the way = constituer un obstacle (get – got – got ; syn. to hinder) — Unit 18: Ways of working."
+      },
+      {
+       "id": "question:engl:c10:010",
+       "q": "« jeweller » signifie :",
+       "choix": [
+        "bijoutier/ère",
+        "administration",
+        "constituer un obstacle",
+        "assurance"
+       ],
+       "bonne": 0,
+       "explication": "jeweller = bijoutier/ère — Unit 16: Jobs."
+      }
+     ],
+     "sources": [
+      {
+       "document": "ENGL1102-E - UE1 ENGLISH VOCABULARY - Semester 1 (1).pdf",
+       "pages": "Unit 16, Unit 17, Unit 18"
+      }
+     ]
+    }
+   ],
+   "quadrimestre": "Q1 et Q2"
+  }
+ ]
+}

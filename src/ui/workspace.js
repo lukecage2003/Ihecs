@@ -1,7 +1,10 @@
 // Activation des espaces : démonstration (fixtures, localStorage) ou espace réel (dossier Drive).
 // D3 : les deux ne partagent ni contenu ni progression.
 
+import COURS from "../content/cours-integres.js";
 import { WORKSPACES, realWorkspace } from "../content/workspaces.js";
+import { mergePacks, planImport } from "../data/v2/course-pack.js";
+import { ICON_NAMES } from "../core/icons.js";
 import { contentFromStructure, newStructure, reviewEntry, validateStructure } from "../data/v2/workspace.js";
 import { loadState, saveState } from "../state/store.js";
 import { deletePref, deviceId, getPref, setPref } from "../storage/prefs.js";
@@ -56,18 +59,18 @@ export async function activateReal(root, onStep) {
   Object.assign(sync, { state: "saved", at: new Date(), message: "" });
   applyTheme(app.state.theme);
   await setPref("realRoot", root);
-  await setPref("activeWorkspace", "real");
+  await setPref("startWith", "real");
 }
 
 export async function switchToDemo() {
-  await setPref("activeWorkspace", "demo");
+  await setPref("startWith", "demo");
   activateDemo();
 }
 
 /** Oublie le dossier sur cet ordinateur. Aucun fichier n'est supprimé dans Drive. */
 export async function forgetFolder() {
   await deletePref("realRoot");
-  await setPref("activeWorkspace", "demo");
+  await setPref("startWith", hasBuiltin() ? "local" : "demo");
   activateDemo();
 }
 
@@ -75,8 +78,9 @@ export async function storedRoot() {
   return getPref("realRoot");
 }
 
+/** Espace à ouvrir au démarrage : "demo", "real", "local" ou non défini (= tes cours). */
 export async function activeWorkspacePref() {
-  return getPref("activeWorkspace");
+  return getPref("startWith");
 }
 
 /* ---------------- Copie de lecture (téléphone) ----------------
@@ -102,7 +106,7 @@ export function parseCopy(text) {
 /** Enregistre une copie (dans ce navigateur) et l'ouvre. */
 export async function saveCopy(structure, fileName) {
   await setPref(COPY_PREF, { structure, fileName: String(fileName || "structure.json").slice(0, 120), importedAt: new Date().toISOString() });
-  await setPref("activeWorkspace", "copy");
+  await setPref("startWith", "local");
   return activateCopy();
 }
 
@@ -115,12 +119,38 @@ export async function hasLocal() { const c = await getPref(COPY_PREF); return !!
  * Crée (si besoin) l'espace « dans ce navigateur » et l'ouvre : aucun dossier, aucun cloud.
  * Les cours importés y restent ; le site les affiche directement à chaque ouverture.
  */
+// Tests automatisés : sans cours intégrés, pour garder les parcours de démonstration.
+const builtin = () => (typeof window !== "undefined" && window.__IHECS_TEST_NO_BUILTIN__ ? [] : COURS);
+export const hasBuiltin = () => builtin().length > 0;
+const builtinVersion = () => builtin().map((f) => f.name + "@" + f.pack.createdAt).join("|");
+
+/**
+ * Ajoute ou met à jour les cours intégrés au site dans l'espace du navigateur.
+ * Seules les matières dont le contenu a changé sont remplacées ; tes modifications
+ * (dates, crédits, consignes) sont conservées ; une matière que tu as importée
+ * toi-même n'est jamais supprimée.
+ */
+async function syncBuiltin() {
+  const files = builtin();
+  if (!files.length) return;
+  const c = await getPref(COPY_PREF);
+  if (c.builtinVersion === builtinVersion()) return;
+  const merged = mergePacks(files);
+  const first = planImport(c.structure, merged.pack, { now: new Date(), sourceOf: merged.sourceOf, iconNames: ICON_NAMES });
+  if (!first.ok) throw new Error("Cours intégrés invalides : " + first.errors.join(" "));
+  const plan = first.changed.length ? planImport(c.structure, merged.pack, { replace: first.changed.map((s) => s.id), now: new Date(), sourceOf: merged.sourceOf, iconNames: ICON_NAMES }) : first;
+  const res = await saveLocal(plan.nextStructure, c.rev || 0);
+  if (!res.ok) throw new Error(res.error);
+  await setPref(COPY_PREF, Object.assign({}, await getPref(COPY_PREF), { builtinVersion: builtinVersion() }));
+}
+
 export async function openLocal() {
   if (!(await hasLocal())) {
     const now = new Date();
     await setPref(COPY_PREF, { structure: newStructure({ workspaceId: crypto.randomUUID(), now }), source: "local", fileName: "", importedAt: now.toISOString(), rev: 0 });
   }
-  await setPref("activeWorkspace", "copy");
+  await syncBuiltin();
+  await setPref("startWith", "local");
   // Demande au navigateur de ne pas effacer ces données pour faire de la place.
   try { if (navigator.storage && navigator.storage.persist) await navigator.storage.persist(); } catch (e) { /* facultatif */ }
   return activateCopy();

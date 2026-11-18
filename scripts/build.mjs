@@ -10,7 +10,7 @@
 //         npm run build -- --check  (échoue si le fichier versionné n'est pas à jour)
 
 import { createHash } from "node:crypto";
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { readFileSync, readdirSync, writeFileSync, existsSync } from "node:fs";
 import { dirname, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -87,6 +87,15 @@ function inlineCss() {
   return css;
 }
 
+// Cours intégrés au site (dossier cours/) : publiés avec le site, ouverts directement.
+const COURS_DIR = resolve(ROOT, "cours");
+const COURS_OUT = resolve(ROOT, "src/content/cours-integres.js");
+export function coursModule() {
+  const files = existsSync(COURS_DIR) ? readdirSync(COURS_DIR).filter((f) => f.endsWith(".json")).sort() : [];
+  const packs = files.map((f) => ({ name: f, pack: JSON.parse(readFileSync(resolve(COURS_DIR, f), "utf8")) }));
+  return "// Généré par scripts/build.mjs à partir de cours/*.json. Ne pas modifier à la main.\nconst COURS = " + JSON.stringify(packs) + ";\nexport default COURS;\n";
+}
+
 export function buildHtml() {
   const js = bundle().replace(/<\/(script)/gi, "<\\/$1");
   const hash = createHash("sha256").update(js, "utf8").digest("base64");
@@ -100,6 +109,10 @@ export function buildHtml() {
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  const cours = coursModule();
+  if (process.argv.includes("--check")) {
+    if (!existsSync(COURS_OUT) || readFileSync(COURS_OUT, "utf8") !== cours) { console.error("src/content/cours-integres.js n'est pas à jour : lance « npm run build »."); process.exit(1); }
+  } else writeFileSync(COURS_OUT, cours);
   const html = buildHtml();
   if (process.argv.includes("--check")) {
     const current = existsSync(OUT) ? readFileSync(OUT, "utf8") : "";
