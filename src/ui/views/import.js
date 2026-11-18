@@ -12,6 +12,9 @@ import { $, $$, toast } from "../dom.js";
 const head = '<header class="page-head"><div><div class="eyebrow">Mon espace académique</div><h1 class="h-large">Importer mes cours</h1><p class="lead">Choisis un ou plusieurs fichiers de cours (.json) préparés avec Claude. Tu verras un aperçu avant que quoi que ce soit soit ajouté à ton espace.</p></div></header>';
 
 export function importView() {
+  if (!app.real && app.workspace.kind === "copy") {
+    return { html: head + '<div class="card empty"><div class="icon-tile">' + ic("folder") + '</div><h2 class="h-card">Import sur ordinateur</h2><p>Sur cet appareil, tes cours sont une copie en lecture. Importe les nouveaux fichiers de cours sur ordinateur (Chrome ou Edge), puis mets la copie à jour en rouvrant <code>structure.json</code>.</p><a class="btn" href="#parametres">Mettre à jour la copie</a></div>' };
+  }
   if (!app.real) {
     return { html: head + '<div class="card empty"><div class="icon-tile">' + ic("folder") + '</div><h2 class="h-card">Ton espace réel n\'est pas ouvert</h2><p>L\'import ajoute des cours à ton espace académique enregistré dans Google Drive, jamais à la démonstration.</p><a class="btn" href="#parametres">Ouvrir mon espace dans les Réglages</a></div>' };
   }

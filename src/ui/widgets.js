@@ -21,7 +21,9 @@ export const tile = (m, lg) => '<div class="icon-tile' + (lg ? " lg" : "") + '" 
 
 export const dot = (m, icon, size = 13, extraStyle = "") => '<span class="nav-dot" style="background:' + safeColor(m.couleur) + (extraStyle ? ";" + extraStyle : "") + '">' + ic(icon || m.icone, size) + "</span>";
 
-export const banner = () => app.workspace && app.workspace.kind === "demo"
+export const banner = () => app.workspace && app.workspace.kind === "copy"
+  ? '<div class="banner">' + ic("info", 18) + "<div><b>Copie de tes cours</b> du " + new Date(app.workspace.importedAt).toLocaleDateString("fr-BE", { day: "numeric", month: "long" }) + ". Ta progression est gardée sur cet appareil. Pour récupérer les nouveautés, rouvre <code>structure.json</code> dans les <a href=\"#parametres\">Réglages</a>.</div></div>"
+  : app.workspace && app.workspace.kind === "demo"
   ? '<div class="banner">' + ic("info", 18) + "<div><b>Mode démonstration.</b> Ces matières, examens et résumés sont fictifs. Ils servent à découvrir et tester l'application et ne feront jamais partie de ton véritable espace académique.</div></div>"
   : "";
 

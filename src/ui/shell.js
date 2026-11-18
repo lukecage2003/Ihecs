@@ -15,7 +15,7 @@ export function renderShell(route) {
   const due = dueCards(D, app.state.cartes, app.today()).length;
   const cur = (href) => (route.nav === href ? ' class="active" aria-current="page"' : "");
   const a = (href, label, icon, badge) => '<a href="' + href + '"' + cur(href) + '><span class="nav-ico">' + ic(icon, 18) + '</span><span class="t">' + label + "</span>" + (badge ? '<span class="badge">' + badge + "</span>" : "") + "</a>";
-  const demo = app.workspace && app.workspace.kind === "demo" ? '<span class="pill pill-warn" title="Cours fictifs">Démo</span>' : '<span class="pill pill-good" title="Ton espace académique">Mon espace</span>';
+  const demo = app.workspace && app.workspace.kind === "demo" ? '<span class="pill pill-warn" title="Cours fictifs">Démo</span>' : app.workspace && app.workspace.kind === "copy" ? '<span class="pill pill-info" title="Copie de tes cours sur cet appareil">Copie</span>' : '<span class="pill pill-good" title="Ton espace académique">Mon espace</span>';
   const syncLine = app.real ? (sync.state === "error" ? '<a href="#parametres" style="color:var(--bad)">Échec de l\'enregistrement</a>' : sync.state === "saving" ? "Enregistrement dans Drive…" : "Enregistré dans Drive" + (sync.at ? " à " + sync.at.toLocaleTimeString("fr-BE", { hour: "2-digit", minute: "2-digit" }) : "")) : "";
   $("#sidebar").innerHTML =
     '<div class="brand"><div class="brand-mark">' + ic("book", 18) + '</div><div><div class="brand-name">Révisions ' + demo + '</div><div class="brand-sub">' + esc(D.ecole || "") + " · " + esc((D.annee || "").split("—")[0].trim()) + "</div></div></div>" +

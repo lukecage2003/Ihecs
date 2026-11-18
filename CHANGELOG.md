@@ -1,5 +1,14 @@
 # Journal des modifications
 
+## 0.8.0 — Sur téléphone
+
+### Ajouté
+- Sur téléphone (ou navigateur sans accès aux dossiers) : **Ouvrir mes cours (structure.json)** dans les Réglages. Le fichier se choisit depuis Google Drive dans le sélecteur de fichiers.
+- Espace « Copie » : cours en lecture seule, progression gardée sur l'appareil sous une clé propre (jamais mélangée à la démonstration, D3), bandeau avec la date de la copie, bouton « Mettre à jour la copie ».
+- Un fichier de cours ou un JSON invalide est refusé sans rien changer.
+- La sauvegarde de progression passe entre la copie et l'espace réel (mêmes cours), jamais vers ou depuis la démonstration.
+- Tests : 3 parcours (× 2 appareils).
+
 ## 0.7.0 — Modifier dans le site
 
 ### Ajouté

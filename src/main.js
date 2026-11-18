@@ -8,7 +8,7 @@ import { closeSearch, isSearchOpen, openSearch } from "./ui/components/spotlight
 import { $, $$ } from "./ui/dom.js";
 import { renderShell } from "./ui/shell.js";
 import { ic } from "./core/icons.js";
-import { activateDemo, activateReal, activeWorkspacePref, storedRoot, switchToDemo } from "./ui/workspace.js";
+import { activateCopy, activateDemo, activateReal, activeWorkspacePref, storedRoot, switchToDemo } from "./ui/workspace.js";
 import { chapterView, mockExamView } from "./ui/views/chapter.js";
 import { homeView } from "./ui/views/home.js";
 import { settingsView } from "./ui/views/settings.js";
@@ -95,7 +95,9 @@ function bindCommon() {
 /** Choisit l'espace au démarrage : l'espace réel s'il était ouvert la dernière fois, sinon la démonstration. */
 async function startWorkspace() {
   activateDemo();
-  if ((await activeWorkspacePref()) !== "real") return;
+  const pref = await activeWorkspacePref();
+  if (pref === "copy") { await activateCopy(); return; }
+  if (pref !== "real") return;
   const root = await storedRoot();
   if (!root) return;
   const p = await permission(root);

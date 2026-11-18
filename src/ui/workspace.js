@@ -2,7 +2,7 @@
 // D3 : les deux ne partagent ni contenu ni progression.
 
 import { WORKSPACES, realWorkspace } from "../content/workspaces.js";
-import { reviewEntry } from "../data/v2/workspace.js";
+import { contentFromStructure, reviewEntry, validateStructure } from "../data/v2/workspace.js";
 import { loadState, saveState } from "../state/store.js";
 import { deletePref, deviceId, getPref, setPref } from "../storage/prefs.js";
 import { appendReview, createSaver, openWorkspace } from "../storage/real-workspace.js";
@@ -77,4 +77,46 @@ export async function storedRoot() {
 
 export async function activeWorkspacePref() {
   return getPref("activeWorkspace");
+}
+
+/* ---------------- Copie de lecture (téléphone) ----------------
+ * Sur téléphone, le site ne peut pas écrire dans le dossier Drive. On y ouvre une
+ * COPIE de structure.json choisie dans l'app Fichiers / Google Drive : les cours sont
+ * lus tels quels (jamais modifiés), la progression est gardée dans ce navigateur sous
+ * une clé propre à l'espace (jamais celle de la démonstration, D3). */
+
+const COPY_PREF = "copyStructure";
+const copyKey = (wid) => "ihecs-copie-" + wid;
+const keyed = (storage, key) => storage && { getItem: () => storage.getItem(key), setItem: (_, v) => storage.setItem(key, v) };
+
+/** Vérifie le texte d'un structure.json. Renvoie { ok, structure } ou { ok: false, error }. */
+export function parseCopy(text) {
+  let data;
+  try { data = JSON.parse(String(text).replace(/^\uFEFF/, "")); } catch (e) { return { ok: false, error: "Ce fichier n'est pas du JSON lisible." }; }
+  if (data && data.kind === "course-pack") return { ok: false, error: "C'est un fichier de cours : sur téléphone, choisis plutôt structure.json dans ton dossier IHECS STUDY OS (ou importe ce fichier sur ordinateur)." };
+  const errors = validateStructure(data, null);
+  if (errors.length) return { ok: false, error: errors.join(" ") };
+  return { ok: true, structure: data };
+}
+
+/** Enregistre une copie (dans ce navigateur) et l'ouvre. */
+export async function saveCopy(structure, fileName) {
+  await setPref(COPY_PREF, { structure, fileName: String(fileName || "structure.json").slice(0, 120), importedAt: new Date().toISOString() });
+  await setPref("activeWorkspace", "copy");
+  return activateCopy();
+}
+
+export async function activateCopy() {
+  const c = await getPref(COPY_PREF);
+  if (!c || !c.structure) return false;
+  reset();
+  const wid = c.structure.workspaceId;
+  app.workspace = Object.freeze({ id: wid, kind: "copy", label: "Copie", importedAt: c.importedAt, fileName: c.fileName, description: "Copie de tes cours ouverte sur cet appareil." });
+  app.content = contentFromStructure(c.structure, { workspace: { name: "Mon espace" } });
+  app.storage = keyed(safeStorage(), copyKey(wid));
+  app.state = loadState(app.storage);
+  app.persist = (st) => saveState(app.storage, st);
+  Object.assign(sync, { state: "idle", at: null, message: "" });
+  applyTheme(app.state.theme);
+  return true;
 }

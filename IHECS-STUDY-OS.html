@@ -9,7 +9,7 @@
 <meta name="description" content="Tableau de bord de révision : résumés, fiches, quiz, examens et planning.">
 <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-h067cjrm0Y1CW73rxPK2gUQ9623bjFp3uCZi4ESWmrg='; style-src 'unsafe-inline'; font-src data:; img-src data: blob:; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-qT9fnCXTYFnUzhNZ8jOHqOp9t87vpPYaFAeQn1UE13I='; style-src 'unsafe-inline'; font-src data:; img-src data: blob:; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="referrer" content="no-referrer">
 <style>
 /* Révisions — interface inspirée d'Apple
@@ -1131,7 +1131,9 @@ const tile = (m, lg) => '<div class="icon-tile' + (lg ? " lg" : "") + '" style="
 
 const dot = (m, icon, size = 13, extraStyle = "") => '<span class="nav-dot" style="background:' + safeColor(m.couleur) + (extraStyle ? ";" + extraStyle : "") + '">' + ic(icon || m.icone, size) + "</span>";
 
-const banner = () => app.workspace && app.workspace.kind === "demo"
+const banner = () => app.workspace && app.workspace.kind === "copy"
+  ? '<div class="banner">' + ic("info", 18) + "<div><b>Copie de tes cours</b> du " + new Date(app.workspace.importedAt).toLocaleDateString("fr-BE", { day: "numeric", month: "long" }) + ". Ta progression est gardée sur cet appareil. Pour récupérer les nouveautés, rouvre <code>structure.json</code> dans les <a href=\"#parametres\">Réglages</a>.</div></div>"
+  : app.workspace && app.workspace.kind === "demo"
   ? '<div class="banner">' + ic("info", 18) + "<div><b>Mode démonstration.</b> Ces matières, examens et résumés sont fictifs. Ils servent à découvrir et tester l'application et ne feront jamais partie de ton véritable espace académique.</div></div>"
   : "";
 
@@ -2410,7 +2412,7 @@ return { applyTheme };
 // ---- src/ui/workspace.js
 const __m21 = (() => {
 const { WORKSPACES, realWorkspace } = __m15;
-const { reviewEntry } = __m17;
+const { contentFromStructure, reviewEntry, validateStructure } = __m17;
 const { loadState, saveState } = __m5;
 const { deletePref, deviceId, getPref, setPref } = __m18;
 const { appendReview, createSaver, openWorkspace } = __m19;
@@ -2498,7 +2500,49 @@ async function activeWorkspacePref() {
   return getPref("activeWorkspace");
 }
 
-return { sync, activateDemo, activateReal, switchToDemo, forgetFolder, storedRoot, activeWorkspacePref };
+/* ---------------- Copie de lecture (téléphone) ----------------
+ * Sur téléphone, le site ne peut pas écrire dans le dossier Drive. On y ouvre une
+ * COPIE de structure.json choisie dans l'app Fichiers / Google Drive : les cours sont
+ * lus tels quels (jamais modifiés), la progression est gardée dans ce navigateur sous
+ * une clé propre à l'espace (jamais celle de la démonstration, D3). */
+
+const COPY_PREF = "copyStructure";
+const copyKey = (wid) => "ihecs-copie-" + wid;
+const keyed = (storage, key) => storage && { getItem: () => storage.getItem(key), setItem: (_, v) => storage.setItem(key, v) };
+
+/** Vérifie le texte d'un structure.json. Renvoie { ok, structure } ou { ok: false, error }. */
+function parseCopy(text) {
+  let data;
+  try { data = JSON.parse(String(text).replace(/^\uFEFF/, "")); } catch (e) { return { ok: false, error: "Ce fichier n'est pas du JSON lisible." }; }
+  if (data && data.kind === "course-pack") return { ok: false, error: "C'est un fichier de cours : sur téléphone, choisis plutôt structure.json dans ton dossier IHECS STUDY OS (ou importe ce fichier sur ordinateur)." };
+  const errors = validateStructure(data, null);
+  if (errors.length) return { ok: false, error: errors.join(" ") };
+  return { ok: true, structure: data };
+}
+
+/** Enregistre une copie (dans ce navigateur) et l'ouvre. */
+async function saveCopy(structure, fileName) {
+  await setPref(COPY_PREF, { structure, fileName: String(fileName || "structure.json").slice(0, 120), importedAt: new Date().toISOString() });
+  await setPref("activeWorkspace", "copy");
+  return activateCopy();
+}
+
+async function activateCopy() {
+  const c = await getPref(COPY_PREF);
+  if (!c || !c.structure) return false;
+  reset();
+  const wid = c.structure.workspaceId;
+  app.workspace = Object.freeze({ id: wid, kind: "copy", label: "Copie", importedAt: c.importedAt, fileName: c.fileName, description: "Copie de tes cours ouverte sur cet appareil." });
+  app.content = contentFromStructure(c.structure, { workspace: { name: "Mon espace" } });
+  app.storage = keyed(safeStorage(), copyKey(wid));
+  app.state = loadState(app.storage);
+  app.persist = (st) => saveState(app.storage, st);
+  Object.assign(sync, { state: "idle", at: null, message: "" });
+  applyTheme(app.state.theme);
+  return true;
+}
+
+return { sync, activateDemo, activateReal, switchToDemo, forgetFolder, storedRoot, activeWorkspacePref, parseCopy, saveCopy, activateCopy };
 })();
 
 // ---- src/ui/shell.js
@@ -2529,7 +2573,7 @@ function renderShell(route) {
   const due = dueCards(D, app.state.cartes, app.today()).length;
   const cur = (href) => (route.nav === href ? ' class="active" aria-current="page"' : "");
   const a = (href, label, icon, badge) => '<a href="' + href + '"' + cur(href) + '><span class="nav-ico">' + ic(icon, 18) + '</span><span class="t">' + label + "</span>" + (badge ? '<span class="badge">' + badge + "</span>" : "") + "</a>";
-  const demo = app.workspace && app.workspace.kind === "demo" ? '<span class="pill pill-warn" title="Cours fictifs">Démo</span>' : '<span class="pill pill-good" title="Ton espace académique">Mon espace</span>';
+  const demo = app.workspace && app.workspace.kind === "demo" ? '<span class="pill pill-warn" title="Cours fictifs">Démo</span>' : app.workspace && app.workspace.kind === "copy" ? '<span class="pill pill-info" title="Copie de tes cours sur cet appareil">Copie</span>' : '<span class="pill pill-good" title="Ton espace académique">Mon espace</span>';
   const syncLine = app.real ? (sync.state === "error" ? '<a href="#parametres" style="color:var(--bad)">Échec de l\'enregistrement</a>' : sync.state === "saving" ? "Enregistrement dans Drive…" : "Enregistré dans Drive" + (sync.at ? " à " + sync.at.toLocaleTimeString("fr-BE", { hour: "2-digit", minute: "2-digit" }) : "")) : "";
   $("#sidebar").innerHTML =
     '<div class="brand"><div class="brand-mark">' + ic("book", 18) + '</div><div><div class="brand-name">Révisions ' + demo + '</div><div class="brand-sub">' + esc(D.ecole || "") + " · " + esc((D.annee || "").split("—")[0].trim()) + "</div></div></div>" +
@@ -3102,7 +3146,7 @@ const { applyTheme } = __m20;
 const { inspectFolder, createWorkspace } = __m19;
 const { permission } = __m2;
 const { deviceId } = __m18;
-const { activateReal, forgetFolder, storedRoot, switchToDemo, sync } = __m21;
+const { activateReal, forgetFolder, parseCopy, saveCopy, storedRoot, switchToDemo, sync } = __m21;
 // Réglages : prénom, thème, espace de travail, sauvegarde, restauration, réinitialisation.
 
 
@@ -3118,7 +3162,7 @@ const { activateReal, forgetFolder, storedRoot, switchToDemo, sync } = __m21;
 
 function settingsView() {
   const S = app.state, w = app.workspace;
-  const where = w.kind === "real" ? "Ta progression est enregistrée dans ton dossier Google Drive « " + esc(w.folderName) + " »." : "Mode démonstration : la progression est enregistrée dans ce navigateur.";
+  const where = w.kind === "real" ? "Ta progression est enregistrée dans ton dossier Google Drive « " + esc(w.folderName) + " »." : w.kind === "copy" ? "Copie de tes cours : la progression est enregistrée sur cet appareil." : "Mode démonstration : la progression est enregistrée dans ce navigateur.";
   const html = '<header class="page-head"><div><h1 class="h-large">Réglages</h1><p class="lead">' + where + "</p></div></header>" +
     '<div class="card" id="ws-card"><h2 class="h-card">Mon espace académique</h2><div id="ws-body"><p class="muted small">Chargement…</p></div></div>' +
     '<div class="card section"><div class="form-row"><div class="fl"><label for="set-name"><b>Prénom</b></label><span>Affiché sur le tableau de bord.</span></div><input class="input" id="set-name" type="text" autocomplete="given-name" maxlength="80" value="' + esc(S.prenom) + '" placeholder="Ton prénom"></div>' +
@@ -3154,10 +3198,7 @@ async function renderWorkspaceCard(message) {
   }
   const supported = typeof window.showDirectoryPicker === "function";
   const root = await storedRoot();
-  if (!supported) {
-    body.innerHTML = msg + '<p class="muted">Pour relier ton dossier Google Drive, ouvre ce fichier dans <b>Google Chrome</b> ou <b>Microsoft Edge</b> sur ordinateur.</p>';
-    return;
-  }
+  if (!supported || app.workspace.kind === "copy") { renderCopyCard(body, msg, supported); return; }
   body.innerHTML = msg + '<p class="muted" style="margin:6px 0 14px">Ton espace réel est enregistré dans un dossier synchronisé par <b>Google Drive pour ordinateur</b> (par exemple « Mon Drive/IHECS STUDY OS »). Il est séparé de la démonstration : les cours fictifs n\'y apparaissent jamais.</p>' +
     '<div class="confirm" id="ws-actions">' + (root ? '<button class="btn btn-sm" id="ws-open" type="button">Ouvrir mon espace (« ' + esc(root.name) + ' »)</button><button class="btn btn-plain btn-sm" id="ws-pick" type="button">Choisir un autre dossier</button>' : '<button class="btn btn-sm" id="ws-pick" type="button">Choisir mon dossier Drive</button>') + "</div>";
   const open = $("#ws-open");
@@ -3167,6 +3208,31 @@ async function renderWorkspaceCard(message) {
     await openAndRender(root);
   };
   $("#ws-pick").onclick = pickFolder;
+}
+
+/** Téléphone (ou navigateur sans accès aux dossiers) : ouvrir une copie de structure.json. */
+function renderCopyCard(body, msg, supported) {
+  const w = app.workspace, isCopy = w.kind === "copy";
+  body.innerHTML = msg + (isCopy
+    ? '<p class="muted" style="margin:6px 0 14px">Copie ouverte le ' + esc(fmtDate(w.importedAt)) + " (" + esc(w.fileName || "structure.json") + "). Les cours ne sont pas modifiés ici ; ta progression reste sur cet appareil.</p>"
+    : '<p class="muted" style="margin:6px 0 14px">Sur téléphone, ouvre une <b>copie</b> de tes cours : choisis le fichier <code>structure.json</code> de ton dossier « IHECS STUDY OS » (depuis Google Drive dans le sélecteur de fichiers). Ta progression sera gardée sur ce téléphone, séparée de la démonstration.</p>' + (supported ? "" : '<p class="small muted">Pour importer de nouveaux cours ou modifier les examens, utilise Google Chrome ou Microsoft Edge sur ordinateur.</p>')) +
+    '<div class="confirm" id="ws-actions"><label class="btn btn-sm" for="copy-file">' + (isCopy ? "Mettre à jour la copie" : "Ouvrir mes cours (structure.json)") + '</label><input id="copy-file" type="file" accept="application/json,.json" hidden>' +
+    (isCopy ? '<button class="btn btn-plain btn-sm" id="ws-demo" type="button">Passer en démonstration</button>' + (supported ? '<button class="btn btn-plain btn-sm" id="ws-pick" type="button">Relier mon dossier Drive</button>' : "") : "") + "</div>";
+  $("#copy-file").onchange = (e) => {
+    const f = e.target.files[0]; if (!f) return;
+    const rd = new FileReader();
+    rd.onerror = () => renderWorkspaceCard({ error: true, text: "Lecture du fichier impossible." });
+    rd.onload = async () => {
+      const r = parseCopy(String(rd.result));
+      if (!r.ok) { renderWorkspaceCard({ error: true, text: "Fichier refusé : " + r.error }); return; }
+      try { await saveCopy(r.structure, f.name); } catch (x) { renderWorkspaceCard({ error: true, text: "Enregistrement impossible sur cet appareil : " + x.message }); return; }
+      app.render();
+      renderWorkspaceCard({ text: r.structure.subjects.length + " matière(s) ouverte(s)." });
+    };
+    rd.readAsText(f);
+  };
+  const demo = $("#ws-demo"); if (demo) demo.onclick = async () => { await switchToDemo(); app.render(); };
+  const pick = $("#ws-pick"); if (pick) pick.onclick = pickFolder;
 }
 
 async function pickFolder() {
@@ -3226,7 +3292,8 @@ function bindSettings() {
     const raw = decodeBackup(txt);
     // D3 : une sauvegarde de la démonstration ne peut pas entrer dans l'espace réel, et inversement.
     const from = raw && typeof raw === "object" && raw._workspace ? raw._workspace : "demo";
-    if (from !== app.workspace.kind) { toast(from === "demo" ? "Sauvegarde refusée : elle vient de la démonstration et ne peut pas entrer dans ton espace réel." : "Sauvegarde refusée : elle vient de ton espace réel et ne peut pas entrer dans la démonstration."); return; }
+    const family = (k) => (k === "demo" ? "demo" : "real"); // la copie et l'espace réel partagent les mêmes cours
+    if (family(from) !== family(app.workspace.kind)) { toast(from === "demo" ? "Sauvegarde refusée : elle vient de la démonstration et ne peut pas entrer dans ton espace réel." : "Sauvegarde refusée : elle vient de ton espace réel et ne peut pas entrer dans la démonstration."); return; }
     const res = validateBackup(raw);
     if (!res.ok) { toast("Sauvegarde refusée : " + (res.error || "format invalide.")); return; }
     app.state = res.state; app.save(); applyTheme(app.state.theme); toast("Progression restaurée"); app.render();
@@ -3545,6 +3612,9 @@ const { $, $$, toast } = __m9;
 const head = '<header class="page-head"><div><div class="eyebrow">Mon espace académique</div><h1 class="h-large">Importer mes cours</h1><p class="lead">Choisis un ou plusieurs fichiers de cours (.json) préparés avec Claude. Tu verras un aperçu avant que quoi que ce soit soit ajouté à ton espace.</p></div></header>';
 
 function importView() {
+  if (!app.real && app.workspace.kind === "copy") {
+    return { html: head + '<div class="card empty"><div class="icon-tile">' + ic("folder") + '</div><h2 class="h-card">Import sur ordinateur</h2><p>Sur cet appareil, tes cours sont une copie en lecture. Importe les nouveaux fichiers de cours sur ordinateur (Chrome ou Edge), puis mets la copie à jour en rouvrant <code>structure.json</code>.</p><a class="btn" href="#parametres">Mettre à jour la copie</a></div>' };
+  }
   if (!app.real) {
     return { html: head + '<div class="card empty"><div class="icon-tile">' + ic("folder") + '</div><h2 class="h-card">Ton espace réel n\'est pas ouvert</h2><p>L\'import ajoute des cours à ton espace académique enregistré dans Google Drive, jamais à la démonstration.</p><a class="btn" href="#parametres">Ouvrir mon espace dans les Réglages</a></div>' };
   }
@@ -3802,7 +3872,7 @@ function subjectView(m) {
 function bindDocuments(m) {
   $$("[data-doc]").forEach((b) => (b.onclick = async () => {
     const f = m.fichiers[+b.dataset.doc];
-    if (!app.real) return;
+    if (!app.real) { toast("Ouvre ce document depuis Google Drive : " + f.chemin); return; }
     const file = await fileAt(app.real.root, f.chemin);
     if (!file) { toast("Fichier introuvable dans ton dossier : " + f.chemin); return; }
     const url = URL.createObjectURL(file);
@@ -3871,7 +3941,7 @@ const { closeSearch, isSearchOpen, openSearch } = __m11;
 const { $, $$ } = __m9;
 const { renderShell } = __m22;
 const { ic } = __m7;
-const { activateDemo, activateReal, activeWorkspacePref, storedRoot, switchToDemo } = __m21;
+const { activateCopy, activateDemo, activateReal, activeWorkspacePref, storedRoot, switchToDemo } = __m21;
 const { chapterView, mockExamView } = __m26;
 const { homeView } = __m29;
 const { settingsView } = __m30;
@@ -3975,7 +4045,9 @@ function bindCommon() {
 /** Choisit l'espace au démarrage : l'espace réel s'il était ouvert la dernière fois, sinon la démonstration. */
 async function startWorkspace() {
   activateDemo();
-  if ((await activeWorkspacePref()) !== "real") return;
+  const pref = await activeWorkspacePref();
+  if (pref === "copy") { await activateCopy(); return; }
+  if (pref !== "real") return;
   const root = await storedRoot();
   if (!root) return;
   const p = await permission(root);

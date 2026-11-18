@@ -56,7 +56,7 @@ export function subjectView(m) {
 function bindDocuments(m) {
   $$("[data-doc]").forEach((b) => (b.onclick = async () => {
     const f = m.fichiers[+b.dataset.doc];
-    if (!app.real) return;
+    if (!app.real) { toast("Ouvre ce document depuis Google Drive : " + f.chemin); return; }
     const file = await fileAt(app.real.root, f.chemin);
     if (!file) { toast("Fichier introuvable dans ton dossier : " + f.chemin); return; }
     const url = URL.createObjectURL(file);
