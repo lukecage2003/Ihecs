@@ -275,3 +275,12 @@ test("dossier Drive qui ne répond plus : le site s'ouvre quand même, étape af
   await expect(page.locator("body")).toHaveAttribute("data-ready", "1");
   await expect(page.locator("#view")).toContainText("Mode démonstration");
 });
+
+test("écran d'ouverture : « sans dossier » mène à l'import dans ce navigateur", async ({ page }) => {
+  await createSpace(page);
+  await page.reload();
+  await ready(page);
+  await page.getByRole("button", { name: "Sans dossier : mes cours dans ce navigateur" }).click();
+  await expect(page.getByRole("heading", { name: "Importer mes cours" })).toBeVisible();
+  await expect(page.locator("#pack-file")).toBeAttached();
+});

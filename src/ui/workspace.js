@@ -2,7 +2,7 @@
 // D3 : les deux ne partagent ni contenu ni progression.
 
 import { WORKSPACES, realWorkspace } from "../content/workspaces.js";
-import { contentFromStructure, reviewEntry, validateStructure } from "../data/v2/workspace.js";
+import { contentFromStructure, newStructure, reviewEntry, validateStructure } from "../data/v2/workspace.js";
 import { loadState, saveState } from "../state/store.js";
 import { deletePref, deviceId, getPref, setPref } from "../storage/prefs.js";
 import { appendReview, createSaver, openWorkspace } from "../storage/real-workspace.js";
@@ -106,13 +106,57 @@ export async function saveCopy(structure, fileName) {
   return activateCopy();
 }
 
+export const LOCAL_MANIFEST = Object.freeze({ workspace: { name: "Mon espace" } });
+
+/** Vrai si des cours sont déjà enregistrés dans ce navigateur. */
+export async function hasLocal() { const c = await getPref(COPY_PREF); return !!(c && c.structure); }
+
+/**
+ * Crée (si besoin) l'espace « dans ce navigateur » et l'ouvre : aucun dossier, aucun cloud.
+ * Les cours importés y restent ; le site les affiche directement à chaque ouverture.
+ */
+export async function openLocal() {
+  if (!(await hasLocal())) {
+    const now = new Date();
+    await setPref(COPY_PREF, { structure: newStructure({ workspaceId: crypto.randomUUID(), now }), source: "local", fileName: "", importedAt: now.toISOString(), rev: 0 });
+  }
+  await setPref("activeWorkspace", "copy");
+  // Demande au navigateur de ne pas effacer ces données pour faire de la place.
+  try { if (navigator.storage && navigator.storage.persist) await navigator.storage.persist(); } catch (e) { /* facultatif */ }
+  return activateCopy();
+}
+
+/** Lit la structure enregistrée dans ce navigateur, avec son numéro de version. */
+export async function readLocal() {
+  const c = await getPref(COPY_PREF);
+  if (!c || !c.structure) throw new Error("Aucun cours n'est enregistré dans ce navigateur.");
+  return { data: c.structure, hash: c.rev || 0 };
+}
+
+/**
+ * Enregistre une nouvelle structure dans ce navigateur, seulement si elle n'a pas changé
+ * depuis la lecture (autre onglet). Les 5 versions précédentes sont gardées.
+ */
+export async function saveLocal(next, expectedRev) {
+  const c = await getPref(COPY_PREF);
+  if (!c || (c.rev || 0) !== expectedRev) return { ok: false, error: "Tes cours ont changé dans un autre onglet. Rien n'a été écrit : recharge la page et recommence." };
+  const backups = ((await getPref("copyBackups")) || []).concat([{ at: new Date().toISOString(), structure: c.structure }]).slice(-5);
+  await setPref("copyBackups", backups);
+  await setPref(COPY_PREF, Object.assign({}, c, { structure: next, rev: (c.rev || 0) + 1, source: "local", updatedAt: new Date().toISOString() }));
+  app.content = contentFromStructure(next, LOCAL_MANIFEST);
+  app.workspace = Object.freeze(Object.assign({}, app.workspace, { source: "local", label: "Mon espace" }));
+  resetSearchIndex();
+  return { ok: true };
+}
+
 export async function activateCopy() {
   const c = await getPref(COPY_PREF);
   if (!c || !c.structure) return false;
   reset();
-  const wid = c.structure.workspaceId;
-  app.workspace = Object.freeze({ id: wid, kind: "copy", label: "Copie", importedAt: c.importedAt, fileName: c.fileName, description: "Copie de tes cours ouverte sur cet appareil." });
-  app.content = contentFromStructure(c.structure, { workspace: { name: "Mon espace" } });
+  const wid = c.structure.workspaceId, local = c.source === "local";
+  app.workspace = Object.freeze({ id: wid, kind: "copy", source: local ? "local" : "structure", label: local ? "Mon espace" : "Copie", importedAt: c.importedAt, fileName: c.fileName,
+    description: local ? "Tes cours, enregistrés dans ce navigateur." : "Copie de tes cours ouverte sur cet appareil." });
+  app.content = contentFromStructure(c.structure, LOCAL_MANIFEST);
   app.storage = keyed(safeStorage(), copyKey(wid));
   app.state = loadState(app.storage);
   app.persist = (st) => saveState(app.storage, st);

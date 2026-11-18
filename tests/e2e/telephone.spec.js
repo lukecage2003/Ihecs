@@ -52,9 +52,9 @@ test("ouvrir une copie : cours visibles, progression séparée de la démo, gard
   const keys = await page.evaluate(() => ({ demo: JSON.parse(localStorage.getItem("revisions-ihecs-v1")).prenom, copy: Object.keys(localStorage).filter((k) => k.startsWith("ihecs-copie-")) }));
   expect(keys.demo).toBe("Démo");
   expect(keys.copy).toEqual(["ihecs-copie-" + WID]);
-  // Pas d'import ni de modification sur la copie
+  // Copie de structure.json : pas de modification directe des examens
   await page.evaluate(() => { location.hash = "#importer"; });
-  await expect(page.locator("#view")).toContainText("Import sur ordinateur");
+  await expect(page.locator("#pack-file")).toBeAttached(); // import possible aussi ici
   await page.evaluate((id) => { location.hash = "#m-" + id; }, st.subjects[0].id);
   await expect(page.locator("#exam-card")).toBeVisible();
   await expect(page.getByRole("button", { name: "Modifier" })).toHaveCount(0);

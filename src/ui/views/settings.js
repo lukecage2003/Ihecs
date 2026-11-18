@@ -9,11 +9,11 @@ import { applyTheme } from "../theme.js";
 import { inspectFolder, createWorkspace } from "../../storage/real-workspace.js";
 import { permission } from "../../storage/folder.js";
 import { deviceId } from "../../storage/prefs.js";
-import { activateReal, forgetFolder, parseCopy, saveCopy, storedRoot, switchToDemo, sync } from "../workspace.js";
+import { activateReal, forgetFolder, openLocal, parseCopy, saveCopy, storedRoot, switchToDemo, sync } from "../workspace.js";
 
 export function settingsView() {
   const S = app.state, w = app.workspace;
-  const where = w.kind === "real" ? "Ta progression est enregistrée dans ton dossier Google Drive « " + esc(w.folderName) + " »." : w.kind === "copy" ? "Copie de tes cours : la progression est enregistrée sur cet appareil." : "Mode démonstration : la progression est enregistrée dans ce navigateur.";
+  const where = w.kind === "real" ? "Ta progression est enregistrée dans ton dossier Google Drive « " + esc(w.folderName) + " »." : w.kind === "copy" ? (w.source === "local" ? "Tes cours et ta progression sont enregistrés dans ce navigateur." : "Copie de tes cours : la progression est enregistrée sur cet appareil.") : "Mode démonstration : la progression est enregistrée dans ce navigateur.";
   const html = '<header class="page-head"><div><h1 class="h-large">Réglages</h1><p class="lead">' + where + "</p></div></header>" +
     '<div class="card" id="ws-card"><h2 class="h-card">Mon espace académique</h2><div id="ws-body"><p class="muted small">Chargement…</p></div></div>' +
     '<div class="card section"><div class="form-row"><div class="fl"><label for="set-name"><b>Prénom</b></label><span>Affiché sur le tableau de bord.</span></div><input class="input" id="set-name" type="text" autocomplete="given-name" maxlength="80" value="' + esc(S.prenom) + '" placeholder="Ton prénom"></div>' +
@@ -51,7 +51,7 @@ async function renderWorkspaceCard(message) {
   const root = await storedRoot();
   if (!supported || app.workspace.kind === "copy") { renderCopyCard(body, msg, supported); return; }
   body.innerHTML = msg + '<p class="muted" style="margin:6px 0 14px">Ton espace réel est enregistré dans un dossier synchronisé par <b>Google Drive pour ordinateur</b> (par exemple « Mon Drive/IHECS STUDY OS »). Il est séparé de la démonstration : les cours fictifs n\'y apparaissent jamais.</p>' +
-    '<div class="confirm" id="ws-actions">' + (root ? '<button class="btn btn-sm" id="ws-open" type="button">Ouvrir mon espace (« ' + esc(root.name) + ' »)</button><button class="btn btn-plain btn-sm" id="ws-pick" type="button">Choisir un autre dossier</button>' : '<button class="btn btn-sm" id="ws-pick" type="button">Choisir mon dossier Drive</button>') + "</div>";
+    '<div class="confirm" id="ws-actions">' + (root ? '<button class="btn btn-sm" id="ws-open" type="button">Ouvrir mon espace (« ' + esc(root.name) + ' »)</button><button class="btn btn-plain btn-sm" id="ws-pick" type="button">Choisir un autre dossier</button>' : '<button class="btn btn-sm" id="ws-pick" type="button">Choisir mon dossier Drive</button>') + '<button class="btn btn-plain btn-sm" id="ws-local" type="button">Sans dossier : mes cours dans ce navigateur</button></div>';
   const open = $("#ws-open");
   if (open) open.onclick = async () => {
     const p = await permission(root, true);
@@ -59,16 +59,33 @@ async function renderWorkspaceCard(message) {
     await openAndRender(root);
   };
   $("#ws-pick").onclick = pickFolder;
+  bindLocal();
+}
+
+function bindLocal() {
+  const b = $("#ws-local");
+  if (!b) return;
+  b.onclick = async () => {
+    try { await openLocal(); } catch (e) { renderWorkspaceCard({ error: true, text: "Impossible d'utiliser le stockage de ce navigateur : " + e.message }); return; }
+    location.hash = app.M.length ? "#accueil" : "#importer";
+  };
 }
 
 /** Téléphone (ou navigateur sans accès aux dossiers) : ouvrir une copie de structure.json. */
 function renderCopyCard(body, msg, supported) {
   const w = app.workspace, isCopy = w.kind === "copy";
+  if (isCopy && w.source === "local") {
+    body.innerHTML = msg + '<p class="muted" style="margin:6px 0 14px">Tes cours sont enregistrés <b>dans ce navigateur</b> : le site les affiche directement, sans dossier ni Drive. Ta progression aussi reste ici ; pense à « Sauvegarder ma progression » de temps en temps.</p>' +
+      '<div class="confirm" id="ws-actions"><a class="btn btn-sm" href="#importer">Importer mes cours</a><button class="btn btn-plain btn-sm" id="ws-demo" type="button">Passer en démonstration</button>' + (supported ? '<button class="btn btn-plain btn-sm" id="ws-pick" type="button">Utiliser plutôt un dossier Drive</button>' : "") + "</div>";
+    $("#ws-demo").onclick = async () => { await switchToDemo(); app.render(); };
+    const pick = $("#ws-pick"); if (pick) pick.onclick = pickFolder;
+    return;
+  }
   body.innerHTML = msg + (isCopy
     ? '<p class="muted" style="margin:6px 0 14px">Copie ouverte le ' + esc(fmtDate(w.importedAt)) + " (" + esc(w.fileName || "structure.json") + "). Les cours ne sont pas modifiés ici ; ta progression reste sur cet appareil.</p>"
     : '<p class="muted" style="margin:6px 0 14px">Sur téléphone, ouvre une <b>copie</b> de tes cours : choisis le fichier <code>structure.json</code> de ton dossier « IHECS STUDY OS » (depuis Google Drive dans le sélecteur de fichiers). Ta progression sera gardée sur ce téléphone, séparée de la démonstration.</p>' + (supported ? "" : '<p class="small muted">Pour importer de nouveaux cours ou modifier les examens, utilise Google Chrome ou Microsoft Edge sur ordinateur.</p>')) +
     '<div class="confirm" id="ws-actions"><label class="btn btn-sm" for="copy-file">' + (isCopy ? "Mettre à jour la copie" : "Ouvrir mes cours (structure.json)") + '</label><input id="copy-file" type="file" accept="application/json,.json" hidden>' +
-    (isCopy ? '<button class="btn btn-plain btn-sm" id="ws-demo" type="button">Passer en démonstration</button>' + (supported ? '<button class="btn btn-plain btn-sm" id="ws-pick" type="button">Relier mon dossier Drive</button>' : "") : "") + "</div>";
+    (isCopy ? '<button class="btn btn-plain btn-sm" id="ws-demo" type="button">Passer en démonstration</button>' + (supported ? '<button class="btn btn-plain btn-sm" id="ws-pick" type="button">Relier mon dossier Drive</button>' : "") : '<button class="btn btn-plain btn-sm" id="ws-local" type="button">Importer mes fichiers de cours ici</button>') + "</div>";
   $("#copy-file").onchange = (e) => {
     const f = e.target.files[0]; if (!f) return;
     const rd = new FileReader();
@@ -84,6 +101,7 @@ function renderCopyCard(body, msg, supported) {
   };
   const demo = $("#ws-demo"); if (demo) demo.onclick = async () => { await switchToDemo(); app.render(); };
   const pick = $("#ws-pick"); if (pick) pick.onclick = pickFolder;
+  bindLocal();
 }
 
 async function pickFolder() {

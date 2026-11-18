@@ -9,6 +9,7 @@ import { $, $$, toast } from "../dom.js";
 import { editSubject } from "../../data/v2/course-pack.js";
 import { contentFromStructure } from "../../data/v2/workspace.js";
 import { readStructure, saveStructure } from "../../storage/real-workspace.js";
+import { LOCAL_MANIFEST, readLocal, saveLocal } from "../workspace.js";
 import { fileAt } from "../../storage/folder.js";
 import { banner, bar, ring, statusPill, tile } from "../widgets.js";
 
@@ -32,7 +33,8 @@ export function subjectView(m) {
     : '<div class="card empty"><div class="icon-tile">' + ic("folder") + '</div><h3 class="h-card">Pas encore de cours</h3><p>Aucun chapitre n\'est enregistré pour cette matière.</p></div>';
 
   const e = m.examen || {};
-  const editBtn = app.real ? '<button type="button" class="btn btn-plain btn-sm" id="exam-edit">' + ic("pen", 16) + "Modifier</button>" : "";
+  const editable = app.real || (app.workspace.kind === "copy" && app.workspace.source === "local");
+  const editBtn = editable ? '<button type="button" class="btn btn-plain btn-sm" id="exam-edit">' + ic("pen", 16) + "Modifier</button>" : "";
   const examCard = '<div class="card" id="exam-card"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><h2 class="h-card">Examen</h2>' + editBtn + "</div>" + (ex ? '<div style="display:flex;align-items:baseline;gap:10px;margin-top:10px"><span class="stat-val">' + (n < 0 ? "Passé" : "J-" + n) + '</span><span class="muted small">' + cap(fmtLong(ex)) + ", " + fmtTime(ex) + "</span></div>" : "") +
     '<dl class="kv"><dt>Type</dt><dd>' + esc(e.type || "À préciser") + "</dd><dt>Durée</dt><dd>" + esc(e.duree || "À préciser") + "</dd><dt>Pondération</dt><dd>" + esc(e.poids || "À préciser") + "</dd><dt>Lieu</dt><dd>" + esc(e.lieu || "À préciser") + "</dd></dl>" +
     ((e.consignes || []).length ? '<div class="eyebrow" style="margin:20px 0 10px">Consignes</div><ul class="bullets">' + e.consignes.map((x) => "<li>" + ic("check", 16) + "<span>" + esc(x) + "</span></li>").join("") + "</ul>" : "") + "</div>";
@@ -72,7 +74,7 @@ function bindDocuments(m) {
 // sont gardés lors des imports suivants (userEdits).
 function bindEdit(m) {
   const btn = $("#exam-edit");
-  if (!btn || !app.real) return;
+  if (!btn) return;
   btn.onclick = () => {
     const e = m.examen || {};
     const val = (v) => esc(v == null ? "" : String(v));
@@ -97,12 +99,12 @@ function bindEdit(m) {
       const patch = { credits: $("#ed-credits").value, quadrimestre: $("#ed-quadri").value,
         examen: { date: $("#ed-date").value, type: $("#ed-type").value, duree: $("#ed-duree").value, poids: $("#ed-poids").value, lieu: $("#ed-lieu").value, consignes: $("#ed-consignes").value } };
       try {
-        const cur = await readStructure(app.real.root, app.real.manifest.workspace.id);
+        const cur = app.real ? await readStructure(app.real.root, app.real.manifest.workspace.id) : await readLocal();
         const r = editSubject(cur.data, m.id, patch);
         if (r.errors.length) { err.textContent = r.errors.join(" "); save.disabled = false; return; }
-        const res = await saveStructure(app.real.root, { next: r.structure, expectedHash: cur.hash, now: new Date() });
+        const res = app.real ? await saveStructure(app.real.root, { next: r.structure, expectedHash: cur.hash, now: new Date() }) : await saveLocal(r.structure, cur.hash);
         if (!res.ok) { err.textContent = res.error; save.disabled = false; return; }
-        app.content = contentFromStructure(r.structure, app.real.manifest);
+        app.content = contentFromStructure(r.structure, app.real ? app.real.manifest : LOCAL_MANIFEST);
         app.refreshChrome();
         app.render();
         toast("Modifications enregistrées");

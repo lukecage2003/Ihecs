@@ -8,7 +8,7 @@ import { closeSearch, isSearchOpen, openSearch } from "./ui/components/spotlight
 import { $, $$ } from "./ui/dom.js";
 import { renderShell } from "./ui/shell.js";
 import { ic } from "./core/icons.js";
-import { activateCopy, activateDemo, activateReal, activeWorkspacePref, storedRoot, switchToDemo } from "./ui/workspace.js";
+import { activateCopy, activateDemo, activateReal, openLocal, activeWorkspacePref, storedRoot, switchToDemo } from "./ui/workspace.js";
 import { chapterView, mockExamView } from "./ui/views/chapter.js";
 import { homeView } from "./ui/views/home.js";
 import { settingsView } from "./ui/views/settings.js";
@@ -24,7 +24,7 @@ function notFoundView(id) {
 function accessView() {
   const name = app.gate.root.name;
   return {
-    html: '<div class="card empty" style="max-width:560px;margin:8vh auto 0"><div class="icon-tile" style="background:var(--accent-soft);color:var(--accent)">' + ic("folder") + '</div><h1 class="h-sec">Ouvrir ton espace académique</h1><p>Ton espace est dans le dossier « <b>' + esc(name) + "</b> ». Il n'est ouvert que quand tu le demandes.</p><div class=\"confirm\" style=\"justify-content:center\"><button class=\"btn\" id=\"gate-allow\" type=\"button\">Ouvrir mon espace</button><button class=\"btn btn-plain\" id=\"gate-demo\" type=\"button\">Continuer en démonstration</button></div><p class=\"small\" id=\"gate-msg\" style=\"margin-top:14px\" aria-live=\"polite\"></p></div>",
+    html: '<div class="card empty" style="max-width:560px;margin:8vh auto 0"><div class="icon-tile" style="background:var(--accent-soft);color:var(--accent)">' + ic("folder") + '</div><h1 class="h-sec">Ouvrir ton espace académique</h1><p>Ton espace est dans le dossier « <b>' + esc(name) + "</b> ». Il n'est ouvert que quand tu le demandes.</p><div class=\"confirm\" style=\"justify-content:center\"><button class=\"btn\" id=\"gate-allow\" type=\"button\">Ouvrir mon espace</button><button class=\"btn btn-plain\" id=\"gate-local\" type=\"button\">Sans dossier : mes cours dans ce navigateur</button><button class=\"btn btn-plain\" id=\"gate-demo\" type=\"button\">Continuer en démonstration</button></div><p class=\"small\" id=\"gate-msg\" style=\"margin-top:14px\" aria-live=\"polite\"></p></div>",
     bind: () => {
       const msg = $("#gate-msg"), allow = $("#gate-allow");
       let busy = false;
@@ -39,6 +39,11 @@ function accessView() {
         try { await activateReal(root, (t) => { step = t; }); }
         catch (e) { clearTimeout(slow); busy = false; allow.disabled = false; msg.textContent = "Impossible d'ouvrir l'espace : " + e.message; return; }
         clearTimeout(slow);
+        render();
+      };
+      $("#gate-local").onclick = async () => {
+        try { await openLocal(); } catch (e) { msg.textContent = "Impossible d'utiliser le stockage de ce navigateur : " + e.message; return; }
+        location.hash = app.M.length ? "#accueil" : "#importer";
         render();
       };
       // Rechargement : une ouverture en cours est abandonnée proprement.

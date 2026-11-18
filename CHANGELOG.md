@@ -1,5 +1,13 @@
 # Journal des modifications
 
+## 0.10.0 — Mes cours dans ce navigateur
+
+### Ajouté
+- **Sans dossier : mes cours dans ce navigateur** (Réglages et écran d'ouverture), et **Importer mes fichiers de cours ici** sur téléphone : les fichiers de cours sont importés une fois, puis le site les affiche directement à chaque ouverture, sans dossier ni Drive.
+- Import, mise à jour et bouton **Modifier** fonctionnent dans cet espace ; les 5 versions précédentes des cours sont gardées dans le navigateur ; le navigateur est prié de ne pas effacer ces données.
+- Progression séparée de la démonstration (D3).
+- Tests : 3 parcours (× 2 appareils).
+
 ## 0.9.2 — Le dossier Drive s'ouvre seulement quand tu le demandes
 
 ### Modifié

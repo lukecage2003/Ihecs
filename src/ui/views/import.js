@@ -6,21 +6,20 @@ import { LIMITS, mergePacks, planImport, validatePack } from "../../data/v2/cour
 import { contentFromStructure } from "../../data/v2/workspace.js";
 import { applyImport, readStructure } from "../../storage/real-workspace.js";
 import { app } from "../app.js";
+import { LOCAL_MANIFEST, readLocal, saveLocal } from "../workspace.js";
 import { resetSearchIndex } from "../components/spotlight.js";
 import { $, $$, toast } from "../dom.js";
 
 const head = '<header class="page-head"><div><div class="eyebrow">Mon espace académique</div><h1 class="h-large">Importer mes cours</h1><p class="lead">Choisis un ou plusieurs fichiers de cours (.json) préparés avec Claude. Tu verras un aperçu avant que quoi que ce soit soit ajouté à ton espace.</p></div></header>';
 
 export function importView() {
-  if (!app.real && app.workspace.kind === "copy") {
-    return { html: head + '<div class="card empty"><div class="icon-tile">' + ic("folder") + '</div><h2 class="h-card">Import sur ordinateur</h2><p>Sur cet appareil, tes cours sont une copie en lecture. Importe les nouveaux fichiers de cours sur ordinateur (Chrome ou Edge), puis mets la copie à jour en rouvrant <code>structure.json</code>.</p><a class="btn" href="#parametres">Mettre à jour la copie</a></div>' };
-  }
-  if (!app.real) {
+  const local = !app.real && app.workspace.kind === "copy";
+  if (!app.real && !local) {
     return { html: head + '<div class="card empty"><div class="icon-tile">' + ic("folder") + '</div><h2 class="h-card">Ton espace réel n\'est pas ouvert</h2><p>L\'import ajoute des cours à ton espace académique enregistré dans Google Drive, jamais à la démonstration.</p><a class="btn" href="#parametres">Ouvrir mon espace dans les Réglages</a></div>' };
   }
   const html = head +
     '<div class="card"><div class="form-row" style="border:0;padding-top:0"><div class="fl"><b>Fichiers de cours</b><span>Tu peux en sélectionner plusieurs d\'un coup (Ctrl ou Maj + clic). 20 Mo maximum par fichier.</span></div><label class="btn" for="pack-file">' + ic("folder", 16) + 'Choisir des fichiers…</label><input id="pack-file" type="file" accept="application/json,.json" multiple hidden></div>' +
-    '<ul class="bullets small" style="margin-top:6px"><li>' + ic("check", 16) + "<span>Une matière déjà présente n'est mise à jour que si le fichier en apporte une version différente, et tu peux décocher la mise à jour dans l'aperçu.</span></li><li>" + ic("check", 16) + "<span>Ce que tu as modifié toi-même dans le site (date d'examen, crédits, consignes) est conservé.</span></li><li>" + ic("check", 16) + "<span>Avant chaque import, une copie de ta structure actuelle est enregistrée dans <code>sauvegardes/</code>, et le fichier importé est archivé dans <code>imports/</code>.</span></li><li>" + ic("check", 16) + "<span>Ta progression suit les fiches grâce à leur identifiant, même si un cours est réimporté.</span></li></ul></div>" +
+    '<ul class="bullets small" style="margin-top:6px"><li>' + ic("check", 16) + "<span>Une matière déjà présente n'est mise à jour que si le fichier en apporte une version différente, et tu peux décocher la mise à jour dans l'aperçu.</span></li><li>" + ic("check", 16) + "<span>Ce que tu as modifié toi-même dans le site (date d'examen, crédits, consignes) est conservé.</span></li><li>" + ic("check", 16) + "<span>" + (local ? "Tes cours sont enregistrés dans ce navigateur : ils s'afficheront directement à chaque ouverture du site. Garde tes fichiers de cours dans Drive pour pouvoir les réimporter." : "Avant chaque import, une copie de ta structure actuelle est enregistrée dans <code>sauvegardes/</code>, et le fichier importé est archivé dans <code>imports/</code>.") + "</span></li><li>" + ic("check", 16) + "<span>Ta progression suit les fiches grâce à leur identifiant, même si un cours est réimporté.</span></li></ul></div>" +
     '<div id="imp-preview" class="section" aria-live="polite"></div>';
   return { html, bind: bindImport };
 }
@@ -35,7 +34,7 @@ function bindImport() {
   async function show() {
     let plan;
     try {
-      structure = await readStructure(app.real.root, app.real.manifest.workspace.id);
+      structure = app.real ? await readStructure(app.real.root, app.real.manifest.workspace.id) : await readLocal();
       plan = planImport(structure.data, pack, { replace: [...replace], now: new Date(), sourceName: fileName, sourceOf: merged.sourceOf, iconNames: ICON_NAMES });
       // Premier aperçu : les matières dont le fichier apporte une nouvelle version sont mises à jour par défaut.
       if (plan.ok && !defaulted) {
@@ -66,15 +65,15 @@ function bindImport() {
     $("#imp-go").onclick = async () => {
       $("#imp-go").disabled = true;
       let res;
-      try { res = await applyImport(app.real.root, { plan, expectedHash: structure.hash, files, now: new Date() }); }
+      try { res = app.real ? await applyImport(app.real.root, { plan, expectedHash: structure.hash, files, now: new Date() }) : await saveLocal(plan.nextStructure, structure.hash); }
       catch (e) { fail("L'import a échoué", [e.message]); return; }
       if (!res.ok) { fail("L'import n'a pas été fait", [res.error]); return; }
       $("#pack-file").value = ""; // permet de rechoisir le même fichier ensuite
-      app.content = contentFromStructure(plan.nextStructure, app.real.manifest);
+      app.content = contentFromStructure(plan.nextStructure, app.real ? app.real.manifest : LOCAL_MANIFEST);
       resetSearchIndex();
       app.refreshChrome();
       toast(plan.added.length + plan.replaced.length + " matière(s) importée(s)");
-      preview.innerHTML = '<div class="card"><h2 class="h-sec" style="color:var(--good)">Import terminé</h2><p class="muted">' + (res.archives.length > 1 ? "Fichiers archivés" : "Fichier archivé") + " : <code>" + esc(res.archived) + "</code> · Sauvegarde de la structure précédente : <code>" + esc(res.backup) + '</code></p><div class="confirm" style="margin-top:12px">' +
+      preview.innerHTML = '<div class="card"><h2 class="h-sec" style="color:var(--good)">Import terminé</h2><p class="muted">' + (app.real ? (res.archives.length > 1 ? "Fichiers archivés" : "Fichier archivé") + " : <code>" + esc(res.archived) + "</code> · Sauvegarde de la structure précédente : <code>" + esc(res.backup) + "</code>" : "Tes cours sont enregistrés dans ce navigateur : ils s'afficheront directement la prochaine fois.") + '</p><div class="confirm" style="margin-top:12px">' +
         [...plan.added, ...plan.replaced].map((s) => '<a class="btn btn-plain btn-sm" href="#m-' + esc(s.id) + '">' + esc(s.nom) + "</a>").join("") + "</div></div>";
     };
   }
