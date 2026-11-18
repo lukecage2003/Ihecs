@@ -212,3 +212,58 @@ export function planImport(structure, pack, opts) {
   const count = (list) => list.reduce((a, s) => ({ chapitres: a.chapitres + s.chapitres.length, fiches: a.fiches + s.chapitres.reduce((n, c) => n + (c.fiches || []).length, 0), questions: a.questions + s.chapitres.reduce((n, c) => n + (c.quiz || []).length, 0) }), { chapitres: 0, fiches: 0, questions: 0 });
   return { ok: true, added, replaced, skipped, changed, counts: count([...added, ...replaced]), nextStructure };
 }
+
+/* ---------------- Modification d'une matière dans le site ---------------- */
+
+const DATE_RE = /^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}(:\d{2})?)?$/;
+const same = (a, b) => canon(a === undefined ? null : a) === canon(b === undefined ? null : b);
+
+/**
+ * Applique une modification faite dans le site à une matière de structure.json.
+ * `patch` : { credits, quadrimestre, examen: { date, type, duree, poids, lieu, consignes } }.
+ * Seuls les champs réellement changés sont enregistrés dans userEdits (pour qu'un
+ * futur fichier de cours puisse encore mettre à jour les autres). Une valeur vide efface.
+ * Retourne { structure, errors } ; structure est null si erreur. Fonction pure.
+ */
+export function editSubject(structure, id, patch) {
+  const errors = [];
+  const subs = structure && Array.isArray(structure.subjects) ? structure.subjects : [];
+  const i = subs.findIndex((s) => isObj(s) && String(s.id).toLowerCase() === String(id).toLowerCase());
+  if (i < 0) return { structure: null, errors: ["Matière introuvable : " + id + "."] };
+  const cur = subs[i], curEx = isObj(cur.examen) ? cur.examen : {};
+  const txt = (v, max, label) => {
+    if (v == null) return null;
+    const t = String(v).trim();
+    if (t.length > max) errors.push(label + " : " + max + " caractères au maximum.");
+    return t || null;
+  };
+  const edits = isObj(cur.userEdits) ? JSON.parse(JSON.stringify(cur.userEdits)) : {};
+  const exEdits = isObj(edits.examen) ? edits.examen : {};
+  const p = isObj(patch) ? patch : {};
+  if ("credits" in p) {
+    let c = p.credits === "" || p.credits == null ? null : Number(p.credits);
+    if (c !== null && !(Number.isFinite(c) && c >= 0 && c <= 60)) { errors.push("Crédits : un nombre entre 0 et 60."); c = null; }
+    if (!same(c, cur.credits)) edits.credits = c;
+  }
+  if ("quadrimestre" in p) { const q = txt(p.quadrimestre, 40, "Quadrimestre"); if (!same(q || "", cur.quadrimestre || "")) edits.quadrimestre = q || ""; }
+  const pe = isObj(p.examen) ? p.examen : {};
+  for (const k of EDITABLE_EXAM_FIELDS) {
+    if (!(k in pe)) continue;
+    let v;
+    if (k === "consignes") {
+      const list = (Array.isArray(pe.consignes) ? pe.consignes : String(pe.consignes || "").split("\n")).map((x) => String(x).trim()).filter(Boolean);
+      if (list.length > 40) errors.push("Consignes : 40 au maximum.");
+      if (list.some((x) => x.length > 500)) errors.push("Consignes : 500 caractères au maximum par ligne.");
+      v = list.length ? list : null;
+    } else if (k === "date") {
+      v = txt(pe.date, 25, "Date");
+      if (v && !(DATE_RE.test(v) && !isNaN(new Date(v)))) { errors.push("Date d'examen invalide."); v = null; }
+    } else v = txt(pe[k], 200, k);
+    if (!same(v, curEx[k])) exEdits[k] = v;
+  }
+  if (errors.length) return { structure: null, errors };
+  if (Object.keys(exEdits).length) edits.examen = exEdits;
+  const next = applyUserEdits(Object.assign({}, cur), edits);
+  const subjects = subs.slice(); subjects[i] = next;
+  return { structure: Object.assign({}, structure, { subjects }), errors: [] };
+}

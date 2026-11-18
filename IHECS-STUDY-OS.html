@@ -9,7 +9,7 @@
 <meta name="description" content="Tableau de bord de révision : résumés, fiches, quiz, examens et planning.">
 <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-P3o8IrbXzZlVZYx4H0+2uCtEhw+TnT249KqFsTuARPE='; style-src 'unsafe-inline'; font-src data:; img-src data: blob:; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-h067cjrm0Y1CW73rxPK2gUQ9623bjFp3uCZi4ESWmrg='; style-src 'unsafe-inline'; font-src data:; img-src data: blob:; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="referrer" content="no-referrer">
 <style>
 /* Révisions — interface inspirée d'Apple
@@ -2377,7 +2377,20 @@ async function applyImport(root, { plan, expectedHash, packText, sourceName, fil
   return { ok: true, archived, archives: names, backup: "sauvegardes/" + backup };
 }
 
-return { inspectFolder, createWorkspace, openWorkspace, createSaver, appendReview, readStructure, applyImport };
+/**
+ * Enregistre une structure modifiée dans le site : copie de la version actuelle
+ * dans sauvegardes/, puis écriture SEULEMENT si structure.json n'a pas changé.
+ */
+async function saveStructure(root, { next, expectedHash, now }) {
+  const current = await readJson(root, STRUCTURE_FILE);
+  if (!current.exists || current.hash !== expectedHash) return { ok: false, error: "structure.json a changé entre-temps (synchronisation Drive ou autre fenêtre). Rien n'a été écrit : recharge la page et recommence." };
+  const backup = await writeNewFile(await subdir(root, ["sauvegardes"], true), "structure " + stamp(now) + ".json", current.text);
+  const res = await writeIfUnchanged(root, STRUCTURE_FILE, JSON.stringify(next, null, 2) + "\n", expectedHash);
+  if (!res.ok) return { ok: false, error: "structure.json a changé pendant l'enregistrement. Rien n'a été remplacé ; la sauvegarde « " + backup + " » est conservée." };
+  return { ok: true, backup: "sauvegardes/" + backup };
+}
+
+return { inspectFolder, createWorkspace, openWorkspace, createSaver, appendReview, readStructure, applyImport, saveStructure };
 })();
 
 // ---- src/ui/theme.js
@@ -3450,7 +3463,62 @@ function planImport(structure, pack, opts) {
   return { ok: true, added, replaced, skipped, changed, counts: count([...added, ...replaced]), nextStructure };
 }
 
-return { PACK_KIND, LIMITS, safeRelativePath, validatePack, EDITABLE_FIELDS, EDITABLE_EXAM_FIELDS, applyUserEdits, subjectChanged, mergePacks, planImport };
+/* ---------------- Modification d'une matière dans le site ---------------- */
+
+const DATE_RE = /^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}(:\d{2})?)?$/;
+const same = (a, b) => canon(a === undefined ? null : a) === canon(b === undefined ? null : b);
+
+/**
+ * Applique une modification faite dans le site à une matière de structure.json.
+ * `patch` : { credits, quadrimestre, examen: { date, type, duree, poids, lieu, consignes } }.
+ * Seuls les champs réellement changés sont enregistrés dans userEdits (pour qu'un
+ * futur fichier de cours puisse encore mettre à jour les autres). Une valeur vide efface.
+ * Retourne { structure, errors } ; structure est null si erreur. Fonction pure.
+ */
+function editSubject(structure, id, patch) {
+  const errors = [];
+  const subs = structure && Array.isArray(structure.subjects) ? structure.subjects : [];
+  const i = subs.findIndex((s) => isObj(s) && String(s.id).toLowerCase() === String(id).toLowerCase());
+  if (i < 0) return { structure: null, errors: ["Matière introuvable : " + id + "."] };
+  const cur = subs[i], curEx = isObj(cur.examen) ? cur.examen : {};
+  const txt = (v, max, label) => {
+    if (v == null) return null;
+    const t = String(v).trim();
+    if (t.length > max) errors.push(label + " : " + max + " caractères au maximum.");
+    return t || null;
+  };
+  const edits = isObj(cur.userEdits) ? JSON.parse(JSON.stringify(cur.userEdits)) : {};
+  const exEdits = isObj(edits.examen) ? edits.examen : {};
+  const p = isObj(patch) ? patch : {};
+  if ("credits" in p) {
+    let c = p.credits === "" || p.credits == null ? null : Number(p.credits);
+    if (c !== null && !(Number.isFinite(c) && c >= 0 && c <= 60)) { errors.push("Crédits : un nombre entre 0 et 60."); c = null; }
+    if (!same(c, cur.credits)) edits.credits = c;
+  }
+  if ("quadrimestre" in p) { const q = txt(p.quadrimestre, 40, "Quadrimestre"); if (!same(q || "", cur.quadrimestre || "")) edits.quadrimestre = q || ""; }
+  const pe = isObj(p.examen) ? p.examen : {};
+  for (const k of EDITABLE_EXAM_FIELDS) {
+    if (!(k in pe)) continue;
+    let v;
+    if (k === "consignes") {
+      const list = (Array.isArray(pe.consignes) ? pe.consignes : String(pe.consignes || "").split("\n")).map((x) => String(x).trim()).filter(Boolean);
+      if (list.length > 40) errors.push("Consignes : 40 au maximum.");
+      if (list.some((x) => x.length > 500)) errors.push("Consignes : 500 caractères au maximum par ligne.");
+      v = list.length ? list : null;
+    } else if (k === "date") {
+      v = txt(pe.date, 25, "Date");
+      if (v && !(DATE_RE.test(v) && !isNaN(new Date(v)))) { errors.push("Date d'examen invalide."); v = null; }
+    } else v = txt(pe[k], 200, k);
+    if (!same(v, curEx[k])) exEdits[k] = v;
+  }
+  if (errors.length) return { structure: null, errors };
+  if (Object.keys(exEdits).length) edits.examen = exEdits;
+  const next = applyUserEdits(Object.assign({}, cur), edits);
+  const subjects = subs.slice(); subjects[i] = next;
+  return { structure: Object.assign({}, structure, { subjects }), errors: [] };
+}
+
+return { PACK_KIND, LIMITS, safeRelativePath, validatePack, EDITABLE_FIELDS, EDITABLE_EXAM_FIELDS, applyUserEdits, subjectChanged, mergePacks, planImport, editSubject };
 })();
 
 // ---- src/ui/views/import.js
@@ -3670,10 +3738,16 @@ const { esc } = __m0;
 const { ic } = __m7;
 const { chapStats, MASTERED_THRESHOLD, subjectProgress } = __m13;
 const { app } = __m6;
-const { $$, toast } = __m9;
+const { $, $$, toast } = __m9;
+const { editSubject } = __m31;
+const { contentFromStructure } = __m17;
+const { readStructure, saveStructure } = __m19;
 const { fileAt } = __m2;
 const { banner, bar, ring, statusPill, tile } = __m10;
 // Liste des matières et page d'une matière.
+
+
+
 
 
 
@@ -3704,7 +3778,8 @@ function subjectView(m) {
     : '<div class="card empty"><div class="icon-tile">' + ic("folder") + '</div><h3 class="h-card">Pas encore de cours</h3><p>Aucun chapitre n\'est enregistré pour cette matière.</p></div>';
 
   const e = m.examen || {};
-  const examCard = '<div class="card"><h2 class="h-card">Examen</h2>' + (ex ? '<div style="display:flex;align-items:baseline;gap:10px;margin-top:10px"><span class="stat-val">' + (n < 0 ? "Passé" : "J-" + n) + '</span><span class="muted small">' + cap(fmtLong(ex)) + ", " + fmtTime(ex) + "</span></div>" : "") +
+  const editBtn = app.real ? '<button type="button" class="btn btn-plain btn-sm" id="exam-edit">' + ic("pen", 16) + "Modifier</button>" : "";
+  const examCard = '<div class="card" id="exam-card"><div style="display:flex;align-items:center;justify-content:space-between;gap:10px"><h2 class="h-card">Examen</h2>' + editBtn + "</div>" + (ex ? '<div style="display:flex;align-items:baseline;gap:10px;margin-top:10px"><span class="stat-val">' + (n < 0 ? "Passé" : "J-" + n) + '</span><span class="muted small">' + cap(fmtLong(ex)) + ", " + fmtTime(ex) + "</span></div>" : "") +
     '<dl class="kv"><dt>Type</dt><dd>' + esc(e.type || "À préciser") + "</dd><dt>Durée</dt><dd>" + esc(e.duree || "À préciser") + "</dd><dt>Pondération</dt><dd>" + esc(e.poids || "À préciser") + "</dd><dt>Lieu</dt><dd>" + esc(e.lieu || "À préciser") + "</dd></dl>" +
     ((e.consignes || []).length ? '<div class="eyebrow" style="margin:20px 0 10px">Consignes</div><ul class="bullets">' + e.consignes.map((x) => "<li>" + ic("check", 16) + "<span>" + esc(x) + "</span></li>").join("") + "</ul>" : "") + "</div>";
 
@@ -3721,7 +3796,7 @@ function subjectView(m) {
     ring(p, 96, 10, m.couleur, '<div style="font-size:22px;font-weight:700">' + Math.round(p * 100) + "%</div>") + "</header>" +
     '<div class="split"><div style="min-width:0"><div class="section-head"><h2 class="h-sec">Chapitres</h2>' + (nQuiz ? '<a class="btn btn-ghost btn-sm" href="#blanc-' + m.id + '">' + ic("exam", 16) + "Examen blanc · " + nQuiz + " questions</a>" : "") + "</div>" + chapters + "</div>" +
     '<div class="grid" style="min-width:0">' + examCard + '<div class="card"><h2 class="h-card">Documents du cours</h2>' + files + "</div></div></div>";
-  return { html, bind: () => bindDocuments(m) };
+  return { html, bind: () => { bindDocuments(m); bindEdit(m); } };
 }
 
 function bindDocuments(m) {
@@ -3736,6 +3811,51 @@ function bindDocuments(m) {
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 60000);
   }));
+}
+
+// Modification des infos d'examen et de la matière (espace réel uniquement).
+// Écrit dans structure.json après une copie dans sauvegardes/ ; les champs modifiés
+// sont gardés lors des imports suivants (userEdits).
+function bindEdit(m) {
+  const btn = $("#exam-edit");
+  if (!btn || !app.real) return;
+  btn.onclick = () => {
+    const e = m.examen || {};
+    const val = (v) => esc(v == null ? "" : String(v));
+    const dt = e.date ? String(e.date).slice(0, 16) : "";
+    const row = (id, label, input) => '<div class="form-row" style="display:block"><div class="fl" style="margin-bottom:6px"><label for="' + id + '"><b>' + label + "</b></label></div>" + input.replace('class="input"', 'class="input" style="width:100%;box-sizing:border-box"') + "</div>";
+    const inp = (id, v, extra) => '<input class="input" id="' + id + '" value="' + val(v) + '" ' + (extra || 'type="text" maxlength="200"') + ">";
+    $("#exam-card").innerHTML = '<form id="exam-form" novalidate><h2 class="h-card">Modifier l\'examen</h2><p class="small muted">Laisse un champ vide pour l\'effacer. Tes modifications sont gardées si tu réimportes le cours.</p>' +
+      row("ed-date", "Date et heure", inp("ed-date", dt, 'type="datetime-local"')) +
+      row("ed-type", "Type", inp("ed-type", e.type)) +
+      row("ed-duree", "Durée", inp("ed-duree", e.duree)) +
+      row("ed-poids", "Pondération", inp("ed-poids", e.poids)) +
+      row("ed-lieu", "Lieu", inp("ed-lieu", e.lieu)) +
+      row("ed-consignes", "Consignes (une par ligne)", '<textarea class="input" id="ed-consignes" rows="5">' + val((e.consignes || []).join("\n")) + "</textarea>") +
+      row("ed-credits", "Crédits ECTS", inp("ed-credits", m.credits, 'type="number" min="0" max="60" step="1" inputmode="numeric"')) +
+      row("ed-quadri", "Quadrimestre", inp("ed-quadri", m.quadrimestre, 'type="text" maxlength="40"')) +
+      '<div id="ed-err" role="alert" class="small" style="color:var(--bad)"></div><div class="confirm" style="margin-top:12px"><button class="btn" type="submit" id="ed-save">Enregistrer</button><button class="btn btn-plain" type="button" id="ed-cancel">Annuler</button></div></form>';
+    $("#ed-cancel").onclick = () => app.render();
+    $("#exam-form").onsubmit = async (ev) => {
+      ev.preventDefault();
+      const err = $("#ed-err"), save = $("#ed-save");
+      save.disabled = true; err.textContent = "";
+      const patch = { credits: $("#ed-credits").value, quadrimestre: $("#ed-quadri").value,
+        examen: { date: $("#ed-date").value, type: $("#ed-type").value, duree: $("#ed-duree").value, poids: $("#ed-poids").value, lieu: $("#ed-lieu").value, consignes: $("#ed-consignes").value } };
+      try {
+        const cur = await readStructure(app.real.root, app.real.manifest.workspace.id);
+        const r = editSubject(cur.data, m.id, patch);
+        if (r.errors.length) { err.textContent = r.errors.join(" "); save.disabled = false; return; }
+        const res = await saveStructure(app.real.root, { next: r.structure, expectedHash: cur.hash, now: new Date() });
+        if (!res.ok) { err.textContent = res.error; save.disabled = false; return; }
+        app.content = contentFromStructure(r.structure, app.real.manifest);
+        app.refreshChrome();
+        app.render();
+        toast("Modifications enregistrées");
+      } catch (x) { err.textContent = "L'enregistrement a échoué : " + x.message; save.disabled = false; }
+    };
+    $("#ed-date").focus();
+  };
 }
 
 return { subjectsView, subjectView };

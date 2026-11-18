@@ -2,7 +2,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { applyUserEdits, mergePacks, planImport, safeRelativePath, subjectChanged, validatePack } from "../../src/data/v2/course-pack.js";
+import { applyUserEdits, editSubject, mergePacks, planImport, safeRelativePath, subjectChanged, validatePack } from "../../src/data/v2/course-pack.js";
 import { newStructure, contentFromStructure, newManifest } from "../../src/data/v2/workspace.js";
 import { ICON_NAMES } from "../../src/core/icons.js";
 
@@ -139,4 +139,32 @@ test("mise à jour : les modifications faites dans le site sont conservées", ()
   assert.equal(s.examen.lieu, "Auditoire S102");
   assert.deepEqual(s.userEdits, edits);
   assert.equal(subjectChanged(first.subjects[0], PACK.subjects[0]), false, "un fichier identique reste « à jour » malgré les modifications");
+});
+
+test("editSubject : n'enregistre que les champs changés, valide et survit au réimport", () => {
+  const st = planImport(empty(), PACK, opts()).nextStructure;
+  const s0 = st.subjects[0];
+  const r = editSubject(st, s0.id.toUpperCase(), { credits: "5", quadrimestre: s0.quadrimestre, examen: { date: "2027-01-12T09:00", type: (s0.examen || {}).type || "", lieu: "Salle 2", consignes: "Calculatrice\n\n Carte étudiant " } });
+  assert.deepEqual(r.errors, []);
+  const s = r.structure.subjects[0];
+  assert.equal(s.credits, 5);
+  assert.equal(s.examen.date, "2027-01-12T09:00");
+  assert.equal(s.examen.lieu, "Salle 2");
+  assert.deepEqual(s.examen.consignes, ["Calculatrice", "Carte étudiant"]);
+  assert.ok(!("quadrimestre" in s.userEdits), "quadrimestre inchangé, non enregistré");
+  assert.ok(!("type" in s.userEdits.examen), "type inchangé, non enregistré");
+  assert.equal(st.subjects[0].credits, s0.credits, "structure d'origine intacte");
+  // Effacer un champ
+  const r2 = editSubject(r.structure, s0.id, { examen: { lieu: "" } });
+  assert.ok(!("lieu" in r2.structure.subjects[0].examen));
+  assert.equal(r2.structure.subjects[0].examen.date, "2027-01-12T09:00");
+  // Réimport : les modifications restent
+  const re = planImport(r2.structure, PACK, opts({ replace: [s0.id] })).nextStructure.subjects[0];
+  assert.equal(re.credits, 5);
+  assert.equal(re.examen.date, "2027-01-12T09:00");
+  assert.ok(!("lieu" in re.examen));
+  // Erreurs
+  assert.ok(editSubject(st, s0.id, { credits: 99 }).errors.length);
+  assert.ok(editSubject(st, s0.id, { examen: { date: "demain" } }).errors.length);
+  assert.ok(editSubject(st, "inconnue", {}).errors.length);
 });

@@ -217,3 +217,38 @@ test("plusieurs fichiers : un seul aperçu, mises à jour cochées, chaque fichi
   expect(st.subjects[0].chapitres[0].titre).toBe("Titre mis à jour");
   expect(st.subjects[2].importedFrom.file).toBe("b.json");
 });
+
+test("modifier l'examen dans le site : enregistré avec sauvegarde, gardé au réimport", async ({ page }) => {
+  const pack = JSON.parse(PACK_TEXT);
+  const id = pack.subjects[0].id;
+  await createSpace(page);
+  await importPack(page);
+  await page.getByRole("button", { name: "Importer", exact: true }).click();
+  await expect(page.locator("#imp-preview")).toContainText("Import terminé");
+  await page.evaluate((id) => { location.hash = "#m-" + id; }, id);
+  await page.getByRole("button", { name: "Modifier" }).click();
+  await page.locator("#ed-date").fill("2027-01-14T13:30");
+  await page.locator("#ed-lieu").fill("Auditoire Delvaux");
+  await page.locator("#ed-credits").fill("4");
+  await page.locator("#ed-consignes").fill("Apporter la carte étudiant\nPas de téléphone");
+  await page.getByRole("button", { name: "Enregistrer" }).click();
+  const card = page.locator("#exam-card");
+  await expect(card).toContainText("Auditoire Delvaux");
+  await expect(card).toContainText("Pas de téléphone");
+  await expect(page.locator(".subject-hero")).toContainText("4 ECTS");
+  const st = JSON.parse(await read(page, "structure.json"));
+  expect(st.subjects[0].examen.date).toBe("2027-01-14T13:30");
+  expect(st.subjects[0].userEdits.credits).toBe(4);
+  expect((await list(page, "sauvegardes")).length).toBe(2);
+  // Erreur de saisie : rien n'est écrit
+  await page.getByRole("button", { name: "Modifier" }).click();
+  await page.locator("#ed-credits").fill("99");
+  await page.getByRole("button", { name: "Enregistrer" }).click();
+  await expect(page.locator("#ed-err")).toContainText("Crédits");
+  await page.getByRole("button", { name: "Annuler" }).click();
+  // Réimport du même fichier : déjà à jour, modifications conservées
+  await importPack(page);
+  await expect(page.locator("#imp-preview")).toContainText("Tout est déjà à jour");
+  await page.evaluate(() => { location.hash = "#examens"; });
+  await expect(page.locator(".timeline").first()).toContainText("Auditoire Delvaux");
+});

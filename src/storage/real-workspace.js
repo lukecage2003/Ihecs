@@ -136,3 +136,16 @@ export async function applyImport(root, { plan, expectedHash, packText, sourceNa
   if (!res.ok) return { ok: false, error: "structure.json a changé pendant l'import. Rien n'a été remplacé ; la sauvegarde « " + backup + " » est conservée." };
   return { ok: true, archived, archives: names, backup: "sauvegardes/" + backup };
 }
+
+/**
+ * Enregistre une structure modifiée dans le site : copie de la version actuelle
+ * dans sauvegardes/, puis écriture SEULEMENT si structure.json n'a pas changé.
+ */
+export async function saveStructure(root, { next, expectedHash, now }) {
+  const current = await readJson(root, STRUCTURE_FILE);
+  if (!current.exists || current.hash !== expectedHash) return { ok: false, error: "structure.json a changé entre-temps (synchronisation Drive ou autre fenêtre). Rien n'a été écrit : recharge la page et recommence." };
+  const backup = await writeNewFile(await subdir(root, ["sauvegardes"], true), "structure " + stamp(now) + ".json", current.text);
+  const res = await writeIfUnchanged(root, STRUCTURE_FILE, JSON.stringify(next, null, 2) + "\n", expectedHash);
+  if (!res.ok) return { ok: false, error: "structure.json a changé pendant l'enregistrement. Rien n'a été remplacé ; la sauvegarde « " + backup + " » est conservée." };
+  return { ok: true, backup: "sauvegardes/" + backup };
+}

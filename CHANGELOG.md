@@ -1,5 +1,13 @@
 # Journal des modifications
 
+## 0.7.0 — Modifier dans le site
+
+### Ajouté
+- Page d'une matière : bouton **Modifier** sur la carte Examen (date et heure, type, durée, pondération, lieu, consignes, crédits, quadrimestre).
+- Enregistrement dans `structure.json` après une copie dans `sauvegardes/`, et seulement si le fichier n'a pas changé entre-temps.
+- Seuls les champs réellement changés sont mémorisés (`userEdits`) : ils restent prioritaires lors des réimports, les autres peuvent encore être mis à jour par un fichier de cours.
+- Tests : 1 unitaire et 1 parcours (× 2 appareils).
+
 ## 0.6.0 — Import plus simple
 
 ### Ajouté
